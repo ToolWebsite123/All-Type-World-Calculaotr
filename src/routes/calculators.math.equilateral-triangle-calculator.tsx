@@ -724,20 +724,6 @@ function PageExtras() {
         <GuideCards items={GUIDE} />
       </CalcSection>
 
-      <CalcSection title="Notation used on this page">
-        <ReferenceTable
-          headers={["Symbol", "Meaning"]}
-          rows={[
-            [<span className="font-serif italic">a</span>, "Side length (all three sides are equal)."],
-            [<span className="font-serif italic">P</span>, "Perimeter (P = 3a)."],
-            [<span className="font-serif italic">h</span>, "Height / altitude from any vertex to the opposite side."],
-            [<span className="font-serif italic">A</span>, "Area."],
-            [<span className="font-serif italic">R</span>, "Circumradius — radius of the circle through all three vertices."],
-            [<span className="font-serif italic">r</span>, "Inradius — radius of the largest inscribed circle."],
-          ]}
-        />
-      </CalcSection>
-
       <CalcSection title="Formulas at a glance">
         <ReferenceTable
           headers={["Quantity", "Formula", "Reverse"]}
@@ -752,43 +738,7 @@ function PageExtras() {
         />
       </CalcSection>
 
-      <CalcSection title="Deriving the height and area — two ways">
-        <p>
-          <strong>Pythagorean method.</strong> Drop an altitude from the apex.
-          It bisects the base, so it splits the triangle into two congruent
-          right triangles with hypotenuse <em>a</em> and one leg <em>a/2</em>.
-          Pythagoras gives the other leg:
-        </p>
-        <FormulaWithLegend
-          formula={<>h = √(a² − (a/2)²) = √(3a²/4) = (√3 / 2)·a</>}
-          legend={[{ sym: "a", def: "side length" }, { sym: "h", def: "height" }]}
-        />
-        <p>
-          <strong>Trigonometric method.</strong> Use the SAS area formula on two
-          sides <em>a</em> and their included angle <em>60°</em>:
-        </p>
-        <FormulaWithLegend
-          formula={<>A = ½·a·a·sin 60° = ½·a²·(√3 / 2) = (√3 / 4)·a²</>}
-          legend={[{ sym: "A", def: "area" }]}
-        />
-        <p>
-          Both routes converge on the same answer — a nice cross-check by hand.
-        </p>
-        <p>
-          <strong>Going backwards from R or r.</strong> The circumradius
-          formula <em>R = a/√3</em> can be rearranged for the side by
-          multiplying both sides by √3, which gives <em>a = R·√3</em>. In
-          words: if you know the radius of the circle that passes through
-          the three vertices, the side length is that radius stretched by a
-          factor of √3 (about 1.732). The inradius relation
-          <em> r = a/(2√3)</em> unwinds the same way — multiply both sides by
-          2√3 to isolate <em>a</em>, giving <em>a = 2r·√3</em>. So the side
-          is twice the inradius, again stretched by √3. Because
-          <em> R = 2r</em>, the two reverse formulas are consistent: doubling
-          <em> r</em> and using <em>a = R·√3</em> lands on exactly the same
-          side length as <em>a = 2r·√3</em>.
-        </p>
-      </CalcSection>
+
 
 
 
