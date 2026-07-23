@@ -50,6 +50,7 @@ import { Route as CalculatorsMathScientificCalculatorRouteImport } from './route
 import { Route as CalculatorsMathSampleSizeCalculatorRouteImport } from './routes/calculators.math.sample-size-calculator'
 import { Route as CalculatorsMathRoundingCalculatorRouteImport } from './routes/calculators.math.rounding-calculator'
 import { Route as CalculatorsMathRootCalculatorRouteImport } from './routes/calculators.math.root-calculator'
+import { Route as CalculatorsMathRightTriangleCalculatorRouteImport } from './routes/calculators.math.right-triangle-calculator'
 import { Route as CalculatorsMathRelativeFrequencyCalculatorRouteImport } from './routes/calculators.math.relative-frequency-calculator'
 import { Route as CalculatorsMathRatioCalculatorRouteImport } from './routes/calculators.math.ratio-calculator'
 import { Route as CalculatorsMathRandomNumberCalculatorRouteImport } from './routes/calculators.math.random-number-calculator'
@@ -357,6 +358,12 @@ const CalculatorsMathRootCalculatorRoute =
   CalculatorsMathRootCalculatorRouteImport.update({
     id: '/root-calculator',
     path: '/root-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRightTriangleCalculatorRoute =
+  CalculatorsMathRightTriangleCalculatorRouteImport.update({
+    id: '/right-triangle-calculator',
+    path: '/right-triangle-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
 const CalculatorsMathRelativeFrequencyCalculatorRoute =
@@ -898,6 +905,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
   '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/right-triangle-calculator': typeof CalculatorsMathRightTriangleCalculatorRoute
   '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
   '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
   '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
@@ -1015,6 +1023,7 @@ export interface FileRoutesByTo {
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
   '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/right-triangle-calculator': typeof CalculatorsMathRightTriangleCalculatorRoute
   '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
   '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
   '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
@@ -1134,6 +1143,7 @@ export interface FileRoutesById {
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
   '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/right-triangle-calculator': typeof CalculatorsMathRightTriangleCalculatorRoute
   '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
   '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
   '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
@@ -1254,6 +1264,7 @@ export interface FileRouteTypes {
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
     | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/right-triangle-calculator'
     | '/calculators/math/root-calculator'
     | '/calculators/math/rounding-calculator'
     | '/calculators/math/sample-size-calculator'
@@ -1371,6 +1382,7 @@ export interface FileRouteTypes {
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
     | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/right-triangle-calculator'
     | '/calculators/math/root-calculator'
     | '/calculators/math/rounding-calculator'
     | '/calculators/math/sample-size-calculator'
@@ -1489,6 +1501,7 @@ export interface FileRouteTypes {
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
     | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/right-triangle-calculator'
     | '/calculators/math/root-calculator'
     | '/calculators/math/rounding-calculator'
     | '/calculators/math/sample-size-calculator'
@@ -1823,6 +1836,13 @@ declare module '@tanstack/react-router' {
       path: '/root-calculator'
       fullPath: '/calculators/math/root-calculator'
       preLoaderRoute: typeof CalculatorsMathRootCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/right-triangle-calculator': {
+      id: '/calculators/math/right-triangle-calculator'
+      path: '/right-triangle-calculator'
+      fullPath: '/calculators/math/right-triangle-calculator'
+      preLoaderRoute: typeof CalculatorsMathRightTriangleCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
     '/calculators/math/relative-frequency-calculator': {
@@ -2428,6 +2448,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathRandomNumberCalculatorRoute: typeof CalculatorsMathRandomNumberCalculatorRoute
   CalculatorsMathRatioCalculatorRoute: typeof CalculatorsMathRatioCalculatorRoute
   CalculatorsMathRelativeFrequencyCalculatorRoute: typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  CalculatorsMathRightTriangleCalculatorRoute: typeof CalculatorsMathRightTriangleCalculatorRoute
   CalculatorsMathRootCalculatorRoute: typeof CalculatorsMathRootCalculatorRoute
   CalculatorsMathRoundingCalculatorRoute: typeof CalculatorsMathRoundingCalculatorRoute
   CalculatorsMathSampleSizeCalculatorRoute: typeof CalculatorsMathSampleSizeCalculatorRoute
@@ -2593,6 +2614,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
   CalculatorsMathRatioCalculatorRoute: CalculatorsMathRatioCalculatorRoute,
   CalculatorsMathRelativeFrequencyCalculatorRoute:
     CalculatorsMathRelativeFrequencyCalculatorRoute,
+  CalculatorsMathRightTriangleCalculatorRoute:
+    CalculatorsMathRightTriangleCalculatorRoute,
   CalculatorsMathRootCalculatorRoute: CalculatorsMathRootCalculatorRoute,
   CalculatorsMathRoundingCalculatorRoute:
     CalculatorsMathRoundingCalculatorRoute,
