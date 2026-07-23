@@ -1736,12 +1736,15 @@ function TriangleEducation() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
+            { to: "/calculators/math/law-of-sines-calculator", label: "Law of Sines Calculator" },
+            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator" },
             { to: "/calculators/math/area-calculator", label: "Area Calculator" },
             { to: "/calculators/math", label: "All Math Calculators" },
             { to: "/calculators/math/root-calculator", label: "Square Root Calculator" },
           ]}
         />
       </CalcSection>
+
     </>
   );
 }
