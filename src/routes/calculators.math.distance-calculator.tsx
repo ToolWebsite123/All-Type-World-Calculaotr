@@ -9,6 +9,7 @@ import {
   ResultBox,
   ErrorBox,
   CalcSection,
+  FormulaBlock,
   FormulaWithLegend,
   CalcFAQ,
   RelatedLinks,
