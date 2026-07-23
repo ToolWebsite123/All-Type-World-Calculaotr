@@ -822,11 +822,18 @@ function PageExtras() {
           result={
             <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
               <div className="space-y-1.5 text-sm">
-                <ResultRow label="Base angle A" value="53.13°" />
-                <ResultRow label="Vertex angle B" value="73.74°" />
-                <ResultRow label="Altitude to base" value="4" />
-                <ResultRow label="Area" value="12" />
-                <ResultRow label="Perimeter" value="16" />
+                {[
+                  ["Base angle A", "53.13°"],
+                  ["Vertex angle B", "73.74°"],
+                  ["Altitude to base", "4"],
+                  ["Area", "12"],
+                  ["Perimeter", "16"],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-baseline justify-between gap-4 border-b border-border/40 pb-1 last:border-0">
+                    <span className="text-muted-foreground">{label}</span>
+                    <span className="font-serif italic tabular-nums text-foreground">{value}</span>
+                  </div>
+                ))}
               </div>
               <svg viewBox="0 0 120 100" className="mx-auto h-24 w-32" aria-hidden>
                 <polygon
