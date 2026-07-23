@@ -304,34 +304,8 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-/* ================= Educational content ================= */
 
-const FAQ_ITEMS: { q: string; a: string }[] = [
-  {
-    q: "What is the triangle angle sum theorem?",
-    a: "The triangle angle sum theorem says that the three interior angles of any flat (Euclidean) triangle always add up to exactly 180°, or π radians. It doesn't matter whether the triangle is tiny or huge, acute, right or obtuse — the sum is fixed. That is why knowing any two interior angles instantly pins down the third: γ = 180° − α − β.",
-  },
-  {
-    q: "Do three angles define a unique triangle?",
-    a: "No. Three angles tell you the shape of a triangle but not its size — any two triangles with the same three angles are similar, not congruent. Scaling every side by the same factor keeps all three angles unchanged. If you want to actually solve for side lengths, use the full Triangle Calculator, which handles SSS, SAS, ASA, AAS and SSA cases.",
-  },
-  {
-    q: "How does this relate to the exterior angle theorem?",
-    a: "The exterior angle at any vertex equals the sum of the two non-adjacent interior angles. That's a direct consequence of the angle-sum theorem: if the interior angle at C is γ, its exterior angle is 180° − γ = α + β. In fact, that identity gives one of the shortest proofs that the interior angles must sum to 180°.",
-  },
-  {
-    q: "What if my two given angles add up to 180° or more?",
-    a: "Then no triangle exists with those angles. Two interior angles must leave a positive amount for the third, so α + β has to be strictly less than 180° (or π radians). The calculator flags this instead of returning zero or a negative angle, because the situation is geometrically impossible, not just a rounding issue.",
-  },
-  {
-    q: "Does this work for right triangles?",
-    a: "Yes. A right triangle has one 90° angle, so the other two acute angles must add to 90°. Type 90 and either acute angle and the calculator returns the remaining one. For deeper right-triangle work — legs, hypotenuse, altitude, inradius — use the dedicated Right Triangle Calculator.",
-  },
-  {
-    q: "Does the theorem still hold on a curved surface?",
-    a: "No — only on a flat plane. On a sphere the angles of a triangle sum to more than 180°, and on a saddle-shaped (hyperbolic) surface they sum to less. This calculator, and the theorem it uses, assume ordinary Euclidean geometry, which is what almost every school and engineering problem needs.",
-  },
-];
+
 
 /* ================= Mini diagrams for GuideCards ================= */
 
