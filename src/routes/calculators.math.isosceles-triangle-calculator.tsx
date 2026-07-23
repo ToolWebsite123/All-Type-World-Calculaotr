@@ -826,6 +826,10 @@ function PageExtras() {
         </p>
       </CalcSection>
 
+      <CalcSection title="Isosceles triangles, case by case">
+        <GuideCards items={GUIDE} />
+      </CalcSection>
+
       <CalcSection title="Notation used on this page">
         <ReferenceTable
           headers={["Symbol", "Meaning"]}
@@ -841,10 +845,6 @@ function PageExtras() {
             [<span className="font-serif italic">r, R</span>, "Inradius and circumradius."],
           ]}
         />
-      </CalcSection>
-
-      <CalcSection title="Isosceles triangles, case by case">
-        <GuideCards items={GUIDE} />
       </CalcSection>
 
       <CalcSection title="Formulas at a glance">
