@@ -2249,15 +2249,21 @@ function AreaEducation() {
                 </div>
                 <div className="md:col-span-2 md:row-start-2">
                   <div className="rounded-xl border border-border/60 bg-secondary/30 p-3 text-sm">
-                    <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                       Example
                     </div>
-                    <div className="space-y-1 text-foreground">
-                      <div><span className="text-muted-foreground">Given: </span><span className="font-serif italic">{g.example.given}</span></div>
-                      <div><span className="text-muted-foreground">Substitute: </span><span className="font-serif italic">{g.example.substitute}</span></div>
+                    <div className="space-y-2 text-foreground">
                       <div>
-                        <span className="text-muted-foreground">Answer: </span>
-                        <span className="font-serif italic font-semibold tabular-nums">{g.example.answer}</span>
+                        <div className="text-[12px] text-muted-foreground">Given</div>
+                        <FormulaBlock>{g.example.given}</FormulaBlock>
+                      </div>
+                      <div>
+                        <div className="text-[12px] text-muted-foreground">Substitute</div>
+                        <FormulaBlock>{g.example.substitute}</FormulaBlock>
+                      </div>
+                      <div>
+                        <div className="text-[12px] text-muted-foreground">Answer</div>
+                        <FormulaBlock>{g.example.answer}</FormulaBlock>
                       </div>
                     </div>
                   </div>
