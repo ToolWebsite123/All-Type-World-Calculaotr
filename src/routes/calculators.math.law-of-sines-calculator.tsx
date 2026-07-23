@@ -623,8 +623,9 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "What if my inputs describe an SAS or SSS triangle?",
-    a: "The law of sines can't start those — there is no side–angle pair to anchor the ratio. Use the full Triangle Calculator instead: it applies the law of cosines to SAS and SSS and returns the same full set of derived values (sides, angles, area, perimeter, R and r).",
+    a: "The law of sines can't start those — there is no side–angle pair to anchor the ratio. Use the dedicated Law of Cosines Calculator for a straight SAS/SSS solver, or the full Triangle Calculator if you want every derived value (sides, angles, area, perimeter, R and r) in one pass.",
   },
+
 ];
 
 const GUIDE: GuideCardItem[] = [
