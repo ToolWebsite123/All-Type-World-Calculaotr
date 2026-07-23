@@ -1275,23 +1275,23 @@ function PythagEducation() {
     <>
       <CalcSection title="What is the Pythagorean theorem?">
         <p>
-          The Pythagorean theorem states that in any right triangle — a triangle
-          with one 90° angle — the square built on the hypotenuse has the same
-          area as the two squares built on the other two sides combined. Written
-          algebraically:
+          The Pythagorean theorem states that in any right triangle — a
+          triangle with one 90° angle — the square built on the hypotenuse
+          has the same area as the two squares built on the other two sides
+          added together. Written as an equation:
         </p>
         <FormulaWithLegend
           formula={<>a² + b² = c²</>}
           legend={[
             { sym: "a, b", def: "the two legs (the sides that meet at the right angle)" },
-            { sym: "c", def: "the hypotenuse (the side opposite the right angle — always the longest)" },
+            { sym: "c", def: "the hypotenuse (the side opposite the right angle, always the longest)" },
           ]}
         />
         <p>
           Because the theorem only involves squares of lengths, it doesn't
-          matter which leg you call a and which you call b, and it works in any
-          consistent unit — meters, feet, pixels — as long as all three sides
-          use the same one.
+          matter which leg you call a and which you call b, and it works in
+          any consistent unit — meters, feet or pixels — as long as all three
+          sides use the same one.
         </p>
       </CalcSection>
 
@@ -1309,21 +1309,27 @@ function PythagEducation() {
 
       <CalcSection title="Why it works — a short visual proof">
         <p>
-          Draw four identical copies of the right triangle and arrange them
-          inside a square whose side equals a + b. The four triangles occupy an
-          area of 4 × (½·a·b) = 2ab. Whatever is left over is a smaller square
-          whose side is exactly the hypotenuse c, so its area is c². Because the
-          total is the same either way:
+          Take four identical copies of the right triangle (legs a and b,
+          hypotenuse c) and arrange them inside a larger square whose side
+          length is a + b, with each triangle tucked into one corner. The
+          outer square therefore has area (a + b)².
+        </p>
+        <p>
+          The four triangles occupy an area of 4 × (½·a·b) = 2ab. Whatever is
+          left over in the middle is a smaller tilted square whose side is
+          exactly the hypotenuse c, so its area is c². Because the total is
+          the same either way:
         </p>
         <FormulaBlock>(a + b)² = 2ab + c²</FormulaBlock>
         <p>
-          Expanding the left side gives a² + 2ab + b² = 2ab + c². Cancel the 2ab
-          from both sides and you're left with a² + b² = c². The same theorem
-          drops out no matter how the four triangles are re-arranged inside the
-          same outer square, which is why there are dozens of geometric proofs
-          of this one identity.
+          Expanding the left side gives a² + 2ab + b² = 2ab + c². Cancel the
+          2ab from both sides and you're left with a² + b² = c². The same
+          theorem drops out no matter how the four triangles are re-arranged
+          inside the same outer square, which is why there are dozens of
+          geometric proofs of this one identity.
         </p>
       </CalcSection>
+
 
       <CalcSection title="Pythagorean triples">
         <p>
