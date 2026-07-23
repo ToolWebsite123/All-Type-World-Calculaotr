@@ -21,6 +21,7 @@ import {
 } from "@/components/MathCalcPage";
 import { StepsToggle } from "@/components/StepsToggle";
 import type { Step } from "@/components/SolutionSteps";
+import { HowToUseDemo } from "@/components/HowToUseDemo";
 
 /* ================= Display primitives ================= */
 
