@@ -377,6 +377,57 @@ const GUIDE: GuideCardItem[] = [
       answer: <>R ≈ 3.464, &nbsp; r ≈ 1.732</>,
     },
   },
+  {
+    key: "from-perimeter",
+    title: "Starting from the perimeter",
+    explain:
+      "If the fence around the triangle is what you know, divide by three to recover the side and then let every other quantity fall out of it. Perimeter is the friendliest reverse input because no square roots appear until you go for the height or area.",
+    formula: <>a = P / 3 &nbsp;⇒&nbsp; h = (√3/2)·a &nbsp;·&nbsp; A = (√3/4)·a² &nbsp;·&nbsp; R = a/√3 &nbsp;·&nbsp; r = a/(2√3)</>,
+    legend: [
+      { sym: "P", def: "perimeter (known)" },
+      { sym: "a", def: "side length" },
+    ],
+    diagram: <MiniEq />,
+    example: {
+      given: <>P = 30 cm</>,
+      substitute: <>a = 30/3 = 10, &nbsp; h = 5√3, &nbsp; A = 25√3, &nbsp; R = 10/√3, &nbsp; r = 10/(2√3)</>,
+      answer: <>a = 10 cm, &nbsp; h ≈ 8.660 cm, &nbsp; A ≈ 43.301 cm², &nbsp; R ≈ 5.774 cm, &nbsp; r ≈ 2.887 cm</>,
+    },
+  },
+  {
+    key: "from-circumradius",
+    title: "Starting from the circumradius R",
+    explain:
+      "The circumcircle passes through all three vertices; its radius fixes the scale of the triangle. Multiply R by √3 to get the side, then use R = 2r to read off the inradius for free — no separate calculation needed.",
+    formula: <>a = R·√3 &nbsp;·&nbsp; r = R / 2 &nbsp;⇒&nbsp; h = (√3/2)·a &nbsp;·&nbsp; P = 3a &nbsp;·&nbsp; A = (√3/4)·a²</>,
+    legend: [
+      { sym: "R", def: "circumradius (known)" },
+      { sym: "r", def: "inradius" },
+    ],
+    diagram: <MiniEq showCircles />,
+    example: {
+      given: <>R = 5 cm</>,
+      substitute: <>a = 5√3, &nbsp; r = 2.5, &nbsp; h = (√3/2)·5√3 = 15/2, &nbsp; P = 15√3, &nbsp; A = 75√3/4</>,
+      answer: <>a ≈ 8.660 cm, &nbsp; h = 7.5 cm, &nbsp; P ≈ 25.981 cm, &nbsp; A ≈ 32.476 cm², &nbsp; r = 2.5 cm</>,
+    },
+  },
+  {
+    key: "from-inradius",
+    title: "Starting from the inradius r",
+    explain:
+      "The incircle is the largest circle that fits snugly inside the triangle, touching each side once. Its radius is exactly half the circumradius, so doubling r and multiplying by √3 gives the side — everything else follows the standard chain.",
+    formula: <>a = 2r·√3 &nbsp;·&nbsp; R = 2r &nbsp;⇒&nbsp; h = 3r &nbsp;·&nbsp; P = 3a &nbsp;·&nbsp; A = (√3/4)·a²</>,
+    legend: [
+      { sym: "r", def: "inradius (known)" },
+      { sym: "R", def: "circumradius" },
+    ],
+    diagram: <MiniEq showCircles />,
+    example: {
+      given: <>r = 3 cm</>,
+      substitute: <>a = 2·3·√3 = 6√3, &nbsp; R = 6, &nbsp; h = 9, &nbsp; P = 18√3, &nbsp; A = (√3/4)·108 = 27√3</>,
+      answer: <>a ≈ 10.392 cm, &nbsp; h = 9 cm, &nbsp; P ≈ 31.177 cm, &nbsp; A ≈ 46.765 cm², &nbsp; R = 6 cm</>,
+    },
+  },
 ];
 
 function MiniEq({ showAltitude, showCircles }: { showAltitude?: boolean; showCircles?: boolean }) {
@@ -758,6 +809,32 @@ function PageExtras() {
       </CalcSection>
 
 
+
+      <CalcSection title="Common mistakes to avoid">
+        <FeatureList
+          items={[
+            <>Using <em>h = a</em> instead of <em>h = (√3/2)·a</em>. The height is always shorter than the side by roughly 13% — the two are never equal for any equilateral triangle.</>,
+            <>Mixing linear and area units in the same answer. If you type the side in inches, the area comes out in square inches, not inches — the calculator's area label reminds you which one it is.</>,
+            <>Confusing R and r. The circumradius sits outside touching the vertices, the inradius sits inside touching the edges; getting them the wrong way round doubles or halves your answer.</>,
+            <>Forgetting that "equilateral" also means equiangular. If a problem tells you a triangle is equilateral, you already know all three angles are 60° — you don't need to be given them.</>,
+            <>Squaring only part of the side when computing area. The formula is (√3/4)·<em>a²</em>, not (√3/4)·<em>a</em>; the whole side gets squared, not just the numeric part.</>,
+            <>Rounding √3 to 1.7 in the middle of a calculation. Keep it symbolic (or at 1.7320508) until the last step — rounding early can shift the final answer by a full percent on small triangles.</>,
+          ]}
+        />
+      </CalcSection>
+
+      <CalcSection title="Key concepts worth remembering">
+        <FeatureList
+          items={[
+            <><strong>Fixed ratios.</strong> Every equilateral triangle is a scaled copy of every other one, so h/a, R/a, r/a and A/a² are the same constants no matter how big or small the triangle is.</>,
+            <><strong>One input is enough.</strong> Unlike scalene triangles (which need three independent measurements), a single number — side, height, area, perimeter, R, or r — pins the whole shape down.</>,
+            <><strong>R = 2r.</strong> The circumradius is exactly twice the inradius. That 2:1 lock is unique to equilateral triangles; no other triangle shape has it.</>,
+            <><strong>The centroid, incenter, circumcenter and orthocenter coincide.</strong> All four "centres" collapse to the same point — another consequence of full three-fold symmetry.</>,
+            <><strong>Height splits the triangle into two 30-60-90 right triangles.</strong> That's where the √3 comes from — it's the long-leg-to-short-leg ratio in the 30-60-90 family.</>,
+            <><strong>Area scales as the square of the side.</strong> Doubling <em>a</em> quadruples <em>A</em>; tripling <em>a</em> makes the area nine times bigger. Perimeter, height, R and r all scale linearly.</>,
+          ]}
+        />
+      </CalcSection>
 
       <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
