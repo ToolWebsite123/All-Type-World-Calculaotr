@@ -30,6 +30,7 @@ import { Route as CalculatorsMathVolumeCalculatorRouteImport } from './routes/ca
 import { Route as CalculatorsMathVectorCalculatorRouteImport } from './routes/calculators.math.vector-calculator'
 import { Route as CalculatorsMathUnitCircleCalculatorRouteImport } from './routes/calculators.math.unit-circle-calculator'
 import { Route as CalculatorsMathUniformDistributionCalculatorRouteImport } from './routes/calculators.math.uniform-distribution-calculator'
+import { Route as CalculatorsMathTriangleSumTheoremCalculatorRouteImport } from './routes/calculators.math.triangle-sum-theorem-calculator'
 import { Route as CalculatorsMathTriangleCalculatorRouteImport } from './routes/calculators.math.triangle-calculator'
 import { Route as CalculatorsMathTTestCalculatorRouteImport } from './routes/calculators.math.t-test-calculator'
 import { Route as CalculatorsMathSurfaceAreaCalculatorRouteImport } from './routes/calculators.math.surface-area-calculator'
@@ -240,6 +241,12 @@ const CalculatorsMathUniformDistributionCalculatorRoute =
   CalculatorsMathUniformDistributionCalculatorRouteImport.update({
     id: '/uniform-distribution-calculator',
     path: '/uniform-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathTriangleSumTheoremCalculatorRoute =
+  CalculatorsMathTriangleSumTheoremCalculatorRouteImport.update({
+    id: '/triangle-sum-theorem-calculator',
+    path: '/triangle-sum-theorem-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
 const CalculatorsMathTriangleCalculatorRoute =
@@ -942,6 +949,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
   '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
   '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/triangle-sum-theorem-calculator': typeof CalculatorsMathTriangleSumTheoremCalculatorRoute
   '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
   '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
   '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
@@ -1062,6 +1070,7 @@ export interface FileRoutesByTo {
   '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
   '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
   '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/triangle-sum-theorem-calculator': typeof CalculatorsMathTriangleSumTheoremCalculatorRoute
   '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
   '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
   '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
@@ -1184,6 +1193,7 @@ export interface FileRoutesById {
   '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
   '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
   '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/triangle-sum-theorem-calculator': typeof CalculatorsMathTriangleSumTheoremCalculatorRoute
   '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
   '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
   '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
@@ -1307,6 +1317,7 @@ export interface FileRouteTypes {
     | '/calculators/math/surface-area-calculator'
     | '/calculators/math/t-test-calculator'
     | '/calculators/math/triangle-calculator'
+    | '/calculators/math/triangle-sum-theorem-calculator'
     | '/calculators/math/uniform-distribution-calculator'
     | '/calculators/math/unit-circle-calculator'
     | '/calculators/math/vector-calculator'
@@ -1427,6 +1438,7 @@ export interface FileRouteTypes {
     | '/calculators/math/surface-area-calculator'
     | '/calculators/math/t-test-calculator'
     | '/calculators/math/triangle-calculator'
+    | '/calculators/math/triangle-sum-theorem-calculator'
     | '/calculators/math/uniform-distribution-calculator'
     | '/calculators/math/unit-circle-calculator'
     | '/calculators/math/vector-calculator'
@@ -1548,6 +1560,7 @@ export interface FileRouteTypes {
     | '/calculators/math/surface-area-calculator'
     | '/calculators/math/t-test-calculator'
     | '/calculators/math/triangle-calculator'
+    | '/calculators/math/triangle-sum-theorem-calculator'
     | '/calculators/math/uniform-distribution-calculator'
     | '/calculators/math/unit-circle-calculator'
     | '/calculators/math/vector-calculator'
@@ -1722,6 +1735,13 @@ declare module '@tanstack/react-router' {
       path: '/uniform-distribution-calculator'
       fullPath: '/calculators/math/uniform-distribution-calculator'
       preLoaderRoute: typeof CalculatorsMathUniformDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/triangle-sum-theorem-calculator': {
+      id: '/calculators/math/triangle-sum-theorem-calculator'
+      path: '/triangle-sum-theorem-calculator'
+      fullPath: '/calculators/math/triangle-sum-theorem-calculator'
+      preLoaderRoute: typeof CalculatorsMathTriangleSumTheoremCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
     '/calculators/math/triangle-calculator': {
@@ -2511,6 +2531,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathSurfaceAreaCalculatorRoute: typeof CalculatorsMathSurfaceAreaCalculatorRoute
   CalculatorsMathTTestCalculatorRoute: typeof CalculatorsMathTTestCalculatorRoute
   CalculatorsMathTriangleCalculatorRoute: typeof CalculatorsMathTriangleCalculatorRoute
+  CalculatorsMathTriangleSumTheoremCalculatorRoute: typeof CalculatorsMathTriangleSumTheoremCalculatorRoute
   CalculatorsMathUniformDistributionCalculatorRoute: typeof CalculatorsMathUniformDistributionCalculatorRoute
   CalculatorsMathUnitCircleCalculatorRoute: typeof CalculatorsMathUnitCircleCalculatorRoute
   CalculatorsMathVectorCalculatorRoute: typeof CalculatorsMathVectorCalculatorRoute
@@ -2698,6 +2719,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
   CalculatorsMathTTestCalculatorRoute: CalculatorsMathTTestCalculatorRoute,
   CalculatorsMathTriangleCalculatorRoute:
     CalculatorsMathTriangleCalculatorRoute,
+  CalculatorsMathTriangleSumTheoremCalculatorRoute:
+    CalculatorsMathTriangleSumTheoremCalculatorRoute,
   CalculatorsMathUniformDistributionCalculatorRoute:
     CalculatorsMathUniformDistributionCalculatorRoute,
   CalculatorsMathUnitCircleCalculatorRoute:
