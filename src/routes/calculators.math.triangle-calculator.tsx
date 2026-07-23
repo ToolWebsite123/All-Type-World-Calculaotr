@@ -1564,7 +1564,7 @@ function TriangleEducation() {
                 {g.title}
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-3 text-foreground md:col-start-1 md:row-span-2 md:row-start-1">
+                <div className="space-y-3 text-foreground md:col-start-1 md:row-start-1">
                   <p className="text-[15px] leading-relaxed">{g.explain}</p>
                   <FormulaWithLegend formula={g.formula} legend={g.legend} />
                 </div>
