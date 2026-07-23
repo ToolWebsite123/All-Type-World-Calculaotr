@@ -32,7 +32,7 @@ import { fmt as fmtRaw, num, TO_M2 } from "@/lib/math/geometry-shared";
 function MathLine({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-1 text-center font-serif text-[15px] italic leading-relaxed text-foreground">
-andiswa<StackedMath>{children}</StackedMath>
+      <StackedMath>{children}</StackedMath>
     </div>
   );
 }
