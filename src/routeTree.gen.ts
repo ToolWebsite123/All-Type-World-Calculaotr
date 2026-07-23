@@ -85,6 +85,7 @@ import { Route as CalculatorsMathLogCalculatorRouteImport } from './routes/calcu
 import { Route as CalculatorsMathLinearRegressionCalculatorRouteImport } from './routes/calculators.math.linear-regression-calculator'
 import { Route as CalculatorsMathLcmCalculatorRouteImport } from './routes/calculators.math.lcm-calculator'
 import { Route as CalculatorsMathKruskalWallisCalculatorRouteImport } from './routes/calculators.math.kruskal-wallis-calculator'
+import { Route as CalculatorsMathIsoscelesTriangleCalculatorRouteImport } from './routes/calculators.math.isosceles-triangle-calculator'
 import { Route as CalculatorsMathInterpolationCalculatorRouteImport } from './routes/calculators.math.interpolation-calculator'
 import { Route as CalculatorsMathInequalityCalculatorRouteImport } from './routes/calculators.math.inequality-calculator'
 import { Route as CalculatorsMathHypergeometricDistributionCalculatorRouteImport } from './routes/calculators.math.hypergeometric-distribution-calculator'
@@ -570,6 +571,12 @@ const CalculatorsMathKruskalWallisCalculatorRoute =
     path: '/kruskal-wallis-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
+const CalculatorsMathIsoscelesTriangleCalculatorRoute =
+  CalculatorsMathIsoscelesTriangleCalculatorRouteImport.update({
+    id: '/isosceles-triangle-calculator',
+    path: '/isosceles-triangle-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
 const CalculatorsMathInterpolationCalculatorRoute =
   CalculatorsMathInterpolationCalculatorRouteImport.update({
     id: '/interpolation-calculator',
@@ -871,6 +878,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
   '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -989,6 +997,7 @@ export interface FileRoutesByTo {
   '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
   '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -1109,6 +1118,7 @@ export interface FileRoutesById {
   '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
   '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -1230,6 +1240,7 @@ export interface FileRouteTypes {
     | '/calculators/math/hypergeometric-distribution-calculator'
     | '/calculators/math/inequality-calculator'
     | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -1348,6 +1359,7 @@ export interface FileRouteTypes {
     | '/calculators/math/hypergeometric-distribution-calculator'
     | '/calculators/math/inequality-calculator'
     | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -1467,6 +1479,7 @@ export interface FileRouteTypes {
     | '/calculators/math/hypergeometric-distribution-calculator'
     | '/calculators/math/inequality-calculator'
     | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -2083,6 +2096,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsMathKruskalWallisCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
+    '/calculators/math/isosceles-triangle-calculator': {
+      id: '/calculators/math/isosceles-triangle-calculator'
+      path: '/isosceles-triangle-calculator'
+      fullPath: '/calculators/math/isosceles-triangle-calculator'
+      preLoaderRoute: typeof CalculatorsMathIsoscelesTriangleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
     '/calculators/math/interpolation-calculator': {
       id: '/calculators/math/interpolation-calculator'
       path: '/interpolation-calculator'
@@ -2414,6 +2434,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathHypergeometricDistributionCalculatorRoute: typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
   CalculatorsMathInequalityCalculatorRoute: typeof CalculatorsMathInequalityCalculatorRoute
   CalculatorsMathInterpolationCalculatorRoute: typeof CalculatorsMathInterpolationCalculatorRoute
+  CalculatorsMathIsoscelesTriangleCalculatorRoute: typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   CalculatorsMathKruskalWallisCalculatorRoute: typeof CalculatorsMathKruskalWallisCalculatorRoute
   CalculatorsMathLcmCalculatorRoute: typeof CalculatorsMathLcmCalculatorRoute
   CalculatorsMathLinearRegressionCalculatorRoute: typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -2552,6 +2573,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
     CalculatorsMathInequalityCalculatorRoute,
   CalculatorsMathInterpolationCalculatorRoute:
     CalculatorsMathInterpolationCalculatorRoute,
+  CalculatorsMathIsoscelesTriangleCalculatorRoute:
+    CalculatorsMathIsoscelesTriangleCalculatorRoute,
   CalculatorsMathKruskalWallisCalculatorRoute:
     CalculatorsMathKruskalWallisCalculatorRoute,
   CalculatorsMathLcmCalculatorRoute: CalculatorsMathLcmCalculatorRoute,
