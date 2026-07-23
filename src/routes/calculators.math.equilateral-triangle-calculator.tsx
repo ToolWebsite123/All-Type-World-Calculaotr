@@ -467,6 +467,34 @@ function MiniEq({ showAltitude, showCircles }: { showAltitude?: boolean; showCir
   );
 }
 
+function GuideTabs() {
+  const [active, setActive] = useState<SolveField>("side");
+  const current = GUIDE.find((g) => g.field === active) ?? GUIDE[0];
+  return (
+    <div>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {GUIDE.map((g) => (
+          <button
+            key={g.key}
+            type="button"
+            onClick={() => setActive(g.field)}
+            aria-pressed={active === g.field}
+            className={
+              "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
+              (active === g.field
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-card text-foreground hover:bg-accent")
+            }
+          >
+            {g.tabLabel}
+          </button>
+        ))}
+      </div>
+      <GuideCards items={[current]} />
+    </div>
+  );
+}
+
 /* ================= Presets ================= */
 
 const PRESETS: { label: string; note?: string; from: SolveField; value: string }[] = [
