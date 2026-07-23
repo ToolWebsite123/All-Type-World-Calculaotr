@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { Children, Fragment, isValidElement, useEffect, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -116,10 +116,102 @@ export function CalcSection({
   );
 }
 
+function textFromMathNode(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(textFromMathNode).join("");
+  if (isValidElement(node)) {
+    return textFromMathNode((node.props as { children?: ReactNode }).children);
+  }
+  return "";
+}
+
+function flattenMathNodes(node: ReactNode): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  Children.forEach(node, (child) => {
+    if (isValidElement(child) && child.type === Fragment) {
+      nodes.push(...flattenMathNodes((child.props as { children?: ReactNode }).children));
+      return;
+    }
+    if (child !== null && child !== undefined && typeof child !== "boolean") {
+      nodes.push(child);
+    }
+  });
+  return nodes;
+}
+
+export function StackedMath({
+  children,
+  splitEqualityChains = "auto",
+}: {
+  children: ReactNode;
+  splitEqualityChains?: boolean | "auto";
+}) {
+  const text = textFromMathNode(children);
+  const shouldSplitEquality =
+    splitEqualityChains === true ||
+    (splitEqualityChains === "auto" && (text.match(/=/g)?.length ?? 0) > 1 && !text.includes(","));
+
+  const lines: ReactNode[][] = [[]];
+  let equalsSeenInLine = 0;
+
+  const newLine = () => {
+    if (lines[lines.length - 1].length > 0) lines.push([]);
+    equalsSeenInLine = 0;
+  };
+
+  const addText = (value: string) => {
+    const chunks = value.split(/(\s*;\s*|\s+and\s+|\s+with\s+|\s+·\s+|\.\s+(?=[A-ZΑ-ΩπℓA-Za-z]))/g);
+    for (const chunk of chunks) {
+      if (!chunk) continue;
+      if (/^\s*(;|and|with|·|\.)\s*$/i.test(chunk.trim()) || /^\.\s+/.test(chunk)) {
+        newLine();
+        continue;
+      }
+      if (!shouldSplitEquality) {
+        lines[lines.length - 1].push(chunk);
+        continue;
+      }
+      const parts = chunk.split("=");
+      parts.forEach((part, index) => {
+        if (index === 0) {
+          lines[lines.length - 1].push(part);
+          return;
+        }
+        if (equalsSeenInLine > 0) newLine();
+        lines[lines.length - 1].push("=", part);
+        equalsSeenInLine += 1;
+      });
+    }
+  };
+
+  flattenMathNodes(children).forEach((node) => {
+    if (typeof node === "string" || typeof node === "number") {
+      addText(String(node));
+      return;
+    }
+    if (isValidElement(node) && node.type === "br") {
+      newLine();
+      return;
+    }
+    lines[lines.length - 1].push(node);
+  });
+
+  const visibleLines = lines.filter((line) => line.some((part) => String(part).trim() !== ""));
+  if (visibleLines.length <= 1) return <>{children}</>;
+
+  return (
+    <>
+      {visibleLines.map((line, index) => (
+        <div key={index}>{line}</div>
+      ))}
+    </>
+  );
+}
+
 export function FormulaBlock({ children }: { children: ReactNode }) {
   return (
     <div className="my-1 flex flex-col items-center justify-center gap-1 break-words text-center font-serif text-[15px] italic text-foreground">
-      {children}
+      <StackedMath>{children}</StackedMath>
     </div>
   );
 }
