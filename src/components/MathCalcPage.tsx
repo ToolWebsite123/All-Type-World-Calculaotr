@@ -146,11 +146,6 @@ export function StackedMath({
   children: ReactNode;
   splitEqualityChains?: boolean | "auto";
 }) {
-  const text = textFromMathNode(children);
-  const shouldSplitEquality =
-    splitEqualityChains === true ||
-    (splitEqualityChains === "auto" && (text.match(/=/g)?.length ?? 0) > 1 && !text.includes(","));
-
   const lines: ReactNode[][] = [[]];
   let equalsSeenInLine = 0;
 
@@ -160,13 +155,19 @@ export function StackedMath({
   };
 
   const addText = (value: string) => {
-    const chunks = value.split(/(\s*;\s*|\s+and\s+|\s+with\s+|\.\s+(?=[A-ZΑ-ΩπℓA-Za-z]))/g);
+    // Split on strong step separators: ; , (before letter/greek) . (before capital) "and" "so" "with"
+    const chunks = value.split(/(\s*;\s*|\s*,\s+(?=[A-Za-zΑ-Ωαβγπℓ√(])|\s+and\s+|\s+so\s+|\s+with\s+|\.\s+(?=[A-ZΑ-ΩπℓA-Za-z]))/g);
     for (const chunk of chunks) {
       if (!chunk) continue;
-      if (/^\s*(;|and|with|\.)\s*$/i.test(chunk.trim()) || /^\.\s+/.test(chunk)) {
+      const trimmed = chunk.trim();
+      if (/^(;|,|and|so|with|\.)$/i.test(trimmed) || /^\.\s+/.test(chunk) || /^,\s+/.test(chunk)) {
         newLine();
         continue;
       }
+      const chunkEqCount = (chunk.match(/=/g)?.length ?? 0);
+      const shouldSplitEquality =
+        splitEqualityChains === true ||
+        (splitEqualityChains === "auto" && chunkEqCount > 1);
       if (!shouldSplitEquality) {
         lines[lines.length - 1].push(chunk);
         continue;
