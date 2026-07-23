@@ -307,8 +307,9 @@ function solveTriangle(input: {
       });
 
       const [ra, rb, rc] = [a!, b!, c!];
-      const A2 = has(A) ? A! : Math.acos((rb * rb + rc * rc - ra * ra) / (2 * rb * rc));
-      const B2 = has(B) ? B! : Math.acos((ra * ra + rc * rc - rb * rb) / (2 * ra * rc));
+      const A2 = has(A) ? A! : solveCosineLawAngle(ra, rb, rc);
+      const B2 = has(B) ? B! : solveCosineLawAngle(rb, ra, rc);
+
       const C2 = has(C) ? C! : Math.PI - A2 - B2;
 
       stepList.push({
