@@ -1274,29 +1274,17 @@ function PythagEducation() {
         </p>
       </CalcSection>
 
-      <CalcSection title="How to find the hypotenuse">
+      <CalcSection title="Pythagorean theorem, case by case">
         <p>
-          If you know the two legs, rearrange the theorem for c:
+          The four cases below cover every way this calculator is used —
+          finding the hypotenuse, finding a missing leg, checking whether a
+          triangle is right-angled, and extending the theorem to a 3D box.
+          Each card shows the formula, a scaled diagram, and a fully worked
+          example with the actual numbers.
         </p>
-        <FormulaBlock>c = √(a² + b²)</FormulaBlock>
-        <p>
-          Using this calculator's default values (a = 3, b = 4): c = √(9 + 16) =
-          √25 = 5. That's the classic 3-4-5 right triangle — the smallest set of
-          whole numbers that fit the theorem exactly.
-        </p>
+        <GuideCards items={PY_GUIDE} />
       </CalcSection>
 
-      <CalcSection title="How to find a missing leg">
-        <p>
-          If you know the hypotenuse and one leg, isolate the unknown leg by
-          subtracting first:
-        </p>
-        <FormulaBlock>a = √(c² − b²) &nbsp;·&nbsp; b = √(c² − a²)</FormulaBlock>
-        <p>
-          With c = 13 and b = 5, for example: a = √(169 − 25) = √144 = 12. Try
-          it in the calculator with the "Solve for a side" tab.
-        </p>
-      </CalcSection>
 
       <CalcSection title="Why it works — a short visual proof">
         <p>
