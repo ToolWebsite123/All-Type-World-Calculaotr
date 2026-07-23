@@ -21,6 +21,7 @@ import {
 } from "@/components/MathCalcPage";
 import { StepsToggle } from "@/components/StepsToggle";
 import type { Step } from "@/components/SolutionSteps";
+import { HowToUseDemo } from "@/components/HowToUseDemo";
 
 /* ================= Display primitives ================= */
 
@@ -805,6 +806,50 @@ function Stat({ label, value }: { label: string; value: string }) {
 function PageExtras() {
   return (
     <>
+      <CalcSection title="How to use this calculator">
+        <p>
+          A quick 10-second walkthrough — enter any two known values, hit
+          Calculate, and read every side, angle and area at once.
+        </p>
+        <HowToUseDemo
+          steps={[
+            { field: "Leg a", value: "5", caption: "Type the leg length" },
+            { field: "Base b", value: "6", caption: "Type the base length" },
+          ]}
+          buttonLabel="Calculate"
+          clickCaption="Click Calculate"
+          resultCaption="Read your results"
+          result={
+            <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div className="space-y-1.5 text-sm">
+                {[
+                  ["Base angle A", "53.13°"],
+                  ["Vertex angle B", "73.74°"],
+                  ["Altitude to base", "4"],
+                  ["Area", "12"],
+                  ["Perimeter", "16"],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-baseline justify-between gap-4 border-b border-border/40 pb-1 last:border-0">
+                    <span className="text-muted-foreground">{label}</span>
+                    <span className="font-serif italic tabular-nums text-foreground">{value}</span>
+                  </div>
+                ))}
+              </div>
+              <svg viewBox="0 0 120 100" className="mx-auto h-24 w-32" aria-hidden>
+                <polygon
+                  points="60,10 15,90 105,90"
+                  fill="var(--color-primary)"
+                  fillOpacity="0.12"
+                  stroke="var(--color-primary)"
+                  strokeWidth="2"
+                />
+                <line x1="60" y1="10" x2="60" y2="90" stroke="var(--color-muted-foreground)" strokeWidth="1" strokeDasharray="3 3" />
+              </svg>
+            </div>
+          }
+        />
+      </CalcSection>
+
       <CalcSection title="What is an isosceles triangle?">
         <p>
           An <strong>isosceles triangle</strong> is a triangle with two sides of
