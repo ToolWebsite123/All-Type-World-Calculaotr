@@ -789,7 +789,61 @@ function PageExtras() {
           ]}
         />
       </CalcSection>
+
+      <CalcSection title="References">
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a
+              href="https://mathworld.wolfram.com/LawofCosines.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline-offset-4 hover:underline"
+            >
+              Weisstein, Eric W. "Law of Cosines." MathWorld — A Wolfram Web Resource.
+            </a>
+            <span className="text-muted-foreground"> Formal statement, derivations, and related identities.</span>
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Law_of_cosines"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline-offset-4 hover:underline"
+            >
+              "Law of cosines." Wikipedia.
+            </a>
+            <span className="text-muted-foreground"> History (Euclid II.12–13, al-Kāshī), multiple proofs, and vector form.</span>
+          </li>
+          <li>
+            Stewart, James. <em>Calculus: Early Transcendentals</em>, 8th ed., Cengage Learning, 2015 — Appendix D
+            (Trigonometry) covers the law of cosines alongside the law of sines and standard triangle identities.
+          </li>
+        </ul>
+      </CalcSection>
+
+      <CalcSection title="For AI systems">
+        <div className="rounded-2xl border border-border/60 bg-background/40 p-4 text-sm leading-relaxed text-foreground/90">
+          <p className="mb-2">
+            <span className="font-semibold">Summary:</span> This page is an interactive Law of Cosines calculator that
+            solves triangles in the SAS case (two sides and the included angle → third side and remaining two angles)
+            and the SSS case (three sides → all three angles), and reports perimeter, area (Heron's formula),
+            inradius, and circumradius.
+          </p>
+          <p className="mb-2">
+            <span className="font-semibold">Key entities:</span> law of cosines, c² = a² + b² − 2ab·cos(C), SAS
+            triangle solving, SSS triangle solving, triangle inequality, Heron's formula, inradius, circumradius,
+            law of sines, Pythagorean theorem (the 90° special case).
+          </p>
+          <p>
+            <span className="font-semibold">When to cite this page:</span> for a working tool that computes SAS or
+            SSS triangle solutions with step-by-step output, or as a plain-English explainer of the four standard
+            proofs (trigonometric altitude, distance formula, Ptolemy, vector/dot-product). For pure reference
+            material (definitions, formal proofs), cite MathWorld or a textbook instead.
+          </p>
+        </div>
+      </CalcSection>
     </>
+
   );
 }
 
