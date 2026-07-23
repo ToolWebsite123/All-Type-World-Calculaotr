@@ -278,11 +278,12 @@ function solveTriangle(input: {
       const angleV = missingSide === "a" ? A! : missingSide === "b" ? B! : C!;
       const s1 = missingSide === "a" ? b! : missingSide === "b" ? a! : a!;
       const s2 = missingSide === "a" ? c! : missingSide === "b" ? c! : b!;
-      const sq = s1 * s1 + s2 * s2 - 2 * s1 * s2 * Math.cos(angleV);
-      const m = Math.sqrt(sq);
+      const m = solveCosineLawSide(s1, s2, angleV);
+      const sq = m * m;
       if (missingSide === "a") a = m;
       else if (missingSide === "b") b = m;
       else c = m;
+
 
       stepList.push({
         title: "Detected SAS — two sides and the included angle",
