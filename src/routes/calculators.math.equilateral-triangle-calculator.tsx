@@ -723,7 +723,22 @@ function PageExtras() {
         <p>
           Both routes converge on the same answer — a nice cross-check by hand.
         </p>
+        <p>
+          <strong>Going backwards from R or r.</strong> The circumradius
+          formula <em>R = a/√3</em> can be rearranged for the side by
+          multiplying both sides by √3, which gives <em>a = R·√3</em>. In
+          words: if you know the radius of the circle that passes through
+          the three vertices, the side length is that radius stretched by a
+          factor of √3 (about 1.732). The inradius relation
+          <em> r = a/(2√3)</em> unwinds the same way — multiply both sides by
+          2√3 to isolate <em>a</em>, giving <em>a = 2r·√3</em>. So the side
+          is twice the inradius, again stretched by √3. Because
+          <em> R = 2r</em>, the two reverse formulas are consistent: doubling
+          <em> r</em> and using <em>a = R·√3</em> lands on exactly the same
+          side length as <em>a = 2r·√3</em>.
+        </p>
       </CalcSection>
+
 
       <CalcSection title="Three worked examples">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
