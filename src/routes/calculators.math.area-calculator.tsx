@@ -2232,7 +2232,7 @@ function AreaEducation() {
                 {g.title}
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-3 text-foreground md:col-start-1 md:row-span-2 md:row-start-1">
+                <div className="space-y-3 text-foreground md:col-start-1 md:row-start-1">
                   <p className="text-[15px] leading-relaxed">{g.explain}</p>
                   <FormulaWithLegend formula={g.formula} legend={g.legend} />
                 </div>
@@ -2246,12 +2246,12 @@ function AreaEducation() {
                     coordText={g.coordText ?? ""}
                   />
                 </div>
-                <div className="md:col-start-2 md:row-start-2">
+                <div className="md:col-span-2 md:row-start-2">
                   <div className="rounded-xl border border-border/60 bg-secondary/30 p-3 text-sm">
                     <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                       Example
                     </div>
-                    <div className="space-y-1 text-foreground">
+                    <div className="grid gap-2 text-foreground sm:grid-cols-3">
                       <div><span className="text-muted-foreground">Given: </span><span className="font-serif italic">{g.example.given}</span></div>
                       <div><span className="text-muted-foreground">Substitute: </span><span className="font-serif italic">{g.example.substitute}</span></div>
                       <div>
