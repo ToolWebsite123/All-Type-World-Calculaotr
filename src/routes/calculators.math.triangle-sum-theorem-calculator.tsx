@@ -14,7 +14,11 @@ import {
   RelatedLinks,
   FeatureList,
   StackedMath,
+  GuideCards,
+  type GuideCardItem,
 } from "@/components/MathCalcPage";
+import { ReferenceTable } from "@/components/ReferenceTable";
+
 import { StepsToggle } from "@/components/StepsToggle";
 import type { Step } from "@/components/SolutionSteps";
 
