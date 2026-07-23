@@ -1358,20 +1358,6 @@ function PythagEducation() {
         </p>
       </CalcSection>
 
-      <CalcSection title="The theorem in 3D">
-        <p>
-          Apply the theorem twice to get the space diagonal of a rectangular
-          box: first to length and width to get the base diagonal, then again
-          with that diagonal and the height. The two steps collapse into a
-          single formula:
-        </p>
-        <FormulaBlock>d = √(l² + w² + h²)</FormulaBlock>
-        <p>
-          For a 3 × 4 × 12 box: d = √(9 + 16 + 144) = √169 = 13 — another
-          integer answer, sometimes called a "Pythagorean quadruple". Switch to
-          the "3D space diagonal" tab to solve any set of dimensions.
-        </p>
-      </CalcSection>
 
       <CalcSection title="Where you'll actually use it">
         <FeatureList
