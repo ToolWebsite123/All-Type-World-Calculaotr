@@ -54,6 +54,7 @@ import { Route as CalculatorsMathRelativeFrequencyCalculatorRouteImport } from '
 import { Route as CalculatorsMathRatioCalculatorRouteImport } from './routes/calculators.math.ratio-calculator'
 import { Route as CalculatorsMathRandomNumberCalculatorRouteImport } from './routes/calculators.math.random-number-calculator'
 import { Route as CalculatorsMathQuadraticFormulaCalculatorRouteImport } from './routes/calculators.math.quadratic-formula-calculator'
+import { Route as CalculatorsMathPythagoreanTheoremCalculatorRouteImport } from './routes/calculators.math.pythagorean-theorem-calculator'
 import { Route as CalculatorsMathProbabilityCalculatorRouteImport } from './routes/calculators.math.probability-calculator'
 import { Route as CalculatorsMathPrimeCheckerCalculatorRouteImport } from './routes/calculators.math.prime-checker-calculator'
 import { Route as CalculatorsMathPolynomialCalculatorRouteImport } from './routes/calculators.math.polynomial-calculator'
@@ -380,6 +381,12 @@ const CalculatorsMathQuadraticFormulaCalculatorRoute =
   CalculatorsMathQuadraticFormulaCalculatorRouteImport.update({
     id: '/quadratic-formula-calculator',
     path: '/quadratic-formula-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPythagoreanTheoremCalculatorRoute =
+  CalculatorsMathPythagoreanTheoremCalculatorRouteImport.update({
+    id: '/pythagorean-theorem-calculator',
+    path: '/pythagorean-theorem-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
 const CalculatorsMathProbabilityCalculatorRoute =
@@ -886,6 +893,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
   '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
   '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/pythagorean-theorem-calculator': typeof CalculatorsMathPythagoreanTheoremCalculatorRoute
   '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
@@ -1002,6 +1010,7 @@ export interface FileRoutesByTo {
   '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
   '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
   '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/pythagorean-theorem-calculator': typeof CalculatorsMathPythagoreanTheoremCalculatorRoute
   '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
@@ -1120,6 +1129,7 @@ export interface FileRoutesById {
   '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
   '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
   '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/pythagorean-theorem-calculator': typeof CalculatorsMathPythagoreanTheoremCalculatorRoute
   '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
   '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
   '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
@@ -1239,6 +1249,7 @@ export interface FileRouteTypes {
     | '/calculators/math/polynomial-calculator'
     | '/calculators/math/prime-checker-calculator'
     | '/calculators/math/probability-calculator'
+    | '/calculators/math/pythagorean-theorem-calculator'
     | '/calculators/math/quadratic-formula-calculator'
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
@@ -1355,6 +1366,7 @@ export interface FileRouteTypes {
     | '/calculators/math/polynomial-calculator'
     | '/calculators/math/prime-checker-calculator'
     | '/calculators/math/probability-calculator'
+    | '/calculators/math/pythagorean-theorem-calculator'
     | '/calculators/math/quadratic-formula-calculator'
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
@@ -1472,6 +1484,7 @@ export interface FileRouteTypes {
     | '/calculators/math/polynomial-calculator'
     | '/calculators/math/prime-checker-calculator'
     | '/calculators/math/probability-calculator'
+    | '/calculators/math/pythagorean-theorem-calculator'
     | '/calculators/math/quadratic-formula-calculator'
     | '/calculators/math/random-number-calculator'
     | '/calculators/math/ratio-calculator'
@@ -1838,6 +1851,13 @@ declare module '@tanstack/react-router' {
       path: '/quadratic-formula-calculator'
       fullPath: '/calculators/math/quadratic-formula-calculator'
       preLoaderRoute: typeof CalculatorsMathQuadraticFormulaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/pythagorean-theorem-calculator': {
+      id: '/calculators/math/pythagorean-theorem-calculator'
+      path: '/pythagorean-theorem-calculator'
+      fullPath: '/calculators/math/pythagorean-theorem-calculator'
+      preLoaderRoute: typeof CalculatorsMathPythagoreanTheoremCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
     '/calculators/math/probability-calculator': {
@@ -2403,6 +2423,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathPolynomialCalculatorRoute: typeof CalculatorsMathPolynomialCalculatorRoute
   CalculatorsMathPrimeCheckerCalculatorRoute: typeof CalculatorsMathPrimeCheckerCalculatorRoute
   CalculatorsMathProbabilityCalculatorRoute: typeof CalculatorsMathProbabilityCalculatorRoute
+  CalculatorsMathPythagoreanTheoremCalculatorRoute: typeof CalculatorsMathPythagoreanTheoremCalculatorRoute
   CalculatorsMathQuadraticFormulaCalculatorRoute: typeof CalculatorsMathQuadraticFormulaCalculatorRoute
   CalculatorsMathRandomNumberCalculatorRoute: typeof CalculatorsMathRandomNumberCalculatorRoute
   CalculatorsMathRatioCalculatorRoute: typeof CalculatorsMathRatioCalculatorRoute
@@ -2563,6 +2584,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
     CalculatorsMathPrimeCheckerCalculatorRoute,
   CalculatorsMathProbabilityCalculatorRoute:
     CalculatorsMathProbabilityCalculatorRoute,
+  CalculatorsMathPythagoreanTheoremCalculatorRoute:
+    CalculatorsMathPythagoreanTheoremCalculatorRoute,
   CalculatorsMathQuadraticFormulaCalculatorRoute:
     CalculatorsMathQuadraticFormulaCalculatorRoute,
   CalculatorsMathRandomNumberCalculatorRoute:
