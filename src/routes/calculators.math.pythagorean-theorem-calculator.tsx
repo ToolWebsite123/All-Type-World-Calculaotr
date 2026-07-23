@@ -15,7 +15,10 @@ import {
   CalcFAQ,
   RelatedLinks,
   FeatureList,
+  GuideCards,
+  type GuideCardItem,
 } from "@/components/MathCalcPage";
+
 import { StepsToggle } from "@/components/StepsToggle";
 import type { Step } from "@/components/SolutionSteps";
 
