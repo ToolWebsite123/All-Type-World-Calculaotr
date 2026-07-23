@@ -740,83 +740,110 @@ function PageExtras() {
       </CalcSection>
 
 
-      <CalcSection title="Three worked examples">
+      <CalcSection title="Worked examples — one for every input">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
             <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              1. Yield sign (side 90 cm)
+              1. From the side — yield sign, a = 90 cm
             </h3>
             <MathLine>a = 90 cm</MathLine>
             <MathLine>h = (√3/2)·90 ≈ 77.94 cm</MathLine>
             <MathLine>A = (√3/4)·8100 ≈ 3507.4 cm²</MathLine>
-            <MathLine>P = 270 cm</MathLine>
+            <MathLine>P = 3·90 = 270 cm</MathLine>
           </div>
           <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
             <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              2. Hex tile (side 3 in)
+              2. From the height — roof truss, h = 2.5 m
             </h3>
-            <MathLine>a = 3 in (each of the 6 sub-triangles of a regular hexagon)</MathLine>
-            <MathLine>A = (√3/4)·9 ≈ 3.897 in²</MathLine>
-            <MathLine>Hexagon area ≈ 6·3.897 ≈ 23.38 in²</MathLine>
-          </div>
-          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
-            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              3. Roof truss (h = 2.5 m)
-            </h3>
-            <MathLine>a = 2h / √3 = 5 / √3 ≈ 2.887 m</MathLine>
+            <MathLine>a = 2h/√3 = 5/√3 ≈ 2.887 m</MathLine>
             <MathLine>A = (√3/4)·a² ≈ 3.608 m²</MathLine>
-            <MathLine>P ≈ 8.660 m</MathLine>
+            <MathLine>P = 3a ≈ 8.660 m</MathLine>
           </div>
           <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
             <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              4. Reverse: find the side from A = 25
+              3. From the area — a = ? when A = 25
             </h3>
-            <MathLine>a = √(4·25 / √3) = √(100/√3)</MathLine>
+            <MathLine>a = √(4·25/√3) = √(100/√3)</MathLine>
             <MathLine>a ≈ 7.598</MathLine>
-            <MathLine>h ≈ 6.580, &nbsp; P ≈ 22.79</MathLine>
+            <MathLine>h ≈ 6.580</MathLine>
+            <MathLine>P ≈ 22.79</MathLine>
+          </div>
+          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
+            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
+              4. From the perimeter — P = 30 cm
+            </h3>
+            <MathLine>a = P/3 = 30/3 = 10 cm</MathLine>
+            <MathLine>h = (√3/2)·10 ≈ 8.660 cm</MathLine>
+            <MathLine>A = (√3/4)·100 ≈ 43.30 cm²</MathLine>
+            <MathLine>R = 10/√3 ≈ 5.774 cm</MathLine>
+            <MathLine>r = 10/(2√3) ≈ 2.887 cm</MathLine>
+          </div>
+          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
+            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
+              5. From the circumradius — R = 5 cm
+            </h3>
+            <MathLine>a = R·√3 = 5·√3 ≈ 8.660 cm</MathLine>
+            <MathLine>h = (√3/2)·a = (√3/2)·5√3 = 7.5 cm</MathLine>
+            <MathLine>P = 3a ≈ 25.98 cm</MathLine>
+            <MathLine>A = (√3/4)·a² ≈ 32.48 cm²</MathLine>
+            <MathLine>r = R/2 = 2.5 cm</MathLine>
+          </div>
+          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
+            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
+              6. From the inradius — r = 3 cm
+            </h3>
+            <MathLine>a = 2r·√3 = 6·√3 ≈ 10.392 cm</MathLine>
+            <MathLine>h = (√3/2)·a = (√3/2)·6√3 = 9 cm</MathLine>
+            <MathLine>P = 3a ≈ 31.18 cm</MathLine>
+            <MathLine>A = (√3/4)·a² ≈ 46.77 cm²</MathLine>
+            <MathLine>R = 2r = 6 cm</MathLine>
           </div>
         </div>
       </CalcSection>
 
-      <CalcSection title="Common mistakes to avoid">
+      <CalcSection title="Pitfalls that trip people up">
         <FeatureList
           items={[
-            <><strong>Confusing √3/2 and √3/4.</strong> The factor √3/2 belongs to the height; √3/4 belongs to the area. Mixing them up is the single most common slip.</>,
-            <><strong>Using the wrong height in ½·b·h.</strong> The height must be perpendicular to the chosen base — for an equilateral triangle that's the altitude (√3/2)·a, not the side itself.</>,
-            <><strong>Confusing inradius with circumradius.</strong> R = a/√3 goes to the vertices; r = a/(2√3) fits inside. They differ by exactly a factor of 2.</>,
-            <><strong>Forgetting the units-of-area rule.</strong> If sides are in cm, area is in cm² — squaring the unit is easy to miss when copying from the calculator.</>,
-            <><strong>Assuming any "isosceles-looking" triangle is equilateral.</strong> An equilateral triangle is a special isosceles triangle — but not every isosceles triangle is equilateral. Only when all three sides match do you get 60° angles.</>,
+            <><strong>Swapping √3/2 with √3/4.</strong> The two constants look nearly identical on paper but do very different jobs — √3/2 scales the side into the height, √3/4 scales the side-squared into the area. Slow down at that one factor and most arithmetic errors on this shape disappear.</>,
+            <><strong>Plugging the side into ½·b·h as the height.</strong> The generic triangle area formula wants the perpendicular height, not any convenient edge. For an equilateral triangle the perpendicular from a vertex to the opposite side is <em>(√3/2)·a</em> — always shorter than the side.</>,
+            <><strong>Muddling R (outer circle) with r (inner circle).</strong> The circumradius reaches all the way out to the vertices; the inradius only reaches the midpoints of the sides. They aren't just "the radius" — they differ by a clean factor of two.</>,
+            <><strong>Dropping the square on the units.</strong> A side written in metres produces an area in square metres. If your area answer is coming out thousands of times too big or too small, the unit exponent is nearly always the culprit.</>,
+            <><strong>Calling any symmetric-looking triangle equilateral.</strong> Two equal sides only guarantees isosceles. Equilateral is the stricter case where all three sides match — and only then do you get the neat 60° angles.</>,
+            <><strong>Rounding intermediate steps too early.</strong> If you truncate √3 to 1.73 before multiplying, small errors compound through h, A, R and r. Keep full precision in the working and round only the final answer.</>,
           ]}
         />
       </CalcSection>
 
-      <CalcSection title="Key concepts">
+      <CalcSection title="What makes this shape special">
         <FeatureList
           items={[
-            "All three sides equal → all three angles equal 60° (equiangular).",
-            "One measurement fully determines the whole triangle.",
-            "h = (√3/2)·a and A = (√3/4)·a² are the two formulas worth memorising.",
-            "R = 2r for every equilateral triangle — this ratio is unique to it.",
-            "Any two equilateral triangles are similar; they only differ in scale.",
-            "The centroid, incenter, circumcenter and orthocenter all coincide.",
+            "It is the only triangle where the three interior angles all measure 60°.",
+            "It is the smallest regular polygon — every regular polygon can be built from copies of it around a centre.",
+            "Because scale is the only free parameter, any single measurement uniquely determines the whole triangle.",
+            "The circumscribed circle has exactly twice the radius of the inscribed circle — a ratio that fails for every non-equilateral triangle.",
+            "Centroid, incenter, circumcenter and orthocenter collapse to a single point at the centre.",
+            "Six equilateral triangles glued at that centre make a regular hexagon; four faces make a regular tetrahedron.",
+            "It has the smallest perimeter of any triangle enclosing a given area — a discrete cousin of the isoperimetric result for the circle.",
           ]}
         />
       </CalcSection>
 
-      <CalcSection title="Features of this calculator">
+      <CalcSection title="What this tool does for you">
         <FeatureList
           items={[
-            "Solve from any one of: side, perimeter, height, area, circumradius or inradius.",
-            "Length unit selector (mm, cm, m, km, in, ft, yd) — inputs and outputs stay in the chosen unit.",
-            "Automatic conversion table showing every result in all supported units.",
-            "Live to-scale SVG diagram with side, height and all three 60° angles labelled.",
-            "One-click presets for common cases (yield sign, tetrahedron face, roof gable, reverse-from-area).",
-            "Personalised step-by-step working — every substitution shown with your actual numbers.",
-            "Copy result as text or download a snapshot of the diagram and stats.",
-            "Adjustable significant-figures control for both the display and the copied output.",
+            "Accepts any one of six inputs — side, perimeter, height, area, circumradius or inradius — and back-solves the other five in a single click.",
+            "Lets you pick the length unit up front (mm, cm, m, km, in, ft, yd) so both the input you type and every output stay in the same system.",
+            "Renders a conversion table alongside the answer so a side of 10 cm is instantly visible as mm, m, inches and feet without a second calculation.",
+            "Draws a to-scale SVG of the triangle with the height dashed, the inscribed and circumscribed circles optional, and all three 60° corners labelled.",
+            "Ships with one-tap presets — a real-world yield sign, a tetrahedron face, a roof gable, and reverse-from-area / perimeter / height starting points.",
+            "Prints a personalised working-out that plugs your actual number into each formula, so the algebra is easy to copy into homework or a report.",
+            "Includes a copy-to-clipboard action plus a diagram snapshot download, both respecting the significant-figures setting you choose.",
+            "Runs entirely in your browser — nothing you type is uploaded, and the page works offline once loaded.",
           ]}
         />
       </CalcSection>
+
+
 
       <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
