@@ -16,6 +16,7 @@ import {
   RelatedLinks,
   FeatureList,
   GuideCards,
+  StackedMath,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 
@@ -26,7 +27,7 @@ import type { Step } from "@/components/SolutionSteps";
 function MathLine({ children }: { children: ReactNode }) {
   return (
     <div className="my-1 flex items-center justify-center text-center font-serif text-[15px] italic text-foreground">
-      <span className="inline-flex items-center gap-1">{children}</span>
+      <span className="inline-flex flex-col items-center gap-1"><StackedMath>{children}</StackedMath></span>
     </div>
   );
 }
