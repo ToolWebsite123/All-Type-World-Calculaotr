@@ -749,12 +749,17 @@ function PageExtras() {
           <strong>AAS</strong> (two angles and a side not between them), and
           the famous <strong>SSA ambiguous case</strong> (two sides and a
           non-included angle). For SAS or SSS — where no side is paired with
-          its opposite angle — use the{" "}
+          its opposite angle — use the dedicated{" "}
+          <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/law-of-cosines-calculator">
+            Law of Cosines Calculator
+          </a>{" "}
+          or the{" "}
           <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/triangle-calculator">
             full Triangle Calculator
           </a>
-          , which applies the law of cosines to handle those cases.
+          , which apply the law of cosines to handle those cases.
         </p>
+
       </CalcSection>
 
       <CalcSection title="Law of sines, case by case">
