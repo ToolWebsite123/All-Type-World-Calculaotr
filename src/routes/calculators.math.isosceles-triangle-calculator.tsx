@@ -808,42 +808,59 @@ function PageExtras() {
     <>
       <CalcSection title="How to use this calculator">
         <p>
-          A quick 10-second walkthrough — enter any two known values, hit
-          Calculate, and read every side, angle and area at once.
+          Here's exactly how the calculator looks and behaves on a phone. Watch
+          it pick a preset, type any two known values, tap Calculate, and
+          reveal every side, angle, height and area at once.
         </p>
         <HowToUseDemo
+          appTitle="Isosceles Triangle Calculator"
+          presets={["Golden triangle", "45-45-90", "Roof gable", "Custom"]}
+          activePreset="Custom"
+          presetsLabel="Presets"
+          unitToggle={["deg", "rad"]}
+          activeUnit="deg"
+          unitToggleLabel="Angle unit"
+          helperText="Enter exactly 2 values. Vertex + 2 × base angle always equals 180°."
           steps={[
-            { field: "Leg a", value: "5", caption: "Type the leg length" },
-            { field: "Base b", value: "6", caption: "Type the base length" },
+            { field: "Leg a (equal sides, a = c)", value: "5", caption: "Type the leg length (a = c)" },
+            { field: "Base b", value: "6", caption: "Type the base length b" },
+          ]}
+          extraFields={[
+            "Height hb (apex → base)",
+            "Vertex angle B (degrees)",
+            "Base angle A = C (degrees)",
+            "Area K",
           ]}
           buttonLabel="Calculate"
-          clickCaption="Click Calculate"
-          resultCaption="Read your results"
+          clickCaption="Tap Calculate"
+          resultCaption="Scroll down — every side, angle, height and area is filled in"
           result={
-            <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
-              <div className="space-y-1.5 text-sm">
+            <div className="space-y-3">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Given a and b</div>
+              <div className="grid grid-cols-2 gap-1.5">
                 {[
-                  ["Base angle A", "53.13°"],
-                  ["Vertex angle B", "73.74°"],
-                  ["Altitude to base", "4"],
-                  ["Area", "12"],
-                  ["Perimeter", "16"],
+                  ["Leg a = c", "5"],
+                  ["Base b", "6"],
+                  ["Vertex B", "73.74°"],
+                  ["Base A = C", "53.13°"],
+                  ["Height hb", "4"],
+                  ["Height ha", "4.8"],
+                  ["Area K", "12"],
+                  ["Perimeter P", "16"],
                 ].map(([label, value]) => (
-                  <div key={label} className="flex items-baseline justify-between gap-4 border-b border-border/40 pb-1 last:border-0">
-                    <span className="text-muted-foreground">{label}</span>
-                    <span className="font-serif italic tabular-nums text-foreground">{value}</span>
+                  <div key={label} className="rounded-md border border-border/50 bg-background/60 p-1.5">
+                    <div className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</div>
+                    <div className="font-serif text-[13px] italic tabular-nums text-foreground">{value}</div>
                   </div>
                 ))}
               </div>
-              <svg viewBox="0 0 120 100" className="mx-auto h-24 w-32" aria-hidden>
-                <polygon
-                  points="60,10 15,90 105,90"
-                  fill="var(--color-primary)"
-                  fillOpacity="0.12"
-                  stroke="var(--color-primary)"
-                  strokeWidth="2"
-                />
-                <line x1="60" y1="10" x2="60" y2="90" stroke="var(--color-muted-foreground)" strokeWidth="1" strokeDasharray="3 3" />
+              <svg viewBox="0 0 160 110" className="mx-auto h-24 w-full max-w-[180px]" aria-hidden>
+                <polygon points="80,12 20,98 140,98" fill="var(--color-primary)" fillOpacity="0.12" stroke="var(--color-primary)" strokeWidth="2" />
+                <line x1="80" y1="12" x2="80" y2="98" stroke="var(--color-muted-foreground)" strokeWidth="1" strokeDasharray="3 3" />
+                <text x="45" y="60" fontSize="9" fill="var(--color-muted-foreground)" fontStyle="italic">a = 5</text>
+                <text x="118" y="60" fontSize="9" fill="var(--color-muted-foreground)" fontStyle="italic">c = 5</text>
+                <text x="80" y="108" fontSize="9" fill="var(--color-muted-foreground)" fontStyle="italic" textAnchor="middle">b = 6</text>
+                <text x="84" y="56" fontSize="8" fill="var(--color-muted-foreground)">hb = 4</text>
               </svg>
             </div>
           }
