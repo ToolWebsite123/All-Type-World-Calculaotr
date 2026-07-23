@@ -649,23 +649,25 @@ function PageExtras() {
     <>
       <CalcSection title="What is an equilateral triangle?">
         <p>
-          An <strong>equilateral triangle</strong> is a triangle whose three
-          sides are all the same length. That single condition forces the three
-          interior angles to be equal as well — and since the angles of any
-          triangle must add to 180°, each of them is exactly <strong>60°</strong>.
-          It is the most symmetric triangle possible: rotate it 120° about its
-          centroid and it lands on itself; reflect it through any of its three
-          axes of symmetry and again it looks unchanged.
+          An <strong>equilateral triangle</strong> is the simplest possible
+          regular polygon: three sides, all cut to the same length. That one
+          constraint on the sides quietly fixes everything else about the
+          shape. The three interior angles have to match too, and because the
+          angles in any triangle add to 180°, each corner works out to exactly
+          <strong> 60°</strong>. It has three axes of mirror symmetry and a
+          120° rotational symmetry — properties no other triangle shares.
         </p>
         <p>
-          Because every equilateral triangle looks exactly like every other
-          equilateral triangle up to a change in scale, a <em>single</em>
-          measurement is enough to lock everything down. Tell us the side, the
-          perimeter, the height, the area, the radius of the inscribed circle
-          or the radius of the circumscribed circle, and every other quantity
-          follows automatically.
+          A practical consequence of all that symmetry is that <em>one number
+          is enough</em>. Give this calculator any single measurement — the
+          side, the perimeter around the outside, the vertical height, the
+          area of the interior, the inscribed circle's radius, or the
+          circumscribed circle's radius — and the remaining five follow from
+          a short chain of algebra. That is why the input box below only asks
+          for one value at a time.
         </p>
       </CalcSection>
+
 
       <CalcSection title="Equilateral triangle, case by case">
         <GuideCards items={GUIDE} />
