@@ -711,7 +711,7 @@ function PageExtras() {
 
 
       <CalcSection title="Equilateral triangle, case by case">
-        <GuideCards items={GUIDE} />
+        <GuideTabs />
       </CalcSection>
 
       <CalcSection title="Notation used on this page">
