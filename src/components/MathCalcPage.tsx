@@ -160,10 +160,10 @@ export function StackedMath({
   };
 
   const addText = (value: string) => {
-    const chunks = value.split(/(\s*;\s*|\s+and\s+|\s+with\s+|\s+·\s+|\.\s+(?=[A-ZΑ-ΩπℓA-Za-z]))/g);
+    const chunks = value.split(/(\s*;\s*|\s+and\s+|\s+with\s+|\.\s+(?=[A-ZΑ-ΩπℓA-Za-z]))/g);
     for (const chunk of chunks) {
       if (!chunk) continue;
-      if (/^\s*(;|and|with|·|\.)\s*$/i.test(chunk.trim()) || /^\.\s+/.test(chunk)) {
+      if (/^\s*(;|and|with|\.)\s*$/i.test(chunk.trim()) || /^\.\s+/.test(chunk)) {
         newLine();
         continue;
       }

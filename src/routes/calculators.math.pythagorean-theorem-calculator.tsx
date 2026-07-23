@@ -201,7 +201,13 @@ const PY_GUIDE: GuideCardItem[] = [
     diagram: <RightTriangleDiagram a={12} b={5} c={13} />,
     example: {
       given: <>sides 5, 12, 13</>,
-      substitute: <>5² + 12² = 25 + 144 = 169 &nbsp; and &nbsp; 13² = 169</>,
+      substitute: (
+        <>
+          <div>5² + 12² = 25 + 144</div>
+          <div>= 169</div>
+          <div>13² = 169</div>
+        </>
+      ),
       answer: <>169 = 169 → right triangle ✓</>,
     },
   },
