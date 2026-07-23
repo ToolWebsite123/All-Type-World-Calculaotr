@@ -226,34 +226,15 @@ const PY_GUIDE: GuideCardItem[] = [
 
 const FAQ_ITEMS = [
   {
-    q: "What is the Pythagorean theorem?",
-    a: "For any right triangle (a triangle with one 90° angle), the square of the hypotenuse — the side opposite the right angle — equals the sum of the squares of the other two sides: a² + b² = c². It's the single most-used relationship in geometry because any straight-line distance measured with a horizontal and a vertical leg reduces to this formula.",
-  },
-  {
-    q: "How do I find the hypotenuse of a right triangle?",
-    a: "Square each leg, add the two squares, then take the square root: c = √(a² + b²). For a right triangle with legs 3 and 4 the hypotenuse is √(9 + 16) = √25 = 5. The calculator does this automatically once you enter both legs and leave the hypotenuse blank.",
-  },
-  {
-    q: "Can I use this calculator for non-right triangles?",
-    a: "No — a² + b² = c² only holds when the triangle has a 90° angle. For any other triangle use the Law of Cosines c² = a² + b² − 2ab·cos(C), which reduces to the Pythagorean theorem exactly when C = 90° (because cos 90° = 0). For a full solver that handles any triangle from three inputs, use our Triangle Calculator.",
-  },
-  {
-    q: "What are Pythagorean triples?",
-    a: "A Pythagorean triple is a set of three positive whole numbers (a, b, c) that satisfy a² + b² = c² exactly. The smallest is (3, 4, 5); other common ones are (5, 12, 13), (8, 15, 17), (7, 24, 25) and (20, 21, 29). This calculator flags a result as a triple when all three sides come out as integers and lists nearby common triples for reference.",
-  },
-  {
-    q: "How do I find the diagonal of a 3D box?",
-    a: "Extend the theorem by one dimension: d = √(l² + w² + h²). It's really the Pythagorean theorem applied twice — first to the base to get the base diagonal, then again with that diagonal and the height. Switch this calculator to the 3D diagonal tab and enter length, width and height.",
-  },
-  {
-    q: "Which side is the hypotenuse?",
-    a: "The hypotenuse is always the longest side and always sits opposite the 90° angle. If the number you enter for c is smaller than a or b the calculator warns you, because a valid right triangle can't have a leg longer than its hypotenuse.",
-  },
-  {
     q: "Does the order of the legs matter?",
     a: "No. Because a² + b² is symmetric in a and b, swapping the two legs gives the same hypotenuse. In the reverse-checker the calculator automatically sorts the three sides so the largest one is treated as c before it tests a² + b² = c².",
   },
+  {
+    q: "What units can I mix in the inputs?",
+    a: "You can't mix units in a single calculation — all three sides must be in the same unit. The unit picker converts everything to a common base internally, so you can enter values in mm, cm, m, km, in, ft or yd and the result comes back in whichever unit you select for the output.",
+  },
 ] as const;
+
 
 export const Route = createFileRoute(
   "/calculators/math/pythagorean-theorem-calculator",
