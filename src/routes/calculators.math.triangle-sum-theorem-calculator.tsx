@@ -67,14 +67,14 @@ function TriangleDiagram({
       <svg viewBox="0 0 420 260" className="mx-auto block h-auto w-full max-w-md">
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-          className="fill-primary/10 stroke-foreground"
+          className="fill-primary/10 stroke-primary"
           strokeWidth="2"
           strokeLinejoin="round"
         />
         {/* Vertex labels */}
-        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" className="fill-muted-foreground">A</text>
-        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" className="fill-muted-foreground">B</text>
-        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" className="fill-muted-foreground">C</text>
+        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" className="fill-foreground/70">A</text>
+        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" className="fill-foreground/70">B</text>
+        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" className="fill-foreground/70">C</text>
         {/* Angle labels — placed inside each corner */}
         <text x={A.x + 32} y={A.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">α = {alphaLabel}</text>
         <text x={B.x - 90} y={B.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">β = {betaLabel}</text>
@@ -340,7 +340,7 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
         )}
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-          className="fill-primary/10 stroke-foreground"
+          className="fill-primary/10 stroke-primary"
           strokeWidth="2"
           strokeLinejoin="round"
         />
@@ -352,9 +352,9 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
             strokeWidth="1.5"
           />
         )}
-        <text x={A.x - 4} y={A.y + 16} fontSize="12" className="fill-muted-foreground">A</text>
-        <text x={B.x + 4} y={B.y + 16} fontSize="12" className="fill-muted-foreground">B</text>
-        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-muted-foreground">C</text>
+        <text x={A.x - 4} y={A.y + 16} fontSize="12" className="fill-foreground/70">A</text>
+        <text x={B.x + 4} y={B.y + 16} fontSize="12" className="fill-foreground/70">B</text>
+        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">C</text>
         <text x={A.x + 18} y={A.y - 6} fontSize="12" fontStyle="italic" className="fill-foreground">α</text>
         <text x={B.x - 22} y={B.y - 6} fontSize="12" fontStyle="italic" className="fill-foreground">β</text>
         <text x={C.x - 6} y={C.y + 20} fontSize="12" fontStyle="italic" className="fill-foreground">γ</text>
