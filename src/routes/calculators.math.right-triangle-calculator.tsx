@@ -1018,8 +1018,22 @@ function PageExtras() {
         </p>
       </CalcSection>
 
+      <CalcSection title="Features of this calculator">
+        <FeatureList
+          items={[
+            "Accepts any 2 of: leg a, leg b, hypotenuse c, angle α, angle β, altitude h, area A, perimeter P.",
+            "Degrees or radians toggle for every angle input and output.",
+            "Live to-scale SVG showing labelled sides, angles, the right-angle marker and the altitude h.",
+            "One-click presets for the 3-4-5, 30-60-90 and 45-45-90 triangles plus a ladder-against-wall example.",
+            "Step-by-step derivation using your actual numbers — every substitution shown.",
+            "Reports the inradius r = (a + b − c) / 2 and circumradius R = c / 2 (half the hypotenuse, always).",
+          ]}
+        />
+      </CalcSection>
+
       <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
+
       </CalcSection>
 
       <CalcSection title="Related calculators">
