@@ -10,6 +10,7 @@ import {
   ErrorBox,
   CalcSection,
   FormulaWithLegend,
+  FormulaBlock,
   StructuredExample,
   CalcFAQ,
   RelatedLinks,
