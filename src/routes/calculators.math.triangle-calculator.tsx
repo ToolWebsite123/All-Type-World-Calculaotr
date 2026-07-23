@@ -20,6 +20,12 @@ import {
 } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 import type { ReactNode } from "react";
+import {
+  solveCosineLawSide,
+  solveCosineLawAngle,
+  isValidTriangleSides,
+} from "@/lib/math/geometry-shared";
+
 
 /** Centered display-math line used inside solution steps. */
 function MathLine({ children }: { children: ReactNode }) {
