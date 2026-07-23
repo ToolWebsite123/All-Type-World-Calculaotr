@@ -67,9 +67,9 @@ function RightTriangleDiagram({
   const y0 = H - pad;
   const x1 = x0 + bx;
   const y1 = y0 - ay;
-  const stroke = "hsl(var(--foreground))";
-  const dim = "hsl(var(--muted-foreground))";
-  const accent = "hsl(var(--primary))";
+  const stroke = "var(--foreground)";
+  const dim = "var(--muted-foreground)";
+  const accent = "var(--primary)";
   const legColor = (which: "a" | "b" | "c") =>
     unknown === which ? accent : stroke;
   return (
@@ -101,9 +101,9 @@ function BoxDiagonalDiagram({ l, w, h }: { l: number; w: number; h: number }) {
   const dy = w * 0.5 * s;
   const x0 = pad;
   const y0 = H - pad;
-  const stroke = "hsl(var(--foreground))";
-  const dim = "hsl(var(--muted-foreground))";
-  const accent = "hsl(var(--primary))";
+  const stroke = "var(--foreground)";
+  const dim = "var(--muted-foreground)";
+  const accent = "var(--primary)";
   // corners of the front face
   const A = [x0, y0];
   const B = [x0 + lx, y0];
