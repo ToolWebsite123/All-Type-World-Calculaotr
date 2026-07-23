@@ -908,25 +908,25 @@ function Stat({ label, value, note }: { label: string; value: string; note?: str
 function PageExtras() {
   return (
     <>
-      <CalcSection title="What this calculator does">
+      <CalcSection title="What is a right triangle?">
         <p>
-          Give the tool any two independent measurements of a right triangle and
-          it returns the other five, plus the area, perimeter, semiperimeter,
-          altitude to the hypotenuse, inradius and circumradius. Because the
-          third angle is fixed at 90°, two values are always enough to lock
-          down every other quantity.
+          A <strong>right triangle</strong> is any triangle that contains one
+          90° angle. The two sides that meet at the right angle are the{" "}
+          <em>legs</em> (usually written a and b); the side opposite the right
+          angle — always the longest — is the <em>hypotenuse</em>, c. The two
+          non-right angles are acute and, because the interior angles of a
+          triangle sum to 180°, they always add up to 90°: α + β = 90°.
         </p>
-        <FeatureList
-          items={[
-            "Accepts any 2 of: leg a, leg b, hypotenuse c, angle α, angle β, altitude h, area A, perimeter P.",
-            "Degrees or radians toggle for every angle input and output.",
-            "Live to-scale SVG showing labelled sides, angles, the right-angle marker and the altitude h.",
-            "One-click presets for the 3-4-5, 30-60-90 and 45-45-90 triangles plus a ladder-against-wall example.",
-            "Step-by-step derivation using your actual numbers — every substitution shown.",
-            "Reports the inradius r = (a + b − c) / 2 and circumradius R = c / 2 (half the hypotenuse, always).",
-          ]}
-        />
+        <p>
+          That single 90° angle is what makes right triangles special. The
+          Pythagorean theorem <span className="font-serif italic">a² + b² = c²</span>{" "}
+          holds only here, and the sine, cosine and tangent ratios are defined
+          on the sides of a right triangle. In practice this means <strong>any two independent measurements are enough to lock the whole triangle down</strong> —
+          the calculator above uses that fact to solve for every remaining side,
+          angle, area, perimeter, altitude, inradius and circumradius.
+        </p>
       </CalcSection>
+
 
       <CalcSection title="Right triangles, case by case">
         <GuideCards items={GUIDE} />
@@ -1018,8 +1018,22 @@ function PageExtras() {
         </p>
       </CalcSection>
 
+      <CalcSection title="Features of this calculator">
+        <FeatureList
+          items={[
+            "Accepts any 2 of: leg a, leg b, hypotenuse c, angle α, angle β, altitude h, area A, perimeter P.",
+            "Degrees or radians toggle for every angle input and output.",
+            "Live to-scale SVG showing labelled sides, angles, the right-angle marker and the altitude h.",
+            "One-click presets for the 3-4-5, 30-60-90 and 45-45-90 triangles plus a ladder-against-wall example.",
+            "Step-by-step derivation using your actual numbers — every substitution shown.",
+            "Reports the inradius r = (a + b − c) / 2 and circumradius R = c / 2 (half the hypotenuse, always).",
+          ]}
+        />
+      </CalcSection>
+
       <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
+
       </CalcSection>
 
       <CalcSection title="Related calculators">
