@@ -301,84 +301,32 @@ const FAQ_ITEMS = [
   },
 ] as const;
 
-const GUIDE: GuideCardItem[] = [
+const GUIDE: (GuideCardItem & { field: SolveField; tabLabel: string })[] = [
   {
     key: "from-side",
-    title: "Everything from the side length",
+    field: "side",
+    tabLabel: "Side length",
+    title: "Starting from the side length",
     explain:
       "The side is the natural input — every other quantity is a fixed multiple of it. Perimeter is three times the side; height is √3/2 times the side; area is √3/4 times the side squared. If you already know a, no other input is needed.",
-    formula: <>P = 3a &nbsp;·&nbsp; h = (√3/2)·a &nbsp;·&nbsp; A = (√3/4)·a²</>,
+    formula: <>P = 3a &nbsp;·&nbsp; h = (√3/2)·a &nbsp;·&nbsp; A = (√3/4)·a² &nbsp;·&nbsp; R = a/√3 &nbsp;·&nbsp; r = a/(2√3)</>,
     legend: [
-      { sym: "a", def: "any side (all three are equal)" },
-      { sym: "P", def: "perimeter" },
-      { sym: "h", def: "height (altitude from any vertex)" },
-      { sym: "A", def: "area" },
-    ],
-    diagram: <MiniEq />,
-    example: {
-      given: <>a = 6</>,
-      substitute: <>P = 18, &nbsp; h = 3√3, &nbsp; A = 9√3</>,
-      answer: <>P = 18, &nbsp; h ≈ 5.196, &nbsp; A ≈ 15.588</>,
-    },
-  },
-  {
-    key: "area-derivation",
-    title: "Where the area formula comes from",
-    explain:
-      "The altitude bisects the base, so the half-triangle is a right triangle with hypotenuse a and one leg a/2. Pythagoras gives the other leg (the height) as (√3/2)·a. Substitute that back into base × height ÷ 2 and the a's collect: A = ½·a·(√3/2)·a = (√3/4)·a².",
-    formula: <>A = ½·a·h &nbsp;·&nbsp; h = (√3/2)·a &nbsp;⇒&nbsp; A = (√3/4)·a²</>,
-    legend: [
-      { sym: "a", def: "side length" },
-      { sym: "h", def: "height" },
-    ],
-    diagram: <MiniEq showAltitude />,
-    example: {
-      given: <>a = 10</>,
-      substitute: <>A = (√3/4)·100 = 25√3</>,
-      answer: <>A ≈ 43.301</>,
-    },
-  },
-  {
-    key: "reverse",
-    title: "Reverse: side from area, perimeter or height",
-    explain:
-      "Because the ratios between quantities are fixed, any single measurement locks the triangle down. Solve backwards to get the side, then the rest follows automatically.",
-    formula: (
-      <>
-        a = P / 3 &nbsp;·&nbsp; a = 2h / √3 &nbsp;·&nbsp; a = √(4A / √3)
-      </>
-    ),
-    legend: [
+      { sym: "a", def: "side length (known)" },
       { sym: "P", def: "perimeter" },
       { sym: "h", def: "height" },
       { sym: "A", def: "area" },
     ],
     diagram: <MiniEq />,
     example: {
-      given: <>A = 25</>,
-      substitute: <>a = √(4·25 / √3) = √(100/√3)</>,
-      answer: <>a ≈ 7.6</>,
-    },
-  },
-  {
-    key: "circles",
-    title: "The two circles — inradius and circumradius",
-    explain:
-      "The incircle is the largest circle that fits inside the triangle; the circumcircle passes through all three vertices. For an equilateral triangle both circles share the same centre (the centroid), and the circumradius is exactly twice the inradius — a relationship that is unique to this shape.",
-    formula: <>R = a / √3 &nbsp;·&nbsp; r = a / (2√3) &nbsp;·&nbsp; R = 2r</>,
-    legend: [
-      { sym: "R", def: "circumradius (through all three vertices)" },
-      { sym: "r", def: "inradius (largest inscribed circle)" },
-    ],
-    diagram: <MiniEq showCircles />,
-    example: {
       given: <>a = 6</>,
-      substitute: <>R = 6/√3, &nbsp; r = 6/(2√3)</>,
-      answer: <>R ≈ 3.464, &nbsp; r ≈ 1.732</>,
+      substitute: <>P = 18, &nbsp; h = 3√3, &nbsp; A = 9√3, &nbsp; R = 6/√3, &nbsp; r = 6/(2√3)</>,
+      answer: <>P = 18, &nbsp; h ≈ 5.196, &nbsp; A ≈ 15.588, &nbsp; R ≈ 3.464, &nbsp; r ≈ 1.732</>,
     },
   },
   {
     key: "from-perimeter",
+    field: "perim",
+    tabLabel: "Perimeter",
     title: "Starting from the perimeter",
     explain:
       "If the fence around the triangle is what you know, divide by three to recover the side and then let every other quantity fall out of it. Perimeter is the friendliest reverse input because no square roots appear until you go for the height or area.",
@@ -395,7 +343,47 @@ const GUIDE: GuideCardItem[] = [
     },
   },
   {
+    key: "from-height",
+    field: "height",
+    tabLabel: "Height",
+    title: "Starting from the height",
+    explain:
+      "The altitude drops from any vertex perpendicular to the opposite side. Because h = (√3/2)·a, rearranging gives a = 2h/√3 — multiply the height by 2 and divide by √3 to recover the side, then the rest of the quantities follow the standard chain.",
+    formula: <>a = 2h / √3 &nbsp;⇒&nbsp; P = 3a &nbsp;·&nbsp; A = (√3/4)·a² &nbsp;·&nbsp; R = a/√3 &nbsp;·&nbsp; r = a/(2√3)</>,
+    legend: [
+      { sym: "h", def: "height (known)" },
+      { sym: "a", def: "side length" },
+    ],
+    diagram: <MiniEq showAltitude />,
+    example: {
+      given: <>h = 10 cm</>,
+      substitute: <>a = 20/√3, &nbsp; P = 60/√3, &nbsp; A = (√3/4)·(20/√3)², &nbsp; R = a/√3, &nbsp; r = a/(2√3)</>,
+      answer: <>a ≈ 11.547 cm, &nbsp; P ≈ 34.641 cm, &nbsp; A ≈ 57.735 cm², &nbsp; R ≈ 6.667 cm, &nbsp; r ≈ 3.333 cm</>,
+    },
+  },
+  {
+    key: "from-area",
+    field: "area",
+    tabLabel: "Area",
+    title: "Starting from the area",
+    explain:
+      "Area is the only quantity that scales with the square of the side, so recovering a needs a square root. Rearrange A = (√3/4)·a² to a = √(4A/√3) — multiply the area by 4, divide by √3, then take the square root; the other quantities follow linearly.",
+    formula: <>a = √(4A / √3) &nbsp;⇒&nbsp; P = 3a &nbsp;·&nbsp; h = (√3/2)·a &nbsp;·&nbsp; R = a/√3 &nbsp;·&nbsp; r = a/(2√3)</>,
+    legend: [
+      { sym: "A", def: "area (known)" },
+      { sym: "a", def: "side length" },
+    ],
+    diagram: <MiniEq showAltitude />,
+    example: {
+      given: <>A = 25 cm²</>,
+      substitute: <>a = √(100/√3), &nbsp; P = 3a, &nbsp; h = (√3/2)·a, &nbsp; R = a/√3, &nbsp; r = a/(2√3)</>,
+      answer: <>a ≈ 7.598 cm, &nbsp; P ≈ 22.795 cm, &nbsp; h ≈ 6.580 cm, &nbsp; R ≈ 4.387 cm, &nbsp; r ≈ 2.193 cm</>,
+    },
+  },
+  {
     key: "from-circumradius",
+    field: "R",
+    tabLabel: "Circumradius R",
     title: "Starting from the circumradius R",
     explain:
       "The circumcircle passes through all three vertices; its radius fixes the scale of the triangle. Multiply R by √3 to get the side, then use R = 2r to read off the inradius for free — no separate calculation needed.",
@@ -413,6 +401,8 @@ const GUIDE: GuideCardItem[] = [
   },
   {
     key: "from-inradius",
+    field: "r",
+    tabLabel: "Inradius r",
     title: "Starting from the inradius r",
     explain:
       "The incircle is the largest circle that fits snugly inside the triangle, touching each side once. Its radius is exactly half the circumradius, so doubling r and multiplying by √3 gives the side — everything else follows the standard chain.",
@@ -473,6 +463,34 @@ function MiniEq({ showAltitude, showCircles }: { showAltitude?: boolean; showCir
         <text x={xL - 4} y={yBase - 4} textAnchor="end" fontSize="12" fontStyle="italic">60°</text>
         <text x={xR + 4} y={yBase - 4} fontSize="12" fontStyle="italic">60°</text>
       </svg>
+    </div>
+  );
+}
+
+function GuideTabs() {
+  const [active, setActive] = useState<SolveField>("side");
+  const current = GUIDE.find((g) => g.field === active) ?? GUIDE[0];
+  return (
+    <div>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {GUIDE.map((g) => (
+          <button
+            key={g.key}
+            type="button"
+            onClick={() => setActive(g.field)}
+            aria-pressed={active === g.field}
+            className={
+              "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
+              (active === g.field
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-card text-foreground hover:bg-accent")
+            }
+          >
+            {g.tabLabel}
+          </button>
+        ))}
+      </div>
+      <GuideCards items={[current]} />
     </div>
   );
 }
@@ -721,7 +739,7 @@ function PageExtras() {
 
 
       <CalcSection title="Equilateral triangle, case by case">
-        <GuideCards items={GUIDE} />
+        <GuideTabs />
       </CalcSection>
 
       <CalcSection title="Notation used on this page">
