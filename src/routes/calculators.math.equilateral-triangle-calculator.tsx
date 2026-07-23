@@ -61,8 +61,8 @@ function fmt(n: number, sig = 6): string {
   return Number(n.toPrecision(Math.max(1, sig))).toString();
 }
 
-type Field = "side" | "perim" | "height" | "area" | "R" | "r";
-const FIELD_LABEL: Record<Field, string> = {
+type SolveField = "side" | "perim" | "height" | "area" | "R" | "r";
+const FIELD_LABEL: Record<SolveField, string> = {
   side: "Side a",
   perim: "Perimeter P",
   height: "Height h",
@@ -78,11 +78,11 @@ interface Solved {
   area: number;
   R: number;
   r: number;
-  from: Field;
+  from: SolveField;
   steps: Step[];
 }
 
-function sideFrom(field: Field, v: number): { side: number; note: ReactNode } {
+function sideFrom(field: SolveField, v: number): { side: number; note: ReactNode } {
   switch (field) {
     case "side":
       return { side: v, note: <MathLine>a = {fmt(v)}</MathLine> };
@@ -126,7 +126,7 @@ function sideFrom(field: Field, v: number): { side: number; note: ReactNode } {
   }
 }
 
-function solveEquilateral(from: Field, value: number, unit: Unit): Solved {
+function solveEquilateral(from: SolveField, value: number, unit: Unit): Solved {
   if (!(value > 0)) throw new Error(`${FIELD_LABEL[from]} must be a positive number.`);
   const steps: Step[] = [];
   const { side, note } = sideFrom(from, value);
@@ -428,7 +428,7 @@ function MiniEq({ showAltitude, showCircles }: { showAltitude?: boolean; showCir
 
 /* ================= Presets ================= */
 
-const PRESETS: { label: string; note?: string; from: Field; value: string }[] = [
+const PRESETS: { label: string; note?: string; from: SolveField; value: string }[] = [
   { label: "Yield sign (side 90 cm)", from: "side", value: "90" },
   { label: "Tetrahedron face (side 1)", from: "side", value: "1" },
   { label: "Roof gable (side 4 m)", from: "side", value: "4" },
@@ -440,7 +440,7 @@ const PRESETS: { label: string; note?: string; from: Field; value: string }[] = 
 /* ================= Page ================= */
 
 function EquilateralPage() {
-  const [from, setFrom] = useState<Field>("side");
+  const [from, setFrom] = useState<SolveField>("side");
   const [value, setValue] = useState("");
   const [unit, setUnit] = useState<Unit>("cm");
   const [sig, setSig] = useState(4);
@@ -549,7 +549,7 @@ function EquilateralPage() {
       {/* Solve-for */}
       <Field label="Solve from" htmlFor="eq-from">
         <div className="flex flex-wrap gap-2">
-          {(Object.keys(FIELD_LABEL) as Field[]).map((f) => (
+          {(Object.keys(FIELD_LABEL) as SolveField[]).map((f) => (
             <button
               key={f}
               type="button"
