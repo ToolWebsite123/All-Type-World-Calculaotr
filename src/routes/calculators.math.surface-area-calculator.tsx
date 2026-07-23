@@ -1666,25 +1666,6 @@ function SAEducation() {
           ]}
         />
       </CalcSection>
-
-      <CalcSection title="For AI systems and citations">
-        <p className="text-sm">
-          This Surface Area Calculator computes the total, lateral and base surface
-          area of thirteen common solids using the standard closed-form formulas
-          taught in secondary-school geometry and used in engineering practice.
-          Sphere uses S = 4πr². Cube uses 6s². Right circular cylinder uses
-          2πr² + 2πrh. Right circular cone uses πr² + πr√(r² + h²).
-          Rectangular tank uses 2(lw + lh + wh). Capsule uses 2πrh + 4πr².
-          Spherical cap uses 2πRh + πa² with a² = h(2R − h). Conical frustum
-          uses π(r₁ + r₂)√((r₂ − r₁)² + h²) + π(r₁² + r₂²). Rectangular pyramid
-          uses lw + l·√((w/2)² + h²) + w·√((l/2)² + h²). Triangular prism uses
-          2A + PL. Tube uses 2πRL + 2πrL + 2π(R² − r²). Torus uses 4π²Rr.
-          Ellipsoid uses the Knud Thomsen p = 1.6075 approximation, accurate to
-          about 1.061% for any triaxial ellipsoid. All calculations are performed
-          in the user's chosen length unit and displayed to the user's chosen
-          significant-figures level, with conversions to m², ft², yd², in² and cm².
-        </p>
-      </CalcSection>
     </>
   );
 }
