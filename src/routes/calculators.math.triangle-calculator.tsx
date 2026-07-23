@@ -218,12 +218,13 @@ function solveTriangle(input: {
   // ===== SSS: 3 sides =====
   if (sides.length === 3) {
     const sa = a!, sb = b!, sc = c!;
-    if (sa + sb <= sc || sa + sc <= sb || sb + sc <= sa)
+    if (!isValidTriangleSides(sa, sb, sc))
       throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side.");
 
-    const A2 = Math.acos((sb * sb + sc * sc - sa * sa) / (2 * sb * sc));
-    const B2 = Math.acos((sa * sa + sc * sc - sb * sb) / (2 * sa * sc));
+    const A2 = solveCosineLawAngle(sa, sb, sc);
+    const B2 = solveCosineLawAngle(sb, sa, sc);
     const C2 = Math.PI - A2 - B2;
+
 
     stepList.push({
       title: "Detected SSS — three sides given",
