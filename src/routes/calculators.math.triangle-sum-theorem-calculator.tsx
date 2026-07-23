@@ -67,19 +67,18 @@ function TriangleDiagram({
       <svg viewBox="0 0 420 260" className="mx-auto block h-auto w-full max-w-md">
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-          fill="hsl(var(--primary) / 0.08)"
-          stroke="hsl(var(--foreground))"
+          className="fill-primary/10 stroke-foreground"
           strokeWidth="2"
           strokeLinejoin="round"
         />
         {/* Vertex labels */}
-        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">A</text>
-        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">B</text>
-        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">C</text>
+        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" className="fill-muted-foreground">A</text>
+        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" className="fill-muted-foreground">B</text>
+        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" className="fill-muted-foreground">C</text>
         {/* Angle labels — placed inside each corner */}
-        <text x={A.x + 32} y={A.y - 8} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">α = {alphaLabel}</text>
-        <text x={B.x - 90} y={B.y - 8} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">β = {betaLabel}</text>
-        <text x={C.x - 32} y={C.y + 30} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">γ = {gammaLabel}</text>
+        <text x={A.x + 32} y={A.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">α = {alphaLabel}</text>
+        <text x={B.x - 90} y={B.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">β = {betaLabel}</text>
+        <text x={C.x - 32} y={C.y + 30} fontSize="15" fontStyle="italic" className="fill-foreground">γ = {gammaLabel}</text>
       </svg>
       <div className="mt-1 text-center text-xs text-muted-foreground">
         Diagram is illustrative — not drawn to scale.
@@ -87,6 +86,7 @@ function TriangleDiagram({
     </div>
   );
 }
+
 
 /* ================= Component ================= */
 
