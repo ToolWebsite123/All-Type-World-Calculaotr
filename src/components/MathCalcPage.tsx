@@ -252,17 +252,17 @@ export function GuideCards({ items }: { items: GuideCardItem[] }) {
             {g.title}
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-3 text-foreground md:col-start-1 md:row-span-2 md:row-start-1">
+            <div className="space-y-3 text-foreground md:col-start-1 md:row-start-1">
               <p className="text-[15px] leading-relaxed">{g.explain}</p>
               <FormulaWithLegend formula={g.formula} legend={g.legend ?? []} />
             </div>
             <div className="md:col-start-2 md:row-start-1">{g.diagram}</div>
-            <div className="md:col-start-2 md:row-start-2">
+            <div className="md:col-span-2 md:row-start-2">
               <div className="rounded-xl border border-border/60 bg-secondary/30 p-3 text-sm">
                 <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                   Example
                 </div>
-                <div className="space-y-2 text-foreground">
+                <div className="grid gap-3 text-foreground sm:grid-cols-3">
                   <div>
                     <div className="text-[12px] text-muted-foreground">Given</div>
                     <FormulaBlock>{g.example.given}</FormulaBlock>
