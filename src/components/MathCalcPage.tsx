@@ -262,7 +262,7 @@ export function GuideCards({ items }: { items: GuideCardItem[] }) {
                 <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                   Example
                 </div>
-                <div className="grid gap-3 text-foreground sm:grid-cols-3">
+                <div className="space-y-2 text-foreground">
                   <div>
                     <div className="text-[12px] text-muted-foreground">Given</div>
                     <FormulaBlock>{g.example.given}</FormulaBlock>
