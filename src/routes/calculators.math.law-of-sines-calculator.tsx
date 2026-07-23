@@ -802,7 +802,8 @@ function PageExtras() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
-            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (SAS / SSS cases, plus everything else)" },
+            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator (SAS & SSS)" },
+            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (all cases, plus everything else)" },
             { to: "/calculators/math/triangle-sum-theorem-calculator", label: "Triangle Sum Theorem Calculator (find the third angle)" },
             { to: "/calculators/math/right-triangle-calculator", label: "Right Triangle Calculator (one 90° angle)" },
             { to: "/calculators/math/isosceles-triangle-calculator", label: "Isosceles Triangle Calculator" },
