@@ -113,24 +113,20 @@ function BoxDiagonalDiagram({ l, w, h }: { l: number; w: number; h: number }) {
   const C2 = [C[0] + dx, C[1] - dy];
   const D2 = [D[0] + dx, D[1] - dy];
   return (
-    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3">
+    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3 text-foreground">
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label="box space diagonal diagram">
-        {/* back face */}
-        <polygon points={`${A2[0]},${A2[1]} ${B2[0]},${B2[1]} ${C2[0]},${C2[1]} ${D2[0]},${D2[1]}`} fill="none" stroke={dim} strokeDasharray="3 3" />
-        {/* connectors */}
-        <line x1={A[0]} y1={A[1]} x2={A2[0]} y2={A2[1]} stroke={dim} strokeDasharray="3 3" />
-        <line x1={B[0]} y1={B[1]} x2={B2[0]} y2={B2[1]} stroke={stroke} />
-        <line x1={C[0]} y1={C[1]} x2={C2[0]} y2={C2[1]} stroke={stroke} />
-        <line x1={D[0]} y1={D[1]} x2={D2[0]} y2={D2[1]} stroke={stroke} />
-        {/* front face */}
-        <polygon points={`${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]} ${D[0]},${D[1]}`} fill="none" stroke={stroke} strokeWidth={1.5} />
-        {/* space diagonal A → C2 */}
-        <line x1={A[0]} y1={A[1]} x2={C2[0]} y2={C2[1]} stroke={accent} strokeWidth={2} />
-        {/* labels */}
-        <text x={(A[0] + B[0]) / 2} y={A[1] + 14} fill={stroke} fontSize="12" textAnchor="middle" fontStyle="italic">l</text>
-        <text x={B[0] + 6} y={(B[1] + C[1]) / 2} fill={stroke} fontSize="12" fontStyle="italic">h</text>
-        <text x={(B[0] + B2[0]) / 2 + 4} y={(B[1] + B2[1]) / 2 + 4} fill={stroke} fontSize="12" fontStyle="italic">w</text>
-        <text x={(A[0] + C2[0]) / 2 - 10} y={(A[1] + C2[1]) / 2 - 4} fill={accent} fontSize="12" fontStyle="italic">d</text>
+        <polygon points={`${A2[0]},${A2[1]} ${B2[0]},${B2[1]} ${C2[0]},${C2[1]} ${D2[0]},${D2[1]}`} fill="none" style={{ stroke: dim }} strokeDasharray="3 3" />
+        <line x1={A[0]} y1={A[1]} x2={A2[0]} y2={A2[1]} style={{ stroke: dim }} strokeDasharray="3 3" />
+        <line x1={B[0]} y1={B[1]} x2={B2[0]} y2={B2[1]} style={{ stroke: stroke }} />
+        <line x1={C[0]} y1={C[1]} x2={C2[0]} y2={C2[1]} style={{ stroke: stroke }} />
+        <line x1={D[0]} y1={D[1]} x2={D2[0]} y2={D2[1]} style={{ stroke: stroke }} />
+        <polygon points={`${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]} ${D[0]},${D[1]}`} fill="none" style={{ stroke: stroke }} strokeWidth={1.5} />
+        <line x1={A[0]} y1={A[1]} x2={C2[0]} y2={C2[1]} style={{ stroke: accent }} strokeWidth={2} />
+        <text x={(A[0] + B[0]) / 2} y={A[1] + 14} style={{ fill: stroke }} fontSize="12" textAnchor="middle" fontStyle="italic">l</text>
+        <text x={B[0] + 6} y={(B[1] + C[1]) / 2} style={{ fill: stroke }} fontSize="12" fontStyle="italic">h</text>
+        <text x={(B[0] + B2[0]) / 2 + 4} y={(B[1] + B2[1]) / 2 + 4} style={{ fill: stroke }} fontSize="12" fontStyle="italic">w</text>
+        <text x={(A[0] + C2[0]) / 2 - 10} y={(A[1] + C2[1]) / 2 - 4} style={{ fill: accent }} fontSize="12" fontStyle="italic">d</text>
+
       </svg>
     </div>
   );
