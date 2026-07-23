@@ -348,7 +348,7 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
           <path
             d={`M ${B.x - 14} ${B.y} L ${B.x - 14} ${B.y - 14} L ${B.x} ${B.y - 14}`}
             fill="none"
-            className="stroke-foreground"
+            className="stroke-primary"
             strokeWidth="1.5"
           />
         )}
