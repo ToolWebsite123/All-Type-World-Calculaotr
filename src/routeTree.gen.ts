@@ -100,6 +100,7 @@ import { Route as CalculatorsMathFactorCalculatorRouteImport } from './routes/ca
 import { Route as CalculatorsMathFTestCalculatorRouteImport } from './routes/calculators.math.f-test-calculator'
 import { Route as CalculatorsMathExponentialDistributionCalculatorRouteImport } from './routes/calculators.math.exponential-distribution-calculator'
 import { Route as CalculatorsMathExponentCalculatorRouteImport } from './routes/calculators.math.exponent-calculator'
+import { Route as CalculatorsMathEquilateralTriangleCalculatorRouteImport } from './routes/calculators.math.equilateral-triangle-calculator'
 import { Route as CalculatorsMathEmpiricalRuleCalculatorRouteImport } from './routes/calculators.math.empirical-rule-calculator'
 import { Route as CalculatorsMathEffectSizeCalculatorRouteImport } from './routes/calculators.math.effect-size-calculator'
 import { Route as CalculatorsMathDistanceCalculatorRouteImport } from './routes/calculators.math.distance-calculator'
@@ -661,6 +662,12 @@ const CalculatorsMathExponentCalculatorRoute =
     path: '/exponent-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
+const CalculatorsMathEquilateralTriangleCalculatorRoute =
+  CalculatorsMathEquilateralTriangleCalculatorRouteImport.update({
+    id: '/equilateral-triangle-calculator',
+    path: '/equilateral-triangle-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
 const CalculatorsMathEmpiricalRuleCalculatorRoute =
   CalculatorsMathEmpiricalRuleCalculatorRouteImport.update({
     id: '/empirical-rule-calculator',
@@ -864,6 +871,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
   '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
   '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/equilateral-triangle-calculator': typeof CalculatorsMathEquilateralTriangleCalculatorRoute
   '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
   '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
   '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
@@ -983,6 +991,7 @@ export interface FileRoutesByTo {
   '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
   '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
   '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/equilateral-triangle-calculator': typeof CalculatorsMathEquilateralTriangleCalculatorRoute
   '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
   '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
   '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
@@ -1104,6 +1113,7 @@ export interface FileRoutesById {
   '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
   '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
   '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/equilateral-triangle-calculator': typeof CalculatorsMathEquilateralTriangleCalculatorRoute
   '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
   '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
   '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
@@ -1226,6 +1236,7 @@ export interface FileRouteTypes {
     | '/calculators/math/distance-calculator'
     | '/calculators/math/effect-size-calculator'
     | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/equilateral-triangle-calculator'
     | '/calculators/math/exponent-calculator'
     | '/calculators/math/exponential-distribution-calculator'
     | '/calculators/math/f-test-calculator'
@@ -1345,6 +1356,7 @@ export interface FileRouteTypes {
     | '/calculators/math/distance-calculator'
     | '/calculators/math/effect-size-calculator'
     | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/equilateral-triangle-calculator'
     | '/calculators/math/exponent-calculator'
     | '/calculators/math/exponential-distribution-calculator'
     | '/calculators/math/f-test-calculator'
@@ -1465,6 +1477,7 @@ export interface FileRouteTypes {
     | '/calculators/math/distance-calculator'
     | '/calculators/math/effect-size-calculator'
     | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/equilateral-triangle-calculator'
     | '/calculators/math/exponent-calculator'
     | '/calculators/math/exponential-distribution-calculator'
     | '/calculators/math/f-test-calculator'
@@ -2201,6 +2214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsMathExponentCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
+    '/calculators/math/equilateral-triangle-calculator': {
+      id: '/calculators/math/equilateral-triangle-calculator'
+      path: '/equilateral-triangle-calculator'
+      fullPath: '/calculators/math/equilateral-triangle-calculator'
+      preLoaderRoute: typeof CalculatorsMathEquilateralTriangleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
     '/calculators/math/empirical-rule-calculator': {
       id: '/calculators/math/empirical-rule-calculator'
       path: '/empirical-rule-calculator'
@@ -2420,6 +2440,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathDistanceCalculatorRoute: typeof CalculatorsMathDistanceCalculatorRoute
   CalculatorsMathEffectSizeCalculatorRoute: typeof CalculatorsMathEffectSizeCalculatorRoute
   CalculatorsMathEmpiricalRuleCalculatorRoute: typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  CalculatorsMathEquilateralTriangleCalculatorRoute: typeof CalculatorsMathEquilateralTriangleCalculatorRoute
   CalculatorsMathExponentCalculatorRoute: typeof CalculatorsMathExponentCalculatorRoute
   CalculatorsMathExponentialDistributionCalculatorRoute: typeof CalculatorsMathExponentialDistributionCalculatorRoute
   CalculatorsMathFTestCalculatorRoute: typeof CalculatorsMathFTestCalculatorRoute
@@ -2549,6 +2570,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
     CalculatorsMathEffectSizeCalculatorRoute,
   CalculatorsMathEmpiricalRuleCalculatorRoute:
     CalculatorsMathEmpiricalRuleCalculatorRoute,
+  CalculatorsMathEquilateralTriangleCalculatorRoute:
+    CalculatorsMathEquilateralTriangleCalculatorRoute,
   CalculatorsMathExponentCalculatorRoute:
     CalculatorsMathExponentCalculatorRoute,
   CalculatorsMathExponentialDistributionCalculatorRoute:
