@@ -76,12 +76,6 @@ function fmt(n: number, sig = 6): string {
   return Number(n.toPrecision(Math.max(1, sig))).toString();
 }
 
-function parseNum(raw: string): number | undefined {
-  const s = raw.trim();
-  if (!s) return undefined;
-  const v = Number(s);
-  return Number.isFinite(v) ? v : NaN;
-}
 
 /** Finalize triangle from a known pair (c, alpha) — computes everything. */
 function completeFromCAlpha(c: number, alpha: number): Omit<Solved, "caseName" | "steps"> {
