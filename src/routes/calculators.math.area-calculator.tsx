@@ -2251,7 +2251,7 @@ function AreaEducation() {
                     <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                       Example
                     </div>
-                    <div className="grid gap-2 text-foreground sm:grid-cols-3">
+                    <div className="space-y-1 text-foreground">
                       <div><span className="text-muted-foreground">Given: </span><span className="font-serif italic">{g.example.given}</span></div>
                       <div><span className="text-muted-foreground">Substitute: </span><span className="font-serif italic">{g.example.substitute}</span></div>
                       <div>
