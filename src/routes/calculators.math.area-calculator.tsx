@@ -15,6 +15,7 @@ import {
   RelatedLinks,
   FeatureList,
   ResultBox,
+  StackedMath,
 } from "@/components/MathCalcPage";
 import { type Step } from "@/components/SolutionSteps";
 import { StepsToggle } from "@/components/StepsToggle";
@@ -23,7 +24,7 @@ import { StepsToggle } from "@/components/StepsToggle";
 function MathLine({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-1 text-center font-serif text-[15px] italic leading-relaxed text-foreground">
-      {children}
+      <StackedMath>{children}</StackedMath>
     </div>
   );
 }

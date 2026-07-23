@@ -16,6 +16,7 @@ import {
   RelatedLinks,
   FeatureList,
   GuideCards,
+  StackedMath,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 
@@ -26,7 +27,7 @@ import type { Step } from "@/components/SolutionSteps";
 function MathLine({ children }: { children: ReactNode }) {
   return (
     <div className="my-1 flex items-center justify-center text-center font-serif text-[15px] italic text-foreground">
-      <span className="inline-flex items-center gap-1">{children}</span>
+      <span className="inline-flex flex-col items-center gap-1"><StackedMath>{children}</StackedMath></span>
     </div>
   );
 }
@@ -200,7 +201,13 @@ const PY_GUIDE: GuideCardItem[] = [
     diagram: <RightTriangleDiagram a={12} b={5} c={13} />,
     example: {
       given: <>sides 5, 12, 13</>,
-      substitute: <>5² + 12² = 25 + 144 = 169 &nbsp; and &nbsp; 13² = 169</>,
+      substitute: (
+        <>
+          <div>5² + 12² = 25 + 144</div>
+          <div>= 169</div>
+          <div>13² = 169</div>
+        </>
+      ),
       answer: <>169 = 169 → right triangle ✓</>,
     },
   },

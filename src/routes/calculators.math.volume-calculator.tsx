@@ -15,6 +15,7 @@ import {
   FeatureList,
   ResultBox,
   GuideCards,
+  StackedMath,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 
@@ -25,7 +26,7 @@ import { StepsToggle } from "@/components/StepsToggle";
 function MathLine({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-1 text-center font-serif text-[15px] italic leading-relaxed text-foreground">
-      {children}
+      <StackedMath>{children}</StackedMath>
     </div>
   );
 }

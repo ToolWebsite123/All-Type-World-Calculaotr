@@ -16,6 +16,7 @@ import {
   CalcFAQ,
   RelatedLinks,
   FeatureList,
+  StackedMath,
 } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 import type { ReactNode } from "react";
@@ -24,7 +25,7 @@ import type { ReactNode } from "react";
 function MathLine({ children }: { children: ReactNode }) {
   return (
     <div className="my-1 flex items-center justify-center text-center font-serif text-[15px] italic text-foreground">
-      <span className="inline-flex items-center gap-1">{children}</span>
+      <span className="inline-flex flex-col items-center gap-1"><StackedMath>{children}</StackedMath></span>
     </div>
   );
 }
