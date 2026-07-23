@@ -760,31 +760,6 @@ function PageExtras() {
 
 
 
-      <CalcSection title="Common mistakes to avoid">
-        <FeatureList
-          items={[
-            <>Using <em>h = a</em> instead of <em>h = (√3/2)·a</em>. The height is always shorter than the side by roughly 13% — the two are never equal for any equilateral triangle.</>,
-            <>Mixing linear and area units in the same answer. If you type the side in inches, the area comes out in square inches, not inches — the calculator's area label reminds you which one it is.</>,
-            <>Confusing R and r. The circumradius sits outside touching the vertices, the inradius sits inside touching the edges; getting them the wrong way round doubles or halves your answer.</>,
-            <>Forgetting that "equilateral" also means equiangular. If a problem tells you a triangle is equilateral, you already know all three angles are 60° — you don't need to be given them.</>,
-            <>Squaring only part of the side when computing area. The formula is (√3/4)·<em>a²</em>, not (√3/4)·<em>a</em>; the whole side gets squared, not just the numeric part.</>,
-            <>Rounding √3 to 1.7 in the middle of a calculation. Keep it symbolic (or at 1.7320508) until the last step — rounding early can shift the final answer by a full percent on small triangles.</>,
-          ]}
-        />
-      </CalcSection>
-
-      <CalcSection title="Key concepts worth remembering">
-        <FeatureList
-          items={[
-            <><strong>Fixed ratios.</strong> Every equilateral triangle is a scaled copy of every other one, so h/a, R/a, r/a and A/a² are the same constants no matter how big or small the triangle is.</>,
-            <><strong>One input is enough.</strong> Unlike scalene triangles (which need three independent measurements), a single number — side, height, area, perimeter, R, or r — pins the whole shape down.</>,
-            <><strong>R = 2r.</strong> The circumradius is exactly twice the inradius. That 2:1 lock is unique to equilateral triangles; no other triangle shape has it.</>,
-            <><strong>The centroid, incenter, circumcenter and orthocenter coincide.</strong> All four "centres" collapse to the same point — another consequence of full three-fold symmetry.</>,
-            <><strong>Height splits the triangle into two 30-60-90 right triangles.</strong> That's where the √3 comes from — it's the long-leg-to-short-leg ratio in the 30-60-90 family.</>,
-            <><strong>Area scales as the square of the side.</strong> Doubling <em>a</em> quadruples <em>A</em>; tripling <em>a</em> makes the area nine times bigger. Perimeter, height, R and r all scale linearly.</>,
-          ]}
-        />
-      </CalcSection>
 
       <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
