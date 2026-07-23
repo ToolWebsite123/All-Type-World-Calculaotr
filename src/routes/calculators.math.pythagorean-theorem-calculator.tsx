@@ -73,22 +73,20 @@ function RightTriangleDiagram({
   const legColor = (which: "a" | "b" | "c") =>
     unknown === which ? accent : stroke;
   return (
-    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3">
+    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3 text-foreground">
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label="right triangle diagram">
-        {/* right-angle square */}
-        <rect x={x0} y={y0 - 10} width={10} height={10} fill="none" stroke={dim} />
-        {/* triangle */}
-        <line x1={x0} y1={y0} x2={x1} y2={y0} stroke={legColor("b")} strokeWidth={2} />
-        <line x1={x0} y1={y0} x2={x0} y2={y1} stroke={legColor("a")} strokeWidth={2} />
-        <line x1={x0} y1={y1} x2={x1} y2={y0} stroke={legColor("c")} strokeWidth={2} />
-        {/* labels */}
-        <text x={x0 - 8} y={(y0 + y1) / 2} fill={legColor("a")} fontSize="13" textAnchor="end" dominantBaseline="middle" fontStyle="italic">{aLabel}</text>
-        <text x={(x0 + x1) / 2} y={y0 + 16} fill={legColor("b")} fontSize="13" textAnchor="middle" fontStyle="italic">{bLabel}</text>
-        <text x={(x0 + x1) / 2 + 8} y={(y0 + y1) / 2 - 6} fill={legColor("c")} fontSize="13" textAnchor="start" fontStyle="italic">{cLabel}</text>
+        <rect x={x0} y={y0 - 10} width={10} height={10} fill="none" style={{ stroke: dim }} />
+        <line x1={x0} y1={y0} x2={x1} y2={y0} style={{ stroke: legColor("b") }} strokeWidth={2} />
+        <line x1={x0} y1={y0} x2={x0} y2={y1} style={{ stroke: legColor("a") }} strokeWidth={2} />
+        <line x1={x0} y1={y1} x2={x1} y2={y0} style={{ stroke: legColor("c") }} strokeWidth={2} />
+        <text x={x0 - 8} y={(y0 + y1) / 2} style={{ fill: legColor("a") }} fontSize="13" textAnchor="end" dominantBaseline="middle" fontStyle="italic">{aLabel}</text>
+        <text x={(x0 + x1) / 2} y={y0 + 16} style={{ fill: legColor("b") }} fontSize="13" textAnchor="middle" fontStyle="italic">{bLabel}</text>
+        <text x={(x0 + x1) / 2 + 8} y={(y0 + y1) / 2 - 6} style={{ fill: legColor("c") }} fontSize="13" textAnchor="start" fontStyle="italic">{cLabel}</text>
       </svg>
     </div>
   );
 }
+
 
 function BoxDiagonalDiagram({ l, w, h }: { l: number; w: number; h: number }) {
   const W = 260;
