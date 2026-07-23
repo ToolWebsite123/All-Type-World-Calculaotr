@@ -67,19 +67,18 @@ function TriangleDiagram({
       <svg viewBox="0 0 420 260" className="mx-auto block h-auto w-full max-w-md">
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-          fill="hsl(var(--primary) / 0.08)"
-          stroke="hsl(var(--foreground))"
+          className="fill-primary/10 stroke-primary"
           strokeWidth="2"
           strokeLinejoin="round"
         />
         {/* Vertex labels */}
-        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">A</text>
-        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">B</text>
-        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" fill="hsl(var(--muted-foreground))">C</text>
+        <text x={A.x - 6} y={A.y + 22} textAnchor="middle" fontSize="14" className="fill-foreground/70">A</text>
+        <text x={B.x + 6} y={B.y + 22} textAnchor="middle" fontSize="14" className="fill-foreground/70">B</text>
+        <text x={C.x} y={C.y - 12} textAnchor="middle" fontSize="14" className="fill-foreground/70">C</text>
         {/* Angle labels — placed inside each corner */}
-        <text x={A.x + 32} y={A.y - 8} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">α = {alphaLabel}</text>
-        <text x={B.x - 90} y={B.y - 8} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">β = {betaLabel}</text>
-        <text x={C.x - 32} y={C.y + 30} fontSize="15" fontStyle="italic" fill="hsl(var(--foreground))">γ = {gammaLabel}</text>
+        <text x={A.x + 32} y={A.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">α = {alphaLabel}</text>
+        <text x={B.x - 90} y={B.y - 8} fontSize="15" fontStyle="italic" className="fill-foreground">β = {betaLabel}</text>
+        <text x={C.x - 32} y={C.y + 30} fontSize="15" fontStyle="italic" className="fill-foreground">γ = {gammaLabel}</text>
       </svg>
       <div className="mt-1 text-center text-xs text-muted-foreground">
         Diagram is illustrative — not drawn to scale.
@@ -87,6 +86,7 @@ function TriangleDiagram({
     </div>
   );
 }
+
 
 /* ================= Component ================= */
 
@@ -322,7 +322,7 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
             y1={30}
             x2={260}
             y2={30}
-            stroke="hsl(var(--primary))"
+            className="stroke-primary"
             strokeWidth="1.5"
             strokeDasharray="4 3"
           />
@@ -333,15 +333,14 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
             y1={B.y}
             x2={B.x + 60}
             y2={B.y}
-            stroke="hsl(var(--primary))"
+            className="stroke-primary"
             strokeWidth="1.5"
             strokeDasharray="4 3"
           />
         )}
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
-          fill="hsl(var(--primary) / 0.08)"
-          stroke="hsl(var(--foreground))"
+          className="fill-primary/10 stroke-primary"
           strokeWidth="2"
           strokeLinejoin="round"
         />
@@ -349,21 +348,22 @@ function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exte
           <path
             d={`M ${B.x - 14} ${B.y} L ${B.x - 14} ${B.y - 14} L ${B.x} ${B.y - 14}`}
             fill="none"
-            stroke="hsl(var(--foreground))"
+            className="stroke-primary"
             strokeWidth="1.5"
           />
         )}
-        <text x={A.x - 4} y={A.y + 16} fontSize="12" fill="hsl(var(--muted-foreground))">A</text>
-        <text x={B.x + 4} y={B.y + 16} fontSize="12" fill="hsl(var(--muted-foreground))">B</text>
-        <text x={C.x - 4} y={C.y - 6} fontSize="12" fill="hsl(var(--muted-foreground))">C</text>
-        <text x={A.x + 18} y={A.y - 6} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">α</text>
-        <text x={B.x - 22} y={B.y - 6} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">β</text>
-        <text x={C.x - 6} y={C.y + 20} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">γ</text>
+        <text x={A.x - 4} y={A.y + 16} fontSize="12" className="fill-foreground/70">A</text>
+        <text x={B.x + 4} y={B.y + 16} fontSize="12" className="fill-foreground/70">B</text>
+        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">C</text>
+        <text x={A.x + 18} y={A.y - 6} fontSize="12" fontStyle="italic" className="fill-foreground">α</text>
+        <text x={B.x - 22} y={B.y - 6} fontSize="12" fontStyle="italic" className="fill-foreground">β</text>
+        <text x={C.x - 6} y={C.y + 20} fontSize="12" fontStyle="italic" className="fill-foreground">γ</text>
         {variant === "exterior" && (
-          <text x={B.x + 22} y={B.y - 6} fontSize="11" fontStyle="italic" fill="hsl(var(--primary))">
+          <text x={B.x + 22} y={B.y - 6} fontSize="11" fontStyle="italic" className="fill-primary">
             ext
           </text>
         )}
+
       </svg>
     </div>
   );
