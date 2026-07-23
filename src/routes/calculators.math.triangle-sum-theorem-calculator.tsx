@@ -333,6 +333,185 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
 ];
 
+/* ================= Mini diagrams for GuideCards ================= */
+
+function MiniTri({ variant = "basic" }: { variant?: "basic" | "parallel" | "exterior" | "right" }) {
+  const A = { x: 30, y: 150 };
+  const B = { x: 270, y: 150 };
+  const C = { x: 150, y: 30 };
+  return (
+    <div className="rounded-2xl border border-border/60 bg-background/40 p-3">
+      <svg viewBox="0 0 300 190" className="mx-auto block h-auto w-full max-w-xs">
+        {variant === "parallel" && (
+          <line
+            x1={40}
+            y1={30}
+            x2={260}
+            y2={30}
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+          />
+        )}
+        {variant === "exterior" && (
+          <line
+            x1={B.x}
+            y1={B.y}
+            x2={B.x + 60}
+            y2={B.y}
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+          />
+        )}
+        <polygon
+          points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
+          fill="hsl(var(--primary) / 0.08)"
+          stroke="hsl(var(--foreground))"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        {variant === "right" && (
+          <path
+            d={`M ${B.x - 14} ${B.y} L ${B.x - 14} ${B.y - 14} L ${B.x} ${B.y - 14}`}
+            fill="none"
+            stroke="hsl(var(--foreground))"
+            strokeWidth="1.5"
+          />
+        )}
+        <text x={A.x - 4} y={A.y + 16} fontSize="12" fill="hsl(var(--muted-foreground))">A</text>
+        <text x={B.x + 4} y={B.y + 16} fontSize="12" fill="hsl(var(--muted-foreground))">B</text>
+        <text x={C.x - 4} y={C.y - 6} fontSize="12" fill="hsl(var(--muted-foreground))">C</text>
+        <text x={A.x + 18} y={A.y - 6} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">α</text>
+        <text x={B.x - 22} y={B.y - 6} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">β</text>
+        <text x={C.x - 6} y={C.y + 20} fontSize="12" fontStyle="italic" fill="hsl(var(--foreground))">γ</text>
+        {variant === "exterior" && (
+          <text x={B.x + 22} y={B.y - 6} fontSize="11" fontStyle="italic" fill="hsl(var(--primary))">
+            ext
+          </text>
+        )}
+      </svg>
+    </div>
+  );
+}
+
+/* ================= Educational content ================= */
+
+const FAQ_ITEMS: { q: string; a: string }[] = [
+  {
+    q: "What is the triangle angle sum theorem?",
+    a: "The triangle angle sum theorem says that the three interior angles of any flat (Euclidean) triangle always add up to exactly 180°, or π radians. It doesn't matter whether the triangle is tiny or huge, acute, right or obtuse — the sum is fixed. That is why knowing any two interior angles instantly pins down the third: γ = 180° − α − β.",
+  },
+  {
+    q: "Do three angles define a unique triangle?",
+    a: "No. Three angles tell you the shape of a triangle but not its size — any two triangles with the same three angles are similar, not congruent. Scaling every side by the same factor keeps all three angles unchanged. If you want to actually solve for side lengths, use the full Triangle Calculator, which handles SSS, SAS, ASA, AAS and SSA cases.",
+  },
+  {
+    q: "How does this relate to the exterior angle theorem?",
+    a: "The exterior angle at any vertex equals the sum of the two non-adjacent interior angles. That's a direct consequence of the angle-sum theorem: if the interior angle at C is γ, its exterior angle is 180° − γ = α + β. In fact, that identity gives one of the shortest proofs that the interior angles must sum to 180°.",
+  },
+  {
+    q: "What if my two given angles add up to 180° or more?",
+    a: "Then no triangle exists with those angles. Two interior angles must leave a positive amount for the third, so α + β has to be strictly less than 180° (or π radians). The calculator flags this instead of returning zero or a negative angle, because the situation is geometrically impossible, not just a rounding issue.",
+  },
+  {
+    q: "Does this work for right triangles?",
+    a: "Yes. A right triangle has one 90° angle, so the other two acute angles must add to 90°. Type 90 and either acute angle and the calculator returns the remaining one. For deeper right-triangle work — legs, hypotenuse, altitude, inradius — use the dedicated Right Triangle Calculator.",
+  },
+  {
+    q: "Does the theorem still hold on a curved surface?",
+    a: "No — only on a flat plane. On a sphere the angles of a triangle sum to more than 180°, and on a saddle-shaped (hyperbolic) surface they sum to less. This calculator, and the theorem it uses, assume ordinary Euclidean geometry, which is what almost every school and engineering problem needs.",
+  },
+];
+
+const GUIDE: GuideCardItem[] = [
+  {
+    key: "two-angles-degrees",
+    title: "Two angles in degrees",
+    explain:
+      "The most common case: two interior angles are known in degrees and you just need the third. Subtract both from 180° and you're done — no trigonometry required.",
+    formula: <>γ = 180° − α − β</>,
+    legend: [
+      { sym: "α, β", def: "the two known interior angles" },
+      { sym: "γ", def: "the third interior angle" },
+    ],
+    diagram: <MiniTri />,
+    example: {
+      given: <>α = 40°, β = 75°</>,
+      substitute: <>γ = 180° − 40° − 75°</>,
+      answer: <>γ = 65°</>,
+    },
+  },
+  {
+    key: "right-triangle",
+    title: "A right triangle (one angle is 90°)",
+    explain:
+      "If one angle is a right angle, the other two acute angles must add to exactly 90°. This is the fastest sanity check for any right-triangle problem — if your two acute angles don't complement, something is wrong.",
+    formula: <>γ = 90° − β &nbsp; (when α = 90°)</>,
+    legend: [
+      { sym: "α", def: "the right angle (90°)" },
+      { sym: "β, γ", def: "the two acute angles" },
+    ],
+    diagram: <MiniTri variant="right" />,
+    example: {
+      given: <>α = 90°, β = 35°</>,
+      substitute: <>γ = 180° − 90° − 35°</>,
+      answer: <>γ = 55°</>,
+    },
+  },
+  {
+    key: "radians",
+    title: "Angles in radians",
+    explain:
+      "In radians the total switches from 180° to π. The rearranged formula reads γ = π − α − β. Handy when you're feeding results straight into calculus or a physics equation that already lives in radians.",
+    formula: <>γ = π − α − β</>,
+    legend: [
+      { sym: "π", def: "180° expressed in radians (≈ 3.14159)" },
+      { sym: "α, β, γ", def: "interior angles in radians" },
+    ],
+    diagram: <MiniTri />,
+    example: {
+      given: <>α = π/3, β = π/4</>,
+      substitute: <>γ = π − π/3 − π/4</>,
+      answer: <>γ = 5π/12 ≈ 1.3090 rad (75°)</>,
+    },
+  },
+  {
+    key: "parallel-proof",
+    title: "Why it works — the parallel-line proof",
+    explain:
+      "Draw a line through vertex C parallel to side AB. Alternate interior angles pair the two outer angles at C with α at A and β at B, and the middle angle is γ. Together they fill a straight line, so α + γ + β = 180°.",
+    formula: <>α + γ + β = 180°</>,
+    legend: [
+      { sym: "AB", def: "the side opposite vertex C" },
+      { sym: "α, β, γ", def: "interior angles at A, B, C" },
+    ],
+    diagram: <MiniTri variant="parallel" />,
+    example: {
+      given: <>α = 50°, β = 60°</>,
+      substitute: <>50° + γ + 60° = 180°</>,
+      answer: <>γ = 70°</>,
+    },
+  },
+  {
+    key: "exterior-proof",
+    title: "The exterior angle shortcut",
+    explain:
+      "At any vertex the exterior angle equals the sum of the two non-adjacent interior angles. At vertex B, that says ext = α + γ. Since the exterior and interior angles at B form a straight line (ext + β = 180°), substituting gives α + β + γ = 180° in one step.",
+    formula: <>ext at B = α + γ &nbsp;⇒&nbsp; α + β + γ = 180°</>,
+    legend: [
+      { sym: "ext", def: "exterior angle at a vertex" },
+      { sym: "α, γ", def: "the two non-adjacent interior angles" },
+    ],
+    diagram: <MiniTri variant="exterior" />,
+    example: {
+      given: <>α = 45°, γ = 65°</>,
+      substitute: <>ext at B = 45° + 65° = 110°</>,
+      answer: <>β = 180° − 110° = 70°</>,
+    },
+  },
+];
+
 function PageExtras() {
   return (
     <>
@@ -353,116 +532,29 @@ function PageExtras() {
           Rearranging gives the working formula this calculator uses:{" "}
           <span className="font-serif italic">γ = 180° − α − β</span>. In
           radians the same identity reads{" "}
-          <span className="font-serif italic">γ = π − α − β</span>.
+          <span className="font-serif italic">γ = π − α − β</span>. Because
+          angles fix a triangle's shape but not its size, this result also
+          explains why any two triangles with the same three angles are
+          similar, not congruent.
         </p>
       </CalcSection>
 
-      <CalcSection title="Why it works — the parallel-line proof">
-        <p>
-          The classical proof is short and visual. Draw any triangle ABC.
-          Through vertex C, draw a line parallel to the opposite side AB. That
-          line, together with sides CA and CB, creates three angles at C that
-          together fill a straight line — so they add to 180°.
-        </p>
-        <p>
-          Now use <em>alternate interior angles</em>: side CA acts as a
-          transversal cutting the two parallel lines, so the angle it makes at
-          C on one side equals the interior angle α at vertex A. The same
-          argument on side CB pairs the other angle at C with β at vertex B.
-          The middle angle at C is just the triangle's own angle γ. Adding
-          them:
-        </p>
-        <FormulaBlock>α + γ + β = 180°</FormulaBlock>
-        <p>which is exactly the theorem.</p>
+      <CalcSection title="Triangle sum theorem, case by case">
+        <GuideCards items={GUIDE} />
       </CalcSection>
 
-      <CalcSection title="A second proof via the exterior angle theorem">
-        <p>
-          The <em>exterior angle theorem</em> says that at any vertex of a
-          triangle, the exterior angle equals the sum of the two non-adjacent
-          interior angles. At vertex C the exterior angle is{" "}
-          <span className="font-serif italic">180° − γ</span>, so
-        </p>
-        <FormulaBlock>180° − γ = α + β</FormulaBlock>
-        <p>
-          Rearranging gives{" "}
-          <span className="font-serif italic">α + β + γ = 180°</span> again.
-          Either proof works — the exterior-angle version is often quicker in
-          a written solution, while the parallel-line construction is easier
-          to draw.
-        </p>
-      </CalcSection>
-
-      <CalcSection title="Shape, not size">
-        <p>
-          The angle sum fixes a triangle's <strong>shape</strong> but not its{" "}
-          <strong>size</strong>. Any two triangles with the same three angles
-          are <em>similar</em> — one is a scaled copy of the other — so they
-          share every angle and every ratio of sides, but not the sides
-          themselves. To pin down actual side lengths you need at least one
-          length as input.
-        </p>
-        <p>
-          If that's what you're after, jump to the{" "}
-          <a
-            href="/calculators/math/triangle-calculator"
-            className="underline decoration-primary/60 underline-offset-2 hover:text-primary"
-          >
-            Triangle Calculator
-          </a>
-          , which solves SSS, SAS, ASA, AAS and the ambiguous SSA case and
-          includes a similarity / congruence checker.
-        </p>
-      </CalcSection>
-
-      <CalcSection title="Worked examples">
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
-            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              Example 1 — two angles in degrees
-            </h3>
-            <div className="text-sm text-foreground">
-              <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Given</div>
-              <FormulaBlock>α = 40°, β = 75°</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Substitute</div>
-              <FormulaBlock>γ = 180° − 40° − 75°</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Answer</div>
-              <FormulaBlock>γ = 65°</FormulaBlock>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
-            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              Example 2 — a right triangle
-            </h3>
-            <div className="text-sm text-foreground">
-              <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Given</div>
-              <FormulaBlock>α = 90°, β = 35°</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Substitute</div>
-              <FormulaBlock>γ = 180° − 90° − 35°</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Answer</div>
-              <FormulaBlock>γ = 55°</FormulaBlock>
-              <p className="mt-2 text-muted-foreground">
-                As expected for a right triangle, the two non-right angles add
-                up to 90°.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
-            <h3 className="mb-2 font-display text-base font-semibold text-foreground">
-              Example 3 — angles in radians
-            </h3>
-            <div className="text-sm text-foreground">
-              <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Given</div>
-              <FormulaBlock>α = π/3, β = π/4</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Substitute</div>
-              <FormulaBlock>γ = π − π/3 − π/4</FormulaBlock>
-              <div className="mb-1 mt-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Answer</div>
-              <FormulaBlock>γ = 5π/12 ≈ 1.3090 rad (75°)</FormulaBlock>
-            </div>
-          </div>
-        </div>
+      <CalcSection title="Formulas at a glance">
+        <ReferenceTable
+          headers={["Situation", "Formula", "Notes"]}
+          rows={[
+            [<>Third angle (degrees)</>, <span className="font-serif italic">γ = 180° − α − β</span>, "Requires α + β &lt; 180°."],
+            [<>Third angle (radians)</>, <span className="font-serif italic">γ = π − α − β</span>, "Requires α + β &lt; π."],
+            [<>Right triangle</>, <span className="font-serif italic">β + γ = 90°</span>, "One angle is 90°; the other two are complementary."],
+            [<>Equilateral</>, <span className="font-serif italic">α = β = γ = 60°</span>, "Only triangle with three equal angles."],
+            [<>Exterior angle</>, <span className="font-serif italic">ext = α + γ</span>, "Exterior at B equals sum of the other two interior angles."],
+            [<>Degrees ↔ radians</>, <span className="font-serif italic">rad = deg · π/180</span>, "180° = π radians."],
+          ]}
+        />
       </CalcSection>
 
       <CalcSection title="What this tool does for you">
@@ -497,6 +589,7 @@ function PageExtras() {
     </>
   );
 }
+
 
 export const Route = createFileRoute("/calculators/math/triangle-sum-theorem-calculator")({
   head: () =>
