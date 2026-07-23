@@ -60,3 +60,53 @@ export const TO_M3: Record<string, number> = {
   ft: 0.3048 ** 3,
   yd: 0.9144 ** 3,
 };
+
+/* ================= Law of Cosines ==================
+ * Shared helpers used by both the general Triangle Calculator (SAS/SSS
+ * branches) and the dedicated Law of Cosines Calculator. Angles are in
+ * radians; sides are unit-agnostic (the caller labels the display unit).
+ */
+
+/**
+ * SAS branch: given two sides and the included angle (radians),
+ * return the length of the third side.
+ *
+ *   c = √( a² + b² − 2ab·cos(C) )
+ */
+export function solveCosineLawSide(
+  s1: number,
+  s2: number,
+  includedAngleRad: number,
+): number {
+  const sq = s1 * s1 + s2 * s2 - 2 * s1 * s2 * Math.cos(includedAngleRad);
+  // Guard against tiny negative values from floating-point rounding.
+  return Math.sqrt(Math.max(0, sq));
+}
+
+/**
+ * SSS branch: given three side lengths, return the angle (radians)
+ * opposite `opposite`, using the rearranged law of cosines
+ *
+ *   cos(θ) = (s1² + s2² − opposite²) / (2·s1·s2)
+ *
+ * where s1 and s2 are the two sides adjacent to θ. Clamps the argument
+ * to [-1, 1] so floating-point drift never produces NaN.
+ */
+export function solveCosineLawAngle(
+  opposite: number,
+  s1: number,
+  s2: number,
+): number {
+  const cosTheta = (s1 * s1 + s2 * s2 - opposite * opposite) / (2 * s1 * s2);
+  const clamped = Math.min(1, Math.max(-1, cosTheta));
+  return Math.acos(clamped);
+}
+
+/**
+ * Triangle-inequality check. Returns true when the three sides can form
+ * a valid triangle (sum of any two > the third, strictly).
+ */
+export function isValidTriangleSides(a: number, b: number, c: number): boolean {
+  return a + b > c && a + c > b && b + c > a;
+}
+

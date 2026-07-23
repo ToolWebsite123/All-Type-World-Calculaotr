@@ -1380,10 +1380,23 @@ function PythagEducation() {
           When C = 90°, cos(C) = 0 and the extra term vanishes — you're back to
           a² + b² = c². When C is smaller than 90° the extra term is subtracted,
           making c shorter; when C is larger than 90° cos(C) is negative and the
-          term adds, making c longer. Use our Triangle Calculator when you need
-          the full Law-of-Cosines solver.
+          term adds, making c longer. Reach for the dedicated{" "}
+          <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/law-of-cosines-calculator">
+            Law of Cosines Calculator
+          </a>{" "}
+          for a straight SAS/SSS solver, or the full Triangle Calculator when
+          you want every side, angle, area and circle radius in one pass.
         </p>
+        <div className="mt-3">
+          <RelatedLinks
+            links={[
+              { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator" },
+              { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator" },
+            ]}
+          />
+        </div>
       </CalcSection>
+
 
 
       <CalcSection title="Where you'll actually use it">

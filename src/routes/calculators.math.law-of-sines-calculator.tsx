@@ -623,8 +623,9 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "What if my inputs describe an SAS or SSS triangle?",
-    a: "The law of sines can't start those — there is no side–angle pair to anchor the ratio. Use the full Triangle Calculator instead: it applies the law of cosines to SAS and SSS and returns the same full set of derived values (sides, angles, area, perimeter, R and r).",
+    a: "The law of sines can't start those — there is no side–angle pair to anchor the ratio. Use the dedicated Law of Cosines Calculator for a straight SAS/SSS solver, or the full Triangle Calculator if you want every derived value (sides, angles, area, perimeter, R and r) in one pass.",
   },
+
 ];
 
 const GUIDE: GuideCardItem[] = [
@@ -749,12 +750,17 @@ function PageExtras() {
           <strong>AAS</strong> (two angles and a side not between them), and
           the famous <strong>SSA ambiguous case</strong> (two sides and a
           non-included angle). For SAS or SSS — where no side is paired with
-          its opposite angle — use the{" "}
+          its opposite angle — use the dedicated{" "}
+          <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/law-of-cosines-calculator">
+            Law of Cosines Calculator
+          </a>{" "}
+          or the{" "}
           <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/triangle-calculator">
             full Triangle Calculator
           </a>
-          , which applies the law of cosines to handle those cases.
+          , which apply the law of cosines to handle those cases.
         </p>
+
       </CalcSection>
 
       <CalcSection title="Law of sines, case by case">
@@ -796,7 +802,8 @@ function PageExtras() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
-            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (SAS / SSS cases, plus everything else)" },
+            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator (SAS & SSS)" },
+            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (all cases, plus everything else)" },
             { to: "/calculators/math/triangle-sum-theorem-calculator", label: "Triangle Sum Theorem Calculator (find the third angle)" },
             { to: "/calculators/math/right-triangle-calculator", label: "Right Triangle Calculator (one 90° angle)" },
             { to: "/calculators/math/isosceles-triangle-calculator", label: "Isosceles Triangle Calculator" },

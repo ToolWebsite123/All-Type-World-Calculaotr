@@ -20,6 +20,12 @@ import {
 } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 import type { ReactNode } from "react";
+import {
+  solveCosineLawSide,
+  solveCosineLawAngle,
+  isValidTriangleSides,
+} from "@/lib/math/geometry-shared";
+
 
 /** Centered display-math line used inside solution steps. */
 function MathLine({ children }: { children: ReactNode }) {
@@ -212,12 +218,13 @@ function solveTriangle(input: {
   // ===== SSS: 3 sides =====
   if (sides.length === 3) {
     const sa = a!, sb = b!, sc = c!;
-    if (sa + sb <= sc || sa + sc <= sb || sb + sc <= sa)
+    if (!isValidTriangleSides(sa, sb, sc))
       throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side.");
 
-    const A2 = Math.acos((sb * sb + sc * sc - sa * sa) / (2 * sb * sc));
-    const B2 = Math.acos((sa * sa + sc * sc - sb * sb) / (2 * sa * sc));
+    const A2 = solveCosineLawAngle(sa, sb, sc);
+    const B2 = solveCosineLawAngle(sb, sa, sc);
     const C2 = Math.PI - A2 - B2;
+
 
     stepList.push({
       title: "Detected SSS — three sides given",
@@ -271,11 +278,12 @@ function solveTriangle(input: {
       const angleV = missingSide === "a" ? A! : missingSide === "b" ? B! : C!;
       const s1 = missingSide === "a" ? b! : missingSide === "b" ? a! : a!;
       const s2 = missingSide === "a" ? c! : missingSide === "b" ? c! : b!;
-      const sq = s1 * s1 + s2 * s2 - 2 * s1 * s2 * Math.cos(angleV);
-      const m = Math.sqrt(sq);
+      const m = solveCosineLawSide(s1, s2, angleV);
+      const sq = m * m;
       if (missingSide === "a") a = m;
       else if (missingSide === "b") b = m;
       else c = m;
+
 
       stepList.push({
         title: "Detected SAS — two sides and the included angle",
@@ -299,8 +307,9 @@ function solveTriangle(input: {
       });
 
       const [ra, rb, rc] = [a!, b!, c!];
-      const A2 = has(A) ? A! : Math.acos((rb * rb + rc * rc - ra * ra) / (2 * rb * rc));
-      const B2 = has(B) ? B! : Math.acos((ra * ra + rc * rc - rb * rb) / (2 * ra * rc));
+      const A2 = has(A) ? A! : solveCosineLawAngle(ra, rb, rc);
+      const B2 = has(B) ? B! : solveCosineLawAngle(rb, ra, rc);
+
       const C2 = has(C) ? C! : Math.PI - A2 - B2;
 
       stepList.push({
@@ -1727,12 +1736,15 @@ function TriangleEducation() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
+            { to: "/calculators/math/law-of-sines-calculator", label: "Law of Sines Calculator" },
+            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator" },
             { to: "/calculators/math/area-calculator", label: "Area Calculator" },
             { to: "/calculators/math", label: "All Math Calculators" },
             { to: "/calculators/math/root-calculator", label: "Square Root Calculator" },
           ]}
         />
       </CalcSection>
+
     </>
   );
 }
