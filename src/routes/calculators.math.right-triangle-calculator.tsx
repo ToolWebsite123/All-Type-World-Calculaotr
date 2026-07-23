@@ -44,7 +44,7 @@ function MathNote({ children }: { children: ReactNode }) {
 /* ================= Math core ================= */
 
 type AngleUnit = "deg" | "rad";
-type FieldKey = "a" | "b" | "c" | "alpha" | "beta" | "h" | "area" | "perim";
+
 
 interface Inputs {
   a?: number; b?: number; c?: number;
