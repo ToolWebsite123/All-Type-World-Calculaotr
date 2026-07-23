@@ -42,7 +42,7 @@ function MathNote({ children }: { children: ReactNode }) {
 function RightTriangleDiagram({
   a,
   b,
-  c,
+  c: _c,
   aLabel = "a",
   bLabel = "b",
   cLabel = "c",
@@ -56,10 +56,9 @@ function RightTriangleDiagram({
   cLabel?: string;
   unknown?: "a" | "b" | "c";
 }) {
-  // Scale so the longest leg fits nicely.
-  const W = 260;
-  const H = 180;
-  const pad = 26;
+  const W = 320;
+  const H = 220;
+  const pad = 34;
   const s = Math.min((W - 2 * pad) / b, (H - 2 * pad) / a);
   const bx = b * s;
   const ay = a * s;
@@ -67,33 +66,44 @@ function RightTriangleDiagram({
   const y0 = H - pad;
   const x1 = x0 + bx;
   const y1 = y0 - ay;
-  const stroke = "hsl(var(--foreground))";
-  const dim = "hsl(var(--muted-foreground))";
-  const accent = "hsl(var(--primary))";
+  const stroke = "currentColor";
+  const dim = "var(--muted-foreground)";
+  const accent = "var(--primary)";
   const legColor = (which: "a" | "b" | "c") =>
     unknown === which ? accent : stroke;
   return (
-    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3">
-      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label="right triangle diagram">
+    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3 text-foreground">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label="right triangle diagram"
+        className="w-full max-w-[320px] h-auto"
+      >
+        {/* triangle fill */}
+        <polygon
+          points={`${x0},${y0} ${x1},${y0} ${x0},${y1}`}
+          style={{ fill: accent, opacity: 0.08 }}
+        />
         {/* right-angle square */}
-        <rect x={x0} y={y0 - 10} width={10} height={10} fill="none" stroke={dim} />
-        {/* triangle */}
-        <line x1={x0} y1={y0} x2={x1} y2={y0} stroke={legColor("b")} strokeWidth={2} />
-        <line x1={x0} y1={y0} x2={x0} y2={y1} stroke={legColor("a")} strokeWidth={2} />
-        <line x1={x0} y1={y1} x2={x1} y2={y0} stroke={legColor("c")} strokeWidth={2} />
+        <rect x={x0} y={y0 - 12} width={12} height={12} fill="none" style={{ stroke: dim }} strokeWidth={1.5} />
+        {/* triangle sides */}
+        <line x1={x0} y1={y0} x2={x1} y2={y0} style={{ stroke: legColor("b") }} strokeWidth={3} strokeLinecap="round" />
+        <line x1={x0} y1={y0} x2={x0} y2={y1} style={{ stroke: legColor("a") }} strokeWidth={3} strokeLinecap="round" />
+        <line x1={x0} y1={y1} x2={x1} y2={y0} style={{ stroke: legColor("c") }} strokeWidth={3} strokeLinecap="round" />
         {/* labels */}
-        <text x={x0 - 8} y={(y0 + y1) / 2} fill={legColor("a")} fontSize="13" textAnchor="end" dominantBaseline="middle" fontStyle="italic">{aLabel}</text>
-        <text x={(x0 + x1) / 2} y={y0 + 16} fill={legColor("b")} fontSize="13" textAnchor="middle" fontStyle="italic">{bLabel}</text>
-        <text x={(x0 + x1) / 2 + 8} y={(y0 + y1) / 2 - 6} fill={legColor("c")} fontSize="13" textAnchor="start" fontStyle="italic">{cLabel}</text>
+        <text x={x0 - 12} y={(y0 + y1) / 2} style={{ fill: legColor("a") }} fontSize="16" fontWeight="600" textAnchor="end" dominantBaseline="middle" fontStyle="italic">{aLabel}</text>
+        <text x={(x0 + x1) / 2} y={y0 + 22} style={{ fill: legColor("b") }} fontSize="16" fontWeight="600" textAnchor="middle" fontStyle="italic">{bLabel}</text>
+        <text x={(x0 + x1) / 2 + 10} y={(y0 + y1) / 2 - 8} style={{ fill: legColor("c") }} fontSize="16" fontWeight="600" textAnchor="start" fontStyle="italic">{cLabel}</text>
       </svg>
     </div>
   );
 }
 
+
 function BoxDiagonalDiagram({ l, w, h }: { l: number; w: number; h: number }) {
-  const W = 260;
-  const H = 180;
-  const pad = 30;
+  const W = 320;
+  const H = 220;
+  const pad = 36;
   const s = Math.min((W - 2 * pad) / (l + w * 0.5), (H - 2 * pad) / (h + w * 0.5));
   const lx = l * s;
   const hy = h * s;
@@ -101,42 +111,45 @@ function BoxDiagonalDiagram({ l, w, h }: { l: number; w: number; h: number }) {
   const dy = w * 0.5 * s;
   const x0 = pad;
   const y0 = H - pad;
-  const stroke = "hsl(var(--foreground))";
-  const dim = "hsl(var(--muted-foreground))";
-  const accent = "hsl(var(--primary))";
-  // corners of the front face
+  const stroke = "currentColor";
+  const dim = "var(--muted-foreground)";
+  const accent = "var(--primary)";
   const A = [x0, y0];
   const B = [x0 + lx, y0];
   const C = [x0 + lx, y0 - hy];
   const D = [x0, y0 - hy];
-  // back face
   const A2 = [A[0] + dx, A[1] - dy];
   const B2 = [B[0] + dx, B[1] - dy];
   const C2 = [C[0] + dx, C[1] - dy];
   const D2 = [D[0] + dx, D[1] - dy];
   return (
-    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3">
-      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label="box space diagonal diagram">
-        {/* back face */}
-        <polygon points={`${A2[0]},${A2[1]} ${B2[0]},${B2[1]} ${C2[0]},${C2[1]} ${D2[0]},${D2[1]}`} fill="none" stroke={dim} strokeDasharray="3 3" />
-        {/* connectors */}
-        <line x1={A[0]} y1={A[1]} x2={A2[0]} y2={A2[1]} stroke={dim} strokeDasharray="3 3" />
-        <line x1={B[0]} y1={B[1]} x2={B2[0]} y2={B2[1]} stroke={stroke} />
-        <line x1={C[0]} y1={C[1]} x2={C2[0]} y2={C2[1]} stroke={stroke} />
-        <line x1={D[0]} y1={D[1]} x2={D2[0]} y2={D2[1]} stroke={stroke} />
-        {/* front face */}
-        <polygon points={`${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]} ${D[0]},${D[1]}`} fill="none" stroke={stroke} strokeWidth={1.5} />
-        {/* space diagonal A → C2 */}
-        <line x1={A[0]} y1={A[1]} x2={C2[0]} y2={C2[1]} stroke={accent} strokeWidth={2} />
+    <div className="flex items-center justify-center rounded-xl border border-border/60 bg-secondary/20 p-3 text-foreground">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label="box space diagonal diagram"
+        className="w-full max-w-[320px] h-auto"
+      >
+        {/* back face + hidden edges */}
+        <polygon points={`${A2[0]},${A2[1]} ${B2[0]},${B2[1]} ${C2[0]},${C2[1]} ${D2[0]},${D2[1]}`} fill="none" style={{ stroke: dim }} strokeWidth={1.5} strokeDasharray="4 3" />
+        <line x1={A[0]} y1={A[1]} x2={A2[0]} y2={A2[1]} style={{ stroke: dim }} strokeWidth={1.5} strokeDasharray="4 3" />
+        {/* box edges */}
+        <line x1={B[0]} y1={B[1]} x2={B2[0]} y2={B2[1]} style={{ stroke: stroke }} strokeWidth={2} />
+        <line x1={C[0]} y1={C[1]} x2={C2[0]} y2={C2[1]} style={{ stroke: stroke }} strokeWidth={2} />
+        <line x1={D[0]} y1={D[1]} x2={D2[0]} y2={D2[1]} style={{ stroke: stroke }} strokeWidth={2} />
+        <polygon points={`${A[0]},${A[1]} ${B[0]},${B[1]} ${C[0]},${C[1]} ${D[0]},${D[1]}`} fill="none" style={{ stroke: stroke }} strokeWidth={2} />
+        {/* space diagonal */}
+        <line x1={A[0]} y1={A[1]} x2={C2[0]} y2={C2[1]} style={{ stroke: accent }} strokeWidth={3} strokeLinecap="round" />
         {/* labels */}
-        <text x={(A[0] + B[0]) / 2} y={A[1] + 14} fill={stroke} fontSize="12" textAnchor="middle" fontStyle="italic">l</text>
-        <text x={B[0] + 6} y={(B[1] + C[1]) / 2} fill={stroke} fontSize="12" fontStyle="italic">h</text>
-        <text x={(B[0] + B2[0]) / 2 + 4} y={(B[1] + B2[1]) / 2 + 4} fill={stroke} fontSize="12" fontStyle="italic">w</text>
-        <text x={(A[0] + C2[0]) / 2 - 10} y={(A[1] + C2[1]) / 2 - 4} fill={accent} fontSize="12" fontStyle="italic">d</text>
+        <text x={(A[0] + B[0]) / 2} y={A[1] + 18} style={{ fill: stroke }} fontSize="14" fontWeight="600" textAnchor="middle" fontStyle="italic">l</text>
+        <text x={B[0] + 8} y={(B[1] + C[1]) / 2} style={{ fill: stroke }} fontSize="14" fontWeight="600" fontStyle="italic">h</text>
+        <text x={(B[0] + B2[0]) / 2 + 6} y={(B[1] + B2[1]) / 2 + 4} style={{ fill: stroke }} fontSize="14" fontWeight="600" fontStyle="italic">w</text>
+        <text x={(A[0] + C2[0]) / 2 - 14} y={(A[1] + C2[1]) / 2 - 6} style={{ fill: accent }} fontSize="14" fontWeight="700" fontStyle="italic">d</text>
       </svg>
     </div>
   );
 }
+
 
 const PY_GUIDE: GuideCardItem[] = [
   {
