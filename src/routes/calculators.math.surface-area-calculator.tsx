@@ -1491,6 +1491,113 @@ function SAEducation() {
         </p>
       </CalcSection>
 
+      <CalcSection title="How this Surface Area Calculator works">
+        <p>
+          Pick one of the 13 solids from the shape row at the top of the
+          calculator. The input grid updates instantly to ask only for the
+          dimensions that shape actually needs — a sphere asks for a single
+          radius, a cone asks for base radius and height, a conical frustum
+          asks for two radii and a height, and so on. Type your numbers in
+          the length unit you're already working in (mm, cm, m, km, in, ft
+          or yd) — you don't have to convert anything by hand.
+        </p>
+        <p>
+          As soon as the inputs are valid, three numbers appear in the
+          results panel: <strong>total</strong> surface area,{" "}
+          <strong>lateral</strong> surface area (the wrap-around sides on
+          their own) and <strong>base</strong> surface area (the flat top
+          and/or bottom on their own). Each number is shown in your chosen
+          unit and then re-expressed in m², ft², yd², in² and cm², so you
+          can hand the answer straight to a supplier, a spec sheet or a
+          quote without another conversion step.
+        </p>
+        <p>
+          Open the step-by-step panel and you'll see the exact formula used
+          for that shape, every intermediate derivation (slant height,
+          triangular perimeter via Heron's formula, spherical-cap base
+          radius from a² = h(2R − h), and so on), the substitution of your
+          numbers, and the final total. Change the significant-figures
+          selector (3 to 10) and every displayed value re-rounds live.
+        </p>
+      </CalcSection>
+
+      <CalcSection title="What each shape asks you to enter">
+        <p className="text-sm text-muted-foreground">
+          A quick reference for the inputs the calculator expects for every
+          one of the 13 solids — so you know exactly what to measure before
+          you type.
+        </p>
+        <ul className="ml-5 mt-2 list-disc space-y-1.5">
+          <li><strong>Sphere</strong> — radius <em>r</em>.</li>
+          <li><strong>Cube</strong> — edge length <em>s</em>.</li>
+          <li><strong>Cylinder</strong> — base radius <em>r</em> and height <em>h</em>.</li>
+          <li><strong>Cone</strong> — base radius <em>r</em> and vertical height <em>h</em> (slant height is derived).</li>
+          <li><strong>Rectangular tank</strong> — length <em>l</em>, width <em>w</em> and height <em>h</em>.</li>
+          <li><strong>Capsule</strong> — end-cap radius <em>r</em> and cylindrical body length <em>h</em>.</li>
+          <li><strong>Spherical cap</strong> — any two of ball radius <em>R</em>, cap height <em>h</em> and base radius <em>a</em> (the third is derived from a² = h(2R − h)).</li>
+          <li><strong>Conical frustum</strong> — bottom radius <em>r₁</em>, top radius <em>r₂</em> and vertical height <em>h</em>.</li>
+          <li><strong>Ellipsoid</strong> — three semi-axes <em>a</em>, <em>b</em>, <em>c</em>.</li>
+          <li><strong>Pyramid (rectangular base)</strong> — base length <em>l</em>, base width <em>w</em> and apex height <em>h</em>.</li>
+          <li><strong>Triangular prism</strong> — either right-triangle mode (base <em>b</em>, height <em>h</em>) or any-triangle mode (three sides <em>a</em>, <em>b</em>, <em>c</em>), plus prism length <em>L</em>.</li>
+          <li><strong>Tube (hollow cylinder)</strong> — outer radius <em>R</em>, inner radius <em>r</em> and length <em>L</em>.</li>
+          <li><strong>Torus</strong> — major radius <em>R</em> (centre-to-tube) and tube radius <em>r</em>.</li>
+        </ul>
+      </CalcSection>
+
+      <CalcSection title="Total vs lateral vs base — which one do you actually need?">
+        <p>
+          The most common mistake with surface-area problems is quoting the
+          wrong one of the three. This calculator always shows all three
+          because different jobs need different pieces:
+        </p>
+        <ul className="ml-5 list-disc space-y-1.5">
+          <li>
+            <strong>Total surface area</strong> is what you want when you're
+            covering the whole outside — gift-wrapping a box, powder-coating
+            a part, or estimating heat loss from a fully exposed object.
+          </li>
+          <li>
+            <strong>Lateral surface area</strong> is the side walls only. Use
+            it when the top and/or bottom don't get covered — painting the
+            outside of a silo that sits on the ground, labelling the wrapper
+            of a tin can, or calculating the fabric for the side of a
+            lampshade.
+          </li>
+          <li>
+            <strong>Base surface area</strong> is the flat top and/or bottom
+            on its own — the footprint that sits on the floor, the lid of a
+            tank, or the two circular ends of a can you'd cut from sheet
+            metal separately.
+          </li>
+        </ul>
+        <p>
+          For a sphere and a torus there's no flat base, so lateral and total
+          are the same number. For a cube, cylinder, cone, box and pyramid,
+          lateral + base always equals total exactly — a handy built-in
+          sanity check.
+        </p>
+      </CalcSection>
+
+      <CalcSection title="Units, precision and rounding">
+        <p>
+          Enter your dimensions in any single length unit — the calculator
+          does not mix units within one shape, so if height is in
+          centimetres, radius must be in centimetres too. Internally every
+          value is converted to metres, the surface area is computed in m²,
+          and then the result is projected back into your chosen unit and
+          simultaneously shown in m², ft², yd², in² and cm² so you can pick
+          whichever your project uses.
+        </p>
+        <p>
+          Choose 3 significant figures for a quick estimate, 4 to 6 for
+          typical engineering and school work, and 7 to 10 when you're
+          feeding the number into a downstream calculation and want to
+          minimise round-off error. Very large or very small numbers switch
+          to scientific notation automatically so the results grid never
+          overflows.
+        </p>
+      </CalcSection>
+
       <CalcSection title="Surface area, shape by shape">
         <p className="text-sm text-muted-foreground">
           One card per solid — the geometric idea, its formula with each variable
@@ -1498,6 +1605,30 @@ function SAEducation() {
           hand-checked numeric example.
         </p>
         <GuideCards items={SA_GUIDE} />
+      </CalcSection>
+
+      <CalcSection title="Where surface area matters in real life">
+        <p>
+          Surface area isn't just an exam topic — it drives a surprising
+          amount of everyday engineering, design and biology.
+        </p>
+        <ul className="ml-5 list-disc space-y-1.5">
+          <li><strong>Painting and coating</strong> — paint coverage is quoted per m² or ft², so tank painters, car refinishers and decorators size the job straight from surface area.</li>
+          <li><strong>Heat transfer</strong> — radiators, heat sinks and cooling fins are deliberately shaped to maximise surface area per unit volume, because heat flow is proportional to area.</li>
+          <li><strong>Packaging and material cost</strong> — the amount of cardboard, sheet metal or plastic film needed for a container is exactly its surface area.</li>
+          <li><strong>Chemistry and biology</strong> — reaction rates and gas exchange (lungs, gills, leaves) scale with surface area, which is why small animals and finely divided catalysts behave so differently from large ones.</li>
+          <li><strong>Construction estimates</strong> — plastering, tiling, cladding, insulation and waterproofing are all priced from the surface area of walls, roofs and tanks.</li>
+        </ul>
+      </CalcSection>
+
+      <CalcSection title="Tips and common mistakes">
+        <ul className="ml-5 list-disc space-y-1.5">
+          <li>Mixing units — enter every dimension of one shape in the same unit; convert first if a measurement was taken in a different one.</li>
+          <li>Using diameter where radius is asked (or vice versa) — most formulas here use radius; halve the diameter first.</li>
+          <li>Confusing slant height with vertical height on cones and pyramids — this calculator asks for vertical height and derives the slant, so measure the perpendicular from apex to base.</li>
+          <li>Quoting total when the job only needs lateral (painting the sides of a tank, wrapping the side of a can) — pick the right one of the three numbers reported.</li>
+          <li>Forgetting square units — the result is in units squared, not units. Doubling every input multiplies the surface area by 4, not by 2.</li>
+        </ul>
       </CalcSection>
 
       <CalcSection title="Common area unit conversions">
