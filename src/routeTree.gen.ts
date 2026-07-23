@@ -86,6 +86,7 @@ import { Route as CalculatorsMathLogCalculatorRouteImport } from './routes/calcu
 import { Route as CalculatorsMathLinearRegressionCalculatorRouteImport } from './routes/calculators.math.linear-regression-calculator'
 import { Route as CalculatorsMathLcmCalculatorRouteImport } from './routes/calculators.math.lcm-calculator'
 import { Route as CalculatorsMathLawOfSinesCalculatorRouteImport } from './routes/calculators.math.law-of-sines-calculator'
+import { Route as CalculatorsMathLawOfCosinesCalculatorRouteImport } from './routes/calculators.math.law-of-cosines-calculator'
 import { Route as CalculatorsMathKruskalWallisCalculatorRouteImport } from './routes/calculators.math.kruskal-wallis-calculator'
 import { Route as CalculatorsMathIsoscelesTriangleCalculatorRouteImport } from './routes/calculators.math.isosceles-triangle-calculator'
 import { Route as CalculatorsMathInterpolationCalculatorRouteImport } from './routes/calculators.math.interpolation-calculator'
@@ -580,6 +581,12 @@ const CalculatorsMathLawOfSinesCalculatorRoute =
     path: '/law-of-sines-calculator',
     getParentRoute: () => CalculatorsMathRoute,
   } as any)
+const CalculatorsMathLawOfCosinesCalculatorRoute =
+  CalculatorsMathLawOfCosinesCalculatorRouteImport.update({
+    id: '/law-of-cosines-calculator',
+    path: '/law-of-cosines-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
 const CalculatorsMathKruskalWallisCalculatorRoute =
   CalculatorsMathKruskalWallisCalculatorRouteImport.update({
     id: '/kruskal-wallis-calculator',
@@ -902,6 +909,7 @@ export interface FileRoutesByFullPath {
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
   '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/law-of-cosines-calculator': typeof CalculatorsMathLawOfCosinesCalculatorRoute
   '/calculators/math/law-of-sines-calculator': typeof CalculatorsMathLawOfSinesCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -1024,6 +1032,7 @@ export interface FileRoutesByTo {
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
   '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/law-of-cosines-calculator': typeof CalculatorsMathLawOfCosinesCalculatorRoute
   '/calculators/math/law-of-sines-calculator': typeof CalculatorsMathLawOfSinesCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -1148,6 +1157,7 @@ export interface FileRoutesById {
   '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
   '/calculators/math/isosceles-triangle-calculator': typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/law-of-cosines-calculator': typeof CalculatorsMathLawOfCosinesCalculatorRoute
   '/calculators/math/law-of-sines-calculator': typeof CalculatorsMathLawOfSinesCalculatorRoute
   '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
   '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -1273,6 +1283,7 @@ export interface FileRouteTypes {
     | '/calculators/math/interpolation-calculator'
     | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/law-of-cosines-calculator'
     | '/calculators/math/law-of-sines-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -1395,6 +1406,7 @@ export interface FileRouteTypes {
     | '/calculators/math/interpolation-calculator'
     | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/law-of-cosines-calculator'
     | '/calculators/math/law-of-sines-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -1518,6 +1530,7 @@ export interface FileRouteTypes {
     | '/calculators/math/interpolation-calculator'
     | '/calculators/math/isosceles-triangle-calculator'
     | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/law-of-cosines-calculator'
     | '/calculators/math/law-of-sines-calculator'
     | '/calculators/math/lcm-calculator'
     | '/calculators/math/linear-regression-calculator'
@@ -2142,6 +2155,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsMathLawOfSinesCalculatorRouteImport
       parentRoute: typeof CalculatorsMathRoute
     }
+    '/calculators/math/law-of-cosines-calculator': {
+      id: '/calculators/math/law-of-cosines-calculator'
+      path: '/law-of-cosines-calculator'
+      fullPath: '/calculators/math/law-of-cosines-calculator'
+      preLoaderRoute: typeof CalculatorsMathLawOfCosinesCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
     '/calculators/math/kruskal-wallis-calculator': {
       id: '/calculators/math/kruskal-wallis-calculator'
       path: '/kruskal-wallis-calculator'
@@ -2497,6 +2517,7 @@ interface CalculatorsMathRouteChildren {
   CalculatorsMathInterpolationCalculatorRoute: typeof CalculatorsMathInterpolationCalculatorRoute
   CalculatorsMathIsoscelesTriangleCalculatorRoute: typeof CalculatorsMathIsoscelesTriangleCalculatorRoute
   CalculatorsMathKruskalWallisCalculatorRoute: typeof CalculatorsMathKruskalWallisCalculatorRoute
+  CalculatorsMathLawOfCosinesCalculatorRoute: typeof CalculatorsMathLawOfCosinesCalculatorRoute
   CalculatorsMathLawOfSinesCalculatorRoute: typeof CalculatorsMathLawOfSinesCalculatorRoute
   CalculatorsMathLcmCalculatorRoute: typeof CalculatorsMathLcmCalculatorRoute
   CalculatorsMathLinearRegressionCalculatorRoute: typeof CalculatorsMathLinearRegressionCalculatorRoute
@@ -2642,6 +2663,8 @@ const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
     CalculatorsMathIsoscelesTriangleCalculatorRoute,
   CalculatorsMathKruskalWallisCalculatorRoute:
     CalculatorsMathKruskalWallisCalculatorRoute,
+  CalculatorsMathLawOfCosinesCalculatorRoute:
+    CalculatorsMathLawOfCosinesCalculatorRoute,
   CalculatorsMathLawOfSinesCalculatorRoute:
     CalculatorsMathLawOfSinesCalculatorRoute,
   CalculatorsMathLcmCalculatorRoute: CalculatorsMathLcmCalculatorRoute,

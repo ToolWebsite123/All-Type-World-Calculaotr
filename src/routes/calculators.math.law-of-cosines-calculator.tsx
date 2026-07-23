@@ -806,7 +806,7 @@ function WorkedExampleBlock({ title, steps }: { title: string; steps: Step[] }) 
   return (
     <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
       <h3 className="mb-3 font-display text-base font-semibold text-foreground">{title}</h3>
-      <StepsToggle steps={steps} defaultOpen />
+      <StepsToggle steps={steps} />
     </div>
   );
 }
