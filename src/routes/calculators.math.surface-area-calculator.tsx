@@ -1396,6 +1396,19 @@ const SA_GUIDE: GuideCardItem[] = [
     },
   },
   {
+    key: "cube",
+    title: "Cube",
+    explain: "Six identical square faces. Because every face has the same area s², the total surface is simply six of them added together.",
+    formula: <>S = 6 s²</>,
+    legend: [{ sym: "s", def: "edge length" }],
+    diagram: <ShapeDiagram shape="cube" inputs={{ s: "s" }} prismMode="bh" />,
+    example: {
+      given: <>s = 4</>,
+      substitute: <>6 × 4² = 6 × 16</>,
+      answer: <>96 sq units</>,
+    },
+  },
+  {
     key: "cylinder",
     title: "Cylinder",
     explain: "Two circular ends and one rectangular side. The side unrolls into a rectangle of width 2πr (the circumference) and height h.",
