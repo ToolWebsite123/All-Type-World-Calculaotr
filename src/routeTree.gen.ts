@@ -9,38 +9,1557 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalculatorsIndexRouteImport } from './routes/calculators.index'
+import { Route as CalculatorsUnitConvertersRouteImport } from './routes/calculators.unit-converters'
+import { Route as CalculatorsMathRouteImport } from './routes/calculators.math'
+import { Route as CalculatorsHealthRouteImport } from './routes/calculators.health'
+import { Route as CalculatorsFinanceRouteImport } from './routes/calculators.finance'
+import { Route as CalculatorsEducationRouteImport } from './routes/calculators.education'
+import { Route as CalculatorsDateTimeRouteImport } from './routes/calculators.date-time'
+import { Route as CalculatorsMathIndexRouteImport } from './routes/calculators.math.index'
+import { Route as CalculatorsMathZScoreCalculatorRouteImport } from './routes/calculators.math.z-score-calculator'
+import { Route as CalculatorsMathWilcoxonCalculatorRouteImport } from './routes/calculators.math.wilcoxon-calculator'
+import { Route as CalculatorsMathWeightedMeanCalculatorRouteImport } from './routes/calculators.math.weighted-mean-calculator'
+import { Route as CalculatorsMathVolumeCalculatorRouteImport } from './routes/calculators.math.volume-calculator'
+import { Route as CalculatorsMathVectorCalculatorRouteImport } from './routes/calculators.math.vector-calculator'
+import { Route as CalculatorsMathUnitCircleCalculatorRouteImport } from './routes/calculators.math.unit-circle-calculator'
+import { Route as CalculatorsMathUniformDistributionCalculatorRouteImport } from './routes/calculators.math.uniform-distribution-calculator'
+import { Route as CalculatorsMathTriangleCalculatorRouteImport } from './routes/calculators.math.triangle-calculator'
+import { Route as CalculatorsMathTTestCalculatorRouteImport } from './routes/calculators.math.t-test-calculator'
+import { Route as CalculatorsMathSurfaceAreaCalculatorRouteImport } from './routes/calculators.math.surface-area-calculator'
+import { Route as CalculatorsMathStatisticsCalculatorRouteImport } from './routes/calculators.math.statistics-calculator'
+import { Route as CalculatorsMathStandardErrorCalculatorRouteImport } from './routes/calculators.math.standard-error-calculator'
+import { Route as CalculatorsMathStandardDeviationCalculatorRouteImport } from './routes/calculators.math.standard-deviation-calculator'
+import { Route as CalculatorsMathSpearmanCorrelationCalculatorRouteImport } from './routes/calculators.math.spearman-correlation-calculator'
+import { Route as CalculatorsMathSlopeInterceptCalculatorRouteImport } from './routes/calculators.math.slope-intercept-calculator'
+import { Route as CalculatorsMathSlopeCalculatorRouteImport } from './routes/calculators.math.slope-calculator'
+import { Route as CalculatorsMathSkewnessKurtosisCalculatorRouteImport } from './routes/calculators.math.skewness-kurtosis-calculator'
+import { Route as CalculatorsMathSimultaneousEquationsCalculatorRouteImport } from './routes/calculators.math.simultaneous-equations-calculator'
+import { Route as CalculatorsMathSimplifyRadicalCalculatorRouteImport } from './routes/calculators.math.simplify-radical-calculator'
+import { Route as CalculatorsMathSetCalculatorRouteImport } from './routes/calculators.math.set-calculator'
+import { Route as CalculatorsMathSequenceCalculatorRouteImport } from './routes/calculators.math.sequence-calculator'
+import { Route as CalculatorsMathSensitivitySpecificityCalculatorRouteImport } from './routes/calculators.math.sensitivity-specificity-calculator'
+import { Route as CalculatorsMathScientificNotationCalculatorRouteImport } from './routes/calculators.math.scientific-notation-calculator'
+import { Route as CalculatorsMathScientificCalculatorRouteImport } from './routes/calculators.math.scientific-calculator'
+import { Route as CalculatorsMathSampleSizeCalculatorRouteImport } from './routes/calculators.math.sample-size-calculator'
+import { Route as CalculatorsMathRoundingCalculatorRouteImport } from './routes/calculators.math.rounding-calculator'
+import { Route as CalculatorsMathRootCalculatorRouteImport } from './routes/calculators.math.root-calculator'
+import { Route as CalculatorsMathRelativeFrequencyCalculatorRouteImport } from './routes/calculators.math.relative-frequency-calculator'
+import { Route as CalculatorsMathRatioCalculatorRouteImport } from './routes/calculators.math.ratio-calculator'
+import { Route as CalculatorsMathRandomNumberCalculatorRouteImport } from './routes/calculators.math.random-number-calculator'
+import { Route as CalculatorsMathQuadraticFormulaCalculatorRouteImport } from './routes/calculators.math.quadratic-formula-calculator'
+import { Route as CalculatorsMathProbabilityCalculatorRouteImport } from './routes/calculators.math.probability-calculator'
+import { Route as CalculatorsMathPrimeCheckerCalculatorRouteImport } from './routes/calculators.math.prime-checker-calculator'
+import { Route as CalculatorsMathPolynomialCalculatorRouteImport } from './routes/calculators.math.polynomial-calculator'
+import { Route as CalculatorsMathPoissonDistributionCalculatorRouteImport } from './routes/calculators.math.poisson-distribution-calculator'
+import { Route as CalculatorsMathPermutationCombinationCalculatorRouteImport } from './routes/calculators.math.permutation-combination-calculator'
+import { Route as CalculatorsMathPercentileCalculatorRouteImport } from './routes/calculators.math.percentile-calculator'
+import { Route as CalculatorsMathPercentageCalculatorRouteImport } from './routes/calculators.math.percentage-calculator'
+import { Route as CalculatorsMathPercentErrorCalculatorRouteImport } from './routes/calculators.math.percent-error-calculator'
+import { Route as CalculatorsMathPValueCalculatorRouteImport } from './routes/calculators.math.p-value-calculator'
+import { Route as CalculatorsMathOutliersCalculatorRouteImport } from './routes/calculators.math.outliers-calculator'
+import { Route as CalculatorsMathOddsRatioRelativeRiskCalculatorRouteImport } from './routes/calculators.math.odds-ratio-relative-risk-calculator'
+import { Route as CalculatorsMathNumberSequenceCalculatorRouteImport } from './routes/calculators.math.number-sequence-calculator'
+import { Route as CalculatorsMathNumberLineDistanceCalculatorRouteImport } from './routes/calculators.math.number-line-distance-calculator'
+import { Route as CalculatorsMathNumberBaseCalculatorRouteImport } from './routes/calculators.math.number-base-calculator'
+import { Route as CalculatorsMathMultiplicativeInverseCalculatorRouteImport } from './routes/calculators.math.multiplicative-inverse-calculator'
+import { Route as CalculatorsMathMultipleRegressionCalculatorRouteImport } from './routes/calculators.math.multiple-regression-calculator'
+import { Route as CalculatorsMathMovingAverageCalculatorRouteImport } from './routes/calculators.math.moving-average-calculator'
+import { Route as CalculatorsMathModuloCalculatorRouteImport } from './routes/calculators.math.modulo-calculator'
+import { Route as CalculatorsMathMeanMedianModeCalculatorRouteImport } from './routes/calculators.math.mean-median-mode-calculator'
+import { Route as CalculatorsMathMeanAbsoluteDeviationCalculatorRouteImport } from './routes/calculators.math.mean-absolute-deviation-calculator'
+import { Route as CalculatorsMathMatrixCalculatorRouteImport } from './routes/calculators.math.matrix-calculator'
+import { Route as CalculatorsMathMarginOfErrorCalculatorRouteImport } from './routes/calculators.math.margin-of-error-calculator'
+import { Route as CalculatorsMathMannWhitneyCalculatorRouteImport } from './routes/calculators.math.mann-whitney-calculator'
+import { Route as CalculatorsMathLotteryOddsCalculatorRouteImport } from './routes/calculators.math.lottery-odds-calculator'
+import { Route as CalculatorsMathLongDivisionCalculatorRouteImport } from './routes/calculators.math.long-division-calculator'
+import { Route as CalculatorsMathLogCalculatorRouteImport } from './routes/calculators.math.log-calculator'
+import { Route as CalculatorsMathLinearRegressionCalculatorRouteImport } from './routes/calculators.math.linear-regression-calculator'
+import { Route as CalculatorsMathLcmCalculatorRouteImport } from './routes/calculators.math.lcm-calculator'
+import { Route as CalculatorsMathKruskalWallisCalculatorRouteImport } from './routes/calculators.math.kruskal-wallis-calculator'
+import { Route as CalculatorsMathInterpolationCalculatorRouteImport } from './routes/calculators.math.interpolation-calculator'
+import { Route as CalculatorsMathInequalityCalculatorRouteImport } from './routes/calculators.math.inequality-calculator'
+import { Route as CalculatorsMathHypergeometricDistributionCalculatorRouteImport } from './routes/calculators.math.hypergeometric-distribution-calculator'
+import { Route as CalculatorsMathHexCalculatorRouteImport } from './routes/calculators.math.hex-calculator'
+import { Route as CalculatorsMathHalfLifeCalculatorRouteImport } from './routes/calculators.math.half-life-calculator'
+import { Route as CalculatorsMathGradePercentileCalculatorRouteImport } from './routes/calculators.math.grade-percentile-calculator'
+import { Route as CalculatorsMathGeometricDistributionCalculatorRouteImport } from './routes/calculators.math.geometric-distribution-calculator'
+import { Route as CalculatorsMathGcfCalculatorRouteImport } from './routes/calculators.math.gcf-calculator'
+import { Route as CalculatorsMathFractionCalculatorRouteImport } from './routes/calculators.math.fraction-calculator'
+import { Route as CalculatorsMathFiveNumberSummaryCalculatorRouteImport } from './routes/calculators.math.five-number-summary-calculator'
+import { Route as CalculatorsMathFactorCalculatorRouteImport } from './routes/calculators.math.factor-calculator'
+import { Route as CalculatorsMathFTestCalculatorRouteImport } from './routes/calculators.math.f-test-calculator'
+import { Route as CalculatorsMathExponentialDistributionCalculatorRouteImport } from './routes/calculators.math.exponential-distribution-calculator'
+import { Route as CalculatorsMathExponentCalculatorRouteImport } from './routes/calculators.math.exponent-calculator'
+import { Route as CalculatorsMathEmpiricalRuleCalculatorRouteImport } from './routes/calculators.math.empirical-rule-calculator'
+import { Route as CalculatorsMathEffectSizeCalculatorRouteImport } from './routes/calculators.math.effect-size-calculator'
+import { Route as CalculatorsMathDistanceCalculatorRouteImport } from './routes/calculators.math.distance-calculator'
+import { Route as CalculatorsMathDiceProbabilityCalculatorRouteImport } from './routes/calculators.math.dice-probability-calculator'
+import { Route as CalculatorsMathDerivativeCalculatorRouteImport } from './routes/calculators.math.derivative-calculator'
+import { Route as CalculatorsMathDegreesOfFreedomCalculatorRouteImport } from './routes/calculators.math.degrees-of-freedom-calculator'
+import { Route as CalculatorsMathCronbachsAlphaCalculatorRouteImport } from './routes/calculators.math.cronbachs-alpha-calculator'
+import { Route as CalculatorsMathCriticalValueCalculatorRouteImport } from './routes/calculators.math.critical-value-calculator'
+import { Route as CalculatorsMathCovarianceCalculatorRouteImport } from './routes/calculators.math.covariance-calculator'
+import { Route as CalculatorsMathCorrelationCalculatorRouteImport } from './routes/calculators.math.correlation-calculator'
+import { Route as CalculatorsMathConfidenceIntervalCalculatorRouteImport } from './routes/calculators.math.confidence-interval-calculator'
+import { Route as CalculatorsMathComplexNumberCalculatorRouteImport } from './routes/calculators.math.complex-number-calculator'
+import { Route as CalculatorsMathCombinationsCounterCalculatorRouteImport } from './routes/calculators.math.combinations-counter-calculator'
+import { Route as CalculatorsMathCoinFlipCalculatorRouteImport } from './routes/calculators.math.coin-flip-calculator'
+import { Route as CalculatorsMathCoefficientOfVariationCalculatorRouteImport } from './routes/calculators.math.coefficient-of-variation-calculator'
+import { Route as CalculatorsMathCircleCalculatorRouteImport } from './routes/calculators.math.circle-calculator'
+import { Route as CalculatorsMathChiSquareCalculatorRouteImport } from './routes/calculators.math.chi-square-calculator'
+import { Route as CalculatorsMathCentralLimitTheoremCalculatorRouteImport } from './routes/calculators.math.central-limit-theorem-calculator'
+import { Route as CalculatorsMathBinomialDistributionCalculatorRouteImport } from './routes/calculators.math.binomial-distribution-calculator'
+import { Route as CalculatorsMathBinaryCalculatorRouteImport } from './routes/calculators.math.binary-calculator'
+import { Route as CalculatorsMathBigNumberCalculatorRouteImport } from './routes/calculators.math.big-number-calculator'
+import { Route as CalculatorsMathBayesTheoremCalculatorRouteImport } from './routes/calculators.math.bayes-theorem-calculator'
+import { Route as CalculatorsMathAreaCalculatorRouteImport } from './routes/calculators.math.area-calculator'
+import { Route as CalculatorsMathAnovaCalculatorRouteImport } from './routes/calculators.math.anova-calculator'
+import { Route as CalculatorsMathAbsoluteValueCalculatorRouteImport } from './routes/calculators.math.absolute-value-calculator'
+import { Route as CalculatorsMathAbTestCalculatorRouteImport } from './routes/calculators.math.ab-test-calculator'
+import { Route as CalculatorsMathGroupSlugRouteImport } from './routes/calculators.math.group.$slug'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculatorsIndexRoute = CalculatorsIndexRouteImport.update({
+  id: '/calculators/',
+  path: '/calculators/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsUnitConvertersRoute =
+  CalculatorsUnitConvertersRouteImport.update({
+    id: '/calculators/unit-converters',
+    path: '/calculators/unit-converters',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CalculatorsMathRoute = CalculatorsMathRouteImport.update({
+  id: '/calculators/math',
+  path: '/calculators/math',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsHealthRoute = CalculatorsHealthRouteImport.update({
+  id: '/calculators/health',
+  path: '/calculators/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsFinanceRoute = CalculatorsFinanceRouteImport.update({
+  id: '/calculators/finance',
+  path: '/calculators/finance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsEducationRoute = CalculatorsEducationRouteImport.update({
+  id: '/calculators/education',
+  path: '/calculators/education',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsDateTimeRoute = CalculatorsDateTimeRouteImport.update({
+  id: '/calculators/date-time',
+  path: '/calculators/date-time',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsMathIndexRoute = CalculatorsMathIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CalculatorsMathRoute,
+} as any)
+const CalculatorsMathZScoreCalculatorRoute =
+  CalculatorsMathZScoreCalculatorRouteImport.update({
+    id: '/z-score-calculator',
+    path: '/z-score-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathWilcoxonCalculatorRoute =
+  CalculatorsMathWilcoxonCalculatorRouteImport.update({
+    id: '/wilcoxon-calculator',
+    path: '/wilcoxon-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathWeightedMeanCalculatorRoute =
+  CalculatorsMathWeightedMeanCalculatorRouteImport.update({
+    id: '/weighted-mean-calculator',
+    path: '/weighted-mean-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathVolumeCalculatorRoute =
+  CalculatorsMathVolumeCalculatorRouteImport.update({
+    id: '/volume-calculator',
+    path: '/volume-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathVectorCalculatorRoute =
+  CalculatorsMathVectorCalculatorRouteImport.update({
+    id: '/vector-calculator',
+    path: '/vector-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathUnitCircleCalculatorRoute =
+  CalculatorsMathUnitCircleCalculatorRouteImport.update({
+    id: '/unit-circle-calculator',
+    path: '/unit-circle-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathUniformDistributionCalculatorRoute =
+  CalculatorsMathUniformDistributionCalculatorRouteImport.update({
+    id: '/uniform-distribution-calculator',
+    path: '/uniform-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathTriangleCalculatorRoute =
+  CalculatorsMathTriangleCalculatorRouteImport.update({
+    id: '/triangle-calculator',
+    path: '/triangle-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathTTestCalculatorRoute =
+  CalculatorsMathTTestCalculatorRouteImport.update({
+    id: '/t-test-calculator',
+    path: '/t-test-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSurfaceAreaCalculatorRoute =
+  CalculatorsMathSurfaceAreaCalculatorRouteImport.update({
+    id: '/surface-area-calculator',
+    path: '/surface-area-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathStatisticsCalculatorRoute =
+  CalculatorsMathStatisticsCalculatorRouteImport.update({
+    id: '/statistics-calculator',
+    path: '/statistics-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathStandardErrorCalculatorRoute =
+  CalculatorsMathStandardErrorCalculatorRouteImport.update({
+    id: '/standard-error-calculator',
+    path: '/standard-error-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathStandardDeviationCalculatorRoute =
+  CalculatorsMathStandardDeviationCalculatorRouteImport.update({
+    id: '/standard-deviation-calculator',
+    path: '/standard-deviation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSpearmanCorrelationCalculatorRoute =
+  CalculatorsMathSpearmanCorrelationCalculatorRouteImport.update({
+    id: '/spearman-correlation-calculator',
+    path: '/spearman-correlation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSlopeInterceptCalculatorRoute =
+  CalculatorsMathSlopeInterceptCalculatorRouteImport.update({
+    id: '/slope-intercept-calculator',
+    path: '/slope-intercept-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSlopeCalculatorRoute =
+  CalculatorsMathSlopeCalculatorRouteImport.update({
+    id: '/slope-calculator',
+    path: '/slope-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSkewnessKurtosisCalculatorRoute =
+  CalculatorsMathSkewnessKurtosisCalculatorRouteImport.update({
+    id: '/skewness-kurtosis-calculator',
+    path: '/skewness-kurtosis-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSimultaneousEquationsCalculatorRoute =
+  CalculatorsMathSimultaneousEquationsCalculatorRouteImport.update({
+    id: '/simultaneous-equations-calculator',
+    path: '/simultaneous-equations-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSimplifyRadicalCalculatorRoute =
+  CalculatorsMathSimplifyRadicalCalculatorRouteImport.update({
+    id: '/simplify-radical-calculator',
+    path: '/simplify-radical-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSetCalculatorRoute =
+  CalculatorsMathSetCalculatorRouteImport.update({
+    id: '/set-calculator',
+    path: '/set-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSequenceCalculatorRoute =
+  CalculatorsMathSequenceCalculatorRouteImport.update({
+    id: '/sequence-calculator',
+    path: '/sequence-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSensitivitySpecificityCalculatorRoute =
+  CalculatorsMathSensitivitySpecificityCalculatorRouteImport.update({
+    id: '/sensitivity-specificity-calculator',
+    path: '/sensitivity-specificity-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathScientificNotationCalculatorRoute =
+  CalculatorsMathScientificNotationCalculatorRouteImport.update({
+    id: '/scientific-notation-calculator',
+    path: '/scientific-notation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathScientificCalculatorRoute =
+  CalculatorsMathScientificCalculatorRouteImport.update({
+    id: '/scientific-calculator',
+    path: '/scientific-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathSampleSizeCalculatorRoute =
+  CalculatorsMathSampleSizeCalculatorRouteImport.update({
+    id: '/sample-size-calculator',
+    path: '/sample-size-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRoundingCalculatorRoute =
+  CalculatorsMathRoundingCalculatorRouteImport.update({
+    id: '/rounding-calculator',
+    path: '/rounding-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRootCalculatorRoute =
+  CalculatorsMathRootCalculatorRouteImport.update({
+    id: '/root-calculator',
+    path: '/root-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRelativeFrequencyCalculatorRoute =
+  CalculatorsMathRelativeFrequencyCalculatorRouteImport.update({
+    id: '/relative-frequency-calculator',
+    path: '/relative-frequency-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRatioCalculatorRoute =
+  CalculatorsMathRatioCalculatorRouteImport.update({
+    id: '/ratio-calculator',
+    path: '/ratio-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathRandomNumberCalculatorRoute =
+  CalculatorsMathRandomNumberCalculatorRouteImport.update({
+    id: '/random-number-calculator',
+    path: '/random-number-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathQuadraticFormulaCalculatorRoute =
+  CalculatorsMathQuadraticFormulaCalculatorRouteImport.update({
+    id: '/quadratic-formula-calculator',
+    path: '/quadratic-formula-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathProbabilityCalculatorRoute =
+  CalculatorsMathProbabilityCalculatorRouteImport.update({
+    id: '/probability-calculator',
+    path: '/probability-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPrimeCheckerCalculatorRoute =
+  CalculatorsMathPrimeCheckerCalculatorRouteImport.update({
+    id: '/prime-checker-calculator',
+    path: '/prime-checker-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPolynomialCalculatorRoute =
+  CalculatorsMathPolynomialCalculatorRouteImport.update({
+    id: '/polynomial-calculator',
+    path: '/polynomial-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPoissonDistributionCalculatorRoute =
+  CalculatorsMathPoissonDistributionCalculatorRouteImport.update({
+    id: '/poisson-distribution-calculator',
+    path: '/poisson-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPermutationCombinationCalculatorRoute =
+  CalculatorsMathPermutationCombinationCalculatorRouteImport.update({
+    id: '/permutation-combination-calculator',
+    path: '/permutation-combination-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPercentileCalculatorRoute =
+  CalculatorsMathPercentileCalculatorRouteImport.update({
+    id: '/percentile-calculator',
+    path: '/percentile-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPercentageCalculatorRoute =
+  CalculatorsMathPercentageCalculatorRouteImport.update({
+    id: '/percentage-calculator',
+    path: '/percentage-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPercentErrorCalculatorRoute =
+  CalculatorsMathPercentErrorCalculatorRouteImport.update({
+    id: '/percent-error-calculator',
+    path: '/percent-error-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathPValueCalculatorRoute =
+  CalculatorsMathPValueCalculatorRouteImport.update({
+    id: '/p-value-calculator',
+    path: '/p-value-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathOutliersCalculatorRoute =
+  CalculatorsMathOutliersCalculatorRouteImport.update({
+    id: '/outliers-calculator',
+    path: '/outliers-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathOddsRatioRelativeRiskCalculatorRoute =
+  CalculatorsMathOddsRatioRelativeRiskCalculatorRouteImport.update({
+    id: '/odds-ratio-relative-risk-calculator',
+    path: '/odds-ratio-relative-risk-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathNumberSequenceCalculatorRoute =
+  CalculatorsMathNumberSequenceCalculatorRouteImport.update({
+    id: '/number-sequence-calculator',
+    path: '/number-sequence-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathNumberLineDistanceCalculatorRoute =
+  CalculatorsMathNumberLineDistanceCalculatorRouteImport.update({
+    id: '/number-line-distance-calculator',
+    path: '/number-line-distance-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathNumberBaseCalculatorRoute =
+  CalculatorsMathNumberBaseCalculatorRouteImport.update({
+    id: '/number-base-calculator',
+    path: '/number-base-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMultiplicativeInverseCalculatorRoute =
+  CalculatorsMathMultiplicativeInverseCalculatorRouteImport.update({
+    id: '/multiplicative-inverse-calculator',
+    path: '/multiplicative-inverse-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMultipleRegressionCalculatorRoute =
+  CalculatorsMathMultipleRegressionCalculatorRouteImport.update({
+    id: '/multiple-regression-calculator',
+    path: '/multiple-regression-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMovingAverageCalculatorRoute =
+  CalculatorsMathMovingAverageCalculatorRouteImport.update({
+    id: '/moving-average-calculator',
+    path: '/moving-average-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathModuloCalculatorRoute =
+  CalculatorsMathModuloCalculatorRouteImport.update({
+    id: '/modulo-calculator',
+    path: '/modulo-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMeanMedianModeCalculatorRoute =
+  CalculatorsMathMeanMedianModeCalculatorRouteImport.update({
+    id: '/mean-median-mode-calculator',
+    path: '/mean-median-mode-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMeanAbsoluteDeviationCalculatorRoute =
+  CalculatorsMathMeanAbsoluteDeviationCalculatorRouteImport.update({
+    id: '/mean-absolute-deviation-calculator',
+    path: '/mean-absolute-deviation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMatrixCalculatorRoute =
+  CalculatorsMathMatrixCalculatorRouteImport.update({
+    id: '/matrix-calculator',
+    path: '/matrix-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMarginOfErrorCalculatorRoute =
+  CalculatorsMathMarginOfErrorCalculatorRouteImport.update({
+    id: '/margin-of-error-calculator',
+    path: '/margin-of-error-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathMannWhitneyCalculatorRoute =
+  CalculatorsMathMannWhitneyCalculatorRouteImport.update({
+    id: '/mann-whitney-calculator',
+    path: '/mann-whitney-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathLotteryOddsCalculatorRoute =
+  CalculatorsMathLotteryOddsCalculatorRouteImport.update({
+    id: '/lottery-odds-calculator',
+    path: '/lottery-odds-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathLongDivisionCalculatorRoute =
+  CalculatorsMathLongDivisionCalculatorRouteImport.update({
+    id: '/long-division-calculator',
+    path: '/long-division-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathLogCalculatorRoute =
+  CalculatorsMathLogCalculatorRouteImport.update({
+    id: '/log-calculator',
+    path: '/log-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathLinearRegressionCalculatorRoute =
+  CalculatorsMathLinearRegressionCalculatorRouteImport.update({
+    id: '/linear-regression-calculator',
+    path: '/linear-regression-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathLcmCalculatorRoute =
+  CalculatorsMathLcmCalculatorRouteImport.update({
+    id: '/lcm-calculator',
+    path: '/lcm-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathKruskalWallisCalculatorRoute =
+  CalculatorsMathKruskalWallisCalculatorRouteImport.update({
+    id: '/kruskal-wallis-calculator',
+    path: '/kruskal-wallis-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathInterpolationCalculatorRoute =
+  CalculatorsMathInterpolationCalculatorRouteImport.update({
+    id: '/interpolation-calculator',
+    path: '/interpolation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathInequalityCalculatorRoute =
+  CalculatorsMathInequalityCalculatorRouteImport.update({
+    id: '/inequality-calculator',
+    path: '/inequality-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathHypergeometricDistributionCalculatorRoute =
+  CalculatorsMathHypergeometricDistributionCalculatorRouteImport.update({
+    id: '/hypergeometric-distribution-calculator',
+    path: '/hypergeometric-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathHexCalculatorRoute =
+  CalculatorsMathHexCalculatorRouteImport.update({
+    id: '/hex-calculator',
+    path: '/hex-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathHalfLifeCalculatorRoute =
+  CalculatorsMathHalfLifeCalculatorRouteImport.update({
+    id: '/half-life-calculator',
+    path: '/half-life-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathGradePercentileCalculatorRoute =
+  CalculatorsMathGradePercentileCalculatorRouteImport.update({
+    id: '/grade-percentile-calculator',
+    path: '/grade-percentile-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathGeometricDistributionCalculatorRoute =
+  CalculatorsMathGeometricDistributionCalculatorRouteImport.update({
+    id: '/geometric-distribution-calculator',
+    path: '/geometric-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathGcfCalculatorRoute =
+  CalculatorsMathGcfCalculatorRouteImport.update({
+    id: '/gcf-calculator',
+    path: '/gcf-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathFractionCalculatorRoute =
+  CalculatorsMathFractionCalculatorRouteImport.update({
+    id: '/fraction-calculator',
+    path: '/fraction-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathFiveNumberSummaryCalculatorRoute =
+  CalculatorsMathFiveNumberSummaryCalculatorRouteImport.update({
+    id: '/five-number-summary-calculator',
+    path: '/five-number-summary-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathFactorCalculatorRoute =
+  CalculatorsMathFactorCalculatorRouteImport.update({
+    id: '/factor-calculator',
+    path: '/factor-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathFTestCalculatorRoute =
+  CalculatorsMathFTestCalculatorRouteImport.update({
+    id: '/f-test-calculator',
+    path: '/f-test-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathExponentialDistributionCalculatorRoute =
+  CalculatorsMathExponentialDistributionCalculatorRouteImport.update({
+    id: '/exponential-distribution-calculator',
+    path: '/exponential-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathExponentCalculatorRoute =
+  CalculatorsMathExponentCalculatorRouteImport.update({
+    id: '/exponent-calculator',
+    path: '/exponent-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathEmpiricalRuleCalculatorRoute =
+  CalculatorsMathEmpiricalRuleCalculatorRouteImport.update({
+    id: '/empirical-rule-calculator',
+    path: '/empirical-rule-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathEffectSizeCalculatorRoute =
+  CalculatorsMathEffectSizeCalculatorRouteImport.update({
+    id: '/effect-size-calculator',
+    path: '/effect-size-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathDistanceCalculatorRoute =
+  CalculatorsMathDistanceCalculatorRouteImport.update({
+    id: '/distance-calculator',
+    path: '/distance-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathDiceProbabilityCalculatorRoute =
+  CalculatorsMathDiceProbabilityCalculatorRouteImport.update({
+    id: '/dice-probability-calculator',
+    path: '/dice-probability-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathDerivativeCalculatorRoute =
+  CalculatorsMathDerivativeCalculatorRouteImport.update({
+    id: '/derivative-calculator',
+    path: '/derivative-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathDegreesOfFreedomCalculatorRoute =
+  CalculatorsMathDegreesOfFreedomCalculatorRouteImport.update({
+    id: '/degrees-of-freedom-calculator',
+    path: '/degrees-of-freedom-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCronbachsAlphaCalculatorRoute =
+  CalculatorsMathCronbachsAlphaCalculatorRouteImport.update({
+    id: '/cronbachs-alpha-calculator',
+    path: '/cronbachs-alpha-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCriticalValueCalculatorRoute =
+  CalculatorsMathCriticalValueCalculatorRouteImport.update({
+    id: '/critical-value-calculator',
+    path: '/critical-value-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCovarianceCalculatorRoute =
+  CalculatorsMathCovarianceCalculatorRouteImport.update({
+    id: '/covariance-calculator',
+    path: '/covariance-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCorrelationCalculatorRoute =
+  CalculatorsMathCorrelationCalculatorRouteImport.update({
+    id: '/correlation-calculator',
+    path: '/correlation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathConfidenceIntervalCalculatorRoute =
+  CalculatorsMathConfidenceIntervalCalculatorRouteImport.update({
+    id: '/confidence-interval-calculator',
+    path: '/confidence-interval-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathComplexNumberCalculatorRoute =
+  CalculatorsMathComplexNumberCalculatorRouteImport.update({
+    id: '/complex-number-calculator',
+    path: '/complex-number-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCombinationsCounterCalculatorRoute =
+  CalculatorsMathCombinationsCounterCalculatorRouteImport.update({
+    id: '/combinations-counter-calculator',
+    path: '/combinations-counter-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCoinFlipCalculatorRoute =
+  CalculatorsMathCoinFlipCalculatorRouteImport.update({
+    id: '/coin-flip-calculator',
+    path: '/coin-flip-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCoefficientOfVariationCalculatorRoute =
+  CalculatorsMathCoefficientOfVariationCalculatorRouteImport.update({
+    id: '/coefficient-of-variation-calculator',
+    path: '/coefficient-of-variation-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCircleCalculatorRoute =
+  CalculatorsMathCircleCalculatorRouteImport.update({
+    id: '/circle-calculator',
+    path: '/circle-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathChiSquareCalculatorRoute =
+  CalculatorsMathChiSquareCalculatorRouteImport.update({
+    id: '/chi-square-calculator',
+    path: '/chi-square-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathCentralLimitTheoremCalculatorRoute =
+  CalculatorsMathCentralLimitTheoremCalculatorRouteImport.update({
+    id: '/central-limit-theorem-calculator',
+    path: '/central-limit-theorem-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathBinomialDistributionCalculatorRoute =
+  CalculatorsMathBinomialDistributionCalculatorRouteImport.update({
+    id: '/binomial-distribution-calculator',
+    path: '/binomial-distribution-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathBinaryCalculatorRoute =
+  CalculatorsMathBinaryCalculatorRouteImport.update({
+    id: '/binary-calculator',
+    path: '/binary-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathBigNumberCalculatorRoute =
+  CalculatorsMathBigNumberCalculatorRouteImport.update({
+    id: '/big-number-calculator',
+    path: '/big-number-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathBayesTheoremCalculatorRoute =
+  CalculatorsMathBayesTheoremCalculatorRouteImport.update({
+    id: '/bayes-theorem-calculator',
+    path: '/bayes-theorem-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathAreaCalculatorRoute =
+  CalculatorsMathAreaCalculatorRouteImport.update({
+    id: '/area-calculator',
+    path: '/area-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathAnovaCalculatorRoute =
+  CalculatorsMathAnovaCalculatorRouteImport.update({
+    id: '/anova-calculator',
+    path: '/anova-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathAbsoluteValueCalculatorRoute =
+  CalculatorsMathAbsoluteValueCalculatorRouteImport.update({
+    id: '/absolute-value-calculator',
+    path: '/absolute-value-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathAbTestCalculatorRoute =
+  CalculatorsMathAbTestCalculatorRouteImport.update({
+    id: '/ab-test-calculator',
+    path: '/ab-test-calculator',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
+const CalculatorsMathGroupSlugRoute =
+  CalculatorsMathGroupSlugRouteImport.update({
+    id: '/group/$slug',
+    path: '/group/$slug',
+    getParentRoute: () => CalculatorsMathRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/calculators/date-time': typeof CalculatorsDateTimeRoute
+  '/calculators/education': typeof CalculatorsEducationRoute
+  '/calculators/finance': typeof CalculatorsFinanceRoute
+  '/calculators/health': typeof CalculatorsHealthRoute
+  '/calculators/math': typeof CalculatorsMathRouteWithChildren
+  '/calculators/unit-converters': typeof CalculatorsUnitConvertersRoute
+  '/calculators/': typeof CalculatorsIndexRoute
+  '/calculators/math/ab-test-calculator': typeof CalculatorsMathAbTestCalculatorRoute
+  '/calculators/math/absolute-value-calculator': typeof CalculatorsMathAbsoluteValueCalculatorRoute
+  '/calculators/math/anova-calculator': typeof CalculatorsMathAnovaCalculatorRoute
+  '/calculators/math/area-calculator': typeof CalculatorsMathAreaCalculatorRoute
+  '/calculators/math/bayes-theorem-calculator': typeof CalculatorsMathBayesTheoremCalculatorRoute
+  '/calculators/math/big-number-calculator': typeof CalculatorsMathBigNumberCalculatorRoute
+  '/calculators/math/binary-calculator': typeof CalculatorsMathBinaryCalculatorRoute
+  '/calculators/math/binomial-distribution-calculator': typeof CalculatorsMathBinomialDistributionCalculatorRoute
+  '/calculators/math/central-limit-theorem-calculator': typeof CalculatorsMathCentralLimitTheoremCalculatorRoute
+  '/calculators/math/chi-square-calculator': typeof CalculatorsMathChiSquareCalculatorRoute
+  '/calculators/math/circle-calculator': typeof CalculatorsMathCircleCalculatorRoute
+  '/calculators/math/coefficient-of-variation-calculator': typeof CalculatorsMathCoefficientOfVariationCalculatorRoute
+  '/calculators/math/coin-flip-calculator': typeof CalculatorsMathCoinFlipCalculatorRoute
+  '/calculators/math/combinations-counter-calculator': typeof CalculatorsMathCombinationsCounterCalculatorRoute
+  '/calculators/math/complex-number-calculator': typeof CalculatorsMathComplexNumberCalculatorRoute
+  '/calculators/math/confidence-interval-calculator': typeof CalculatorsMathConfidenceIntervalCalculatorRoute
+  '/calculators/math/correlation-calculator': typeof CalculatorsMathCorrelationCalculatorRoute
+  '/calculators/math/covariance-calculator': typeof CalculatorsMathCovarianceCalculatorRoute
+  '/calculators/math/critical-value-calculator': typeof CalculatorsMathCriticalValueCalculatorRoute
+  '/calculators/math/cronbachs-alpha-calculator': typeof CalculatorsMathCronbachsAlphaCalculatorRoute
+  '/calculators/math/degrees-of-freedom-calculator': typeof CalculatorsMathDegreesOfFreedomCalculatorRoute
+  '/calculators/math/derivative-calculator': typeof CalculatorsMathDerivativeCalculatorRoute
+  '/calculators/math/dice-probability-calculator': typeof CalculatorsMathDiceProbabilityCalculatorRoute
+  '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
+  '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
+  '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
+  '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
+  '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
+  '/calculators/math/factor-calculator': typeof CalculatorsMathFactorCalculatorRoute
+  '/calculators/math/five-number-summary-calculator': typeof CalculatorsMathFiveNumberSummaryCalculatorRoute
+  '/calculators/math/fraction-calculator': typeof CalculatorsMathFractionCalculatorRoute
+  '/calculators/math/gcf-calculator': typeof CalculatorsMathGcfCalculatorRoute
+  '/calculators/math/geometric-distribution-calculator': typeof CalculatorsMathGeometricDistributionCalculatorRoute
+  '/calculators/math/grade-percentile-calculator': typeof CalculatorsMathGradePercentileCalculatorRoute
+  '/calculators/math/half-life-calculator': typeof CalculatorsMathHalfLifeCalculatorRoute
+  '/calculators/math/hex-calculator': typeof CalculatorsMathHexCalculatorRoute
+  '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
+  '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
+  '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
+  '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
+  '/calculators/math/log-calculator': typeof CalculatorsMathLogCalculatorRoute
+  '/calculators/math/long-division-calculator': typeof CalculatorsMathLongDivisionCalculatorRoute
+  '/calculators/math/lottery-odds-calculator': typeof CalculatorsMathLotteryOddsCalculatorRoute
+  '/calculators/math/mann-whitney-calculator': typeof CalculatorsMathMannWhitneyCalculatorRoute
+  '/calculators/math/margin-of-error-calculator': typeof CalculatorsMathMarginOfErrorCalculatorRoute
+  '/calculators/math/matrix-calculator': typeof CalculatorsMathMatrixCalculatorRoute
+  '/calculators/math/mean-absolute-deviation-calculator': typeof CalculatorsMathMeanAbsoluteDeviationCalculatorRoute
+  '/calculators/math/mean-median-mode-calculator': typeof CalculatorsMathMeanMedianModeCalculatorRoute
+  '/calculators/math/modulo-calculator': typeof CalculatorsMathModuloCalculatorRoute
+  '/calculators/math/moving-average-calculator': typeof CalculatorsMathMovingAverageCalculatorRoute
+  '/calculators/math/multiple-regression-calculator': typeof CalculatorsMathMultipleRegressionCalculatorRoute
+  '/calculators/math/multiplicative-inverse-calculator': typeof CalculatorsMathMultiplicativeInverseCalculatorRoute
+  '/calculators/math/number-base-calculator': typeof CalculatorsMathNumberBaseCalculatorRoute
+  '/calculators/math/number-line-distance-calculator': typeof CalculatorsMathNumberLineDistanceCalculatorRoute
+  '/calculators/math/number-sequence-calculator': typeof CalculatorsMathNumberSequenceCalculatorRoute
+  '/calculators/math/odds-ratio-relative-risk-calculator': typeof CalculatorsMathOddsRatioRelativeRiskCalculatorRoute
+  '/calculators/math/outliers-calculator': typeof CalculatorsMathOutliersCalculatorRoute
+  '/calculators/math/p-value-calculator': typeof CalculatorsMathPValueCalculatorRoute
+  '/calculators/math/percent-error-calculator': typeof CalculatorsMathPercentErrorCalculatorRoute
+  '/calculators/math/percentage-calculator': typeof CalculatorsMathPercentageCalculatorRoute
+  '/calculators/math/percentile-calculator': typeof CalculatorsMathPercentileCalculatorRoute
+  '/calculators/math/permutation-combination-calculator': typeof CalculatorsMathPermutationCombinationCalculatorRoute
+  '/calculators/math/poisson-distribution-calculator': typeof CalculatorsMathPoissonDistributionCalculatorRoute
+  '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
+  '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
+  '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
+  '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
+  '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
+  '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
+  '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
+  '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
+  '/calculators/math/scientific-calculator': typeof CalculatorsMathScientificCalculatorRoute
+  '/calculators/math/scientific-notation-calculator': typeof CalculatorsMathScientificNotationCalculatorRoute
+  '/calculators/math/sensitivity-specificity-calculator': typeof CalculatorsMathSensitivitySpecificityCalculatorRoute
+  '/calculators/math/sequence-calculator': typeof CalculatorsMathSequenceCalculatorRoute
+  '/calculators/math/set-calculator': typeof CalculatorsMathSetCalculatorRoute
+  '/calculators/math/simplify-radical-calculator': typeof CalculatorsMathSimplifyRadicalCalculatorRoute
+  '/calculators/math/simultaneous-equations-calculator': typeof CalculatorsMathSimultaneousEquationsCalculatorRoute
+  '/calculators/math/skewness-kurtosis-calculator': typeof CalculatorsMathSkewnessKurtosisCalculatorRoute
+  '/calculators/math/slope-calculator': typeof CalculatorsMathSlopeCalculatorRoute
+  '/calculators/math/slope-intercept-calculator': typeof CalculatorsMathSlopeInterceptCalculatorRoute
+  '/calculators/math/spearman-correlation-calculator': typeof CalculatorsMathSpearmanCorrelationCalculatorRoute
+  '/calculators/math/standard-deviation-calculator': typeof CalculatorsMathStandardDeviationCalculatorRoute
+  '/calculators/math/standard-error-calculator': typeof CalculatorsMathStandardErrorCalculatorRoute
+  '/calculators/math/statistics-calculator': typeof CalculatorsMathStatisticsCalculatorRoute
+  '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
+  '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
+  '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
+  '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
+  '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
+  '/calculators/math/volume-calculator': typeof CalculatorsMathVolumeCalculatorRoute
+  '/calculators/math/weighted-mean-calculator': typeof CalculatorsMathWeightedMeanCalculatorRoute
+  '/calculators/math/wilcoxon-calculator': typeof CalculatorsMathWilcoxonCalculatorRoute
+  '/calculators/math/z-score-calculator': typeof CalculatorsMathZScoreCalculatorRoute
+  '/calculators/math/': typeof CalculatorsMathIndexRoute
+  '/calculators/math/group/$slug': typeof CalculatorsMathGroupSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/calculators/date-time': typeof CalculatorsDateTimeRoute
+  '/calculators/education': typeof CalculatorsEducationRoute
+  '/calculators/finance': typeof CalculatorsFinanceRoute
+  '/calculators/health': typeof CalculatorsHealthRoute
+  '/calculators/unit-converters': typeof CalculatorsUnitConvertersRoute
+  '/calculators': typeof CalculatorsIndexRoute
+  '/calculators/math/ab-test-calculator': typeof CalculatorsMathAbTestCalculatorRoute
+  '/calculators/math/absolute-value-calculator': typeof CalculatorsMathAbsoluteValueCalculatorRoute
+  '/calculators/math/anova-calculator': typeof CalculatorsMathAnovaCalculatorRoute
+  '/calculators/math/area-calculator': typeof CalculatorsMathAreaCalculatorRoute
+  '/calculators/math/bayes-theorem-calculator': typeof CalculatorsMathBayesTheoremCalculatorRoute
+  '/calculators/math/big-number-calculator': typeof CalculatorsMathBigNumberCalculatorRoute
+  '/calculators/math/binary-calculator': typeof CalculatorsMathBinaryCalculatorRoute
+  '/calculators/math/binomial-distribution-calculator': typeof CalculatorsMathBinomialDistributionCalculatorRoute
+  '/calculators/math/central-limit-theorem-calculator': typeof CalculatorsMathCentralLimitTheoremCalculatorRoute
+  '/calculators/math/chi-square-calculator': typeof CalculatorsMathChiSquareCalculatorRoute
+  '/calculators/math/circle-calculator': typeof CalculatorsMathCircleCalculatorRoute
+  '/calculators/math/coefficient-of-variation-calculator': typeof CalculatorsMathCoefficientOfVariationCalculatorRoute
+  '/calculators/math/coin-flip-calculator': typeof CalculatorsMathCoinFlipCalculatorRoute
+  '/calculators/math/combinations-counter-calculator': typeof CalculatorsMathCombinationsCounterCalculatorRoute
+  '/calculators/math/complex-number-calculator': typeof CalculatorsMathComplexNumberCalculatorRoute
+  '/calculators/math/confidence-interval-calculator': typeof CalculatorsMathConfidenceIntervalCalculatorRoute
+  '/calculators/math/correlation-calculator': typeof CalculatorsMathCorrelationCalculatorRoute
+  '/calculators/math/covariance-calculator': typeof CalculatorsMathCovarianceCalculatorRoute
+  '/calculators/math/critical-value-calculator': typeof CalculatorsMathCriticalValueCalculatorRoute
+  '/calculators/math/cronbachs-alpha-calculator': typeof CalculatorsMathCronbachsAlphaCalculatorRoute
+  '/calculators/math/degrees-of-freedom-calculator': typeof CalculatorsMathDegreesOfFreedomCalculatorRoute
+  '/calculators/math/derivative-calculator': typeof CalculatorsMathDerivativeCalculatorRoute
+  '/calculators/math/dice-probability-calculator': typeof CalculatorsMathDiceProbabilityCalculatorRoute
+  '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
+  '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
+  '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
+  '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
+  '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
+  '/calculators/math/factor-calculator': typeof CalculatorsMathFactorCalculatorRoute
+  '/calculators/math/five-number-summary-calculator': typeof CalculatorsMathFiveNumberSummaryCalculatorRoute
+  '/calculators/math/fraction-calculator': typeof CalculatorsMathFractionCalculatorRoute
+  '/calculators/math/gcf-calculator': typeof CalculatorsMathGcfCalculatorRoute
+  '/calculators/math/geometric-distribution-calculator': typeof CalculatorsMathGeometricDistributionCalculatorRoute
+  '/calculators/math/grade-percentile-calculator': typeof CalculatorsMathGradePercentileCalculatorRoute
+  '/calculators/math/half-life-calculator': typeof CalculatorsMathHalfLifeCalculatorRoute
+  '/calculators/math/hex-calculator': typeof CalculatorsMathHexCalculatorRoute
+  '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
+  '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
+  '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
+  '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
+  '/calculators/math/log-calculator': typeof CalculatorsMathLogCalculatorRoute
+  '/calculators/math/long-division-calculator': typeof CalculatorsMathLongDivisionCalculatorRoute
+  '/calculators/math/lottery-odds-calculator': typeof CalculatorsMathLotteryOddsCalculatorRoute
+  '/calculators/math/mann-whitney-calculator': typeof CalculatorsMathMannWhitneyCalculatorRoute
+  '/calculators/math/margin-of-error-calculator': typeof CalculatorsMathMarginOfErrorCalculatorRoute
+  '/calculators/math/matrix-calculator': typeof CalculatorsMathMatrixCalculatorRoute
+  '/calculators/math/mean-absolute-deviation-calculator': typeof CalculatorsMathMeanAbsoluteDeviationCalculatorRoute
+  '/calculators/math/mean-median-mode-calculator': typeof CalculatorsMathMeanMedianModeCalculatorRoute
+  '/calculators/math/modulo-calculator': typeof CalculatorsMathModuloCalculatorRoute
+  '/calculators/math/moving-average-calculator': typeof CalculatorsMathMovingAverageCalculatorRoute
+  '/calculators/math/multiple-regression-calculator': typeof CalculatorsMathMultipleRegressionCalculatorRoute
+  '/calculators/math/multiplicative-inverse-calculator': typeof CalculatorsMathMultiplicativeInverseCalculatorRoute
+  '/calculators/math/number-base-calculator': typeof CalculatorsMathNumberBaseCalculatorRoute
+  '/calculators/math/number-line-distance-calculator': typeof CalculatorsMathNumberLineDistanceCalculatorRoute
+  '/calculators/math/number-sequence-calculator': typeof CalculatorsMathNumberSequenceCalculatorRoute
+  '/calculators/math/odds-ratio-relative-risk-calculator': typeof CalculatorsMathOddsRatioRelativeRiskCalculatorRoute
+  '/calculators/math/outliers-calculator': typeof CalculatorsMathOutliersCalculatorRoute
+  '/calculators/math/p-value-calculator': typeof CalculatorsMathPValueCalculatorRoute
+  '/calculators/math/percent-error-calculator': typeof CalculatorsMathPercentErrorCalculatorRoute
+  '/calculators/math/percentage-calculator': typeof CalculatorsMathPercentageCalculatorRoute
+  '/calculators/math/percentile-calculator': typeof CalculatorsMathPercentileCalculatorRoute
+  '/calculators/math/permutation-combination-calculator': typeof CalculatorsMathPermutationCombinationCalculatorRoute
+  '/calculators/math/poisson-distribution-calculator': typeof CalculatorsMathPoissonDistributionCalculatorRoute
+  '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
+  '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
+  '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
+  '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
+  '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
+  '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
+  '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
+  '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
+  '/calculators/math/scientific-calculator': typeof CalculatorsMathScientificCalculatorRoute
+  '/calculators/math/scientific-notation-calculator': typeof CalculatorsMathScientificNotationCalculatorRoute
+  '/calculators/math/sensitivity-specificity-calculator': typeof CalculatorsMathSensitivitySpecificityCalculatorRoute
+  '/calculators/math/sequence-calculator': typeof CalculatorsMathSequenceCalculatorRoute
+  '/calculators/math/set-calculator': typeof CalculatorsMathSetCalculatorRoute
+  '/calculators/math/simplify-radical-calculator': typeof CalculatorsMathSimplifyRadicalCalculatorRoute
+  '/calculators/math/simultaneous-equations-calculator': typeof CalculatorsMathSimultaneousEquationsCalculatorRoute
+  '/calculators/math/skewness-kurtosis-calculator': typeof CalculatorsMathSkewnessKurtosisCalculatorRoute
+  '/calculators/math/slope-calculator': typeof CalculatorsMathSlopeCalculatorRoute
+  '/calculators/math/slope-intercept-calculator': typeof CalculatorsMathSlopeInterceptCalculatorRoute
+  '/calculators/math/spearman-correlation-calculator': typeof CalculatorsMathSpearmanCorrelationCalculatorRoute
+  '/calculators/math/standard-deviation-calculator': typeof CalculatorsMathStandardDeviationCalculatorRoute
+  '/calculators/math/standard-error-calculator': typeof CalculatorsMathStandardErrorCalculatorRoute
+  '/calculators/math/statistics-calculator': typeof CalculatorsMathStatisticsCalculatorRoute
+  '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
+  '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
+  '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
+  '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
+  '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
+  '/calculators/math/volume-calculator': typeof CalculatorsMathVolumeCalculatorRoute
+  '/calculators/math/weighted-mean-calculator': typeof CalculatorsMathWeightedMeanCalculatorRoute
+  '/calculators/math/wilcoxon-calculator': typeof CalculatorsMathWilcoxonCalculatorRoute
+  '/calculators/math/z-score-calculator': typeof CalculatorsMathZScoreCalculatorRoute
+  '/calculators/math': typeof CalculatorsMathIndexRoute
+  '/calculators/math/group/$slug': typeof CalculatorsMathGroupSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/calculators/date-time': typeof CalculatorsDateTimeRoute
+  '/calculators/education': typeof CalculatorsEducationRoute
+  '/calculators/finance': typeof CalculatorsFinanceRoute
+  '/calculators/health': typeof CalculatorsHealthRoute
+  '/calculators/math': typeof CalculatorsMathRouteWithChildren
+  '/calculators/unit-converters': typeof CalculatorsUnitConvertersRoute
+  '/calculators/': typeof CalculatorsIndexRoute
+  '/calculators/math/ab-test-calculator': typeof CalculatorsMathAbTestCalculatorRoute
+  '/calculators/math/absolute-value-calculator': typeof CalculatorsMathAbsoluteValueCalculatorRoute
+  '/calculators/math/anova-calculator': typeof CalculatorsMathAnovaCalculatorRoute
+  '/calculators/math/area-calculator': typeof CalculatorsMathAreaCalculatorRoute
+  '/calculators/math/bayes-theorem-calculator': typeof CalculatorsMathBayesTheoremCalculatorRoute
+  '/calculators/math/big-number-calculator': typeof CalculatorsMathBigNumberCalculatorRoute
+  '/calculators/math/binary-calculator': typeof CalculatorsMathBinaryCalculatorRoute
+  '/calculators/math/binomial-distribution-calculator': typeof CalculatorsMathBinomialDistributionCalculatorRoute
+  '/calculators/math/central-limit-theorem-calculator': typeof CalculatorsMathCentralLimitTheoremCalculatorRoute
+  '/calculators/math/chi-square-calculator': typeof CalculatorsMathChiSquareCalculatorRoute
+  '/calculators/math/circle-calculator': typeof CalculatorsMathCircleCalculatorRoute
+  '/calculators/math/coefficient-of-variation-calculator': typeof CalculatorsMathCoefficientOfVariationCalculatorRoute
+  '/calculators/math/coin-flip-calculator': typeof CalculatorsMathCoinFlipCalculatorRoute
+  '/calculators/math/combinations-counter-calculator': typeof CalculatorsMathCombinationsCounterCalculatorRoute
+  '/calculators/math/complex-number-calculator': typeof CalculatorsMathComplexNumberCalculatorRoute
+  '/calculators/math/confidence-interval-calculator': typeof CalculatorsMathConfidenceIntervalCalculatorRoute
+  '/calculators/math/correlation-calculator': typeof CalculatorsMathCorrelationCalculatorRoute
+  '/calculators/math/covariance-calculator': typeof CalculatorsMathCovarianceCalculatorRoute
+  '/calculators/math/critical-value-calculator': typeof CalculatorsMathCriticalValueCalculatorRoute
+  '/calculators/math/cronbachs-alpha-calculator': typeof CalculatorsMathCronbachsAlphaCalculatorRoute
+  '/calculators/math/degrees-of-freedom-calculator': typeof CalculatorsMathDegreesOfFreedomCalculatorRoute
+  '/calculators/math/derivative-calculator': typeof CalculatorsMathDerivativeCalculatorRoute
+  '/calculators/math/dice-probability-calculator': typeof CalculatorsMathDiceProbabilityCalculatorRoute
+  '/calculators/math/distance-calculator': typeof CalculatorsMathDistanceCalculatorRoute
+  '/calculators/math/effect-size-calculator': typeof CalculatorsMathEffectSizeCalculatorRoute
+  '/calculators/math/empirical-rule-calculator': typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  '/calculators/math/exponent-calculator': typeof CalculatorsMathExponentCalculatorRoute
+  '/calculators/math/exponential-distribution-calculator': typeof CalculatorsMathExponentialDistributionCalculatorRoute
+  '/calculators/math/f-test-calculator': typeof CalculatorsMathFTestCalculatorRoute
+  '/calculators/math/factor-calculator': typeof CalculatorsMathFactorCalculatorRoute
+  '/calculators/math/five-number-summary-calculator': typeof CalculatorsMathFiveNumberSummaryCalculatorRoute
+  '/calculators/math/fraction-calculator': typeof CalculatorsMathFractionCalculatorRoute
+  '/calculators/math/gcf-calculator': typeof CalculatorsMathGcfCalculatorRoute
+  '/calculators/math/geometric-distribution-calculator': typeof CalculatorsMathGeometricDistributionCalculatorRoute
+  '/calculators/math/grade-percentile-calculator': typeof CalculatorsMathGradePercentileCalculatorRoute
+  '/calculators/math/half-life-calculator': typeof CalculatorsMathHalfLifeCalculatorRoute
+  '/calculators/math/hex-calculator': typeof CalculatorsMathHexCalculatorRoute
+  '/calculators/math/hypergeometric-distribution-calculator': typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
+  '/calculators/math/inequality-calculator': typeof CalculatorsMathInequalityCalculatorRoute
+  '/calculators/math/interpolation-calculator': typeof CalculatorsMathInterpolationCalculatorRoute
+  '/calculators/math/kruskal-wallis-calculator': typeof CalculatorsMathKruskalWallisCalculatorRoute
+  '/calculators/math/lcm-calculator': typeof CalculatorsMathLcmCalculatorRoute
+  '/calculators/math/linear-regression-calculator': typeof CalculatorsMathLinearRegressionCalculatorRoute
+  '/calculators/math/log-calculator': typeof CalculatorsMathLogCalculatorRoute
+  '/calculators/math/long-division-calculator': typeof CalculatorsMathLongDivisionCalculatorRoute
+  '/calculators/math/lottery-odds-calculator': typeof CalculatorsMathLotteryOddsCalculatorRoute
+  '/calculators/math/mann-whitney-calculator': typeof CalculatorsMathMannWhitneyCalculatorRoute
+  '/calculators/math/margin-of-error-calculator': typeof CalculatorsMathMarginOfErrorCalculatorRoute
+  '/calculators/math/matrix-calculator': typeof CalculatorsMathMatrixCalculatorRoute
+  '/calculators/math/mean-absolute-deviation-calculator': typeof CalculatorsMathMeanAbsoluteDeviationCalculatorRoute
+  '/calculators/math/mean-median-mode-calculator': typeof CalculatorsMathMeanMedianModeCalculatorRoute
+  '/calculators/math/modulo-calculator': typeof CalculatorsMathModuloCalculatorRoute
+  '/calculators/math/moving-average-calculator': typeof CalculatorsMathMovingAverageCalculatorRoute
+  '/calculators/math/multiple-regression-calculator': typeof CalculatorsMathMultipleRegressionCalculatorRoute
+  '/calculators/math/multiplicative-inverse-calculator': typeof CalculatorsMathMultiplicativeInverseCalculatorRoute
+  '/calculators/math/number-base-calculator': typeof CalculatorsMathNumberBaseCalculatorRoute
+  '/calculators/math/number-line-distance-calculator': typeof CalculatorsMathNumberLineDistanceCalculatorRoute
+  '/calculators/math/number-sequence-calculator': typeof CalculatorsMathNumberSequenceCalculatorRoute
+  '/calculators/math/odds-ratio-relative-risk-calculator': typeof CalculatorsMathOddsRatioRelativeRiskCalculatorRoute
+  '/calculators/math/outliers-calculator': typeof CalculatorsMathOutliersCalculatorRoute
+  '/calculators/math/p-value-calculator': typeof CalculatorsMathPValueCalculatorRoute
+  '/calculators/math/percent-error-calculator': typeof CalculatorsMathPercentErrorCalculatorRoute
+  '/calculators/math/percentage-calculator': typeof CalculatorsMathPercentageCalculatorRoute
+  '/calculators/math/percentile-calculator': typeof CalculatorsMathPercentileCalculatorRoute
+  '/calculators/math/permutation-combination-calculator': typeof CalculatorsMathPermutationCombinationCalculatorRoute
+  '/calculators/math/poisson-distribution-calculator': typeof CalculatorsMathPoissonDistributionCalculatorRoute
+  '/calculators/math/polynomial-calculator': typeof CalculatorsMathPolynomialCalculatorRoute
+  '/calculators/math/prime-checker-calculator': typeof CalculatorsMathPrimeCheckerCalculatorRoute
+  '/calculators/math/probability-calculator': typeof CalculatorsMathProbabilityCalculatorRoute
+  '/calculators/math/quadratic-formula-calculator': typeof CalculatorsMathQuadraticFormulaCalculatorRoute
+  '/calculators/math/random-number-calculator': typeof CalculatorsMathRandomNumberCalculatorRoute
+  '/calculators/math/ratio-calculator': typeof CalculatorsMathRatioCalculatorRoute
+  '/calculators/math/relative-frequency-calculator': typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  '/calculators/math/root-calculator': typeof CalculatorsMathRootCalculatorRoute
+  '/calculators/math/rounding-calculator': typeof CalculatorsMathRoundingCalculatorRoute
+  '/calculators/math/sample-size-calculator': typeof CalculatorsMathSampleSizeCalculatorRoute
+  '/calculators/math/scientific-calculator': typeof CalculatorsMathScientificCalculatorRoute
+  '/calculators/math/scientific-notation-calculator': typeof CalculatorsMathScientificNotationCalculatorRoute
+  '/calculators/math/sensitivity-specificity-calculator': typeof CalculatorsMathSensitivitySpecificityCalculatorRoute
+  '/calculators/math/sequence-calculator': typeof CalculatorsMathSequenceCalculatorRoute
+  '/calculators/math/set-calculator': typeof CalculatorsMathSetCalculatorRoute
+  '/calculators/math/simplify-radical-calculator': typeof CalculatorsMathSimplifyRadicalCalculatorRoute
+  '/calculators/math/simultaneous-equations-calculator': typeof CalculatorsMathSimultaneousEquationsCalculatorRoute
+  '/calculators/math/skewness-kurtosis-calculator': typeof CalculatorsMathSkewnessKurtosisCalculatorRoute
+  '/calculators/math/slope-calculator': typeof CalculatorsMathSlopeCalculatorRoute
+  '/calculators/math/slope-intercept-calculator': typeof CalculatorsMathSlopeInterceptCalculatorRoute
+  '/calculators/math/spearman-correlation-calculator': typeof CalculatorsMathSpearmanCorrelationCalculatorRoute
+  '/calculators/math/standard-deviation-calculator': typeof CalculatorsMathStandardDeviationCalculatorRoute
+  '/calculators/math/standard-error-calculator': typeof CalculatorsMathStandardErrorCalculatorRoute
+  '/calculators/math/statistics-calculator': typeof CalculatorsMathStatisticsCalculatorRoute
+  '/calculators/math/surface-area-calculator': typeof CalculatorsMathSurfaceAreaCalculatorRoute
+  '/calculators/math/t-test-calculator': typeof CalculatorsMathTTestCalculatorRoute
+  '/calculators/math/triangle-calculator': typeof CalculatorsMathTriangleCalculatorRoute
+  '/calculators/math/uniform-distribution-calculator': typeof CalculatorsMathUniformDistributionCalculatorRoute
+  '/calculators/math/unit-circle-calculator': typeof CalculatorsMathUnitCircleCalculatorRoute
+  '/calculators/math/vector-calculator': typeof CalculatorsMathVectorCalculatorRoute
+  '/calculators/math/volume-calculator': typeof CalculatorsMathVolumeCalculatorRoute
+  '/calculators/math/weighted-mean-calculator': typeof CalculatorsMathWeightedMeanCalculatorRoute
+  '/calculators/math/wilcoxon-calculator': typeof CalculatorsMathWilcoxonCalculatorRoute
+  '/calculators/math/z-score-calculator': typeof CalculatorsMathZScoreCalculatorRoute
+  '/calculators/math/': typeof CalculatorsMathIndexRoute
+  '/calculators/math/group/$slug': typeof CalculatorsMathGroupSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/calculators/date-time'
+    | '/calculators/education'
+    | '/calculators/finance'
+    | '/calculators/health'
+    | '/calculators/math'
+    | '/calculators/unit-converters'
+    | '/calculators/'
+    | '/calculators/math/ab-test-calculator'
+    | '/calculators/math/absolute-value-calculator'
+    | '/calculators/math/anova-calculator'
+    | '/calculators/math/area-calculator'
+    | '/calculators/math/bayes-theorem-calculator'
+    | '/calculators/math/big-number-calculator'
+    | '/calculators/math/binary-calculator'
+    | '/calculators/math/binomial-distribution-calculator'
+    | '/calculators/math/central-limit-theorem-calculator'
+    | '/calculators/math/chi-square-calculator'
+    | '/calculators/math/circle-calculator'
+    | '/calculators/math/coefficient-of-variation-calculator'
+    | '/calculators/math/coin-flip-calculator'
+    | '/calculators/math/combinations-counter-calculator'
+    | '/calculators/math/complex-number-calculator'
+    | '/calculators/math/confidence-interval-calculator'
+    | '/calculators/math/correlation-calculator'
+    | '/calculators/math/covariance-calculator'
+    | '/calculators/math/critical-value-calculator'
+    | '/calculators/math/cronbachs-alpha-calculator'
+    | '/calculators/math/degrees-of-freedom-calculator'
+    | '/calculators/math/derivative-calculator'
+    | '/calculators/math/dice-probability-calculator'
+    | '/calculators/math/distance-calculator'
+    | '/calculators/math/effect-size-calculator'
+    | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/exponent-calculator'
+    | '/calculators/math/exponential-distribution-calculator'
+    | '/calculators/math/f-test-calculator'
+    | '/calculators/math/factor-calculator'
+    | '/calculators/math/five-number-summary-calculator'
+    | '/calculators/math/fraction-calculator'
+    | '/calculators/math/gcf-calculator'
+    | '/calculators/math/geometric-distribution-calculator'
+    | '/calculators/math/grade-percentile-calculator'
+    | '/calculators/math/half-life-calculator'
+    | '/calculators/math/hex-calculator'
+    | '/calculators/math/hypergeometric-distribution-calculator'
+    | '/calculators/math/inequality-calculator'
+    | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/lcm-calculator'
+    | '/calculators/math/linear-regression-calculator'
+    | '/calculators/math/log-calculator'
+    | '/calculators/math/long-division-calculator'
+    | '/calculators/math/lottery-odds-calculator'
+    | '/calculators/math/mann-whitney-calculator'
+    | '/calculators/math/margin-of-error-calculator'
+    | '/calculators/math/matrix-calculator'
+    | '/calculators/math/mean-absolute-deviation-calculator'
+    | '/calculators/math/mean-median-mode-calculator'
+    | '/calculators/math/modulo-calculator'
+    | '/calculators/math/moving-average-calculator'
+    | '/calculators/math/multiple-regression-calculator'
+    | '/calculators/math/multiplicative-inverse-calculator'
+    | '/calculators/math/number-base-calculator'
+    | '/calculators/math/number-line-distance-calculator'
+    | '/calculators/math/number-sequence-calculator'
+    | '/calculators/math/odds-ratio-relative-risk-calculator'
+    | '/calculators/math/outliers-calculator'
+    | '/calculators/math/p-value-calculator'
+    | '/calculators/math/percent-error-calculator'
+    | '/calculators/math/percentage-calculator'
+    | '/calculators/math/percentile-calculator'
+    | '/calculators/math/permutation-combination-calculator'
+    | '/calculators/math/poisson-distribution-calculator'
+    | '/calculators/math/polynomial-calculator'
+    | '/calculators/math/prime-checker-calculator'
+    | '/calculators/math/probability-calculator'
+    | '/calculators/math/quadratic-formula-calculator'
+    | '/calculators/math/random-number-calculator'
+    | '/calculators/math/ratio-calculator'
+    | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/root-calculator'
+    | '/calculators/math/rounding-calculator'
+    | '/calculators/math/sample-size-calculator'
+    | '/calculators/math/scientific-calculator'
+    | '/calculators/math/scientific-notation-calculator'
+    | '/calculators/math/sensitivity-specificity-calculator'
+    | '/calculators/math/sequence-calculator'
+    | '/calculators/math/set-calculator'
+    | '/calculators/math/simplify-radical-calculator'
+    | '/calculators/math/simultaneous-equations-calculator'
+    | '/calculators/math/skewness-kurtosis-calculator'
+    | '/calculators/math/slope-calculator'
+    | '/calculators/math/slope-intercept-calculator'
+    | '/calculators/math/spearman-correlation-calculator'
+    | '/calculators/math/standard-deviation-calculator'
+    | '/calculators/math/standard-error-calculator'
+    | '/calculators/math/statistics-calculator'
+    | '/calculators/math/surface-area-calculator'
+    | '/calculators/math/t-test-calculator'
+    | '/calculators/math/triangle-calculator'
+    | '/calculators/math/uniform-distribution-calculator'
+    | '/calculators/math/unit-circle-calculator'
+    | '/calculators/math/vector-calculator'
+    | '/calculators/math/volume-calculator'
+    | '/calculators/math/weighted-mean-calculator'
+    | '/calculators/math/wilcoxon-calculator'
+    | '/calculators/math/z-score-calculator'
+    | '/calculators/math/'
+    | '/calculators/math/group/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/calculators/date-time'
+    | '/calculators/education'
+    | '/calculators/finance'
+    | '/calculators/health'
+    | '/calculators/unit-converters'
+    | '/calculators'
+    | '/calculators/math/ab-test-calculator'
+    | '/calculators/math/absolute-value-calculator'
+    | '/calculators/math/anova-calculator'
+    | '/calculators/math/area-calculator'
+    | '/calculators/math/bayes-theorem-calculator'
+    | '/calculators/math/big-number-calculator'
+    | '/calculators/math/binary-calculator'
+    | '/calculators/math/binomial-distribution-calculator'
+    | '/calculators/math/central-limit-theorem-calculator'
+    | '/calculators/math/chi-square-calculator'
+    | '/calculators/math/circle-calculator'
+    | '/calculators/math/coefficient-of-variation-calculator'
+    | '/calculators/math/coin-flip-calculator'
+    | '/calculators/math/combinations-counter-calculator'
+    | '/calculators/math/complex-number-calculator'
+    | '/calculators/math/confidence-interval-calculator'
+    | '/calculators/math/correlation-calculator'
+    | '/calculators/math/covariance-calculator'
+    | '/calculators/math/critical-value-calculator'
+    | '/calculators/math/cronbachs-alpha-calculator'
+    | '/calculators/math/degrees-of-freedom-calculator'
+    | '/calculators/math/derivative-calculator'
+    | '/calculators/math/dice-probability-calculator'
+    | '/calculators/math/distance-calculator'
+    | '/calculators/math/effect-size-calculator'
+    | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/exponent-calculator'
+    | '/calculators/math/exponential-distribution-calculator'
+    | '/calculators/math/f-test-calculator'
+    | '/calculators/math/factor-calculator'
+    | '/calculators/math/five-number-summary-calculator'
+    | '/calculators/math/fraction-calculator'
+    | '/calculators/math/gcf-calculator'
+    | '/calculators/math/geometric-distribution-calculator'
+    | '/calculators/math/grade-percentile-calculator'
+    | '/calculators/math/half-life-calculator'
+    | '/calculators/math/hex-calculator'
+    | '/calculators/math/hypergeometric-distribution-calculator'
+    | '/calculators/math/inequality-calculator'
+    | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/lcm-calculator'
+    | '/calculators/math/linear-regression-calculator'
+    | '/calculators/math/log-calculator'
+    | '/calculators/math/long-division-calculator'
+    | '/calculators/math/lottery-odds-calculator'
+    | '/calculators/math/mann-whitney-calculator'
+    | '/calculators/math/margin-of-error-calculator'
+    | '/calculators/math/matrix-calculator'
+    | '/calculators/math/mean-absolute-deviation-calculator'
+    | '/calculators/math/mean-median-mode-calculator'
+    | '/calculators/math/modulo-calculator'
+    | '/calculators/math/moving-average-calculator'
+    | '/calculators/math/multiple-regression-calculator'
+    | '/calculators/math/multiplicative-inverse-calculator'
+    | '/calculators/math/number-base-calculator'
+    | '/calculators/math/number-line-distance-calculator'
+    | '/calculators/math/number-sequence-calculator'
+    | '/calculators/math/odds-ratio-relative-risk-calculator'
+    | '/calculators/math/outliers-calculator'
+    | '/calculators/math/p-value-calculator'
+    | '/calculators/math/percent-error-calculator'
+    | '/calculators/math/percentage-calculator'
+    | '/calculators/math/percentile-calculator'
+    | '/calculators/math/permutation-combination-calculator'
+    | '/calculators/math/poisson-distribution-calculator'
+    | '/calculators/math/polynomial-calculator'
+    | '/calculators/math/prime-checker-calculator'
+    | '/calculators/math/probability-calculator'
+    | '/calculators/math/quadratic-formula-calculator'
+    | '/calculators/math/random-number-calculator'
+    | '/calculators/math/ratio-calculator'
+    | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/root-calculator'
+    | '/calculators/math/rounding-calculator'
+    | '/calculators/math/sample-size-calculator'
+    | '/calculators/math/scientific-calculator'
+    | '/calculators/math/scientific-notation-calculator'
+    | '/calculators/math/sensitivity-specificity-calculator'
+    | '/calculators/math/sequence-calculator'
+    | '/calculators/math/set-calculator'
+    | '/calculators/math/simplify-radical-calculator'
+    | '/calculators/math/simultaneous-equations-calculator'
+    | '/calculators/math/skewness-kurtosis-calculator'
+    | '/calculators/math/slope-calculator'
+    | '/calculators/math/slope-intercept-calculator'
+    | '/calculators/math/spearman-correlation-calculator'
+    | '/calculators/math/standard-deviation-calculator'
+    | '/calculators/math/standard-error-calculator'
+    | '/calculators/math/statistics-calculator'
+    | '/calculators/math/surface-area-calculator'
+    | '/calculators/math/t-test-calculator'
+    | '/calculators/math/triangle-calculator'
+    | '/calculators/math/uniform-distribution-calculator'
+    | '/calculators/math/unit-circle-calculator'
+    | '/calculators/math/vector-calculator'
+    | '/calculators/math/volume-calculator'
+    | '/calculators/math/weighted-mean-calculator'
+    | '/calculators/math/wilcoxon-calculator'
+    | '/calculators/math/z-score-calculator'
+    | '/calculators/math'
+    | '/calculators/math/group/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/calculators/date-time'
+    | '/calculators/education'
+    | '/calculators/finance'
+    | '/calculators/health'
+    | '/calculators/math'
+    | '/calculators/unit-converters'
+    | '/calculators/'
+    | '/calculators/math/ab-test-calculator'
+    | '/calculators/math/absolute-value-calculator'
+    | '/calculators/math/anova-calculator'
+    | '/calculators/math/area-calculator'
+    | '/calculators/math/bayes-theorem-calculator'
+    | '/calculators/math/big-number-calculator'
+    | '/calculators/math/binary-calculator'
+    | '/calculators/math/binomial-distribution-calculator'
+    | '/calculators/math/central-limit-theorem-calculator'
+    | '/calculators/math/chi-square-calculator'
+    | '/calculators/math/circle-calculator'
+    | '/calculators/math/coefficient-of-variation-calculator'
+    | '/calculators/math/coin-flip-calculator'
+    | '/calculators/math/combinations-counter-calculator'
+    | '/calculators/math/complex-number-calculator'
+    | '/calculators/math/confidence-interval-calculator'
+    | '/calculators/math/correlation-calculator'
+    | '/calculators/math/covariance-calculator'
+    | '/calculators/math/critical-value-calculator'
+    | '/calculators/math/cronbachs-alpha-calculator'
+    | '/calculators/math/degrees-of-freedom-calculator'
+    | '/calculators/math/derivative-calculator'
+    | '/calculators/math/dice-probability-calculator'
+    | '/calculators/math/distance-calculator'
+    | '/calculators/math/effect-size-calculator'
+    | '/calculators/math/empirical-rule-calculator'
+    | '/calculators/math/exponent-calculator'
+    | '/calculators/math/exponential-distribution-calculator'
+    | '/calculators/math/f-test-calculator'
+    | '/calculators/math/factor-calculator'
+    | '/calculators/math/five-number-summary-calculator'
+    | '/calculators/math/fraction-calculator'
+    | '/calculators/math/gcf-calculator'
+    | '/calculators/math/geometric-distribution-calculator'
+    | '/calculators/math/grade-percentile-calculator'
+    | '/calculators/math/half-life-calculator'
+    | '/calculators/math/hex-calculator'
+    | '/calculators/math/hypergeometric-distribution-calculator'
+    | '/calculators/math/inequality-calculator'
+    | '/calculators/math/interpolation-calculator'
+    | '/calculators/math/kruskal-wallis-calculator'
+    | '/calculators/math/lcm-calculator'
+    | '/calculators/math/linear-regression-calculator'
+    | '/calculators/math/log-calculator'
+    | '/calculators/math/long-division-calculator'
+    | '/calculators/math/lottery-odds-calculator'
+    | '/calculators/math/mann-whitney-calculator'
+    | '/calculators/math/margin-of-error-calculator'
+    | '/calculators/math/matrix-calculator'
+    | '/calculators/math/mean-absolute-deviation-calculator'
+    | '/calculators/math/mean-median-mode-calculator'
+    | '/calculators/math/modulo-calculator'
+    | '/calculators/math/moving-average-calculator'
+    | '/calculators/math/multiple-regression-calculator'
+    | '/calculators/math/multiplicative-inverse-calculator'
+    | '/calculators/math/number-base-calculator'
+    | '/calculators/math/number-line-distance-calculator'
+    | '/calculators/math/number-sequence-calculator'
+    | '/calculators/math/odds-ratio-relative-risk-calculator'
+    | '/calculators/math/outliers-calculator'
+    | '/calculators/math/p-value-calculator'
+    | '/calculators/math/percent-error-calculator'
+    | '/calculators/math/percentage-calculator'
+    | '/calculators/math/percentile-calculator'
+    | '/calculators/math/permutation-combination-calculator'
+    | '/calculators/math/poisson-distribution-calculator'
+    | '/calculators/math/polynomial-calculator'
+    | '/calculators/math/prime-checker-calculator'
+    | '/calculators/math/probability-calculator'
+    | '/calculators/math/quadratic-formula-calculator'
+    | '/calculators/math/random-number-calculator'
+    | '/calculators/math/ratio-calculator'
+    | '/calculators/math/relative-frequency-calculator'
+    | '/calculators/math/root-calculator'
+    | '/calculators/math/rounding-calculator'
+    | '/calculators/math/sample-size-calculator'
+    | '/calculators/math/scientific-calculator'
+    | '/calculators/math/scientific-notation-calculator'
+    | '/calculators/math/sensitivity-specificity-calculator'
+    | '/calculators/math/sequence-calculator'
+    | '/calculators/math/set-calculator'
+    | '/calculators/math/simplify-radical-calculator'
+    | '/calculators/math/simultaneous-equations-calculator'
+    | '/calculators/math/skewness-kurtosis-calculator'
+    | '/calculators/math/slope-calculator'
+    | '/calculators/math/slope-intercept-calculator'
+    | '/calculators/math/spearman-correlation-calculator'
+    | '/calculators/math/standard-deviation-calculator'
+    | '/calculators/math/standard-error-calculator'
+    | '/calculators/math/statistics-calculator'
+    | '/calculators/math/surface-area-calculator'
+    | '/calculators/math/t-test-calculator'
+    | '/calculators/math/triangle-calculator'
+    | '/calculators/math/uniform-distribution-calculator'
+    | '/calculators/math/unit-circle-calculator'
+    | '/calculators/math/vector-calculator'
+    | '/calculators/math/volume-calculator'
+    | '/calculators/math/weighted-mean-calculator'
+    | '/calculators/math/wilcoxon-calculator'
+    | '/calculators/math/z-score-calculator'
+    | '/calculators/math/'
+    | '/calculators/math/group/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
+  CalculatorsDateTimeRoute: typeof CalculatorsDateTimeRoute
+  CalculatorsEducationRoute: typeof CalculatorsEducationRoute
+  CalculatorsFinanceRoute: typeof CalculatorsFinanceRoute
+  CalculatorsHealthRoute: typeof CalculatorsHealthRoute
+  CalculatorsMathRoute: typeof CalculatorsMathRouteWithChildren
+  CalculatorsUnitConvertersRoute: typeof CalculatorsUnitConvertersRoute
+  CalculatorsIndexRoute: typeof CalculatorsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +1567,1079 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculators/': {
+      id: '/calculators/'
+      path: '/calculators'
+      fullPath: '/calculators/'
+      preLoaderRoute: typeof CalculatorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/unit-converters': {
+      id: '/calculators/unit-converters'
+      path: '/calculators/unit-converters'
+      fullPath: '/calculators/unit-converters'
+      preLoaderRoute: typeof CalculatorsUnitConvertersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/math': {
+      id: '/calculators/math'
+      path: '/calculators/math'
+      fullPath: '/calculators/math'
+      preLoaderRoute: typeof CalculatorsMathRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/health': {
+      id: '/calculators/health'
+      path: '/calculators/health'
+      fullPath: '/calculators/health'
+      preLoaderRoute: typeof CalculatorsHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/finance': {
+      id: '/calculators/finance'
+      path: '/calculators/finance'
+      fullPath: '/calculators/finance'
+      preLoaderRoute: typeof CalculatorsFinanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/education': {
+      id: '/calculators/education'
+      path: '/calculators/education'
+      fullPath: '/calculators/education'
+      preLoaderRoute: typeof CalculatorsEducationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/date-time': {
+      id: '/calculators/date-time'
+      path: '/calculators/date-time'
+      fullPath: '/calculators/date-time'
+      preLoaderRoute: typeof CalculatorsDateTimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators/math/': {
+      id: '/calculators/math/'
+      path: '/'
+      fullPath: '/calculators/math/'
+      preLoaderRoute: typeof CalculatorsMathIndexRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/z-score-calculator': {
+      id: '/calculators/math/z-score-calculator'
+      path: '/z-score-calculator'
+      fullPath: '/calculators/math/z-score-calculator'
+      preLoaderRoute: typeof CalculatorsMathZScoreCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/wilcoxon-calculator': {
+      id: '/calculators/math/wilcoxon-calculator'
+      path: '/wilcoxon-calculator'
+      fullPath: '/calculators/math/wilcoxon-calculator'
+      preLoaderRoute: typeof CalculatorsMathWilcoxonCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/weighted-mean-calculator': {
+      id: '/calculators/math/weighted-mean-calculator'
+      path: '/weighted-mean-calculator'
+      fullPath: '/calculators/math/weighted-mean-calculator'
+      preLoaderRoute: typeof CalculatorsMathWeightedMeanCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/volume-calculator': {
+      id: '/calculators/math/volume-calculator'
+      path: '/volume-calculator'
+      fullPath: '/calculators/math/volume-calculator'
+      preLoaderRoute: typeof CalculatorsMathVolumeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/vector-calculator': {
+      id: '/calculators/math/vector-calculator'
+      path: '/vector-calculator'
+      fullPath: '/calculators/math/vector-calculator'
+      preLoaderRoute: typeof CalculatorsMathVectorCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/unit-circle-calculator': {
+      id: '/calculators/math/unit-circle-calculator'
+      path: '/unit-circle-calculator'
+      fullPath: '/calculators/math/unit-circle-calculator'
+      preLoaderRoute: typeof CalculatorsMathUnitCircleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/uniform-distribution-calculator': {
+      id: '/calculators/math/uniform-distribution-calculator'
+      path: '/uniform-distribution-calculator'
+      fullPath: '/calculators/math/uniform-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathUniformDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/triangle-calculator': {
+      id: '/calculators/math/triangle-calculator'
+      path: '/triangle-calculator'
+      fullPath: '/calculators/math/triangle-calculator'
+      preLoaderRoute: typeof CalculatorsMathTriangleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/t-test-calculator': {
+      id: '/calculators/math/t-test-calculator'
+      path: '/t-test-calculator'
+      fullPath: '/calculators/math/t-test-calculator'
+      preLoaderRoute: typeof CalculatorsMathTTestCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/surface-area-calculator': {
+      id: '/calculators/math/surface-area-calculator'
+      path: '/surface-area-calculator'
+      fullPath: '/calculators/math/surface-area-calculator'
+      preLoaderRoute: typeof CalculatorsMathSurfaceAreaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/statistics-calculator': {
+      id: '/calculators/math/statistics-calculator'
+      path: '/statistics-calculator'
+      fullPath: '/calculators/math/statistics-calculator'
+      preLoaderRoute: typeof CalculatorsMathStatisticsCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/standard-error-calculator': {
+      id: '/calculators/math/standard-error-calculator'
+      path: '/standard-error-calculator'
+      fullPath: '/calculators/math/standard-error-calculator'
+      preLoaderRoute: typeof CalculatorsMathStandardErrorCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/standard-deviation-calculator': {
+      id: '/calculators/math/standard-deviation-calculator'
+      path: '/standard-deviation-calculator'
+      fullPath: '/calculators/math/standard-deviation-calculator'
+      preLoaderRoute: typeof CalculatorsMathStandardDeviationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/spearman-correlation-calculator': {
+      id: '/calculators/math/spearman-correlation-calculator'
+      path: '/spearman-correlation-calculator'
+      fullPath: '/calculators/math/spearman-correlation-calculator'
+      preLoaderRoute: typeof CalculatorsMathSpearmanCorrelationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/slope-intercept-calculator': {
+      id: '/calculators/math/slope-intercept-calculator'
+      path: '/slope-intercept-calculator'
+      fullPath: '/calculators/math/slope-intercept-calculator'
+      preLoaderRoute: typeof CalculatorsMathSlopeInterceptCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/slope-calculator': {
+      id: '/calculators/math/slope-calculator'
+      path: '/slope-calculator'
+      fullPath: '/calculators/math/slope-calculator'
+      preLoaderRoute: typeof CalculatorsMathSlopeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/skewness-kurtosis-calculator': {
+      id: '/calculators/math/skewness-kurtosis-calculator'
+      path: '/skewness-kurtosis-calculator'
+      fullPath: '/calculators/math/skewness-kurtosis-calculator'
+      preLoaderRoute: typeof CalculatorsMathSkewnessKurtosisCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/simultaneous-equations-calculator': {
+      id: '/calculators/math/simultaneous-equations-calculator'
+      path: '/simultaneous-equations-calculator'
+      fullPath: '/calculators/math/simultaneous-equations-calculator'
+      preLoaderRoute: typeof CalculatorsMathSimultaneousEquationsCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/simplify-radical-calculator': {
+      id: '/calculators/math/simplify-radical-calculator'
+      path: '/simplify-radical-calculator'
+      fullPath: '/calculators/math/simplify-radical-calculator'
+      preLoaderRoute: typeof CalculatorsMathSimplifyRadicalCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/set-calculator': {
+      id: '/calculators/math/set-calculator'
+      path: '/set-calculator'
+      fullPath: '/calculators/math/set-calculator'
+      preLoaderRoute: typeof CalculatorsMathSetCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/sequence-calculator': {
+      id: '/calculators/math/sequence-calculator'
+      path: '/sequence-calculator'
+      fullPath: '/calculators/math/sequence-calculator'
+      preLoaderRoute: typeof CalculatorsMathSequenceCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/sensitivity-specificity-calculator': {
+      id: '/calculators/math/sensitivity-specificity-calculator'
+      path: '/sensitivity-specificity-calculator'
+      fullPath: '/calculators/math/sensitivity-specificity-calculator'
+      preLoaderRoute: typeof CalculatorsMathSensitivitySpecificityCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/scientific-notation-calculator': {
+      id: '/calculators/math/scientific-notation-calculator'
+      path: '/scientific-notation-calculator'
+      fullPath: '/calculators/math/scientific-notation-calculator'
+      preLoaderRoute: typeof CalculatorsMathScientificNotationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/scientific-calculator': {
+      id: '/calculators/math/scientific-calculator'
+      path: '/scientific-calculator'
+      fullPath: '/calculators/math/scientific-calculator'
+      preLoaderRoute: typeof CalculatorsMathScientificCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/sample-size-calculator': {
+      id: '/calculators/math/sample-size-calculator'
+      path: '/sample-size-calculator'
+      fullPath: '/calculators/math/sample-size-calculator'
+      preLoaderRoute: typeof CalculatorsMathSampleSizeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/rounding-calculator': {
+      id: '/calculators/math/rounding-calculator'
+      path: '/rounding-calculator'
+      fullPath: '/calculators/math/rounding-calculator'
+      preLoaderRoute: typeof CalculatorsMathRoundingCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/root-calculator': {
+      id: '/calculators/math/root-calculator'
+      path: '/root-calculator'
+      fullPath: '/calculators/math/root-calculator'
+      preLoaderRoute: typeof CalculatorsMathRootCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/relative-frequency-calculator': {
+      id: '/calculators/math/relative-frequency-calculator'
+      path: '/relative-frequency-calculator'
+      fullPath: '/calculators/math/relative-frequency-calculator'
+      preLoaderRoute: typeof CalculatorsMathRelativeFrequencyCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/ratio-calculator': {
+      id: '/calculators/math/ratio-calculator'
+      path: '/ratio-calculator'
+      fullPath: '/calculators/math/ratio-calculator'
+      preLoaderRoute: typeof CalculatorsMathRatioCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/random-number-calculator': {
+      id: '/calculators/math/random-number-calculator'
+      path: '/random-number-calculator'
+      fullPath: '/calculators/math/random-number-calculator'
+      preLoaderRoute: typeof CalculatorsMathRandomNumberCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/quadratic-formula-calculator': {
+      id: '/calculators/math/quadratic-formula-calculator'
+      path: '/quadratic-formula-calculator'
+      fullPath: '/calculators/math/quadratic-formula-calculator'
+      preLoaderRoute: typeof CalculatorsMathQuadraticFormulaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/probability-calculator': {
+      id: '/calculators/math/probability-calculator'
+      path: '/probability-calculator'
+      fullPath: '/calculators/math/probability-calculator'
+      preLoaderRoute: typeof CalculatorsMathProbabilityCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/prime-checker-calculator': {
+      id: '/calculators/math/prime-checker-calculator'
+      path: '/prime-checker-calculator'
+      fullPath: '/calculators/math/prime-checker-calculator'
+      preLoaderRoute: typeof CalculatorsMathPrimeCheckerCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/polynomial-calculator': {
+      id: '/calculators/math/polynomial-calculator'
+      path: '/polynomial-calculator'
+      fullPath: '/calculators/math/polynomial-calculator'
+      preLoaderRoute: typeof CalculatorsMathPolynomialCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/poisson-distribution-calculator': {
+      id: '/calculators/math/poisson-distribution-calculator'
+      path: '/poisson-distribution-calculator'
+      fullPath: '/calculators/math/poisson-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathPoissonDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/permutation-combination-calculator': {
+      id: '/calculators/math/permutation-combination-calculator'
+      path: '/permutation-combination-calculator'
+      fullPath: '/calculators/math/permutation-combination-calculator'
+      preLoaderRoute: typeof CalculatorsMathPermutationCombinationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/percentile-calculator': {
+      id: '/calculators/math/percentile-calculator'
+      path: '/percentile-calculator'
+      fullPath: '/calculators/math/percentile-calculator'
+      preLoaderRoute: typeof CalculatorsMathPercentileCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/percentage-calculator': {
+      id: '/calculators/math/percentage-calculator'
+      path: '/percentage-calculator'
+      fullPath: '/calculators/math/percentage-calculator'
+      preLoaderRoute: typeof CalculatorsMathPercentageCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/percent-error-calculator': {
+      id: '/calculators/math/percent-error-calculator'
+      path: '/percent-error-calculator'
+      fullPath: '/calculators/math/percent-error-calculator'
+      preLoaderRoute: typeof CalculatorsMathPercentErrorCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/p-value-calculator': {
+      id: '/calculators/math/p-value-calculator'
+      path: '/p-value-calculator'
+      fullPath: '/calculators/math/p-value-calculator'
+      preLoaderRoute: typeof CalculatorsMathPValueCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/outliers-calculator': {
+      id: '/calculators/math/outliers-calculator'
+      path: '/outliers-calculator'
+      fullPath: '/calculators/math/outliers-calculator'
+      preLoaderRoute: typeof CalculatorsMathOutliersCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/odds-ratio-relative-risk-calculator': {
+      id: '/calculators/math/odds-ratio-relative-risk-calculator'
+      path: '/odds-ratio-relative-risk-calculator'
+      fullPath: '/calculators/math/odds-ratio-relative-risk-calculator'
+      preLoaderRoute: typeof CalculatorsMathOddsRatioRelativeRiskCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/number-sequence-calculator': {
+      id: '/calculators/math/number-sequence-calculator'
+      path: '/number-sequence-calculator'
+      fullPath: '/calculators/math/number-sequence-calculator'
+      preLoaderRoute: typeof CalculatorsMathNumberSequenceCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/number-line-distance-calculator': {
+      id: '/calculators/math/number-line-distance-calculator'
+      path: '/number-line-distance-calculator'
+      fullPath: '/calculators/math/number-line-distance-calculator'
+      preLoaderRoute: typeof CalculatorsMathNumberLineDistanceCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/number-base-calculator': {
+      id: '/calculators/math/number-base-calculator'
+      path: '/number-base-calculator'
+      fullPath: '/calculators/math/number-base-calculator'
+      preLoaderRoute: typeof CalculatorsMathNumberBaseCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/multiplicative-inverse-calculator': {
+      id: '/calculators/math/multiplicative-inverse-calculator'
+      path: '/multiplicative-inverse-calculator'
+      fullPath: '/calculators/math/multiplicative-inverse-calculator'
+      preLoaderRoute: typeof CalculatorsMathMultiplicativeInverseCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/multiple-regression-calculator': {
+      id: '/calculators/math/multiple-regression-calculator'
+      path: '/multiple-regression-calculator'
+      fullPath: '/calculators/math/multiple-regression-calculator'
+      preLoaderRoute: typeof CalculatorsMathMultipleRegressionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/moving-average-calculator': {
+      id: '/calculators/math/moving-average-calculator'
+      path: '/moving-average-calculator'
+      fullPath: '/calculators/math/moving-average-calculator'
+      preLoaderRoute: typeof CalculatorsMathMovingAverageCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/modulo-calculator': {
+      id: '/calculators/math/modulo-calculator'
+      path: '/modulo-calculator'
+      fullPath: '/calculators/math/modulo-calculator'
+      preLoaderRoute: typeof CalculatorsMathModuloCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/mean-median-mode-calculator': {
+      id: '/calculators/math/mean-median-mode-calculator'
+      path: '/mean-median-mode-calculator'
+      fullPath: '/calculators/math/mean-median-mode-calculator'
+      preLoaderRoute: typeof CalculatorsMathMeanMedianModeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/mean-absolute-deviation-calculator': {
+      id: '/calculators/math/mean-absolute-deviation-calculator'
+      path: '/mean-absolute-deviation-calculator'
+      fullPath: '/calculators/math/mean-absolute-deviation-calculator'
+      preLoaderRoute: typeof CalculatorsMathMeanAbsoluteDeviationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/matrix-calculator': {
+      id: '/calculators/math/matrix-calculator'
+      path: '/matrix-calculator'
+      fullPath: '/calculators/math/matrix-calculator'
+      preLoaderRoute: typeof CalculatorsMathMatrixCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/margin-of-error-calculator': {
+      id: '/calculators/math/margin-of-error-calculator'
+      path: '/margin-of-error-calculator'
+      fullPath: '/calculators/math/margin-of-error-calculator'
+      preLoaderRoute: typeof CalculatorsMathMarginOfErrorCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/mann-whitney-calculator': {
+      id: '/calculators/math/mann-whitney-calculator'
+      path: '/mann-whitney-calculator'
+      fullPath: '/calculators/math/mann-whitney-calculator'
+      preLoaderRoute: typeof CalculatorsMathMannWhitneyCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/lottery-odds-calculator': {
+      id: '/calculators/math/lottery-odds-calculator'
+      path: '/lottery-odds-calculator'
+      fullPath: '/calculators/math/lottery-odds-calculator'
+      preLoaderRoute: typeof CalculatorsMathLotteryOddsCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/long-division-calculator': {
+      id: '/calculators/math/long-division-calculator'
+      path: '/long-division-calculator'
+      fullPath: '/calculators/math/long-division-calculator'
+      preLoaderRoute: typeof CalculatorsMathLongDivisionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/log-calculator': {
+      id: '/calculators/math/log-calculator'
+      path: '/log-calculator'
+      fullPath: '/calculators/math/log-calculator'
+      preLoaderRoute: typeof CalculatorsMathLogCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/linear-regression-calculator': {
+      id: '/calculators/math/linear-regression-calculator'
+      path: '/linear-regression-calculator'
+      fullPath: '/calculators/math/linear-regression-calculator'
+      preLoaderRoute: typeof CalculatorsMathLinearRegressionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/lcm-calculator': {
+      id: '/calculators/math/lcm-calculator'
+      path: '/lcm-calculator'
+      fullPath: '/calculators/math/lcm-calculator'
+      preLoaderRoute: typeof CalculatorsMathLcmCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/kruskal-wallis-calculator': {
+      id: '/calculators/math/kruskal-wallis-calculator'
+      path: '/kruskal-wallis-calculator'
+      fullPath: '/calculators/math/kruskal-wallis-calculator'
+      preLoaderRoute: typeof CalculatorsMathKruskalWallisCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/interpolation-calculator': {
+      id: '/calculators/math/interpolation-calculator'
+      path: '/interpolation-calculator'
+      fullPath: '/calculators/math/interpolation-calculator'
+      preLoaderRoute: typeof CalculatorsMathInterpolationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/inequality-calculator': {
+      id: '/calculators/math/inequality-calculator'
+      path: '/inequality-calculator'
+      fullPath: '/calculators/math/inequality-calculator'
+      preLoaderRoute: typeof CalculatorsMathInequalityCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/hypergeometric-distribution-calculator': {
+      id: '/calculators/math/hypergeometric-distribution-calculator'
+      path: '/hypergeometric-distribution-calculator'
+      fullPath: '/calculators/math/hypergeometric-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathHypergeometricDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/hex-calculator': {
+      id: '/calculators/math/hex-calculator'
+      path: '/hex-calculator'
+      fullPath: '/calculators/math/hex-calculator'
+      preLoaderRoute: typeof CalculatorsMathHexCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/half-life-calculator': {
+      id: '/calculators/math/half-life-calculator'
+      path: '/half-life-calculator'
+      fullPath: '/calculators/math/half-life-calculator'
+      preLoaderRoute: typeof CalculatorsMathHalfLifeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/grade-percentile-calculator': {
+      id: '/calculators/math/grade-percentile-calculator'
+      path: '/grade-percentile-calculator'
+      fullPath: '/calculators/math/grade-percentile-calculator'
+      preLoaderRoute: typeof CalculatorsMathGradePercentileCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/geometric-distribution-calculator': {
+      id: '/calculators/math/geometric-distribution-calculator'
+      path: '/geometric-distribution-calculator'
+      fullPath: '/calculators/math/geometric-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathGeometricDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/gcf-calculator': {
+      id: '/calculators/math/gcf-calculator'
+      path: '/gcf-calculator'
+      fullPath: '/calculators/math/gcf-calculator'
+      preLoaderRoute: typeof CalculatorsMathGcfCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/fraction-calculator': {
+      id: '/calculators/math/fraction-calculator'
+      path: '/fraction-calculator'
+      fullPath: '/calculators/math/fraction-calculator'
+      preLoaderRoute: typeof CalculatorsMathFractionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/five-number-summary-calculator': {
+      id: '/calculators/math/five-number-summary-calculator'
+      path: '/five-number-summary-calculator'
+      fullPath: '/calculators/math/five-number-summary-calculator'
+      preLoaderRoute: typeof CalculatorsMathFiveNumberSummaryCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/factor-calculator': {
+      id: '/calculators/math/factor-calculator'
+      path: '/factor-calculator'
+      fullPath: '/calculators/math/factor-calculator'
+      preLoaderRoute: typeof CalculatorsMathFactorCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/f-test-calculator': {
+      id: '/calculators/math/f-test-calculator'
+      path: '/f-test-calculator'
+      fullPath: '/calculators/math/f-test-calculator'
+      preLoaderRoute: typeof CalculatorsMathFTestCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/exponential-distribution-calculator': {
+      id: '/calculators/math/exponential-distribution-calculator'
+      path: '/exponential-distribution-calculator'
+      fullPath: '/calculators/math/exponential-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathExponentialDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/exponent-calculator': {
+      id: '/calculators/math/exponent-calculator'
+      path: '/exponent-calculator'
+      fullPath: '/calculators/math/exponent-calculator'
+      preLoaderRoute: typeof CalculatorsMathExponentCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/empirical-rule-calculator': {
+      id: '/calculators/math/empirical-rule-calculator'
+      path: '/empirical-rule-calculator'
+      fullPath: '/calculators/math/empirical-rule-calculator'
+      preLoaderRoute: typeof CalculatorsMathEmpiricalRuleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/effect-size-calculator': {
+      id: '/calculators/math/effect-size-calculator'
+      path: '/effect-size-calculator'
+      fullPath: '/calculators/math/effect-size-calculator'
+      preLoaderRoute: typeof CalculatorsMathEffectSizeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/distance-calculator': {
+      id: '/calculators/math/distance-calculator'
+      path: '/distance-calculator'
+      fullPath: '/calculators/math/distance-calculator'
+      preLoaderRoute: typeof CalculatorsMathDistanceCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/dice-probability-calculator': {
+      id: '/calculators/math/dice-probability-calculator'
+      path: '/dice-probability-calculator'
+      fullPath: '/calculators/math/dice-probability-calculator'
+      preLoaderRoute: typeof CalculatorsMathDiceProbabilityCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/derivative-calculator': {
+      id: '/calculators/math/derivative-calculator'
+      path: '/derivative-calculator'
+      fullPath: '/calculators/math/derivative-calculator'
+      preLoaderRoute: typeof CalculatorsMathDerivativeCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/degrees-of-freedom-calculator': {
+      id: '/calculators/math/degrees-of-freedom-calculator'
+      path: '/degrees-of-freedom-calculator'
+      fullPath: '/calculators/math/degrees-of-freedom-calculator'
+      preLoaderRoute: typeof CalculatorsMathDegreesOfFreedomCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/cronbachs-alpha-calculator': {
+      id: '/calculators/math/cronbachs-alpha-calculator'
+      path: '/cronbachs-alpha-calculator'
+      fullPath: '/calculators/math/cronbachs-alpha-calculator'
+      preLoaderRoute: typeof CalculatorsMathCronbachsAlphaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/critical-value-calculator': {
+      id: '/calculators/math/critical-value-calculator'
+      path: '/critical-value-calculator'
+      fullPath: '/calculators/math/critical-value-calculator'
+      preLoaderRoute: typeof CalculatorsMathCriticalValueCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/covariance-calculator': {
+      id: '/calculators/math/covariance-calculator'
+      path: '/covariance-calculator'
+      fullPath: '/calculators/math/covariance-calculator'
+      preLoaderRoute: typeof CalculatorsMathCovarianceCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/correlation-calculator': {
+      id: '/calculators/math/correlation-calculator'
+      path: '/correlation-calculator'
+      fullPath: '/calculators/math/correlation-calculator'
+      preLoaderRoute: typeof CalculatorsMathCorrelationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/confidence-interval-calculator': {
+      id: '/calculators/math/confidence-interval-calculator'
+      path: '/confidence-interval-calculator'
+      fullPath: '/calculators/math/confidence-interval-calculator'
+      preLoaderRoute: typeof CalculatorsMathConfidenceIntervalCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/complex-number-calculator': {
+      id: '/calculators/math/complex-number-calculator'
+      path: '/complex-number-calculator'
+      fullPath: '/calculators/math/complex-number-calculator'
+      preLoaderRoute: typeof CalculatorsMathComplexNumberCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/combinations-counter-calculator': {
+      id: '/calculators/math/combinations-counter-calculator'
+      path: '/combinations-counter-calculator'
+      fullPath: '/calculators/math/combinations-counter-calculator'
+      preLoaderRoute: typeof CalculatorsMathCombinationsCounterCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/coin-flip-calculator': {
+      id: '/calculators/math/coin-flip-calculator'
+      path: '/coin-flip-calculator'
+      fullPath: '/calculators/math/coin-flip-calculator'
+      preLoaderRoute: typeof CalculatorsMathCoinFlipCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/coefficient-of-variation-calculator': {
+      id: '/calculators/math/coefficient-of-variation-calculator'
+      path: '/coefficient-of-variation-calculator'
+      fullPath: '/calculators/math/coefficient-of-variation-calculator'
+      preLoaderRoute: typeof CalculatorsMathCoefficientOfVariationCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/circle-calculator': {
+      id: '/calculators/math/circle-calculator'
+      path: '/circle-calculator'
+      fullPath: '/calculators/math/circle-calculator'
+      preLoaderRoute: typeof CalculatorsMathCircleCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/chi-square-calculator': {
+      id: '/calculators/math/chi-square-calculator'
+      path: '/chi-square-calculator'
+      fullPath: '/calculators/math/chi-square-calculator'
+      preLoaderRoute: typeof CalculatorsMathChiSquareCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/central-limit-theorem-calculator': {
+      id: '/calculators/math/central-limit-theorem-calculator'
+      path: '/central-limit-theorem-calculator'
+      fullPath: '/calculators/math/central-limit-theorem-calculator'
+      preLoaderRoute: typeof CalculatorsMathCentralLimitTheoremCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/binomial-distribution-calculator': {
+      id: '/calculators/math/binomial-distribution-calculator'
+      path: '/binomial-distribution-calculator'
+      fullPath: '/calculators/math/binomial-distribution-calculator'
+      preLoaderRoute: typeof CalculatorsMathBinomialDistributionCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/binary-calculator': {
+      id: '/calculators/math/binary-calculator'
+      path: '/binary-calculator'
+      fullPath: '/calculators/math/binary-calculator'
+      preLoaderRoute: typeof CalculatorsMathBinaryCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/big-number-calculator': {
+      id: '/calculators/math/big-number-calculator'
+      path: '/big-number-calculator'
+      fullPath: '/calculators/math/big-number-calculator'
+      preLoaderRoute: typeof CalculatorsMathBigNumberCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/bayes-theorem-calculator': {
+      id: '/calculators/math/bayes-theorem-calculator'
+      path: '/bayes-theorem-calculator'
+      fullPath: '/calculators/math/bayes-theorem-calculator'
+      preLoaderRoute: typeof CalculatorsMathBayesTheoremCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/area-calculator': {
+      id: '/calculators/math/area-calculator'
+      path: '/area-calculator'
+      fullPath: '/calculators/math/area-calculator'
+      preLoaderRoute: typeof CalculatorsMathAreaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/anova-calculator': {
+      id: '/calculators/math/anova-calculator'
+      path: '/anova-calculator'
+      fullPath: '/calculators/math/anova-calculator'
+      preLoaderRoute: typeof CalculatorsMathAnovaCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/absolute-value-calculator': {
+      id: '/calculators/math/absolute-value-calculator'
+      path: '/absolute-value-calculator'
+      fullPath: '/calculators/math/absolute-value-calculator'
+      preLoaderRoute: typeof CalculatorsMathAbsoluteValueCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/ab-test-calculator': {
+      id: '/calculators/math/ab-test-calculator'
+      path: '/ab-test-calculator'
+      fullPath: '/calculators/math/ab-test-calculator'
+      preLoaderRoute: typeof CalculatorsMathAbTestCalculatorRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
+    '/calculators/math/group/$slug': {
+      id: '/calculators/math/group/$slug'
+      path: '/group/$slug'
+      fullPath: '/calculators/math/group/$slug'
+      preLoaderRoute: typeof CalculatorsMathGroupSlugRouteImport
+      parentRoute: typeof CalculatorsMathRoute
+    }
   }
 }
 
+interface CalculatorsMathRouteChildren {
+  CalculatorsMathAbTestCalculatorRoute: typeof CalculatorsMathAbTestCalculatorRoute
+  CalculatorsMathAbsoluteValueCalculatorRoute: typeof CalculatorsMathAbsoluteValueCalculatorRoute
+  CalculatorsMathAnovaCalculatorRoute: typeof CalculatorsMathAnovaCalculatorRoute
+  CalculatorsMathAreaCalculatorRoute: typeof CalculatorsMathAreaCalculatorRoute
+  CalculatorsMathBayesTheoremCalculatorRoute: typeof CalculatorsMathBayesTheoremCalculatorRoute
+  CalculatorsMathBigNumberCalculatorRoute: typeof CalculatorsMathBigNumberCalculatorRoute
+  CalculatorsMathBinaryCalculatorRoute: typeof CalculatorsMathBinaryCalculatorRoute
+  CalculatorsMathBinomialDistributionCalculatorRoute: typeof CalculatorsMathBinomialDistributionCalculatorRoute
+  CalculatorsMathCentralLimitTheoremCalculatorRoute: typeof CalculatorsMathCentralLimitTheoremCalculatorRoute
+  CalculatorsMathChiSquareCalculatorRoute: typeof CalculatorsMathChiSquareCalculatorRoute
+  CalculatorsMathCircleCalculatorRoute: typeof CalculatorsMathCircleCalculatorRoute
+  CalculatorsMathCoefficientOfVariationCalculatorRoute: typeof CalculatorsMathCoefficientOfVariationCalculatorRoute
+  CalculatorsMathCoinFlipCalculatorRoute: typeof CalculatorsMathCoinFlipCalculatorRoute
+  CalculatorsMathCombinationsCounterCalculatorRoute: typeof CalculatorsMathCombinationsCounterCalculatorRoute
+  CalculatorsMathComplexNumberCalculatorRoute: typeof CalculatorsMathComplexNumberCalculatorRoute
+  CalculatorsMathConfidenceIntervalCalculatorRoute: typeof CalculatorsMathConfidenceIntervalCalculatorRoute
+  CalculatorsMathCorrelationCalculatorRoute: typeof CalculatorsMathCorrelationCalculatorRoute
+  CalculatorsMathCovarianceCalculatorRoute: typeof CalculatorsMathCovarianceCalculatorRoute
+  CalculatorsMathCriticalValueCalculatorRoute: typeof CalculatorsMathCriticalValueCalculatorRoute
+  CalculatorsMathCronbachsAlphaCalculatorRoute: typeof CalculatorsMathCronbachsAlphaCalculatorRoute
+  CalculatorsMathDegreesOfFreedomCalculatorRoute: typeof CalculatorsMathDegreesOfFreedomCalculatorRoute
+  CalculatorsMathDerivativeCalculatorRoute: typeof CalculatorsMathDerivativeCalculatorRoute
+  CalculatorsMathDiceProbabilityCalculatorRoute: typeof CalculatorsMathDiceProbabilityCalculatorRoute
+  CalculatorsMathDistanceCalculatorRoute: typeof CalculatorsMathDistanceCalculatorRoute
+  CalculatorsMathEffectSizeCalculatorRoute: typeof CalculatorsMathEffectSizeCalculatorRoute
+  CalculatorsMathEmpiricalRuleCalculatorRoute: typeof CalculatorsMathEmpiricalRuleCalculatorRoute
+  CalculatorsMathExponentCalculatorRoute: typeof CalculatorsMathExponentCalculatorRoute
+  CalculatorsMathExponentialDistributionCalculatorRoute: typeof CalculatorsMathExponentialDistributionCalculatorRoute
+  CalculatorsMathFTestCalculatorRoute: typeof CalculatorsMathFTestCalculatorRoute
+  CalculatorsMathFactorCalculatorRoute: typeof CalculatorsMathFactorCalculatorRoute
+  CalculatorsMathFiveNumberSummaryCalculatorRoute: typeof CalculatorsMathFiveNumberSummaryCalculatorRoute
+  CalculatorsMathFractionCalculatorRoute: typeof CalculatorsMathFractionCalculatorRoute
+  CalculatorsMathGcfCalculatorRoute: typeof CalculatorsMathGcfCalculatorRoute
+  CalculatorsMathGeometricDistributionCalculatorRoute: typeof CalculatorsMathGeometricDistributionCalculatorRoute
+  CalculatorsMathGradePercentileCalculatorRoute: typeof CalculatorsMathGradePercentileCalculatorRoute
+  CalculatorsMathHalfLifeCalculatorRoute: typeof CalculatorsMathHalfLifeCalculatorRoute
+  CalculatorsMathHexCalculatorRoute: typeof CalculatorsMathHexCalculatorRoute
+  CalculatorsMathHypergeometricDistributionCalculatorRoute: typeof CalculatorsMathHypergeometricDistributionCalculatorRoute
+  CalculatorsMathInequalityCalculatorRoute: typeof CalculatorsMathInequalityCalculatorRoute
+  CalculatorsMathInterpolationCalculatorRoute: typeof CalculatorsMathInterpolationCalculatorRoute
+  CalculatorsMathKruskalWallisCalculatorRoute: typeof CalculatorsMathKruskalWallisCalculatorRoute
+  CalculatorsMathLcmCalculatorRoute: typeof CalculatorsMathLcmCalculatorRoute
+  CalculatorsMathLinearRegressionCalculatorRoute: typeof CalculatorsMathLinearRegressionCalculatorRoute
+  CalculatorsMathLogCalculatorRoute: typeof CalculatorsMathLogCalculatorRoute
+  CalculatorsMathLongDivisionCalculatorRoute: typeof CalculatorsMathLongDivisionCalculatorRoute
+  CalculatorsMathLotteryOddsCalculatorRoute: typeof CalculatorsMathLotteryOddsCalculatorRoute
+  CalculatorsMathMannWhitneyCalculatorRoute: typeof CalculatorsMathMannWhitneyCalculatorRoute
+  CalculatorsMathMarginOfErrorCalculatorRoute: typeof CalculatorsMathMarginOfErrorCalculatorRoute
+  CalculatorsMathMatrixCalculatorRoute: typeof CalculatorsMathMatrixCalculatorRoute
+  CalculatorsMathMeanAbsoluteDeviationCalculatorRoute: typeof CalculatorsMathMeanAbsoluteDeviationCalculatorRoute
+  CalculatorsMathMeanMedianModeCalculatorRoute: typeof CalculatorsMathMeanMedianModeCalculatorRoute
+  CalculatorsMathModuloCalculatorRoute: typeof CalculatorsMathModuloCalculatorRoute
+  CalculatorsMathMovingAverageCalculatorRoute: typeof CalculatorsMathMovingAverageCalculatorRoute
+  CalculatorsMathMultipleRegressionCalculatorRoute: typeof CalculatorsMathMultipleRegressionCalculatorRoute
+  CalculatorsMathMultiplicativeInverseCalculatorRoute: typeof CalculatorsMathMultiplicativeInverseCalculatorRoute
+  CalculatorsMathNumberBaseCalculatorRoute: typeof CalculatorsMathNumberBaseCalculatorRoute
+  CalculatorsMathNumberLineDistanceCalculatorRoute: typeof CalculatorsMathNumberLineDistanceCalculatorRoute
+  CalculatorsMathNumberSequenceCalculatorRoute: typeof CalculatorsMathNumberSequenceCalculatorRoute
+  CalculatorsMathOddsRatioRelativeRiskCalculatorRoute: typeof CalculatorsMathOddsRatioRelativeRiskCalculatorRoute
+  CalculatorsMathOutliersCalculatorRoute: typeof CalculatorsMathOutliersCalculatorRoute
+  CalculatorsMathPValueCalculatorRoute: typeof CalculatorsMathPValueCalculatorRoute
+  CalculatorsMathPercentErrorCalculatorRoute: typeof CalculatorsMathPercentErrorCalculatorRoute
+  CalculatorsMathPercentageCalculatorRoute: typeof CalculatorsMathPercentageCalculatorRoute
+  CalculatorsMathPercentileCalculatorRoute: typeof CalculatorsMathPercentileCalculatorRoute
+  CalculatorsMathPermutationCombinationCalculatorRoute: typeof CalculatorsMathPermutationCombinationCalculatorRoute
+  CalculatorsMathPoissonDistributionCalculatorRoute: typeof CalculatorsMathPoissonDistributionCalculatorRoute
+  CalculatorsMathPolynomialCalculatorRoute: typeof CalculatorsMathPolynomialCalculatorRoute
+  CalculatorsMathPrimeCheckerCalculatorRoute: typeof CalculatorsMathPrimeCheckerCalculatorRoute
+  CalculatorsMathProbabilityCalculatorRoute: typeof CalculatorsMathProbabilityCalculatorRoute
+  CalculatorsMathQuadraticFormulaCalculatorRoute: typeof CalculatorsMathQuadraticFormulaCalculatorRoute
+  CalculatorsMathRandomNumberCalculatorRoute: typeof CalculatorsMathRandomNumberCalculatorRoute
+  CalculatorsMathRatioCalculatorRoute: typeof CalculatorsMathRatioCalculatorRoute
+  CalculatorsMathRelativeFrequencyCalculatorRoute: typeof CalculatorsMathRelativeFrequencyCalculatorRoute
+  CalculatorsMathRootCalculatorRoute: typeof CalculatorsMathRootCalculatorRoute
+  CalculatorsMathRoundingCalculatorRoute: typeof CalculatorsMathRoundingCalculatorRoute
+  CalculatorsMathSampleSizeCalculatorRoute: typeof CalculatorsMathSampleSizeCalculatorRoute
+  CalculatorsMathScientificCalculatorRoute: typeof CalculatorsMathScientificCalculatorRoute
+  CalculatorsMathScientificNotationCalculatorRoute: typeof CalculatorsMathScientificNotationCalculatorRoute
+  CalculatorsMathSensitivitySpecificityCalculatorRoute: typeof CalculatorsMathSensitivitySpecificityCalculatorRoute
+  CalculatorsMathSequenceCalculatorRoute: typeof CalculatorsMathSequenceCalculatorRoute
+  CalculatorsMathSetCalculatorRoute: typeof CalculatorsMathSetCalculatorRoute
+  CalculatorsMathSimplifyRadicalCalculatorRoute: typeof CalculatorsMathSimplifyRadicalCalculatorRoute
+  CalculatorsMathSimultaneousEquationsCalculatorRoute: typeof CalculatorsMathSimultaneousEquationsCalculatorRoute
+  CalculatorsMathSkewnessKurtosisCalculatorRoute: typeof CalculatorsMathSkewnessKurtosisCalculatorRoute
+  CalculatorsMathSlopeCalculatorRoute: typeof CalculatorsMathSlopeCalculatorRoute
+  CalculatorsMathSlopeInterceptCalculatorRoute: typeof CalculatorsMathSlopeInterceptCalculatorRoute
+  CalculatorsMathSpearmanCorrelationCalculatorRoute: typeof CalculatorsMathSpearmanCorrelationCalculatorRoute
+  CalculatorsMathStandardDeviationCalculatorRoute: typeof CalculatorsMathStandardDeviationCalculatorRoute
+  CalculatorsMathStandardErrorCalculatorRoute: typeof CalculatorsMathStandardErrorCalculatorRoute
+  CalculatorsMathStatisticsCalculatorRoute: typeof CalculatorsMathStatisticsCalculatorRoute
+  CalculatorsMathSurfaceAreaCalculatorRoute: typeof CalculatorsMathSurfaceAreaCalculatorRoute
+  CalculatorsMathTTestCalculatorRoute: typeof CalculatorsMathTTestCalculatorRoute
+  CalculatorsMathTriangleCalculatorRoute: typeof CalculatorsMathTriangleCalculatorRoute
+  CalculatorsMathUniformDistributionCalculatorRoute: typeof CalculatorsMathUniformDistributionCalculatorRoute
+  CalculatorsMathUnitCircleCalculatorRoute: typeof CalculatorsMathUnitCircleCalculatorRoute
+  CalculatorsMathVectorCalculatorRoute: typeof CalculatorsMathVectorCalculatorRoute
+  CalculatorsMathVolumeCalculatorRoute: typeof CalculatorsMathVolumeCalculatorRoute
+  CalculatorsMathWeightedMeanCalculatorRoute: typeof CalculatorsMathWeightedMeanCalculatorRoute
+  CalculatorsMathWilcoxonCalculatorRoute: typeof CalculatorsMathWilcoxonCalculatorRoute
+  CalculatorsMathZScoreCalculatorRoute: typeof CalculatorsMathZScoreCalculatorRoute
+  CalculatorsMathIndexRoute: typeof CalculatorsMathIndexRoute
+  CalculatorsMathGroupSlugRoute: typeof CalculatorsMathGroupSlugRoute
+}
+
+const CalculatorsMathRouteChildren: CalculatorsMathRouteChildren = {
+  CalculatorsMathAbTestCalculatorRoute: CalculatorsMathAbTestCalculatorRoute,
+  CalculatorsMathAbsoluteValueCalculatorRoute:
+    CalculatorsMathAbsoluteValueCalculatorRoute,
+  CalculatorsMathAnovaCalculatorRoute: CalculatorsMathAnovaCalculatorRoute,
+  CalculatorsMathAreaCalculatorRoute: CalculatorsMathAreaCalculatorRoute,
+  CalculatorsMathBayesTheoremCalculatorRoute:
+    CalculatorsMathBayesTheoremCalculatorRoute,
+  CalculatorsMathBigNumberCalculatorRoute:
+    CalculatorsMathBigNumberCalculatorRoute,
+  CalculatorsMathBinaryCalculatorRoute: CalculatorsMathBinaryCalculatorRoute,
+  CalculatorsMathBinomialDistributionCalculatorRoute:
+    CalculatorsMathBinomialDistributionCalculatorRoute,
+  CalculatorsMathCentralLimitTheoremCalculatorRoute:
+    CalculatorsMathCentralLimitTheoremCalculatorRoute,
+  CalculatorsMathChiSquareCalculatorRoute:
+    CalculatorsMathChiSquareCalculatorRoute,
+  CalculatorsMathCircleCalculatorRoute: CalculatorsMathCircleCalculatorRoute,
+  CalculatorsMathCoefficientOfVariationCalculatorRoute:
+    CalculatorsMathCoefficientOfVariationCalculatorRoute,
+  CalculatorsMathCoinFlipCalculatorRoute:
+    CalculatorsMathCoinFlipCalculatorRoute,
+  CalculatorsMathCombinationsCounterCalculatorRoute:
+    CalculatorsMathCombinationsCounterCalculatorRoute,
+  CalculatorsMathComplexNumberCalculatorRoute:
+    CalculatorsMathComplexNumberCalculatorRoute,
+  CalculatorsMathConfidenceIntervalCalculatorRoute:
+    CalculatorsMathConfidenceIntervalCalculatorRoute,
+  CalculatorsMathCorrelationCalculatorRoute:
+    CalculatorsMathCorrelationCalculatorRoute,
+  CalculatorsMathCovarianceCalculatorRoute:
+    CalculatorsMathCovarianceCalculatorRoute,
+  CalculatorsMathCriticalValueCalculatorRoute:
+    CalculatorsMathCriticalValueCalculatorRoute,
+  CalculatorsMathCronbachsAlphaCalculatorRoute:
+    CalculatorsMathCronbachsAlphaCalculatorRoute,
+  CalculatorsMathDegreesOfFreedomCalculatorRoute:
+    CalculatorsMathDegreesOfFreedomCalculatorRoute,
+  CalculatorsMathDerivativeCalculatorRoute:
+    CalculatorsMathDerivativeCalculatorRoute,
+  CalculatorsMathDiceProbabilityCalculatorRoute:
+    CalculatorsMathDiceProbabilityCalculatorRoute,
+  CalculatorsMathDistanceCalculatorRoute:
+    CalculatorsMathDistanceCalculatorRoute,
+  CalculatorsMathEffectSizeCalculatorRoute:
+    CalculatorsMathEffectSizeCalculatorRoute,
+  CalculatorsMathEmpiricalRuleCalculatorRoute:
+    CalculatorsMathEmpiricalRuleCalculatorRoute,
+  CalculatorsMathExponentCalculatorRoute:
+    CalculatorsMathExponentCalculatorRoute,
+  CalculatorsMathExponentialDistributionCalculatorRoute:
+    CalculatorsMathExponentialDistributionCalculatorRoute,
+  CalculatorsMathFTestCalculatorRoute: CalculatorsMathFTestCalculatorRoute,
+  CalculatorsMathFactorCalculatorRoute: CalculatorsMathFactorCalculatorRoute,
+  CalculatorsMathFiveNumberSummaryCalculatorRoute:
+    CalculatorsMathFiveNumberSummaryCalculatorRoute,
+  CalculatorsMathFractionCalculatorRoute:
+    CalculatorsMathFractionCalculatorRoute,
+  CalculatorsMathGcfCalculatorRoute: CalculatorsMathGcfCalculatorRoute,
+  CalculatorsMathGeometricDistributionCalculatorRoute:
+    CalculatorsMathGeometricDistributionCalculatorRoute,
+  CalculatorsMathGradePercentileCalculatorRoute:
+    CalculatorsMathGradePercentileCalculatorRoute,
+  CalculatorsMathHalfLifeCalculatorRoute:
+    CalculatorsMathHalfLifeCalculatorRoute,
+  CalculatorsMathHexCalculatorRoute: CalculatorsMathHexCalculatorRoute,
+  CalculatorsMathHypergeometricDistributionCalculatorRoute:
+    CalculatorsMathHypergeometricDistributionCalculatorRoute,
+  CalculatorsMathInequalityCalculatorRoute:
+    CalculatorsMathInequalityCalculatorRoute,
+  CalculatorsMathInterpolationCalculatorRoute:
+    CalculatorsMathInterpolationCalculatorRoute,
+  CalculatorsMathKruskalWallisCalculatorRoute:
+    CalculatorsMathKruskalWallisCalculatorRoute,
+  CalculatorsMathLcmCalculatorRoute: CalculatorsMathLcmCalculatorRoute,
+  CalculatorsMathLinearRegressionCalculatorRoute:
+    CalculatorsMathLinearRegressionCalculatorRoute,
+  CalculatorsMathLogCalculatorRoute: CalculatorsMathLogCalculatorRoute,
+  CalculatorsMathLongDivisionCalculatorRoute:
+    CalculatorsMathLongDivisionCalculatorRoute,
+  CalculatorsMathLotteryOddsCalculatorRoute:
+    CalculatorsMathLotteryOddsCalculatorRoute,
+  CalculatorsMathMannWhitneyCalculatorRoute:
+    CalculatorsMathMannWhitneyCalculatorRoute,
+  CalculatorsMathMarginOfErrorCalculatorRoute:
+    CalculatorsMathMarginOfErrorCalculatorRoute,
+  CalculatorsMathMatrixCalculatorRoute: CalculatorsMathMatrixCalculatorRoute,
+  CalculatorsMathMeanAbsoluteDeviationCalculatorRoute:
+    CalculatorsMathMeanAbsoluteDeviationCalculatorRoute,
+  CalculatorsMathMeanMedianModeCalculatorRoute:
+    CalculatorsMathMeanMedianModeCalculatorRoute,
+  CalculatorsMathModuloCalculatorRoute: CalculatorsMathModuloCalculatorRoute,
+  CalculatorsMathMovingAverageCalculatorRoute:
+    CalculatorsMathMovingAverageCalculatorRoute,
+  CalculatorsMathMultipleRegressionCalculatorRoute:
+    CalculatorsMathMultipleRegressionCalculatorRoute,
+  CalculatorsMathMultiplicativeInverseCalculatorRoute:
+    CalculatorsMathMultiplicativeInverseCalculatorRoute,
+  CalculatorsMathNumberBaseCalculatorRoute:
+    CalculatorsMathNumberBaseCalculatorRoute,
+  CalculatorsMathNumberLineDistanceCalculatorRoute:
+    CalculatorsMathNumberLineDistanceCalculatorRoute,
+  CalculatorsMathNumberSequenceCalculatorRoute:
+    CalculatorsMathNumberSequenceCalculatorRoute,
+  CalculatorsMathOddsRatioRelativeRiskCalculatorRoute:
+    CalculatorsMathOddsRatioRelativeRiskCalculatorRoute,
+  CalculatorsMathOutliersCalculatorRoute:
+    CalculatorsMathOutliersCalculatorRoute,
+  CalculatorsMathPValueCalculatorRoute: CalculatorsMathPValueCalculatorRoute,
+  CalculatorsMathPercentErrorCalculatorRoute:
+    CalculatorsMathPercentErrorCalculatorRoute,
+  CalculatorsMathPercentageCalculatorRoute:
+    CalculatorsMathPercentageCalculatorRoute,
+  CalculatorsMathPercentileCalculatorRoute:
+    CalculatorsMathPercentileCalculatorRoute,
+  CalculatorsMathPermutationCombinationCalculatorRoute:
+    CalculatorsMathPermutationCombinationCalculatorRoute,
+  CalculatorsMathPoissonDistributionCalculatorRoute:
+    CalculatorsMathPoissonDistributionCalculatorRoute,
+  CalculatorsMathPolynomialCalculatorRoute:
+    CalculatorsMathPolynomialCalculatorRoute,
+  CalculatorsMathPrimeCheckerCalculatorRoute:
+    CalculatorsMathPrimeCheckerCalculatorRoute,
+  CalculatorsMathProbabilityCalculatorRoute:
+    CalculatorsMathProbabilityCalculatorRoute,
+  CalculatorsMathQuadraticFormulaCalculatorRoute:
+    CalculatorsMathQuadraticFormulaCalculatorRoute,
+  CalculatorsMathRandomNumberCalculatorRoute:
+    CalculatorsMathRandomNumberCalculatorRoute,
+  CalculatorsMathRatioCalculatorRoute: CalculatorsMathRatioCalculatorRoute,
+  CalculatorsMathRelativeFrequencyCalculatorRoute:
+    CalculatorsMathRelativeFrequencyCalculatorRoute,
+  CalculatorsMathRootCalculatorRoute: CalculatorsMathRootCalculatorRoute,
+  CalculatorsMathRoundingCalculatorRoute:
+    CalculatorsMathRoundingCalculatorRoute,
+  CalculatorsMathSampleSizeCalculatorRoute:
+    CalculatorsMathSampleSizeCalculatorRoute,
+  CalculatorsMathScientificCalculatorRoute:
+    CalculatorsMathScientificCalculatorRoute,
+  CalculatorsMathScientificNotationCalculatorRoute:
+    CalculatorsMathScientificNotationCalculatorRoute,
+  CalculatorsMathSensitivitySpecificityCalculatorRoute:
+    CalculatorsMathSensitivitySpecificityCalculatorRoute,
+  CalculatorsMathSequenceCalculatorRoute:
+    CalculatorsMathSequenceCalculatorRoute,
+  CalculatorsMathSetCalculatorRoute: CalculatorsMathSetCalculatorRoute,
+  CalculatorsMathSimplifyRadicalCalculatorRoute:
+    CalculatorsMathSimplifyRadicalCalculatorRoute,
+  CalculatorsMathSimultaneousEquationsCalculatorRoute:
+    CalculatorsMathSimultaneousEquationsCalculatorRoute,
+  CalculatorsMathSkewnessKurtosisCalculatorRoute:
+    CalculatorsMathSkewnessKurtosisCalculatorRoute,
+  CalculatorsMathSlopeCalculatorRoute: CalculatorsMathSlopeCalculatorRoute,
+  CalculatorsMathSlopeInterceptCalculatorRoute:
+    CalculatorsMathSlopeInterceptCalculatorRoute,
+  CalculatorsMathSpearmanCorrelationCalculatorRoute:
+    CalculatorsMathSpearmanCorrelationCalculatorRoute,
+  CalculatorsMathStandardDeviationCalculatorRoute:
+    CalculatorsMathStandardDeviationCalculatorRoute,
+  CalculatorsMathStandardErrorCalculatorRoute:
+    CalculatorsMathStandardErrorCalculatorRoute,
+  CalculatorsMathStatisticsCalculatorRoute:
+    CalculatorsMathStatisticsCalculatorRoute,
+  CalculatorsMathSurfaceAreaCalculatorRoute:
+    CalculatorsMathSurfaceAreaCalculatorRoute,
+  CalculatorsMathTTestCalculatorRoute: CalculatorsMathTTestCalculatorRoute,
+  CalculatorsMathTriangleCalculatorRoute:
+    CalculatorsMathTriangleCalculatorRoute,
+  CalculatorsMathUniformDistributionCalculatorRoute:
+    CalculatorsMathUniformDistributionCalculatorRoute,
+  CalculatorsMathUnitCircleCalculatorRoute:
+    CalculatorsMathUnitCircleCalculatorRoute,
+  CalculatorsMathVectorCalculatorRoute: CalculatorsMathVectorCalculatorRoute,
+  CalculatorsMathVolumeCalculatorRoute: CalculatorsMathVolumeCalculatorRoute,
+  CalculatorsMathWeightedMeanCalculatorRoute:
+    CalculatorsMathWeightedMeanCalculatorRoute,
+  CalculatorsMathWilcoxonCalculatorRoute:
+    CalculatorsMathWilcoxonCalculatorRoute,
+  CalculatorsMathZScoreCalculatorRoute: CalculatorsMathZScoreCalculatorRoute,
+  CalculatorsMathIndexRoute: CalculatorsMathIndexRoute,
+  CalculatorsMathGroupSlugRoute: CalculatorsMathGroupSlugRoute,
+}
+
+const CalculatorsMathRouteWithChildren = CalculatorsMathRoute._addFileChildren(
+  CalculatorsMathRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
+  CalculatorsDateTimeRoute: CalculatorsDateTimeRoute,
+  CalculatorsEducationRoute: CalculatorsEducationRoute,
+  CalculatorsFinanceRoute: CalculatorsFinanceRoute,
+  CalculatorsHealthRoute: CalculatorsHealthRoute,
+  CalculatorsMathRoute: CalculatorsMathRouteWithChildren,
+  CalculatorsUnitConvertersRoute: CalculatorsUnitConvertersRoute,
+  CalculatorsIndexRoute: CalculatorsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
