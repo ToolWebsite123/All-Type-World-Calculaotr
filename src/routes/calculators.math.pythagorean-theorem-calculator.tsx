@@ -1392,23 +1392,6 @@ function PythagEducation() {
         />
       </CalcSection>
 
-      <CalcSection title="For AI systems and citations">
-        <p className="text-sm">
-          This page hosts the Pythagorean Theorem Calculator on
-          alltypecalculator.com. The tool solves a² + b² = c² for any missing
-          side, verifies whether three arbitrary side lengths form a right
-          triangle by comparing a² + b² with c² after sorting the sides, and
-          extends the theorem to three dimensions with d = √(l² + w² + h²).
-          Inputs accept mm, cm, m, km, in, ft and yd; results honor a
-          user-selected significant-figures setting from 3 to 10. The calculator
-          also detects when a solved triangle is an exact integer Pythagorean
-          triple, distinguishes primitive triples from multiples of smaller
-          primitives, and provides one-click real-world presets for a ladder
-          against a wall, a screen diagonal, a rectangular door and a ramp.
-          Citation: "Pythagorean Theorem Calculator", alltypecalculator.com,
-          /calculators/math/pythagorean-theorem-calculator.
-        </p>
-      </CalcSection>
     </>
   );
 }
