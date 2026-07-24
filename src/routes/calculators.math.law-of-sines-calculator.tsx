@@ -53,8 +53,12 @@ function MathLine({ children }: { children: ReactNode }) {
 
 interface Solution {
   /** All angles stored in radians for computation. */
-  A: number; B: number; C: number;
-  a: number; b: number; c: number;
+  A: number;
+  B: number;
+  C: number;
+  a: number;
+  b: number;
+  c: number;
   area: number;
   perimeter: number;
   semiperimeter: number;
@@ -77,9 +81,27 @@ function solveASA(Ar: number, Br: number, c: number, unit: AngleUnit): Solution 
   const a = k * Math.sin(Ar);
   const b = k * Math.sin(Br);
   return finalize(Ar, Br, Cr, a, b, c, unit, [
-    { title: "Third angle by angle-sum", body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine> },
-    { title: "Common ratio from the given side", body: <MathLine>k = c / sin C = {fmt(c)} / sin({angleTxt(Cr, unit)}) = {fmt(k)}</MathLine> },
-    { title: "Remaining sides", body: <><MathLine>a = k · sin A = {fmt(a)}</MathLine><MathLine>b = k · sin B = {fmt(b)}</MathLine></> },
+    {
+      title: "Third angle by angle-sum",
+      body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine>,
+    },
+    {
+      title: "Common ratio from the given side",
+      body: (
+        <MathLine>
+          k = c / sin C = {fmt(c)} / sin({angleTxt(Cr, unit)}) = {fmt(k)}
+        </MathLine>
+      ),
+    },
+    {
+      title: "Remaining sides",
+      body: (
+        <>
+          <MathLine>a = k · sin A = {fmt(a)}</MathLine>
+          <MathLine>b = k · sin B = {fmt(b)}</MathLine>
+        </>
+      ),
+    },
   ]);
 }
 
@@ -90,9 +112,27 @@ function solveAAS(Ar: number, Br: number, a: number, unit: AngleUnit): Solution 
   const b = k * Math.sin(Br);
   const c = k * Math.sin(Cr);
   return finalize(Ar, Br, Cr, a, b, c, unit, [
-    { title: "Third angle by angle-sum", body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine> },
-    { title: "Common ratio from the known side", body: <MathLine>k = a / sin A = {fmt(a)} / sin({angleTxt(Ar, unit)}) = {fmt(k)}</MathLine> },
-    { title: "Remaining sides", body: <><MathLine>b = k · sin B = {fmt(b)}</MathLine><MathLine>c = k · sin C = {fmt(c)}</MathLine></> },
+    {
+      title: "Third angle by angle-sum",
+      body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine>,
+    },
+    {
+      title: "Common ratio from the known side",
+      body: (
+        <MathLine>
+          k = a / sin A = {fmt(a)} / sin({angleTxt(Ar, unit)}) = {fmt(k)}
+        </MathLine>
+      ),
+    },
+    {
+      title: "Remaining sides",
+      body: (
+        <>
+          <MathLine>b = k · sin B = {fmt(b)}</MathLine>
+          <MathLine>c = k · sin C = {fmt(c)}</MathLine>
+        </>
+      ),
+    },
   ]);
 }
 
@@ -100,7 +140,14 @@ function solveAAS(Ar: number, Br: number, a: number, unit: AngleUnit): Solution 
 function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResult {
   const sinB = (b * Math.sin(Ar)) / a;
   const baseSteps = (extra: Step[]): Step[] => [
-    { title: "Apply the ratio to find sin B", body: <MathLine>sin B = b · sin A / a = {fmt(b)} · sin({angleTxt(Ar, unit)}) / {fmt(a)} = {fmt(sinB)}</MathLine> },
+    {
+      title: "Apply the ratio to find sin B",
+      body: (
+        <MathLine>
+          sin B = b · sin A / a = {fmt(b)} · sin({angleTxt(Ar, unit)}) / {fmt(a)} = {fmt(sinB)}
+        </MathLine>
+      ),
+    },
     ...extra,
   ];
 
@@ -108,8 +155,7 @@ function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResul
   if (sinB > 1 + 1e-12) {
     return {
       solutions: [],
-      ssaNote:
-        `sin B = ${fmt(sinB)} > 1, which is impossible. No triangle exists with these values — side b is too long to close on side a at angle A.`,
+      ssaNote: `sin B = ${fmt(sinB)} > 1, which is impossible. No triangle exists with these values — side b is too long to close on side a at angle A.`,
     };
   }
 
@@ -117,15 +163,34 @@ function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResul
   if (Math.abs(sinB - 1) <= 1e-9) {
     const Br = PI / 2;
     const Cr = PI - Ar - Br;
-    if (Cr <= 0) return { solutions: [], ssaNote: "No triangle exists — angle A leaves no room after the right angle at B." };
+    if (Cr <= 0)
+      return {
+        solutions: [],
+        ssaNote: "No triangle exists — angle A leaves no room after the right angle at B.",
+      };
     const k = a / Math.sin(Ar);
     const c = k * Math.sin(Cr);
     return {
       solutions: [
-        finalize(Ar, Br, Cr, a, b, c, unit, baseSteps([
-          { title: "sin B = 1 → exactly one solution (right angle at B)", body: <MathLine>B = 90° &nbsp; ⇒ &nbsp; C = π − A − B</MathLine> },
-          { title: "Third side by the ratio", body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine> },
-        ])),
+        finalize(
+          Ar,
+          Br,
+          Cr,
+          a,
+          b,
+          c,
+          unit,
+          baseSteps([
+            {
+              title: "sin B = 1 → exactly one solution (right angle at B)",
+              body: <MathLine>B = 90° &nbsp; ⇒ &nbsp; C = π − A − B</MathLine>,
+            },
+            {
+              title: "Third side by the ratio",
+              body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine>,
+            },
+          ]),
+        ),
       ],
       ssaNote: "One unique solution (right triangle at B).",
     };
@@ -141,11 +206,29 @@ function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResul
     const Cr = PI - Ar - B1;
     const k = a / Math.sin(Ar);
     const c = k * Math.sin(Cr);
-    sols.push(finalize(Ar, B1, Cr, a, b, c, unit, baseSteps([
-      { title: "Solution 1 — acute B", body: <MathLine>B = arcsin({fmt(sinB)}) = {angleTxt(B1, unit)}</MathLine> },
-      { title: "Third angle", body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine> },
-      { title: "Third side", body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine> },
-    ])));
+    sols.push(
+      finalize(
+        Ar,
+        B1,
+        Cr,
+        a,
+        b,
+        c,
+        unit,
+        baseSteps([
+          {
+            title: "Solution 1 — acute B",
+            body: (
+              <MathLine>
+                B = arcsin({fmt(sinB)}) = {angleTxt(B1, unit)}
+              </MathLine>
+            ),
+          },
+          { title: "Third angle", body: <MathLine>C = π − A − B = {angleTxt(Cr, unit)}</MathLine> },
+          { title: "Third side", body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine> },
+        ]),
+      ),
+    );
   }
 
   // Second solution — only if A + B2 still leaves room for C > 0
@@ -153,11 +236,32 @@ function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResul
     const Cr = PI - Ar - B2;
     const k = a / Math.sin(Ar);
     const c = k * Math.sin(Cr);
-    sols.push(finalize(Ar, B2, Cr, a, b, c, unit, baseSteps([
-      { title: "Solution 2 — obtuse B (the ambiguous companion)", body: <MathLine>B' = 180° − arcsin({fmt(sinB)}) = {angleTxt(B2, unit)}</MathLine> },
-      { title: "Third angle", body: <MathLine>C = π − A − B' = {angleTxt(Cr, unit)}</MathLine> },
-      { title: "Third side", body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine> },
-    ])));
+    sols.push(
+      finalize(
+        Ar,
+        B2,
+        Cr,
+        a,
+        b,
+        c,
+        unit,
+        baseSteps([
+          {
+            title: "Solution 2 — obtuse B (the ambiguous companion)",
+            body: (
+              <MathLine>
+                B' = 180° − arcsin({fmt(sinB)}) = {angleTxt(B2, unit)}
+              </MathLine>
+            ),
+          },
+          {
+            title: "Third angle",
+            body: <MathLine>C = π − A − B' = {angleTxt(Cr, unit)}</MathLine>,
+          },
+          { title: "Third side", body: <MathLine>c = a · sin C / sin A = {fmt(c)}</MathLine> },
+        ]),
+      ),
+    );
   }
 
   const note =
@@ -171,8 +275,12 @@ function solveSSA(a: number, b: number, Ar: number, unit: AngleUnit): SolveResul
 }
 
 function finalize(
-  Ar: number, Br: number, Cr: number,
-  a: number, b: number, c: number,
+  Ar: number,
+  Br: number,
+  Cr: number,
+  a: number,
+  b: number,
+  c: number,
   _unit: AngleUnit,
   steps: Step[],
 ): Solution {
@@ -181,9 +289,17 @@ function finalize(
   const R = a / (2 * Math.sin(Ar));
   const inradius = area / s;
   return {
-    A: Ar, B: Br, C: Cr, a, b, c,
-    area, perimeter: a + b + c, semiperimeter: s,
-    inradius, circumradius: R,
+    A: Ar,
+    B: Br,
+    C: Cr,
+    a,
+    b,
+    c,
+    area,
+    perimeter: a + b + c,
+    semiperimeter: s,
+    inradius,
+    circumradius: R,
     steps,
   };
 }
@@ -209,7 +325,9 @@ function TriangleSVG({ sol, unit, label }: { sol: Solution; unit: AngleUnit; lab
   const maxY = Math.max(...pts.map((p) => p.y));
   const spanX = Math.max(1e-9, maxX - minX);
   const spanY = Math.max(1e-9, maxY);
-  const W = 380, H = 240, pad = 42;
+  const W = 380,
+    H = 240,
+    pad = 42;
   const scale = Math.min((W - 2 * pad) / spanX, (H - 2 * pad) / spanY);
   const proj = (p: { x: number; y: number }) => ({
     x: pad + (p.x - minX) * scale,
@@ -219,7 +337,10 @@ function TriangleSVG({ sol, unit, label }: { sol: Solution; unit: AngleUnit; lab
   const [pB, pC, pA] = P;
 
   // Midpoints for side labels
-  const mid = (p: { x: number; y: number }, q: { x: number; y: number }) => ({ x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 });
+  const mid = (p: { x: number; y: number }, q: { x: number; y: number }) => ({
+    x: (p.x + q.x) / 2,
+    y: (p.y + q.y) / 2,
+  });
   const mBC = mid(pB, pC); // side a
   const mCA = mid(pC, pA); // side b
   const mAB = mid(pA, pB); // side c
@@ -239,17 +360,95 @@ function TriangleSVG({ sol, unit, label }: { sol: Solution; unit: AngleUnit; lab
           strokeLinejoin="round"
         />
         {/* Vertex labels */}
-        <text x={pA.x} y={pA.y - 10} textAnchor="middle" fontSize="14" className="fill-foreground/80">A</text>
-        <text x={pB.x - 10} y={pB.y + 16} textAnchor="middle" fontSize="14" className="fill-foreground/80">B</text>
-        <text x={pC.x + 10} y={pC.y + 16} textAnchor="middle" fontSize="14" className="fill-foreground/80">C</text>
+        <text
+          x={pA.x}
+          y={pA.y - 10}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          A
+        </text>
+        <text
+          x={pB.x - 10}
+          y={pB.y + 16}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          B
+        </text>
+        <text
+          x={pC.x + 10}
+          y={pC.y + 16}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          C
+        </text>
         {/* Side labels */}
-        <text x={mBC.x} y={mBC.y + 18} textAnchor="middle" fontSize="12" fontStyle="italic" className="fill-foreground">a = {fmt(a)}</text>
-        <text x={mCA.x + 14} y={mCA.y} textAnchor="start" fontSize="12" fontStyle="italic" className="fill-foreground">b = {fmt(b)}</text>
-        <text x={mAB.x - 14} y={mAB.y} textAnchor="end" fontSize="12" fontStyle="italic" className="fill-foreground">c = {fmt(c)}</text>
+        <text
+          x={mBC.x}
+          y={mBC.y + 18}
+          textAnchor="middle"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          a = {fmt(a)}
+        </text>
+        <text
+          x={mCA.x + 14}
+          y={mCA.y}
+          textAnchor="start"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          b = {fmt(b)}
+        </text>
+        <text
+          x={mAB.x - 14}
+          y={mAB.y}
+          textAnchor="end"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          c = {fmt(c)}
+        </text>
         {/* Angle labels near each vertex, inside */}
-        <text x={pA.x} y={pA.y + 18} textAnchor="middle" fontSize="11" fontStyle="italic" className="fill-primary">A={angleTxt(Aang, unit)}</text>
-        <text x={pB.x + 14} y={pB.y - 4} textAnchor="start" fontSize="11" fontStyle="italic" className="fill-primary">B={angleTxt(Bang, unit)}</text>
-        <text x={pC.x - 14} y={pC.y - 4} textAnchor="end" fontSize="11" fontStyle="italic" className="fill-primary">C={angleTxt(Cang, unit)}</text>
+        <text
+          x={pA.x}
+          y={pA.y + 18}
+          textAnchor="middle"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          A={angleTxt(Aang, unit)}
+        </text>
+        <text
+          x={pB.x + 14}
+          y={pB.y - 4}
+          textAnchor="start"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          B={angleTxt(Bang, unit)}
+        </text>
+        <text
+          x={pC.x - 14}
+          y={pC.y - 4}
+          textAnchor="end"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          C={angleTxt(Cang, unit)}
+        </text>
       </svg>
       <div className="mt-1 text-center text-xs text-muted-foreground">
         Drawn to scale from the solved side lengths.
@@ -290,25 +489,36 @@ function LawOfSinesPage() {
 
     try {
       if (mode === "ASA") {
-        const A = parse(Aval), B = parse(Bval), c = parse(cSide);
-        if (![A, B, c].every(Number.isFinite)) throw new Error("Enter angles A, B and the included side c.");
+        const A = parse(Aval),
+          B = parse(Bval),
+          c = parse(cSide);
+        if (![A, B, c].every(Number.isFinite))
+          throw new Error("Enter angles A, B and the included side c.");
         if (A <= 0 || B <= 0) throw new Error("Angles must be greater than 0.");
         if (c <= 0) throw new Error("Side c must be positive.");
-        const Ar = toRad(A, unit), Br = toRad(B, unit);
+        const Ar = toRad(A, unit),
+          Br = toRad(B, unit);
         if (Ar + Br >= PI - 1e-12) throw new Error("A + B must be less than 180° (or π rad).");
         setResult({ solutions: [solveASA(Ar, Br, c, unit)] });
       } else if (mode === "AAS") {
-        const A = parse(Aval), B = parse(Bval), a = parse(aSide);
-        if (![A, B, a].every(Number.isFinite)) throw new Error("Enter angles A, B and side a (opposite A).");
+        const A = parse(Aval),
+          B = parse(Bval),
+          a = parse(aSide);
+        if (![A, B, a].every(Number.isFinite))
+          throw new Error("Enter angles A, B and side a (opposite A).");
         if (A <= 0 || B <= 0) throw new Error("Angles must be greater than 0.");
         if (a <= 0) throw new Error("Side a must be positive.");
-        const Ar = toRad(A, unit), Br = toRad(B, unit);
+        const Ar = toRad(A, unit),
+          Br = toRad(B, unit);
         if (Ar + Br >= PI - 1e-12) throw new Error("A + B must be less than 180° (or π rad).");
         setResult({ solutions: [solveAAS(Ar, Br, a, unit)] });
       } else {
         // SSA
-        const a = parse(aSide), b = parse(bSide), A = parse(Aval);
-        if (![a, b, A].every(Number.isFinite)) throw new Error("Enter sides a, b and angle A (opposite a).");
+        const a = parse(aSide),
+          b = parse(bSide),
+          A = parse(Aval);
+        if (![a, b, A].every(Number.isFinite))
+          throw new Error("Enter sides a, b and angle A (opposite a).");
         if (a <= 0 || b <= 0) throw new Error("Sides must be positive.");
         if (A <= 0) throw new Error("Angle A must be greater than 0.");
         const Ar = toRad(A, unit);
@@ -325,8 +535,14 @@ function LawOfSinesPage() {
   };
 
   const clearAll = () => {
-    setAval(""); setBval(""); setASide(""); setBSide(""); setCSide("");
-    setError(null); setResult(null); setActiveIdx(0);
+    setAval("");
+    setBval("");
+    setASide("");
+    setBSide("");
+    setCSide("");
+    setError(null);
+    setResult(null);
+    setActiveIdx(0);
   };
 
   const copyText = () => {
@@ -356,15 +572,21 @@ function LawOfSinesPage() {
       {/* Mode picker */}
       <Field label="Which values do you know?" htmlFor="los-mode">
         <div className="flex flex-wrap gap-2" id="los-mode">
-          {([
-            { m: "ASA", t: "Two angles + the side between (ASA)" },
-            { m: "AAS", t: "Two angles + a side not between (AAS)" },
-            { m: "SSA", t: "Two sides + a non-included angle (SSA)" },
-          ] as { m: Mode; t: string }[]).map(({ m, t }) => (
+          {(
+            [
+              { m: "ASA", t: "Two angles + the side between (ASA)" },
+              { m: "AAS", t: "Two angles + a side not between (AAS)" },
+              { m: "SSA", t: "Two sides + a non-included angle (SSA)" },
+            ] as { m: Mode; t: string }[]
+          ).map(({ m, t }) => (
             <button
               key={m}
               type="button"
-              onClick={() => { setMode(m); setResult(null); setError(null); }}
+              onClick={() => {
+                setMode(m);
+                setResult(null);
+                setError(null);
+              }}
               className={
                 "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
                 (mode === m
@@ -406,39 +628,84 @@ function LawOfSinesPage() {
         {mode === "ASA" && (
           <>
             <Field label={`Angle A (${unit})`} hint="First angle">
-              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "45" : "0.7854"} />
+              <TextInput
+                value={Aval}
+                onChange={(e) => setAval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "45" : "0.7854"}
+              />
             </Field>
             <Field label={`Angle B (${unit})`} hint="Second angle">
-              <TextInput value={Bval} onChange={(e) => setBval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "60" : "1.0472"} />
+              <TextInput
+                value={Bval}
+                onChange={(e) => setBval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "60" : "1.0472"}
+              />
             </Field>
             <Field label="Side c" hint="The side between A and B">
-              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="10" />
+              <TextInput
+                value={cSide}
+                onChange={(e) => setCSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="10"
+              />
             </Field>
           </>
         )}
         {mode === "AAS" && (
           <>
             <Field label={`Angle A (${unit})`} hint="Opposite side a">
-              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "45" : "0.7854"} />
+              <TextInput
+                value={Aval}
+                onChange={(e) => setAval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "45" : "0.7854"}
+              />
             </Field>
             <Field label={`Angle B (${unit})`} hint="Second angle">
-              <TextInput value={Bval} onChange={(e) => setBval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "75" : "1.309"} />
+              <TextInput
+                value={Bval}
+                onChange={(e) => setBval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "75" : "1.309"}
+              />
             </Field>
             <Field label="Side a" hint="Opposite angle A">
-              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="7" />
+              <TextInput
+                value={aSide}
+                onChange={(e) => setASide(e.target.value)}
+                inputMode="decimal"
+                placeholder="7"
+              />
             </Field>
           </>
         )}
         {mode === "SSA" && (
           <>
             <Field label="Side a" hint="Opposite angle A">
-              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="7" />
+              <TextInput
+                value={aSide}
+                onChange={(e) => setASide(e.target.value)}
+                inputMode="decimal"
+                placeholder="7"
+              />
             </Field>
             <Field label="Side b" hint="Not opposite angle A">
-              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="9" />
+              <TextInput
+                value={bSide}
+                onChange={(e) => setBSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="9"
+              />
             </Field>
             <Field label={`Angle A (${unit})`} hint="Opposite side a — the ambiguous angle">
-              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "35" : "0.6109"} />
+              <TextInput
+                value={Aval}
+                onChange={(e) => setAval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "35" : "0.6109"}
+              />
             </Field>
           </>
         )}
@@ -564,7 +831,15 @@ function MiniTri({
       <svg viewBox="0 0 300 190" className="mx-auto block h-auto w-full max-w-xs">
         {/* Altitude construction for the proof card */}
         {variant === "altitude" && (
-          <line x1={C.x} y1={C.y} x2={C.x} y2={A.y} className="stroke-primary" strokeWidth="1.5" strokeDasharray="4 3" />
+          <line
+            x1={C.x}
+            y1={C.y}
+            x2={C.x}
+            y2={A.y}
+            className="stroke-primary"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+          />
         )}
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
@@ -581,18 +856,58 @@ function MiniTri({
               strokeWidth="1.5"
               strokeDasharray="5 3"
             />
-            <text x={B.x - 90} y={B.y + 14} fontSize="10" className="fill-primary/70">B'</text>
+            <text x={B.x - 90} y={B.y + 14} fontSize="10" className="fill-primary/70">
+              B'
+            </text>
           </>
         )}
         {ssa === "none" && (
-          <line x1={A.x} y1={A.y} x2={A.x + 60} y2={A.y - 60} className="stroke-destructive" strokeWidth="2" strokeDasharray="4 3" />
+          <line
+            x1={A.x}
+            y1={A.y}
+            x2={A.x + 60}
+            y2={A.y - 60}
+            className="stroke-destructive"
+            strokeWidth="2"
+            strokeDasharray="4 3"
+          />
         )}
-        <text x={A.x - 4} y={A.y + 16} fontSize="12" className="fill-foreground/70">A</text>
-        <text x={B.x + 6} y={B.y + 16} fontSize="12" className="fill-foreground/70">B</text>
-        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">C</text>
-        <text x={(A.x + B.x) / 2} y={A.y + 16} fontSize="11" fontStyle="italic" className="fill-foreground">c</text>
-        <text x={(B.x + C.x) / 2 + 6} y={(B.y + C.y) / 2} fontSize="11" fontStyle="italic" className="fill-foreground">a</text>
-        <text x={(A.x + C.x) / 2 - 12} y={(A.y + C.y) / 2} fontSize="11" fontStyle="italic" className="fill-foreground">b</text>
+        <text x={A.x - 4} y={A.y + 16} fontSize="12" className="fill-foreground/70">
+          A
+        </text>
+        <text x={B.x + 6} y={B.y + 16} fontSize="12" className="fill-foreground/70">
+          B
+        </text>
+        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">
+          C
+        </text>
+        <text
+          x={(A.x + B.x) / 2}
+          y={A.y + 16}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          c
+        </text>
+        <text
+          x={(B.x + C.x) / 2 + 6}
+          y={(B.y + C.y) / 2}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          a
+        </text>
+        <text
+          x={(A.x + C.x) / 2 - 12}
+          y={(A.y + C.y) / 2}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          b
+        </text>
       </svg>
     </div>
   );
@@ -625,7 +940,6 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
     q: "What if my inputs describe an SAS or SSS triangle?",
     a: "The law of sines can't start those — there is no side–angle pair to anchor the ratio. Use the dedicated Law of Cosines Calculator for a straight SAS/SSS solver, or the full Triangle Calculator if you want every derived value (sides, angles, area, perimeter, R and r) in one pass.",
   },
-
 ];
 
 const GUIDE: GuideCardItem[] = [
@@ -678,7 +992,7 @@ const GUIDE: GuideCardItem[] = [
     example: {
       given: <>a = 7, b = 9, A = 35°</>,
       substitute: <>sin B = 9 · sin 35° / 7 ≈ 0.7374 ⇒ B ≈ 47.52° or 132.48°</>,
-      answer: <>Two triangles: C ≈ 97.48°, c ≈ 12.10 &nbsp;or&nbsp; C ≈ 12.52°, c ≈ 2.65</>,
+      answer: <>Two triangles: C ≈ 97.48°, c ≈ 12.10 &nbsp;or&nbsp; C ≈ 12.52°, c ≈ 2.64</>,
     },
   },
   {
@@ -695,7 +1009,7 @@ const GUIDE: GuideCardItem[] = [
     example: {
       given: <>a = 12, b = 8, A = 65°</>,
       substitute: <>sin B = 8 · sin 65° / 12 ≈ 0.6041 ⇒ B ≈ 37.16° (supplement rejected)</>,
-      answer: <>Unique triangle: C ≈ 77.84°, c ≈ 12.94</>,
+      answer: <>Unique triangle: C ≈ 77.83°, c ≈ 12.94</>,
     },
   },
   {
@@ -704,9 +1018,7 @@ const GUIDE: GuideCardItem[] = [
     explain:
       "If the computed sin B is greater than 1, no angle can satisfy it — side b is simply too long to close on side a at angle A. The calculator flags this instead of silently returning NaN.",
     formula: <>sin B = b · sin A / a &gt; 1 &nbsp;⇒&nbsp; no triangle</>,
-    legend: [
-      { sym: "a, b, A", def: "given values" },
-    ],
+    legend: [{ sym: "a, b, A", def: "given values" }],
     diagram: <MiniTri ssa="none" />,
     example: {
       given: <>a = 3, b = 8, A = 60°</>,
@@ -720,9 +1032,7 @@ const GUIDE: GuideCardItem[] = [
     explain:
       "Drop the altitude h from vertex C to side AB. In the right triangle on the left, sin A = h / b, so h = b · sin A. On the right, sin B = h / a, so h = a · sin B. Equating the two expressions for h gives a · sin B = b · sin A, i.e. a / sin A = b / sin B. Repeat with a different altitude to include c / sin C.",
     formula: <>h = b · sin A = a · sin B &nbsp;⇒&nbsp; a / sin A = b / sin B</>,
-    legend: [
-      { sym: "h", def: "altitude from C onto AB" },
-    ],
+    legend: [{ sym: "h", def: "altitude from C onto AB" }],
     diagram: <MiniTri variant="altitude" />,
     example: {
       given: <>Any triangle ABC with altitude h from C</>,
@@ -737,30 +1047,34 @@ function PageExtras() {
     <>
       <CalcSection title="What is the law of sines?">
         <p>
-          The <strong>law of sines</strong> — sometimes called the sine rule —
-          says that in any triangle, the ratio of a side to the sine of its
-          opposite angle is the same for all three sides:
+          The <strong>law of sines</strong> — sometimes called the sine rule — says that in any
+          triangle, the ratio of a side to the sine of its opposite angle is the same for all three
+          sides:
         </p>
         <FormulaBlock>a / sin A = b / sin B = c / sin C = 2R</FormulaBlock>
         <p>
-          That shared value equals <em>2R</em>, the diameter of the triangle's
-          circumscribed circle. The rule is the natural tool for the three
-          cases where you already know a side paired with its opposite angle:
-          <strong> ASA</strong> (two angles and the side between them),{" "}
-          <strong>AAS</strong> (two angles and a side not between them), and
-          the famous <strong>SSA ambiguous case</strong> (two sides and a
-          non-included angle). For SAS or SSS — where no side is paired with
-          its opposite angle — use the dedicated{" "}
-          <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/law-of-cosines-calculator">
+          That shared value equals <em>2R</em>, the diameter of the triangle's circumscribed circle.
+          The rule is the natural tool for the three cases where you already know a side paired with
+          its opposite angle:
+          <strong> ASA</strong> (two angles and the side between them), <strong>AAS</strong> (two
+          angles and a side not between them), and the famous <strong>SSA ambiguous case</strong>{" "}
+          (two sides and a non-included angle). For SAS or SSS — where no side is paired with its
+          opposite angle — use the dedicated{" "}
+          <a
+            className="text-primary underline underline-offset-4 hover:no-underline"
+            href="/calculators/math/law-of-cosines-calculator"
+          >
             Law of Cosines Calculator
           </a>{" "}
           or the{" "}
-          <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/triangle-calculator">
+          <a
+            className="text-primary underline underline-offset-4 hover:no-underline"
+            href="/calculators/math/triangle-calculator"
+          >
             full Triangle Calculator
           </a>
           , which apply the law of cosines to handle those cases.
         </p>
-
       </CalcSection>
 
       <CalcSection title="Law of sines, case by case">
@@ -771,12 +1085,45 @@ function PageExtras() {
         <ReferenceTable
           headers={["You know…", "Use", "Why"]}
           rows={[
-            [<>Two angles + included side (ASA)</>, "Law of sines", "You already have a matched side–angle pair after finding the third angle."],
-            [<>Two angles + non-included side (AAS)</>, "Law of sines", "The known side is opposite one of the known angles."],
-            [<>Two sides + non-included angle (SSA)</>, "Law of sines (ambiguous)", "Handled here; the angle is opposite one of the sides."],
-            [<>Two sides + included angle (SAS)</>, "Law of cosines", "No matched side–angle pair to anchor the ratio."],
-            [<>Three sides (SSS)</>, "Law of cosines", "You need cosines to recover the angles first."],
-            [<>One angle = 90°</>, "Right-triangle trig", <>Faster with the <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/right-triangle-calculator">Right Triangle Calculator</a>.</>],
+            [
+              <>Two angles + included side (ASA)</>,
+              "Law of sines",
+              "You already have a matched side–angle pair after finding the third angle.",
+            ],
+            [
+              <>Two angles + non-included side (AAS)</>,
+              "Law of sines",
+              "The known side is opposite one of the known angles.",
+            ],
+            [
+              <>Two sides + non-included angle (SSA)</>,
+              "Law of sines (ambiguous)",
+              "Handled here; the angle is opposite one of the sides.",
+            ],
+            [
+              <>Two sides + included angle (SAS)</>,
+              "Law of cosines",
+              "No matched side–angle pair to anchor the ratio.",
+            ],
+            [
+              <>Three sides (SSS)</>,
+              "Law of cosines",
+              "You need cosines to recover the angles first.",
+            ],
+            [
+              <>One angle = 90°</>,
+              "Right-triangle trig",
+              <>
+                Faster with the{" "}
+                <a
+                  className="text-primary underline underline-offset-4 hover:no-underline"
+                  href="/calculators/math/right-triangle-calculator"
+                >
+                  Right Triangle Calculator
+                </a>
+                .
+              </>,
+            ],
           ]}
         />
       </CalcSection>
@@ -802,13 +1149,34 @@ function PageExtras() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
-            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator (SAS & SSS)" },
-            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (all cases, plus everything else)" },
-            { to: "/calculators/math/triangle-sum-theorem-calculator", label: "Triangle Sum Theorem Calculator (find the third angle)" },
-            { to: "/calculators/math/right-triangle-calculator", label: "Right Triangle Calculator (one 90° angle)" },
-            { to: "/calculators/math/isosceles-triangle-calculator", label: "Isosceles Triangle Calculator" },
-            { to: "/calculators/math/equilateral-triangle-calculator", label: "Equilateral Triangle Calculator" },
-            { to: "/calculators/math/pythagorean-theorem-calculator", label: "Pythagorean Theorem Calculator" },
+            {
+              to: "/calculators/math/law-of-cosines-calculator",
+              label: "Law of Cosines Calculator (SAS & SSS)",
+            },
+            {
+              to: "/calculators/math/triangle-calculator",
+              label: "Triangle Calculator (all cases, plus everything else)",
+            },
+            {
+              to: "/calculators/math/triangle-sum-theorem-calculator",
+              label: "Triangle Sum Theorem Calculator (find the third angle)",
+            },
+            {
+              to: "/calculators/math/right-triangle-calculator",
+              label: "Right Triangle Calculator (one 90° angle)",
+            },
+            {
+              to: "/calculators/math/isosceles-triangle-calculator",
+              label: "Isosceles Triangle Calculator",
+            },
+            {
+              to: "/calculators/math/equilateral-triangle-calculator",
+              label: "Equilateral Triangle Calculator",
+            },
+            {
+              to: "/calculators/math/pythagorean-theorem-calculator",
+              label: "Pythagorean Theorem Calculator",
+            },
           ]}
         />
       </CalcSection>
