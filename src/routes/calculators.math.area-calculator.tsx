@@ -1022,6 +1022,12 @@ function compute(
         if (b1 === null || b2 === null || c === null || d === null) return empty;
         if (b1 <= 0 || b2 <= 0 || c <= 0 || d <= 0)
           return { ...empty, error: "All side lengths must be positive." };
+        if (b1 === b2)
+          return {
+            ...empty,
+            error:
+              "When b₁ = b₂, this becomes a parallelogram and its height can't be determined from side lengths alone — please use the 'Base + height' mode instead.",
+          };
         const solved = trapezoidHeightFromSides(b1, b2, c, d);
         if (!solved)
           return {
@@ -1030,27 +1036,14 @@ function compute(
           };
         const { h, x } = solved;
         const stepsExtra: Step[] = [];
-        if (b1 === b2) {
-          stepsExtra.push(
-            step(
-              "Parallelogram case",
-              <MathNote>
-                Since b₁ = b₂, this is a parallelogram — x = 0, so h = √(c² − 0²) = c
-                (this assumes side c is measured perpendicular to the bases; for a
-                true parallelogram, enter its perpendicular height directly instead).
-              </MathNote>,
-            ),
-          );
-        } else {
-          stepsExtra.push(
-            step(
-              "Solve for x",
-              <MathLine>
-                x = [(b₂ − b₁)² + c² − d²] / [2(b₂ − b₁)] = <strong>{fmt(x)}</strong>
-              </MathLine>,
-            ),
-          );
-        }
+        stepsExtra.push(
+          step(
+            "Solve for x",
+            <MathLine>
+              x = [(b₂ − b₁)² + c² − d²] / [2(b₂ − b₁)] = <strong>{fmt(x)}</strong>
+            </MathLine>,
+          ),
+        );
         const A = ((b1 + b2) / 2) * h;
         return {
           area: A,
