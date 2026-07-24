@@ -1573,7 +1573,7 @@ const SA_GUIDE: GuideCardItem[] = [
     example: {
       given: <>R = 10, r = 3</>,
       substitute: <>4π² × 10 × 3 = 120π²</>,
-      answer: <>≈ 1184.3526 sq units</>,
+      answer: <>≈ 1184.3525 sq units</>,
     },
   },
 ];
