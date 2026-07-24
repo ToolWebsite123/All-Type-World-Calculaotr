@@ -300,7 +300,46 @@ function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
       ];
       return sol;
     }
+    case "isosceles-quick": {
+      const a = n("a"), b = n("b"), c = n("c");
+      if (a === null || b === null || c === null)
+        return { error: "Enter both bases (a, b) and the leg length c." };
+      if (a <= 0 || b <= 0 || c <= 0) return { error: "Bases and leg must be positive." };
+      const x = (b - a) / 2;
+      const under = c * c - x * x;
+      if (under <= 0)
+        return { error: "Leg c is too short to reach across the bases — check the values." };
+      const h = Math.sqrt(under);
+      const sol = fromCanonical(a, b, c, c, h, x);
+      sol.steps = [
+        step("Symmetry", <>Legs are equal, so d = c and each base overhang is x = (b − a) / 2.</>),
+        step("Horizontal offset x", <>x = ({b} − {a}) / 2 = <strong>{fmt(x)}</strong></>),
+        step("Height", <>h = √(c² − x²) = √({fmt(c * c)} − {fmt(x * x)}) = <strong>{fmt(h)}</strong></>),
+        step("Angles", <>∠A = ∠D = <strong>{fmtA(sol.angleA)}</strong>, ∠B = ∠C = <strong>{fmtA(sol.angleB)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
+    case "right-quick": {
+      const a = n("a"), b = n("b"), c = n("c");
+      if (a === null || b === null || c === null)
+        return { error: "Enter both bases (a, b) and the vertical leg c." };
+      if (a <= 0 || b <= 0 || c <= 0) return { error: "Bases and leg must be positive." };
+      const h = c;
+      const x = 0;
+      const d = Math.hypot(b - a, h);
+      const sol = fromCanonical(a, b, c, d, h, x);
+      sol.steps = [
+        step("Right angles", <>Leg c is perpendicular to both bases, so ∠A = ∠B = 90° and h = c = <strong>{fmt(h)}</strong>.</>),
+        step("Slanted leg d", <>d = √((b − a)² + c²) = √({fmt((b - a) * (b - a))} + {fmt(c * c)}) = <strong>{fmt(d)}</strong></>),
+        step("Angle D", <>∠D = atan2(h, b − a) = <strong>{fmtA(sol.angleD)}</strong></>),
+        step("Angle C", <>∠C = 180° − ∠D = <strong>{fmtA(sol.angleC)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
     case "diagonals": {
+
       const p = n("p"), q = n("q"), thetaDeg = n("theta");
       if (p === null || q === null || thetaDeg === null)
         return { error: "Enter both diagonals p and q, and the angle θ between them." };
