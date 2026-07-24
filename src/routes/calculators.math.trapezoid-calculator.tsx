@@ -689,6 +689,7 @@ function Page() {
     <MathCalcPage
       name={NAME}
       tagline="Area, perimeter, height, midsegment, all four angles, and both diagonals — for any scalene, isosceles or right trapezoid."
+      extras={<Extras />}
     >
       {/* Shape + Mode + Unit */}
       <div className="grid gap-4 sm:grid-cols-3">
