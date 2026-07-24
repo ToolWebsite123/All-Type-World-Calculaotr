@@ -1425,7 +1425,7 @@ function Extras() {
       <CalcSection title="What this tool does for you">
         <FeatureList
           items={[
-            "12 calculation modes — from a simple A = ½(a+b)h to a full solve from 4 vertex coordinates",
+            "Nine calculation modes — from a simple A = ½(a+b)h to a full solve from 4 vertex coordinates",
             "Scalene, isosceles and right diagrams with vertex, side, angle and height labels",
             "Reports area, perimeter, height, midsegment, all four interior angles and both diagonals",
             "Unit selector (mm, cm, m, km, in, ft, yd) with automatic m² conversion for the cost estimator",
