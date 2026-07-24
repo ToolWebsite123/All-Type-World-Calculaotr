@@ -1912,7 +1912,7 @@ const TRIANGLE_GUIDE: TriGuide[] = [
     example: {
       given: "a = 5, b = 7, C = 45°",
       substitute: "c² = 25 + 49 − 70·cos 45° = 74 − 49.497",
-      answer: "c ≈ 4.9497, A ≈ 45.60°, B ≈ 89.40°",
+      answer: "c ≈ 4.9500, A ≈ 45.58°, B ≈ 89.42°",
     },
   },
   {
@@ -1951,7 +1951,7 @@ const TRIANGLE_GUIDE: TriGuide[] = [
     example: {
       given: "a = 7, b = 9, A = 35°",
       substitute: "sin B = 9·sin 35° / 7 ≈ 0.7375 → B₁ ≈ 47.54° or B₂ ≈ 132.46°",
-      answer: "Two triangles: c ≈ 12.10 or c ≈ 2.65",
+      answer: "Two triangles: c ≈ 12.10 or c ≈ 2.64",
     },
   },
   {

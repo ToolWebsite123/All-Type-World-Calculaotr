@@ -678,7 +678,7 @@ const GUIDE: GuideCardItem[] = [
     example: {
       given: <>a = 7, b = 9, A = 35°</>,
       substitute: <>sin B = 9 · sin 35° / 7 ≈ 0.7374 ⇒ B ≈ 47.52° or 132.48°</>,
-      answer: <>Two triangles: C ≈ 97.48°, c ≈ 12.10 &nbsp;or&nbsp; C ≈ 12.52°, c ≈ 2.65</>,
+      answer: <>Two triangles: C ≈ 97.48°, c ≈ 12.10 &nbsp;or&nbsp; C ≈ 12.52°, c ≈ 2.64</>,
     },
   },
   {
@@ -695,7 +695,7 @@ const GUIDE: GuideCardItem[] = [
     example: {
       given: <>a = 12, b = 8, A = 65°</>,
       substitute: <>sin B = 8 · sin 65° / 12 ≈ 0.6041 ⇒ B ≈ 37.16° (supplement rejected)</>,
-      answer: <>Unique triangle: C ≈ 77.84°, c ≈ 12.94</>,
+      answer: <>Unique triangle: C ≈ 77.83°, c ≈ 12.94</>,
     },
   },
   {
