@@ -286,15 +286,10 @@ function LawOfCosinesPage() {
 
   const changeSolveFor = (sf: SolveFor) => {
     setSolveFor(sf);
-    setMode(sf.startsWith("side") ? "SAS" : "SSS");
-    setResult(null); setError(null);
+    setResult(null);
+    setError(null);
   };
 
-  const changeMode = (m: Mode) => {
-    setMode(m);
-    setSolveFor(m === "SAS" ? "sideC" : "angleA");
-    setResult(null); setError(null);
-  };
 
   const onCalc = () => {
     setError(null);
