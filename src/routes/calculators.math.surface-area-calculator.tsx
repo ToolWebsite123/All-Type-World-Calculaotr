@@ -88,7 +88,7 @@ export const Route = createFileRoute("/calculators/math/surface-area-calculator"
       name: "Surface Area Calculator",
       title: "Surface Area Calculator — 13 Solids, Total / Lateral / Base",
       metaDescription:
-        "Free surface area calculator for 13 solids — sphere, cube, cylinder, cone, tank, capsule, spherical cap, frustum, ellipsoid, pyramid, triangular prism, tube and torus. Reports total, lateral and base surface area with diagrams, unit conversions and step-by-step working.",
+        "Surface area calculator for 13 solids: sphere, cube, cylinder, cone, box, capsule, cap, frustum, ellipsoid, pyramid, prism, tube and torus — total, lateral and base area with steps.",
       canonicalUrl: "/calculators/math/surface-area-calculator",
       ogImage: "/og-image.png",
       breadcrumbs: [
@@ -1560,7 +1560,7 @@ const SA_GUIDE: GuideCardItem[] = [
     example: {
       given: <>D = 10, d = 6, L = 20 (so R = 5, r = 3)</>,
       substitute: <>2π×5×20 + 2π×3×20 + 2π(25 − 9) = 200π + 120π + 32π = 352π</>,
-      answer: <>≈ 1105.8407 sq units</>,
+      answer: <>≈ 1105.8406 sq units</>,
     },
   },
   {
@@ -1573,7 +1573,7 @@ const SA_GUIDE: GuideCardItem[] = [
     example: {
       given: <>R = 10, r = 3</>,
       substitute: <>4π² × 10 × 3 = 120π²</>,
-      answer: <>≈ 1184.3526 sq units</>,
+      answer: <>≈ 1184.3525 sq units</>,
     },
   },
 ];
