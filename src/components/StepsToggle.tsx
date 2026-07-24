@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { CalcSection } from "@/components/MathCalcPage";
+import { CalcSection, StackedMath } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 
 /**
