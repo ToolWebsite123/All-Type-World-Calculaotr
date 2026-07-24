@@ -702,7 +702,7 @@ function Page() {
   const [price, setPrice] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const result = useMemo(() => (submitted ? solve(mode, inputs) : null), [submitted, mode, inputs]);
+  const result = useMemo(() => (submitted ? solve(mode, shape, inputs) : null), [submitted, mode, shape, inputs]);
 
   const setIn = (k: string, v: string) => setInputs((s) => ({ ...s, [k]: v }));
 
