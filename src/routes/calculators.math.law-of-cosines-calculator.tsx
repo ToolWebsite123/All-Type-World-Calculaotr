@@ -697,6 +697,20 @@ function PageExtras() {
           <em>C</em> opposite side <em>c</em>:
         </p>
         <FormulaBlock>c² = a² + b² − 2ab · cos C</FormulaBlock>
+
+        <h3 className="mt-6 mb-2 font-display text-base font-semibold text-foreground">
+          Law of Cosines — solving for sides a, b, and c
+        </h3>
+        <FormulaBlock>a = √(b² + c² − 2bc · cos A)</FormulaBlock>
+        <FormulaBlock>b = √(a² + c² − 2ac · cos B)</FormulaBlock>
+        <FormulaBlock>c = √(a² + b² − 2ab · cos C)</FormulaBlock>
+
+        <h3 className="mt-6 mb-2 font-display text-base font-semibold text-foreground">
+          Law of Cosines — solving for angles A, B, and C
+        </h3>
+        <FormulaBlock>A = cos⁻¹[(b² + c² − a²) / (2bc)]</FormulaBlock>
+        <FormulaBlock>B = cos⁻¹[(a² + c² − b²) / (2ac)]</FormulaBlock>
+        <FormulaBlock>C = cos⁻¹[(a² + b² − c²) / (2ab)]</FormulaBlock>
         <p>
           It handles the two cases where the law of sines can't get started:{" "}
           <strong>SAS</strong> (you know two sides and the angle between them,
