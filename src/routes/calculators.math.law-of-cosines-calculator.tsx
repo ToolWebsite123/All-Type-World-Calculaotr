@@ -367,31 +367,8 @@ function LawOfCosinesPage() {
         </select>
       </Field>
 
-      {/* Mode picker (kept for users who prefer the SAS/SSS framing) */}
-      <div className="mt-4">
-        <Field label="Which values do you know?" htmlFor="loc-mode">
-          <div className="flex flex-wrap gap-2" id="loc-mode">
-            {([
-              { m: "SAS", t: "Two sides + the angle between (SAS)" },
-              { m: "SSS", t: "Three sides (SSS)" },
-            ] as { m: Mode; t: string }[]).map(({ m, t }) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => changeMode(m)}
-                className={
-                  "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-                  (mode === m
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground hover:bg-accent")
-                }
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </Field>
-      </div>
+
+
 
       {/* Unit / precision controls */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
