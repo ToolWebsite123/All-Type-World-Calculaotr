@@ -26,23 +26,20 @@ import {
   isValidTriangleSides,
 } from "@/lib/math/geometry-shared";
 
-
 /** Centered display-math line used inside solution steps. */
 function MathLine({ children }: { children: ReactNode }) {
   return (
     <div className="my-1 flex items-center justify-center text-center font-serif text-[15px] italic text-foreground">
-      <span className="inline-flex flex-col items-center gap-1"><StackedMath>{children}</StackedMath></span>
+      <span className="inline-flex flex-col items-center gap-1">
+        <StackedMath>{children}</StackedMath>
+      </span>
     </div>
   );
 }
 
 /** Small left-aligned note between math lines. */
 function MathNote({ children }: { children: ReactNode }) {
-  return (
-    <div className="mt-2 mb-1 text-sm not-italic text-muted-foreground">
-      {children}
-    </div>
-  );
+  return <div className="mt-2 mb-1 text-sm not-italic text-muted-foreground">{children}</div>;
 }
 
 const FAQ_ITEMS = [
@@ -105,8 +102,12 @@ type AngleUnit = "deg" | "rad";
 type Mode = "general" | "coords" | "right";
 
 interface Solution {
-  a: number; b: number; c: number;
-  A: number; B: number; C: number;
+  a: number;
+  b: number;
+  c: number;
+  A: number;
+  B: number;
+  C: number;
   caseName: string;
   steps: Step[];
   /** Optional vertex coordinates (present in coordinates mode). */
@@ -115,13 +116,16 @@ interface Solution {
 
 const toRad = (v: number, u: AngleUnit) => (u === "deg" ? (v * Math.PI) / 180 : v);
 const fromRad = (v: number, u: AngleUnit) => (u === "deg" ? (v * 180) / Math.PI : v);
-const fmt = (n: number, d = 4) =>
-  Number.isFinite(n) ? Number(n.toFixed(d)).toString() : "—";
+const fmt = (n: number, d = 4) => (Number.isFinite(n) ? Number(n.toFixed(d)).toString() : "—");
 
 /** Solve given raw field values (numbers in radians for angles, sides as-is). */
 function solveTriangle(input: {
-  a?: number; b?: number; c?: number;
-  A?: number; B?: number; C?: number;
+  a?: number;
+  b?: number;
+  c?: number;
+  A?: number;
+  B?: number;
+  C?: number;
 }): { solutions: Solution[]; note?: string } {
   // A field counts as "given" only if it is a finite positive number.
   // 0 is treated as an *entered* value and rejected here; empty fields are undefined.
@@ -141,8 +145,12 @@ function solveTriangle(input: {
   const sides = sideKeys.filter((k) => has(input[k]));
   const angles = angleKeys.filter((k) => has(input[k]));
 
-  if (sides.length + angles.length < 3) throw new Error("Enter at least 3 values (with at least one side).");
-  if (sides.length === 0) throw new Error("At least one side is required — three angles alone don't determine a triangle.");
+  if (sides.length + angles.length < 3)
+    throw new Error("Enter at least 3 values (with at least one side).");
+  if (sides.length === 0)
+    throw new Error(
+      "At least one side is required — three angles alone don't determine a triangle.",
+    );
 
   const angleSum = angles.reduce((s, k) => s + (input[k] as number), 0);
   if (angles.length >= 2 && angleSum >= Math.PI - 1e-9) {
@@ -153,8 +161,12 @@ function solveTriangle(input: {
     throw new Error("A single angle must be less than 180°.");
   }
 
-  let a = input.a, b = input.b, c = input.c;
-  let A = input.A, B = input.B, C = input.C;
+  let a = input.a,
+    b = input.b,
+    c = input.c;
+  let A = input.A,
+    B = input.B,
+    C = input.C;
 
   const stepList: Step[] = [];
 
@@ -172,7 +184,9 @@ function solveTriangle(input: {
       (knownSide === "a" && has(input.B) && has(input.C)) ||
       (knownSide === "b" && has(input.A) && has(input.C)) ||
       (knownSide === "c" && has(input.A) && has(input.B));
-    const caseName = isIncluded ? "ASA — two angles and the included side" : "AAS — two angles and a non-included side";
+    const caseName = isIncluded
+      ? "ASA — two angles and the included side"
+      : "AAS — two angles and a non-included side";
 
     stepList.push({
       title: `Detected ${caseName}`,
@@ -203,7 +217,10 @@ function solveTriangle(input: {
       body: (
         <>
           <MathNote>Law of Sines ratio</MathNote>
-          <MathLine>{knownSide} / sin({knownSide.toUpperCase()}) = {fmt(kv)} / sin({fmt(kAngle, 6)}) = {fmt(ratio)}</MathLine>
+          <MathLine>
+            {knownSide} / sin({knownSide.toUpperCase()}) = {fmt(kv)} / sin({fmt(kAngle, 6)}) ={" "}
+            {fmt(ratio)}
+          </MathLine>
           <MathNote>Then side = ratio × sin(opposite angle)</MathNote>
           <MathLine>a = {fmt(a!)}</MathLine>
           <MathLine>b = {fmt(b!)}</MathLine>
@@ -217,14 +234,17 @@ function solveTriangle(input: {
 
   // ===== SSS: 3 sides =====
   if (sides.length === 3) {
-    const sa = a!, sb = b!, sc = c!;
+    const sa = a!,
+      sb = b!,
+      sc = c!;
     if (!isValidTriangleSides(sa, sb, sc))
-      throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side.");
+      throw new Error(
+        "Triangle inequality violated — the two shorter sides must sum to more than the longest side.",
+      );
 
     const A2 = solveCosineLawAngle(sa, sb, sc);
     const B2 = solveCosineLawAngle(sb, sa, sc);
     const C2 = Math.PI - A2 - B2;
-
 
     stepList.push({
       title: "Detected SSS — three sides given",
@@ -241,9 +261,13 @@ function solveTriangle(input: {
         <>
           <MathNote>Law of Cosines rearranged</MathNote>
           <MathLine>cos(A) = (b² + c² − a²) / (2bc)</MathLine>
-          <MathLine>= ({fmt(sb * sb)} + {fmt(sc * sc)} − {fmt(sa * sa)}) / (2 × {fmt(sb)} × {fmt(sc)})</MathLine>
+          <MathLine>
+            = ({fmt(sb * sb)} + {fmt(sc * sc)} − {fmt(sa * sa)}) / (2 × {fmt(sb)} × {fmt(sc)})
+          </MathLine>
           <MathLine>= {fmt((sb * sb + sc * sc - sa * sa) / (2 * sb * sc), 6)}</MathLine>
-          <MathLine>A = arccos(...) = {fmt(A2, 6)} rad ≈ {fmt((A2 * 180) / Math.PI, 4)}°</MathLine>
+          <MathLine>
+            A = arccos(...) = {fmt(A2, 6)} rad ≈ {fmt((A2 * 180) / Math.PI, 4)}°
+          </MathLine>
         </>
       ),
     });
@@ -252,22 +276,35 @@ function solveTriangle(input: {
       body: (
         <>
           <MathNote>Repeat Law of Cosines for B</MathNote>
-          <MathLine>B = {fmt(B2, 6)} rad ≈ {fmt((B2 * 180) / Math.PI, 4)}°</MathLine>
+          <MathLine>
+            B = {fmt(B2, 6)} rad ≈ {fmt((B2 * 180) / Math.PI, 4)}°
+          </MathLine>
           <MathNote>Then close with the angle-sum rule</MathNote>
           <MathLine>C = 180° − A − B = {fmt((C2 * 180) / Math.PI, 4)}°</MathLine>
         </>
       ),
     });
 
-    return { solutions: [{ a: sa, b: sb, c: sc, A: A2, B: B2, C: C2, caseName: "SSS — three sides", steps: stepList }] };
+    return {
+      solutions: [
+        {
+          a: sa,
+          b: sb,
+          c: sc,
+          A: A2,
+          B: B2,
+          C: C2,
+          caseName: "SSS — three sides",
+          steps: stepList,
+        },
+      ],
+    };
   }
 
   // ===== SAS: 2 sides + included angle =====
   if (sides.length === 2 && angles.length === 1) {
     const isSAS =
-      (has(A) && has(b) && has(c)) ||
-      (has(B) && has(a) && has(c)) ||
-      (has(C) && has(a) && has(b));
+      (has(A) && has(b) && has(c)) || (has(B) && has(a) && has(c)) || (has(C) && has(a) && has(b));
 
     if (isSAS) {
       let missingSide: "a" | "b" | "c";
@@ -284,12 +321,13 @@ function solveTriangle(input: {
       else if (missingSide === "b") b = m;
       else c = m;
 
-
       stepList.push({
         title: "Detected SAS — two sides and the included angle",
         body: (
           <>
-            <MathNote>Law of Cosines gives the third side, then Law of Sines closes the angles.</MathNote>
+            <MathNote>
+              Law of Cosines gives the third side, then Law of Sines closes the angles.
+            </MathNote>
             <MathLine>c² = a² + b² − 2ab·cos(C)</MathLine>
           </>
         ),
@@ -299,9 +337,16 @@ function solveTriangle(input: {
         body: (
           <>
             <MathNote>Law of Cosines</MathNote>
-            <MathLine>{missingSide}² = {fmt(s1)}² + {fmt(s2)}² − 2 × {fmt(s1)} × {fmt(s2)} × cos({fmt(angleV, 6)})</MathLine>
-            <MathLine>{missingSide}² = {fmt(sq)}</MathLine>
-            <MathLine>{missingSide} = √{fmt(sq)} = {fmt(m)}</MathLine>
+            <MathLine>
+              {missingSide}² = {fmt(s1)}² + {fmt(s2)}² − 2 × {fmt(s1)} × {fmt(s2)} × cos(
+              {fmt(angleV, 6)})
+            </MathLine>
+            <MathLine>
+              {missingSide}² = {fmt(sq)}
+            </MathLine>
+            <MathLine>
+              {missingSide} = √{fmt(sq)} = {fmt(m)}
+            </MathLine>
           </>
         ),
       });
@@ -317,14 +362,31 @@ function solveTriangle(input: {
         body: (
           <>
             <MathNote>Law of Cosines with all three known sides</MathNote>
-            <MathLine>A = {fmt(A2, 6)} rad ≈ {fmt((A2 * 180) / Math.PI, 4)}°</MathLine>
-            <MathLine>B = {fmt(B2, 6)} rad ≈ {fmt((B2 * 180) / Math.PI, 4)}°</MathLine>
+            <MathLine>
+              A = {fmt(A2, 6)} rad ≈ {fmt((A2 * 180) / Math.PI, 4)}°
+            </MathLine>
+            <MathLine>
+              B = {fmt(B2, 6)} rad ≈ {fmt((B2 * 180) / Math.PI, 4)}°
+            </MathLine>
             <MathLine>C = 180° − A − B = {fmt((C2 * 180) / Math.PI, 4)}°</MathLine>
           </>
         ),
       });
 
-      return { solutions: [{ a: ra, b: rb, c: rc, A: A2, B: B2, C: C2, caseName: "SAS — two sides and the included angle", steps: stepList }] };
+      return {
+        solutions: [
+          {
+            a: ra,
+            b: rb,
+            c: rc,
+            A: A2,
+            B: B2,
+            C: C2,
+            caseName: "SAS — two sides and the included angle",
+            steps: stepList,
+          },
+        ],
+      };
     }
 
     // ===== SSA: 2 sides + non-included angle (ambiguous) =====
@@ -339,7 +401,7 @@ function solveTriangle(input: {
     }
     const otherSideKey = sides.find((k) => k !== oppositeSide)!;
     const otherSide = input[otherSideKey] as number;
-    const otherAngleKey = (otherSideKey.toUpperCase() as "A" | "B" | "C");
+    const otherAngleKey = otherSideKey.toUpperCase() as "A" | "B" | "C";
     const angV = input[knownAngle] as number;
     const sOpp = sideOpp as number;
 
@@ -350,14 +412,21 @@ function solveTriangle(input: {
       body: (
         <>
           <MathNote>SSA can give 0, 1 or 2 triangles. Test with the Law of Sines.</MathNote>
-          <MathLine>sin({otherAngleKey}) = {otherSideKey} · sin({knownAngle}) / {oppositeSide}</MathLine>
-          <MathLine>= {fmt(otherSide)} × sin({fmt(angV, 6)}) / {fmt(sOpp)}</MathLine>
+          <MathLine>
+            sin({otherAngleKey}) = {otherSideKey} · sin({knownAngle}) / {oppositeSide}
+          </MathLine>
+          <MathLine>
+            = {fmt(otherSide)} × sin({fmt(angV, 6)}) / {fmt(sOpp)}
+          </MathLine>
           <MathLine>= {fmt(sinOther, 6)}</MathLine>
         </>
       ),
     });
 
-    if (sinOther > 1 + 1e-9) throw new Error("SSA has no solution — sin of the required angle exceeds 1 (no triangle fits these values).");
+    if (sinOther > 1 + 1e-9)
+      throw new Error(
+        "SSA has no solution — sin of the required angle exceeds 1 (no triangle fits these values).",
+      );
     const clamped = Math.min(1, Math.max(-1, sinOther));
     const angle1 = Math.asin(clamped);
     const angle2 = Math.PI - angle1;
@@ -369,7 +438,10 @@ function solveTriangle(input: {
       const knownAngleVal = angV;
       const knownSideVal = sOpp;
       const ratio = knownSideVal / Math.sin(knownAngleVal);
-      const map: Record<string, number> = { [knownAngle]: knownAngleVal, [otherAngleKey]: otherAng };
+      const map: Record<string, number> = {
+        [knownAngle]: knownAngleVal,
+        [otherAngleKey]: otherAng,
+      };
       const thirdKey = (["A", "B", "C"] as const).find((k) => !(k in map))!;
       map[thirdKey] = third;
       const sMap: Record<string, number> = {
@@ -379,8 +451,12 @@ function solveTriangle(input: {
       const thirdSideKey = (["a", "b", "c"] as const).find((k) => !(k in sMap))!;
       sMap[thirdSideKey] = ratio * Math.sin(third);
       return {
-        a: sMap.a, b: sMap.b, c: sMap.c,
-        A: map.A, B: map.B, C: map.C,
+        a: sMap.a,
+        b: sMap.b,
+        c: sMap.c,
+        A: map.A,
+        B: map.B,
+        C: map.C,
         caseName: `SSA (${label})`,
         steps: [
           ...stepList,
@@ -389,11 +465,19 @@ function solveTriangle(input: {
             body: (
               <>
                 <MathNote>Take the arcsine branch for {label.toLowerCase()}</MathNote>
-                <MathLine>{otherAngleKey} = {fmt(otherAng, 6)} rad ≈ {fmt((otherAng * 180) / Math.PI, 4)}°</MathLine>
+                <MathLine>
+                  {otherAngleKey} = {fmt(otherAng, 6)} rad ≈ {fmt((otherAng * 180) / Math.PI, 4)}°
+                </MathLine>
                 <MathNote>Third angle by angle-sum</MathNote>
-                <MathLine>{thirdKey} = 180° − {knownAngle} − {otherAngleKey} = {fmt((third * 180) / Math.PI, 4)}°</MathLine>
+                <MathLine>
+                  {thirdKey} = 180° − {knownAngle} − {otherAngleKey} ={" "}
+                  {fmt((third * 180) / Math.PI, 4)}°
+                </MathLine>
                 <MathNote>Third side by Law of Sines</MathNote>
-                <MathLine>{thirdSideKey} = ({fmt(knownSideVal)} / sin({fmt(knownAngleVal, 6)})) × sin({fmt(third, 6)})</MathLine>
+                <MathLine>
+                  {thirdSideKey} = ({fmt(knownSideVal)} / sin({fmt(knownAngleVal, 6)})) × sin(
+                  {fmt(third, 6)})
+                </MathLine>
                 <MathLine>= {fmt(sMap[thirdSideKey])}</MathLine>
               </>
             ),
@@ -464,10 +548,21 @@ function TrianglePage() {
     try {
       if (mode === "general") {
         const input = {
-          a: parseNum(a), b: parseNum(b), c: parseNum(c),
-          A: (() => { const n = parseNum(A); return n === undefined ? undefined : toRad(n, unit); })(),
-          B: (() => { const n = parseNum(B); return n === undefined ? undefined : toRad(n, unit); })(),
-          C: (() => { const n = parseNum(C); return n === undefined ? undefined : toRad(n, unit); })(),
+          a: parseNum(a),
+          b: parseNum(b),
+          c: parseNum(c),
+          A: (() => {
+            const n = parseNum(A);
+            return n === undefined ? undefined : toRad(n, unit);
+          })(),
+          B: (() => {
+            const n = parseNum(B);
+            return n === undefined ? undefined : toRad(n, unit);
+          })(),
+          C: (() => {
+            const n = parseNum(C);
+            return n === undefined ? undefined : toRad(n, unit);
+          })(),
         };
         setResult(solveTriangle(input));
       } else if (mode === "coords") {
@@ -482,7 +577,9 @@ function TrianglePage() {
         const sb = Math.hypot(X1 - X3, Y1 - Y3);
         const sc = Math.hypot(X1 - X2, Y1 - Y2);
         if (sa < 1e-9 || sb < 1e-9 || sc < 1e-9)
-          throw new Error("The three points are coincident or collinear — they don't form a triangle.");
+          throw new Error(
+            "The three points are coincident or collinear — they don't form a triangle.",
+          );
         const r = solveTriangle({ a: sa, b: sb, c: sc });
         // Overwrite step 0 with coordinate-derivation step and attach vertices.
         const areaShoelace = 0.5 * Math.abs(X1 * (Y2 - Y3) + X2 * (Y3 - Y1) + X3 * (Y1 - Y2));
@@ -493,7 +590,9 @@ function TrianglePage() {
             body: (
               <>
                 <MathNote>Distance formula for each side</MathNote>
-                <MathLine>a = |P₂P₃| = √(({X2}−{X3})² + ({Y2}−{Y3})²) = {fmt(sa)}</MathLine>
+                <MathLine>
+                  a = |P₂P₃| = √(({X2}−{X3})² + ({Y2}−{Y3})²) = {fmt(sa)}
+                </MathLine>
                 <MathLine>b = |P₁P₃| = {fmt(sb)}</MathLine>
                 <MathLine>c = |P₁P₂| = {fmt(sc)}</MathLine>
               </>
@@ -505,7 +604,9 @@ function TrianglePage() {
               <>
                 <MathNote>Shoelace formula</MathNote>
                 <MathLine>A = ½ |x₁(y₂−y₃) + x₂(y₃−y₁) + x₃(y₁−y₂)|</MathLine>
-                <MathLine>= ½ |{X1}({Y2}−{Y3}) + {X2}({Y3}−{Y1}) + {X3}({Y1}−{Y2})|</MathLine>
+                <MathLine>
+                  = ½ |{X1}({Y2}−{Y3}) + {X2}({Y3}−{Y1}) + {X3}({Y1}−{Y2})|
+                </MathLine>
                 <MathLine>= {fmt(areaShoelace)}</MathLine>
               </>
             ),
@@ -516,7 +617,9 @@ function TrianglePage() {
               <>
                 <MathNote>Average of the three vertices</MathNote>
                 <MathLine>G = ((x₁+x₂+x₃)/3, (y₁+y₂+y₃)/3)</MathLine>
-                <MathLine>= ({fmt(cent[0])}, {fmt(cent[1])})</MathLine>
+                <MathLine>
+                  = ({fmt(cent[0])}, {fmt(cent[1])})
+                </MathLine>
               </>
             ),
           },
@@ -530,20 +633,28 @@ function TrianglePage() {
         setResult(r);
       } else {
         // Right triangle mode: enter any 2 of ra, rb, rc
-        const na = parseNum(ra), nb = parseNum(rb), nc = parseNum(rc);
+        const na = parseNum(ra),
+          nb = parseNum(rb),
+          nc = parseNum(rc);
         const provided = [na, nb, nc].filter((v) => v !== undefined) as number[];
-        if (provided.length !== 2) throw new Error("Enter exactly two of (leg a, leg b, hypotenuse c).");
-        for (const v of provided) if (v <= 0) throw new Error("Right-triangle sides must be greater than 0.");
-        let A2 = na, B2 = nb, C2 = nc;
-        const stepsRT: Step[] = [{
-          title: "Detected right triangle",
-          body: (
-            <>
-              <MathNote>Angle C = 90°. Use the Pythagorean theorem.</MathNote>
-              <MathLine>a² + b² = c²</MathLine>
-            </>
-          ),
-        }];
+        if (provided.length !== 2)
+          throw new Error("Enter exactly two of (leg a, leg b, hypotenuse c).");
+        for (const v of provided)
+          if (v <= 0) throw new Error("Right-triangle sides must be greater than 0.");
+        let A2 = na,
+          B2 = nb,
+          C2 = nc;
+        const stepsRT: Step[] = [
+          {
+            title: "Detected right triangle",
+            body: (
+              <>
+                <MathNote>Angle C = 90°. Use the Pythagorean theorem.</MathNote>
+                <MathLine>a² + b² = c²</MathLine>
+              </>
+            ),
+          },
+        ];
         if (A2 !== undefined && B2 !== undefined) {
           C2 = Math.hypot(A2, B2);
           stepsRT.push({
@@ -551,7 +662,9 @@ function TrianglePage() {
             body: (
               <>
                 <MathNote>Solve for c</MathNote>
-                <MathLine>c = √(a² + b²) = √({A2}² + {B2}²)</MathLine>
+                <MathLine>
+                  c = √(a² + b²) = √({A2}² + {B2}²)
+                </MathLine>
                 <MathLine>= {fmt(C2)}</MathLine>
               </>
             ),
@@ -564,7 +677,9 @@ function TrianglePage() {
             body: (
               <>
                 <MathNote>Solve for b</MathNote>
-                <MathLine>b = √(c² − a²) = √({C2}² − {A2}²)</MathLine>
+                <MathLine>
+                  b = √(c² − a²) = √({C2}² − {A2}²)
+                </MathLine>
                 <MathLine>= {fmt(B2)}</MathLine>
               </>
             ),
@@ -577,7 +692,9 @@ function TrianglePage() {
             body: (
               <>
                 <MathNote>Solve for a</MathNote>
-                <MathLine>a = √(c² − b²) = √({C2}² − {B2}²)</MathLine>
+                <MathLine>
+                  a = √(c² − b²) = √({C2}² − {B2}²)
+                </MathLine>
                 <MathLine>= {fmt(A2)}</MathLine>
               </>
             ),
@@ -590,18 +707,26 @@ function TrianglePage() {
           body: (
             <>
               <MathNote>Right-triangle angles from the legs</MathNote>
-              <MathLine>A = arctan(a / b) = {fmt(angA, 6)} rad ≈ {fmt((angA * 180) / Math.PI, 4)}°</MathLine>
+              <MathLine>
+                A = arctan(a / b) = {fmt(angA, 6)} rad ≈ {fmt((angA * 180) / Math.PI, 4)}°
+              </MathLine>
               <MathLine>B = 90° − A = {fmt((angB * 180) / Math.PI, 4)}°</MathLine>
             </>
           ),
         });
         setResult({
-          solutions: [{
-            a: A2!, b: B2!, c: C2!,
-            A: angA, B: angB, C: Math.PI / 2,
-            caseName: "Right triangle (Pythagorean)",
-            steps: stepsRT,
-          }],
+          solutions: [
+            {
+              a: A2!,
+              b: B2!,
+              c: C2!,
+              A: angA,
+              B: angB,
+              C: Math.PI / 2,
+              caseName: "Right triangle (Pythagorean)",
+              steps: stepsRT,
+            },
+          ],
         });
       }
     } catch (e) {
@@ -611,18 +736,31 @@ function TrianglePage() {
 
   const onExample = () => {
     setUnit("deg");
-    setA("7"); setB("9"); setC(""); setAAng("35"); setBAng(""); setCAng("");
+    setA("7");
+    setB("9");
+    setC("");
+    setAAng("35");
+    setBAng("");
+    setCAng("");
   };
 
   const preset30_60_90 = () => {
     setUnit("deg");
-    setAAng("30"); setBAng("60"); setCAng("");
-    setA(""); setB(""); setC("1");
+    setAAng("30");
+    setBAng("60");
+    setCAng("");
+    setA("");
+    setB("");
+    setC("1");
   };
   const preset45_45_90 = () => {
     setUnit("deg");
-    setAAng("45"); setBAng("45"); setCAng("");
-    setA(""); setB(""); setC("1");
+    setAAng("45");
+    setBAng("45");
+    setCAng("");
+    setA("");
+    setB("");
+    setC("1");
   };
 
   return (
@@ -633,11 +771,13 @@ function TrianglePage() {
     >
       {/* Mode tabs */}
       <div className="mb-4 flex flex-wrap gap-2">
-        {([
-          ["general", "General solver"],
-          ["coords", "Coordinates"],
-          ["right", "Right triangle"],
-        ] as [Mode, string][]).map(([m, label]) => (
+        {(
+          [
+            ["general", "General solver"],
+            ["coords", "Coordinates"],
+            ["right", "Right triangle"],
+          ] as [Mode, string][]
+        ).map(([m, label]) => (
           <button
             key={m}
             type="button"
@@ -670,36 +810,97 @@ function TrianglePage() {
                   onClick={() => setUnit(u)}
                   className={
                     "px-3 py-1.5 text-sm " +
-                    (unit === u ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")
+                    (unit === u
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground")
                   }
                 >
                   {u === "deg" ? "Degrees" : "Radians"}
                 </button>
               ))}
             </div>
-            <button type="button" onClick={onExample} className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground">
+            <button
+              type="button"
+              onClick={onExample}
+              className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
               Load ambiguous SSA example
             </button>
-            <button type="button" onClick={preset30_60_90} className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground">
+            <button
+              type="button"
+              onClick={preset30_60_90}
+              className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
               30-60-90 preset
             </button>
-            <button type="button" onClick={preset45_45_90} className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground">
+            <button
+              type="button"
+              onClick={preset45_45_90}
+              className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
               45-45-90 preset
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <Field label="Side a" htmlFor="ta"><TextInput id="ta" inputMode="decimal" value={a} onChange={(e) => setA(e.target.value)} placeholder="e.g. 7" /></Field>
-            <Field label="Side b" htmlFor="tb"><TextInput id="tb" inputMode="decimal" value={b} onChange={(e) => setB(e.target.value)} placeholder="e.g. 9" /></Field>
-            <Field label="Side c" htmlFor="tc"><TextInput id="tc" inputMode="decimal" value={c} onChange={(e) => setC(e.target.value)} /></Field>
-            <Field label={`Angle A (opposite a, ${unit})`} htmlFor="tA"><TextInput id="tA" inputMode="decimal" value={A} onChange={(e) => setAAng(e.target.value)} placeholder="e.g. 35" /></Field>
-            <Field label={`Angle B (opposite b, ${unit})`} htmlFor="tB"><TextInput id="tB" inputMode="decimal" value={B} onChange={(e) => setBAng(e.target.value)} /></Field>
-            <Field label={`Angle C (opposite c, ${unit})`} htmlFor="tC"><TextInput id="tC" inputMode="decimal" value={C} onChange={(e) => setCAng(e.target.value)} /></Field>
+            <Field label="Side a" htmlFor="ta">
+              <TextInput
+                id="ta"
+                inputMode="decimal"
+                value={a}
+                onChange={(e) => setA(e.target.value)}
+                placeholder="e.g. 7"
+              />
+            </Field>
+            <Field label="Side b" htmlFor="tb">
+              <TextInput
+                id="tb"
+                inputMode="decimal"
+                value={b}
+                onChange={(e) => setB(e.target.value)}
+                placeholder="e.g. 9"
+              />
+            </Field>
+            <Field label="Side c" htmlFor="tc">
+              <TextInput
+                id="tc"
+                inputMode="decimal"
+                value={c}
+                onChange={(e) => setC(e.target.value)}
+              />
+            </Field>
+            <Field label={`Angle A (opposite a, ${unit})`} htmlFor="tA">
+              <TextInput
+                id="tA"
+                inputMode="decimal"
+                value={A}
+                onChange={(e) => setAAng(e.target.value)}
+                placeholder="e.g. 35"
+              />
+            </Field>
+            <Field label={`Angle B (opposite b, ${unit})`} htmlFor="tB">
+              <TextInput
+                id="tB"
+                inputMode="decimal"
+                value={B}
+                onChange={(e) => setBAng(e.target.value)}
+              />
+            </Field>
+            <Field label={`Angle C (opposite c, ${unit})`} htmlFor="tC">
+              <TextInput
+                id="tC"
+                inputMode="decimal"
+                value={C}
+                onChange={(e) => setCAng(e.target.value)}
+              />
+            </Field>
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <PrimaryButton onClick={onSolve}>Solve triangle</PrimaryButton>
-            <span className="text-xs text-muted-foreground">Fill any 3 fields, including at least one side.</span>
+            <span className="text-xs text-muted-foreground">
+              Fill any 3 fields, including at least one side.
+            </span>
           </div>
         </>
       )}
@@ -707,19 +908,34 @@ function TrianglePage() {
       {mode === "coords" && (
         <>
           <p className="mb-3 text-sm text-muted-foreground">
-            Enter three vertices A, B, C as (x, y). The calculator computes sides, angles, area (shoelace), perimeter and centroid.
+            Enter three vertices A, B, C as (x, y). The calculator computes sides, angles, area
+            (shoelace), perimeter and centroid.
           </p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <Field label="A: x₁"><TextInput inputMode="decimal" value={x1} onChange={(e) => setX1(e.target.value)} /></Field>
-            <Field label="A: y₁"><TextInput inputMode="decimal" value={y1} onChange={(e) => setY1(e.target.value)} /></Field>
+            <Field label="A: x₁">
+              <TextInput inputMode="decimal" value={x1} onChange={(e) => setX1(e.target.value)} />
+            </Field>
+            <Field label="A: y₁">
+              <TextInput inputMode="decimal" value={y1} onChange={(e) => setY1(e.target.value)} />
+            </Field>
             <div className="hidden sm:block" />
-            <Field label="B: x₂"><TextInput inputMode="decimal" value={x2} onChange={(e) => setX2(e.target.value)} /></Field>
-            <Field label="B: y₂"><TextInput inputMode="decimal" value={y2} onChange={(e) => setY2(e.target.value)} /></Field>
+            <Field label="B: x₂">
+              <TextInput inputMode="decimal" value={x2} onChange={(e) => setX2(e.target.value)} />
+            </Field>
+            <Field label="B: y₂">
+              <TextInput inputMode="decimal" value={y2} onChange={(e) => setY2(e.target.value)} />
+            </Field>
             <div className="hidden sm:block" />
-            <Field label="C: x₃"><TextInput inputMode="decimal" value={x3} onChange={(e) => setX3(e.target.value)} /></Field>
-            <Field label="C: y₃"><TextInput inputMode="decimal" value={y3} onChange={(e) => setY3(e.target.value)} /></Field>
+            <Field label="C: x₃">
+              <TextInput inputMode="decimal" value={x3} onChange={(e) => setX3(e.target.value)} />
+            </Field>
+            <Field label="C: y₃">
+              <TextInput inputMode="decimal" value={y3} onChange={(e) => setY3(e.target.value)} />
+            </Field>
           </div>
-          <div className="mt-4"><PrimaryButton onClick={onSolve}>Solve from coordinates</PrimaryButton></div>
+          <div className="mt-4">
+            <PrimaryButton onClick={onSolve}>Solve from coordinates</PrimaryButton>
+          </div>
         </>
       )}
 
@@ -729,11 +945,29 @@ function TrianglePage() {
             Enter <strong>any two</strong> of legs a, b or hypotenuse c. Angle C is fixed at 90°.
           </p>
           <div className="grid grid-cols-3 gap-3">
-            <Field label="Leg a"><TextInput inputMode="decimal" value={ra} onChange={(e) => setRa(e.target.value)} placeholder="e.g. 3" /></Field>
-            <Field label="Leg b"><TextInput inputMode="decimal" value={rb} onChange={(e) => setRb(e.target.value)} placeholder="e.g. 4" /></Field>
-            <Field label="Hypotenuse c"><TextInput inputMode="decimal" value={rc} onChange={(e) => setRc(e.target.value)} /></Field>
+            <Field label="Leg a">
+              <TextInput
+                inputMode="decimal"
+                value={ra}
+                onChange={(e) => setRa(e.target.value)}
+                placeholder="e.g. 3"
+              />
+            </Field>
+            <Field label="Leg b">
+              <TextInput
+                inputMode="decimal"
+                value={rb}
+                onChange={(e) => setRb(e.target.value)}
+                placeholder="e.g. 4"
+              />
+            </Field>
+            <Field label="Hypotenuse c">
+              <TextInput inputMode="decimal" value={rc} onChange={(e) => setRc(e.target.value)} />
+            </Field>
           </div>
-          <div className="mt-4"><PrimaryButton onClick={onSolve}>Solve right triangle</PrimaryButton></div>
+          <div className="mt-4">
+            <PrimaryButton onClick={onSolve}>Solve right triangle</PrimaryButton>
+          </div>
         </>
       )}
 
@@ -747,7 +981,12 @@ function TrianglePage() {
             </div>
           )}
           {result.solutions.map((s, i) => (
-            <SolvedTriangle key={i} sol={s} unit={unit} index={result.solutions.length > 1 ? i + 1 : undefined} />
+            <SolvedTriangle
+              key={i}
+              sol={s}
+              unit={unit}
+              index={result.solutions.length > 1 ? i + 1 : undefined}
+            />
           ))}
           <ResultActions
             getCopyText={() => copyText(result.solutions, unit)}
@@ -765,7 +1004,9 @@ function copyText(sols: Solution[], u: AngleUnit) {
     .map((s, i) => {
       const tag = sols.length > 1 ? `Solution ${i + 1} (${s.caseName})\n` : `${s.caseName}\n`;
       const angU = u === "deg" ? "°" : " rad";
-      const A = fromRad(s.A, u), B = fromRad(s.B, u), C = fromRad(s.C, u);
+      const A = fromRad(s.A, u),
+        B = fromRad(s.B, u),
+        C = fromRad(s.C, u);
       const area = triangleArea(s.a, s.b, s.c);
       const P = s.a + s.b + s.c;
       return (
@@ -817,10 +1058,7 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
   const vCx = sol.vertices ? sol.vertices.C[0] : b * Math.cos(A);
   const vCy = sol.vertices ? sol.vertices.C[1] : b * Math.sin(A);
 
-  const centroid: [number, number] = [
-    (vAx + vBx + vCx) / 3,
-    (vAy + vBy + vCy) / 3,
-  ];
+  const centroid: [number, number] = [(vAx + vBx + vCx) / 3, (vAy + vBy + vCy) / 3];
 
   // Incenter = (a·A + b·B + c·C) / (a + b + c), with side lengths as weights.
   const wSum = a + b + c;
@@ -830,9 +1068,7 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
   ];
 
   // Circumcenter O — perpendicular bisector intersection (from vertex coords).
-  const dCC =
-    2 *
-    (vAx * (vBy - vCy) + vBx * (vCy - vAy) + vCx * (vAy - vBy));
+  const dCC = 2 * (vAx * (vBy - vCy) + vBx * (vCy - vAy) + vCx * (vAy - vBy));
   const circumcenter: [number, number] =
     Math.abs(dCC) < 1e-12
       ? [centroid[0], centroid[1]]
@@ -865,8 +1101,8 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
     Math.abs(a - b) < 1e-6 && Math.abs(b - c) < 1e-6
       ? "equilateral"
       : Math.abs(a - b) < 1e-6 || Math.abs(b - c) < 1e-6 || Math.abs(a - c) < 1e-6
-      ? "isosceles"
-      : "scalene";
+        ? "isosceles"
+        : "scalene";
   const maxAng = Math.max(A, B, C);
   const anglesKind =
     Math.abs(maxAng - Math.PI / 2) < 1e-4 ? "right" : maxAng > Math.PI / 2 ? "obtuse" : "acute";
@@ -884,7 +1120,9 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
           <MathLine>s = (a + b + c) / 2 = {fmt(s)}</MathLine>
           <MathNote>Heron's formula</MathNote>
           <MathLine>Area = √[s(s − a)(s − b)(s − c)]</MathLine>
-          <MathLine>= √[{fmt(s)} × {fmt(s - a)} × {fmt(s - b)} × {fmt(s - c)}]</MathLine>
+          <MathLine>
+            = √[{fmt(s)} × {fmt(s - a)} × {fmt(s - b)} × {fmt(s - c)}]
+          </MathLine>
           <MathLine>= {fmt(area)}</MathLine>
         </>
       ),
@@ -895,7 +1133,9 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
         <>
           <MathNote>Using sides a, b and included angle C</MathNote>
           <MathLine>Area = ½ · a · b · sin(C)</MathLine>
-          <MathLine>= ½ × {fmt(a)} × {fmt(b)} × sin({fmt(C, 6)})</MathLine>
+          <MathLine>
+            = ½ × {fmt(a)} × {fmt(b)} × sin({fmt(C, 6)})
+          </MathLine>
           <MathLine>= {fmt(areaSAS)}</MathLine>
         </>
       ),
@@ -906,7 +1146,9 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
         <>
           <MathNote>Median from vertex A</MathNote>
           <MathLine>mₐ = ½·√(2b² + 2c² − a²)</MathLine>
-          <MathLine>= ½·√({fmt(2 * b * b + 2 * c * c - a * a)}) = {fmt(mA)}</MathLine>
+          <MathLine>
+            = ½·√({fmt(2 * b * b + 2 * c * c - a * a)}) = {fmt(mA)}
+          </MathLine>
           <MathNote>Same formula for the others</MathNote>
           <MathLine>m_b = {fmt(mB)}</MathLine>
           <MathLine>m_c = {fmt(mC)}</MathLine>
@@ -918,7 +1160,9 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
       body: (
         <>
           <MathNote>Altitude from vertex A</MathNote>
-          <MathLine>hₐ = 2·Area / a = 2 × {fmt(area)} / {fmt(a)} = {fmt(hA)}</MathLine>
+          <MathLine>
+            hₐ = 2·Area / a = 2 × {fmt(area)} / {fmt(a)} = {fmt(hA)}
+          </MathLine>
           <MathNote>Same formula for the others</MathNote>
           <MathLine>h_b = {fmt(hB)}</MathLine>
           <MathLine>h_c = {fmt(hC)}</MathLine>
@@ -931,7 +1175,9 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
         <>
           <MathNote>Bisector from vertex A</MathNote>
           <MathLine>tₐ = 2·√(bc·s·(s − a)) / (b + c)</MathLine>
-          <MathLine>= 2·√({fmt(b * c * s * (s - a))}) / ({fmt(b + c)}) = {fmt(tA)}</MathLine>
+          <MathLine>
+            = 2·√({fmt(b * c * s * (s - a))}) / ({fmt(b + c)}) = {fmt(tA)}
+          </MathLine>
           <MathNote>Same formula for the others</MathNote>
           <MathLine>t_b = {fmt(tB)}</MathLine>
           <MathLine>t_c = {fmt(tC)}</MathLine>
@@ -943,11 +1189,17 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
       body: (
         <>
           <MathNote>Inradius</MathNote>
-          <MathLine>r = Area / s = {fmt(area)} / {fmt(s)} = {fmt(inradius)}</MathLine>
+          <MathLine>
+            r = Area / s = {fmt(area)} / {fmt(s)} = {fmt(inradius)}
+          </MathLine>
           <MathNote>Circumradius</MathNote>
           <MathLine>R = (a · b · c) / (4 · Area)</MathLine>
-          <MathLine>= ({fmt(a)} × {fmt(b)} × {fmt(c)}) / (4 × {fmt(area)})</MathLine>
-          <MathLine>= {fmt(a * b * c)} / {fmt(4 * area)} = {fmt(circumradius)}</MathLine>
+          <MathLine>
+            = ({fmt(a)} × {fmt(b)} × {fmt(c)}) / (4 × {fmt(area)})
+          </MathLine>
+          <MathLine>
+            = {fmt(a * b * c)} / {fmt(4 * area)} = {fmt(circumradius)}
+          </MathLine>
         </>
       ),
     },
@@ -958,9 +1210,15 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
           <MathNote>Weight each vertex by its opposite side length</MathNote>
           <MathLine>I = (a·A + b·B + c·C) / (a + b + c)</MathLine>
           <MathNote>x-coordinate</MathNote>
-          <MathLine>Iₓ = ({fmt(a)}·{fmt(vAx)} + {fmt(b)}·{fmt(vBx)} + {fmt(c)}·{fmt(vCx)}) / {fmt(a + b + c)} = {fmt(incenter[0])}</MathLine>
+          <MathLine>
+            Iₓ = ({fmt(a)}·{fmt(vAx)} + {fmt(b)}·{fmt(vBx)} + {fmt(c)}·{fmt(vCx)}) /{" "}
+            {fmt(a + b + c)} = {fmt(incenter[0])}
+          </MathLine>
           <MathNote>y-coordinate</MathNote>
-          <MathLine>I_y = ({fmt(a)}·{fmt(vAy)} + {fmt(b)}·{fmt(vBy)} + {fmt(c)}·{fmt(vCy)}) / {fmt(a + b + c)} = {fmt(incenter[1])}</MathLine>
+          <MathLine>
+            I_y = ({fmt(a)}·{fmt(vAy)} + {fmt(b)}·{fmt(vBy)} + {fmt(c)}·{fmt(vCy)}) /{" "}
+            {fmt(a + b + c)} = {fmt(incenter[1])}
+          </MathLine>
         </>
       ),
     },
@@ -970,8 +1228,13 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
         <>
           <MathNote>Euler line property: H = 3G − 2O</MathNote>
           <MathNote>Where G is centroid and O is circumcenter</MathNote>
-          <MathLine>H = 3·({fmt(centroid[0])}, {fmt(centroid[1])}) − 2·({fmt(circumcenter[0])}, {fmt(circumcenter[1])})</MathLine>
-          <MathLine>H = ({fmt(orthocenter[0])}, {fmt(orthocenter[1])})</MathLine>
+          <MathLine>
+            H = 3·({fmt(centroid[0])}, {fmt(centroid[1])}) − 2·({fmt(circumcenter[0])},{" "}
+            {fmt(circumcenter[1])})
+          </MathLine>
+          <MathLine>
+            H = ({fmt(orthocenter[0])}, {fmt(orthocenter[1])})
+          </MathLine>
         </>
       ),
     },
@@ -979,12 +1242,21 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
       title: "Nine-point circle",
       body: (
         <>
-          <MathNote>Center (N) is the midpoint of the orthocenter (H) and circumcenter (O)</MathNote>
+          <MathNote>
+            Center (N) is the midpoint of the orthocenter (H) and circumcenter (O)
+          </MathNote>
           <MathLine>N = (H + O) / 2</MathLine>
-          <MathLine>N = (({fmt(orthocenter[0])} + {fmt(circumcenter[0])})/2, ({fmt(orthocenter[1])} + {fmt(circumcenter[1])})/2)</MathLine>
-          <MathLine>N = ({fmt(ninePointCenter[0])}, {fmt(ninePointCenter[1])})</MathLine>
+          <MathLine>
+            N = (({fmt(orthocenter[0])} + {fmt(circumcenter[0])})/2, ({fmt(orthocenter[1])} +{" "}
+            {fmt(circumcenter[1])})/2)
+          </MathLine>
+          <MathLine>
+            N = ({fmt(ninePointCenter[0])}, {fmt(ninePointCenter[1])})
+          </MathLine>
           <MathNote>Radius is exactly half the circumradius (R)</MathNote>
-          <MathLine>rₙ = R / 2 = {fmt(circumradius)} / 2 = {fmt(ninePointRadius)}</MathLine>
+          <MathLine>
+            rₙ = R / 2 = {fmt(circumradius)} / 2 = {fmt(ninePointRadius)}
+          </MathLine>
         </>
       ),
     },
@@ -994,7 +1266,8 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
     <div className="rounded-2xl border border-border/60 bg-background/40 p-4">
       <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="font-display text-lg font-semibold text-foreground">
-          {index ? `Solution ${index}` : "Solution"} <span className="text-sm font-normal text-muted-foreground">— {sol.caseName}</span>
+          {index ? `Solution ${index}` : "Solution"}{" "}
+          <span className="text-sm font-normal text-muted-foreground">— {sol.caseName}</span>
         </h3>
         <div className="text-xs text-muted-foreground">
           {sidesKind} · {anglesKind}
@@ -1002,7 +1275,13 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
       </div>
 
       <TriangleDiagram
-        a={a} b={b} c={c} A={A} B={B} C={C} unit={unit}
+        a={a}
+        b={b}
+        c={c}
+        A={A}
+        B={B}
+        C={C}
+        unit={unit}
         centroid={centroid}
         incenter={incenter}
         circumcenter={circumcenter}
@@ -1038,8 +1317,14 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
           <Stat label="Bisector t_c" value={fmt(tC)} />
           <Stat label="Centroid (G)" value={`(${fmt(centroid[0])}, ${fmt(centroid[1])})`} />
           <Stat label="Incenter (I)" value={`(${fmt(incenter[0])}, ${fmt(incenter[1])})`} />
-          <Stat label="Orthocenter (H)" value={`(${fmt(orthocenter[0])}, ${fmt(orthocenter[1])})`} />
-          <Stat label="Nine-point circle" value={`center (${fmt(ninePointCenter[0])}, ${fmt(ninePointCenter[1])}), r = ${fmt(ninePointRadius)}`} />
+          <Stat
+            label="Orthocenter (H)"
+            value={`(${fmt(orthocenter[0])}, ${fmt(orthocenter[1])})`}
+          />
+          <Stat
+            label="Nine-point circle"
+            value={`center (${fmt(ninePointCenter[0])}, ${fmt(ninePointCenter[1])}), r = ${fmt(ninePointRadius)}`}
+          />
         </div>
       </CalcSection>
 
@@ -1047,9 +1332,7 @@ function SolvedTriangle({ sol, unit, index }: { sol: Solution; unit: AngleUnit; 
         {extraSteps.map((st, i) => (
           <CalcSection key={i} title={st.title}>
             <FormulaBlock>
-              <div className="font-sans text-[15px] leading-relaxed text-foreground">
-                {st.body}
-              </div>
+              <div className="font-sans text-[15px] leading-relaxed text-foreground">{st.body}</div>
             </FormulaBlock>
           </CalcSection>
         ))}
@@ -1081,7 +1364,7 @@ interface SimResult {
 
 function checkSimilarityCongruence(
   t1: { mode: TriMode; v: [number, number, number] },
-  t2: { mode: TriMode; v: [number, number, number] }
+  t2: { mode: TriMode; v: [number, number, number] },
 ): SimResult {
   const TOL = 1e-3;
   const criteria: string[] = [];
@@ -1095,8 +1378,10 @@ function checkSimilarityCongruence(
   const sidesOf = (t: { mode: TriMode; v: [number, number, number] }) =>
     t.mode === "sides" ? [...t.v].sort((a, b) => a - b) : null;
 
-  const a1 = anglesOf(t1), a2 = anglesOf(t2);
-  const s1 = sidesOf(t1), s2 = sidesOf(t2);
+  const a1 = anglesOf(t1),
+    a2 = anglesOf(t2);
+  const s1 = sidesOf(t1),
+    s2 = sidesOf(t2);
 
   // AA (equivalently AAA since angles sum to 180): compare sorted angle triples.
   if (a1 && a2) {
@@ -1135,13 +1420,16 @@ function checkSimilarityCongruence(
       return Math.abs(x * x + y * y - z * z) < TOL * Math.max(1, z * z) * 10;
     };
     if (isRight(s1) && isRight(s2)) {
-      const hyp1 = s1[2], hyp2 = s2[2];
-      const leg1 = s1[1], leg2 = s2[1];
+      const hyp1 = s1[2],
+        hyp2 = s2[2];
+      const leg1 = s1[1],
+        leg2 = s2[1];
       const hlRatio = hyp1 / hyp2;
       const legRatio = leg1 / leg2;
       if (Math.abs(hlRatio - legRatio) < TOL) {
         isSimilar = true;
-        if (!criteria.includes("HL")) criteria.push("HL (right triangles, hypotenuse & leg proportional)");
+        if (!criteria.includes("HL"))
+          criteria.push("HL (right triangles, hypotenuse & leg proportional)");
         if (Math.abs(hlRatio - 1) < TOL) {
           isCongruent = true;
         }
@@ -1206,7 +1494,9 @@ function SimilarityChecker() {
           onClick={() => onChange(m)}
           className={
             "px-3 py-1 text-xs " +
-            (value === m ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")
+            (value === m
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground")
           }
         >
           {m === "sides" ? "3 sides" : "3 angles (°)"}
@@ -1223,9 +1513,15 @@ function SimilarityChecker() {
           <ModeToggle value={mode1} onChange={setMode1} />
         </div>
         <div className="grid grid-cols-3 gap-2">
-          <Field label={mode1 === "sides" ? "Side 1" : "Angle 1"}><TextInput inputMode="decimal" value={t1a} onChange={(e) => setT1a(e.target.value)} /></Field>
-          <Field label={mode1 === "sides" ? "Side 2" : "Angle 2"}><TextInput inputMode="decimal" value={t1b} onChange={(e) => setT1b(e.target.value)} /></Field>
-          <Field label={mode1 === "sides" ? "Side 3" : "Angle 3"}><TextInput inputMode="decimal" value={t1c} onChange={(e) => setT1c(e.target.value)} /></Field>
+          <Field label={mode1 === "sides" ? "Side 1" : "Angle 1"}>
+            <TextInput inputMode="decimal" value={t1a} onChange={(e) => setT1a(e.target.value)} />
+          </Field>
+          <Field label={mode1 === "sides" ? "Side 2" : "Angle 2"}>
+            <TextInput inputMode="decimal" value={t1b} onChange={(e) => setT1b(e.target.value)} />
+          </Field>
+          <Field label={mode1 === "sides" ? "Side 3" : "Angle 3"}>
+            <TextInput inputMode="decimal" value={t1c} onChange={(e) => setT1c(e.target.value)} />
+          </Field>
         </div>
       </div>
 
@@ -1235,16 +1531,23 @@ function SimilarityChecker() {
           <ModeToggle value={mode2} onChange={setMode2} />
         </div>
         <div className="grid grid-cols-3 gap-2">
-          <Field label={mode2 === "sides" ? "Side 1" : "Angle 1"}><TextInput inputMode="decimal" value={t2a} onChange={(e) => setT2a(e.target.value)} /></Field>
-          <Field label={mode2 === "sides" ? "Side 2" : "Angle 2"}><TextInput inputMode="decimal" value={t2b} onChange={(e) => setT2b(e.target.value)} /></Field>
-          <Field label={mode2 === "sides" ? "Side 3" : "Angle 3"}><TextInput inputMode="decimal" value={t2c} onChange={(e) => setT2c(e.target.value)} /></Field>
+          <Field label={mode2 === "sides" ? "Side 1" : "Angle 1"}>
+            <TextInput inputMode="decimal" value={t2a} onChange={(e) => setT2a(e.target.value)} />
+          </Field>
+          <Field label={mode2 === "sides" ? "Side 2" : "Angle 2"}>
+            <TextInput inputMode="decimal" value={t2b} onChange={(e) => setT2b(e.target.value)} />
+          </Field>
+          <Field label={mode2 === "sides" ? "Side 3" : "Angle 3"}>
+            <TextInput inputMode="decimal" value={t2c} onChange={(e) => setT2c(e.target.value)} />
+          </Field>
         </div>
       </div>
 
       <div className="sm:col-span-2">
         {result === null ? (
           <div className="rounded-xl border border-border/50 bg-secondary/20 px-3 py-2 text-sm text-muted-foreground">
-            Enter valid positive values (and angles summing to 180° if using angle mode) for both triangles.
+            Enter valid positive values (and angles summing to 180° if using angle mode) for both
+            triangles.
           </div>
         ) : (
           <div className="rounded-xl border border-border/50 bg-secondary/20 px-3 py-2 text-sm">
@@ -1259,7 +1562,10 @@ function SimilarityChecker() {
                 <strong>Similar</strong> (not congruent) — same shape, different size.{" "}
                 {result.criteria.length > 0 && <>Criterion: {result.criteria.join(", ")}.</>}{" "}
                 {result.scale !== undefined && (
-                  <>Scale factor (triangle 1 → triangle 2): {fmt(1 / result.scale)}. (Triangle 2 → triangle 1: {fmt(result.scale)}.)</>
+                  <>
+                    Scale factor (triangle 1 → triangle 2): {fmt(1 / result.scale)}. (Triangle 2 →
+                    triangle 1: {fmt(result.scale)}.)
+                  </>
                 )}
               </div>
             )}
@@ -1277,7 +1583,19 @@ function SimilarityChecker() {
 
 /* ================= Scale factor tool ================= */
 
-function ScaleFactor({ a, b, c, area, P }: { a: number; b: number; c: number; area: number; P: number }) {
+function ScaleFactor({
+  a,
+  b,
+  c,
+  area,
+  P,
+}: {
+  a: number;
+  b: number;
+  c: number;
+  area: number;
+  P: number;
+}) {
   const [k, setK] = useState("2");
   const kNum = Number(k);
   const valid = Number.isFinite(kNum) && kNum > 0;
@@ -1315,10 +1633,28 @@ function ScaleFactor({ a, b, c, area, P }: { a: number; b: number; c: number; ar
 /* ================= SVG diagram ================= */
 
 function TriangleDiagram({
-  a, b, c, A, B, C, unit, centroid, incenter, circumcenter, inradius, circumradius, ninePointCenter, ninePointRadius, vertices,
+  a,
+  b,
+  c,
+  A,
+  B,
+  C,
+  unit,
+  centroid,
+  incenter,
+  circumcenter,
+  inradius,
+  circumradius,
+  ninePointCenter,
+  ninePointRadius,
+  vertices,
 }: {
-  a: number; b: number; c: number;
-  A: number; B: number; C: number;
+  a: number;
+  b: number;
+  c: number;
+  A: number;
+  B: number;
+  C: number;
   unit: AngleUnit;
   centroid: [number, number];
   incenter: [number, number];
@@ -1359,7 +1695,9 @@ function TriangleDiagram({
   const w = Math.max(1e-6, maxX - minX);
   const h = Math.max(1e-6, maxY - minY);
 
-  const W = 460, H = 300, pad = 42;
+  const W = 460,
+    H = 300,
+    pad = 42;
   const scale = Math.min((W - 2 * pad) / w, (H - 2 * pad) / h);
   const ox = pad - minX * scale;
   const oy = H - pad + minY * scale;
@@ -1367,16 +1705,21 @@ function TriangleDiagram({
   const tx = (x: number) => ox + x * scale;
   const ty = (y: number) => oy - y * scale;
 
-  const pAx = tx(Ax), pAy = ty(Ay);
-  const pBx = tx(Bx), pBy = ty(By);
-  const pCx = tx(Cx), pCy = ty(Cy);
+  const pAx = tx(Ax),
+    pAy = ty(Ay);
+  const pBx = tx(Bx),
+    pBy = ty(By);
+  const pCx = tx(Cx),
+    pCy = ty(Cy);
 
-  const gx = (pAx + pBx + pCx) / 3, gy = (pAy + pBy + pCy) / 3;
+  const gx = (pAx + pBx + pCx) / 3,
+    gy = (pAy + pBy + pCy) / 3;
 
   const midAndOffset = (p1: [number, number], p2: [number, number], opp: [number, number]) => {
     const mx = (p1[0] + p2[0]) / 2;
     const my = (p1[1] + p2[1]) / 2;
-    const dx = mx - opp[0], dy = my - opp[1];
+    const dx = mx - opp[0],
+      dy = my - opp[1];
     const len = Math.hypot(dx, dy) || 1;
     return [mx + (dx / len) * 16, my + (dy / len) * 16];
   };
@@ -1386,7 +1729,8 @@ function TriangleDiagram({
   const [labCx, labCy] = midAndOffset([pAx, pAy], [pBx, pBy], [pCx, pCy]);
 
   const nudge = (px: number, py: number, out: number) => {
-    const dx = px - gx, dy = py - gy;
+    const dx = px - gx,
+      dy = py - gy;
     const len = Math.hypot(dx, dy) || 1;
     return [px + (dx / len) * out, py + (dy / len) * out];
   };
@@ -1433,7 +1777,12 @@ function TriangleDiagram({
         </label>
       </div>
       <div className="overflow-x-auto">
-        <svg viewBox={`0 0 ${W} ${H}`} className="mx-auto block h-auto w-full max-w-lg" role="img" aria-label="Triangle diagram with labeled vertices, sides, angles, and optional incircle and circumcircle overlays">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="mx-auto block h-auto w-full max-w-lg"
+          role="img"
+          aria-label="Triangle diagram with labeled vertices, sides, angles, and optional incircle and circumcircle overlays"
+        >
           {showCircumcircle && (
             <>
               <circle
@@ -1445,7 +1794,12 @@ function TriangleDiagram({
                 strokeWidth={1.25}
                 strokeDasharray="4 3"
               />
-              <circle cx={tx(circumcenter[0])} cy={ty(circumcenter[1])} r={3} className="fill-foreground/70" />
+              <circle
+                cx={tx(circumcenter[0])}
+                cy={ty(circumcenter[1])}
+                r={3}
+                className="fill-foreground/70"
+              />
               <text
                 x={tx(circumcenter[0]) + 8}
                 y={ty(circumcenter[1]) - 6}
@@ -1471,7 +1825,12 @@ function TriangleDiagram({
                 strokeWidth={1.25}
                 strokeDasharray="2 4"
               />
-              <circle cx={tx(ninePointCenter[0])} cy={ty(ninePointCenter[1])} r={3} className="fill-muted-foreground/70" />
+              <circle
+                cx={tx(ninePointCenter[0])}
+                cy={ty(ninePointCenter[1])}
+                r={3}
+                className="fill-muted-foreground/70"
+              />
               <text
                 x={tx(ninePointCenter[0]) + 8}
                 y={ty(ninePointCenter[1]) - 6}
@@ -1502,18 +1861,70 @@ function TriangleDiagram({
               </text>
             </>
           )}
-          {[[pAx, pAy], [pBx, pBy], [pCx, pCy]].map(([x, y], i) => (
+          {[
+            [pAx, pAy],
+            [pBx, pBy],
+            [pCx, pCy],
+          ].map(([x, y], i) => (
             <circle key={i} cx={x} cy={y} r={3} className="fill-foreground" />
           ))}
-          <text x={nAx} y={nAy} textAnchor="middle" className="fill-foreground text-[13px] font-semibold">A</text>
-          <text x={nAx} y={nAy + 13} textAnchor="middle" className="fill-muted-foreground text-[11px]">{angDisplay(A)}</text>
-          <text x={nBx} y={nBy} textAnchor="middle" className="fill-foreground text-[13px] font-semibold">B</text>
-          <text x={nBx} y={nBy + 13} textAnchor="middle" className="fill-muted-foreground text-[11px]">{angDisplay(B)}</text>
-          <text x={nCx} y={nCy} textAnchor="middle" className="fill-foreground text-[13px] font-semibold">C</text>
-          <text x={nCx} y={nCy + 13} textAnchor="middle" className="fill-muted-foreground text-[11px]">{angDisplay(C)}</text>
-          <text x={labAx} y={labAy} textAnchor="middle" className="fill-foreground text-[12px]">a = {fmt(a)}</text>
-          <text x={labBx} y={labBy} textAnchor="middle" className="fill-foreground text-[12px]">b = {fmt(b)}</text>
-          <text x={labCx} y={labCy} textAnchor="middle" className="fill-foreground text-[12px]">c = {fmt(c)}</text>
+          <text
+            x={nAx}
+            y={nAy}
+            textAnchor="middle"
+            className="fill-foreground text-[13px] font-semibold"
+          >
+            A
+          </text>
+          <text
+            x={nAx}
+            y={nAy + 13}
+            textAnchor="middle"
+            className="fill-muted-foreground text-[11px]"
+          >
+            {angDisplay(A)}
+          </text>
+          <text
+            x={nBx}
+            y={nBy}
+            textAnchor="middle"
+            className="fill-foreground text-[13px] font-semibold"
+          >
+            B
+          </text>
+          <text
+            x={nBx}
+            y={nBy + 13}
+            textAnchor="middle"
+            className="fill-muted-foreground text-[11px]"
+          >
+            {angDisplay(B)}
+          </text>
+          <text
+            x={nCx}
+            y={nCy}
+            textAnchor="middle"
+            className="fill-foreground text-[13px] font-semibold"
+          >
+            C
+          </text>
+          <text
+            x={nCx}
+            y={nCy + 13}
+            textAnchor="middle"
+            className="fill-muted-foreground text-[11px]"
+          >
+            {angDisplay(C)}
+          </text>
+          <text x={labAx} y={labAy} textAnchor="middle" className="fill-foreground text-[12px]">
+            a = {fmt(a)}
+          </text>
+          <text x={labBx} y={labBy} textAnchor="middle" className="fill-foreground text-[12px]">
+            b = {fmt(b)}
+          </text>
+          <text x={labCx} y={labCy} textAnchor="middle" className="fill-foreground text-[12px]">
+            c = {fmt(c)}
+          </text>
           <circle cx={tx(centroid[0])} cy={ty(centroid[1])} r={4} className="fill-primary" />
           <text
             x={tx(centroid[0]) + 8}
@@ -1528,7 +1939,6 @@ function TriangleDiagram({
   );
 }
 
-
 /* ================= Educational content ================= */
 
 function TriangleEducation() {
@@ -1536,33 +1946,32 @@ function TriangleEducation() {
     <>
       <CalcSection title="What is a triangle solver?">
         <p>
-          A triangle solver takes any three known facts about a triangle — sides, angles, or a mix
-          — and finds the missing three. That is the classic geometry problem: once you know just
-          enough, every other measurement in the triangle is locked in. This calculator handles
-          all five solvable cases (SSS, SAS, ASA, AAS, SSA), the tricky ambiguous SSA case where
-          two different triangles can fit the same numbers, plus coordinate geometry and a fast
+          A triangle solver takes any three known facts about a triangle — sides, angles, or a mix —
+          and finds the missing three. That is the classic geometry problem: once you know just
+          enough, every other measurement in the triangle is locked in. This calculator handles all
+          five solvable cases (SSS, SAS, ASA, AAS, SSA), the tricky ambiguous SSA case where two
+          different triangles can fit the same numbers, plus coordinate geometry and a fast
           Pythagorean path for right triangles.
         </p>
         <p>
           Triangles matter far beyond the classroom. Roof pitches, ramps, staircases, bridges,
           antenna towers, camera tripods, sail plans and even game engines all rely on the same
-          three rules underneath — the Law of Sines, the Law of Cosines, and the sum of angles
-          being 180°. Get comfortable with those three and you can rebuild every triangle formula
-          from scratch.
+          three rules underneath — the Law of Sines, the Law of Cosines, and the sum of angles being
+          180°. Get comfortable with those three and you can rebuild every triangle formula from
+          scratch.
         </p>
         <p>
-          To use the solver, pick the mode that matches what you know, type the values, and read
-          the results. Angles can be entered in degrees or radians. The step-by-step panel shows
-          exactly which rule was applied, so you can use it as a study tool as well as an answer
-          key.
+          To use the solver, pick the mode that matches what you know, type the values, and read the
+          results. Angles can be entered in degrees or radians. The step-by-step panel shows exactly
+          which rule was applied, so you can use it as a study tool as well as an answer key.
         </p>
       </CalcSection>
 
       <CalcSection title="Triangle solving methods explained, case by case">
         <p className="text-sm text-muted-foreground">
-          For every solving case below you'll see a plain-English explanation, the formula (with what
-          each letter means), a diagram showing which parts are known, and a worked example — all in
-          one place.
+          For every solving case below you'll see a plain-English explanation, the formula (with
+          what each letter means), a diagram showing which parts are known, and a worked example —
+          all in one place.
         </p>
         <div className="mt-4 space-y-5">
           {TRIANGLE_GUIDE.map((g) => (
@@ -1570,17 +1979,13 @@ function TriangleEducation() {
               key={g.title}
               className="rounded-2xl border border-border/60 bg-background/40 p-4 sm:p-5"
             >
-              <h3 className="mb-3 font-display text-lg font-semibold text-foreground">
-                {g.title}
-              </h3>
+              <h3 className="mb-3 font-display text-lg font-semibold text-foreground">{g.title}</h3>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-3 text-foreground md:col-start-1 md:row-start-1">
                   <p className="text-[15px] leading-relaxed">{g.explain}</p>
                   <FormulaWithLegend formula={g.formula} legend={g.legend} />
                 </div>
-                <div className="md:col-start-2 md:row-start-1">
-                  {g.diagram}
-                </div>
+                <div className="md:col-start-2 md:row-start-1">{g.diagram}</div>
                 <div className="md:col-span-2 md:row-start-2">
                   <div className="rounded-xl border border-border/60 bg-secondary/30 p-3 text-sm">
                     <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
@@ -1608,21 +2013,34 @@ function TriangleEducation() {
         </div>
       </CalcSection>
 
-
-
-
       <CalcSection title="Types of triangles">
-        <p><strong>By sides:</strong></p>
+        <p>
+          <strong>By sides:</strong>
+        </p>
         <ul className="ml-5 list-disc space-y-1">
-          <li><strong>Equilateral</strong> — all three sides equal (all angles 60°).</li>
-          <li><strong>Isosceles</strong> — exactly two sides equal (base angles equal).</li>
-          <li><strong>Scalene</strong> — no sides equal.</li>
+          <li>
+            <strong>Equilateral</strong> — all three sides equal (all angles 60°).
+          </li>
+          <li>
+            <strong>Isosceles</strong> — exactly two sides equal (base angles equal).
+          </li>
+          <li>
+            <strong>Scalene</strong> — no sides equal.
+          </li>
         </ul>
-        <p className="mt-2"><strong>By angles:</strong></p>
+        <p className="mt-2">
+          <strong>By angles:</strong>
+        </p>
         <ul className="ml-5 list-disc space-y-1">
-          <li><strong>Right</strong> — one angle equals 90°.</li>
-          <li><strong>Obtuse</strong> — one angle greater than 90°.</li>
-          <li><strong>Acute</strong> — all three angles less than 90°.</li>
+          <li>
+            <strong>Right</strong> — one angle equals 90°.
+          </li>
+          <li>
+            <strong>Obtuse</strong> — one angle greater than 90°.
+          </li>
+          <li>
+            <strong>Acute</strong> — all three angles less than 90°.
+          </li>
         </ul>
       </CalcSection>
 
@@ -1631,10 +2049,18 @@ function TriangleEducation() {
           headers={["Triangle", "Angles", "Side ratio", "Notes"]}
           rows={[
             ["30-60-90", "30°, 60°, 90°", "1 : √3 : 2", "Half of an equilateral triangle."],
-            ["45-45-90", "45°, 45°, 90°", "1 : 1 : √2", "Isosceles right triangle — the diagonal of a square."],
+            [
+              "45-45-90",
+              "45°, 45°, 90°",
+              "1 : 1 : √2",
+              "Isosceles right triangle — the diagonal of a square.",
+            ],
           ]}
         />
-        <p>Use the "30-60-90 preset" or "45-45-90 preset" buttons above the input grid to auto-fill these.</p>
+        <p>
+          Use the "30-60-90 preset" or "45-45-90 preset" buttons above the input grid to auto-fill
+          these.
+        </p>
       </CalcSection>
 
       <CalcSection title="Cevians and radii — quick reference">
@@ -1647,62 +2073,52 @@ function TriangleEducation() {
 
       <CalcSection title="Triangle centers">
         <p>
-          Every triangle has several distinguished points that stay meaningful
-          no matter how you rotate, translate or scale it. This calculator
-          reports four of them: the centroid, incenter, circumcenter and
-          orthocenter.
+          Every triangle has several distinguished points that stay meaningful no matter how you
+          rotate, translate or scale it. This calculator reports four of them: the centroid,
+          incenter, circumcenter and orthocenter.
         </p>
         <p>
-          <strong>Centroid (G)</strong> — the average of the three vertices,
-          G = (A + B + C) / 3. It's where the three medians meet and is the
-          triangle's balance point: cut the triangle from card and it will
-          balance on a pin placed at G.
+          <strong>Centroid (G)</strong> — the average of the three vertices, G = (A + B + C) / 3.
+          It's where the three medians meet and is the triangle's balance point: cut the triangle
+          from card and it will balance on a pin placed at G.
         </p>
         <p>
-          <strong>Incenter (I)</strong> — the intersection of the three
-          angle bisectors, and the center of the inscribed circle (the
-          incircle) that just touches all three sides. In coordinates it is
-          the weighted average I = (a·A + b·B + c·C) / (a + b + c), where the
-          weights are the lengths of the sides opposite each vertex. The
-          incircle has radius r = Area / s.
+          <strong>Incenter (I)</strong> — the intersection of the three angle bisectors, and the
+          center of the inscribed circle (the incircle) that just touches all three sides. In
+          coordinates it is the weighted average I = (a·A + b·B + c·C) / (a + b + c), where the
+          weights are the lengths of the sides opposite each vertex. The incircle has radius r =
+          Area / s.
         </p>
         <p>
-          <strong>Circumcenter (O)</strong> — the intersection of the three
-          perpendicular bisectors of the sides, and the center of the
-          circumscribed circle (the circumcircle) that passes through all
-          three vertices. Its radius is R = a / (2·sin A). For an acute
-          triangle O lies inside; for a right triangle it sits exactly on the
-          midpoint of the hypotenuse; for an obtuse triangle it lies outside.
+          <strong>Circumcenter (O)</strong> — the intersection of the three perpendicular bisectors
+          of the sides, and the center of the circumscribed circle (the circumcircle) that passes
+          through all three vertices. Its radius is R = a / (2·sin A). For an acute triangle O lies
+          inside; for a right triangle it sits exactly on the midpoint of the hypotenuse; for an
+          obtuse triangle it lies outside.
         </p>
         <p>
-          <strong>Orthocenter (H)</strong> — the intersection of the three
-          altitudes (the perpendiculars dropped from each vertex to the
-          opposite side). It's inside acute triangles, at the right-angle
-          vertex of a right triangle, and outside obtuse triangles.
+          <strong>Orthocenter (H)</strong> — the intersection of the three altitudes (the
+          perpendiculars dropped from each vertex to the opposite side). It's inside acute
+          triangles, at the right-angle vertex of a right triangle, and outside obtuse triangles.
         </p>
         <p>
-          G, O and H are always collinear on a single line called the{" "}
-          <em>Euler line</em>, and G divides the segment OH in the ratio
-          1 : 2 — equivalently, H = 3G − 2O, which is exactly how the
-          orthocenter is derived here from the centroid and circumcenter.
+          G, O and H are always collinear on a single line called the <em>Euler line</em>, and G
+          divides the segment OH in the ratio 1 : 2 — equivalently, H = 3G − 2O, which is exactly
+          how the orthocenter is derived here from the centroid and circumcenter.
         </p>
         <p>
-          <strong>Nine-point circle (N)</strong> — a fifth remarkable circle that
-          passes through the midpoint of each side, the foot of each altitude, and
-          the midpoint of each segment from a vertex to the orthocenter (nine points
-          in total). Its center N is the midpoint of O and H (also on the Euler
-          line), and its radius is always half the circumradius, R/2. Toggle it on
-          in the diagram above.
+          <strong>Nine-point circle (N)</strong> — a fifth remarkable circle that passes through the
+          midpoint of each side, the foot of each altitude, and the midpoint of each segment from a
+          vertex to the orthocenter (nine points in total). Its center N is the midpoint of O and H
+          (also on the Euler line), and its radius is always half the circumradius, R/2. Toggle it
+          on in the diagram above.
         </p>
       </CalcSection>
 
-
-
       <CalcSection title="Similarity / congruence checker">
         <p className="text-sm text-muted-foreground">
-          Compare two triangles to see if they're similar (same shape) or congruent
-          (same shape and size). Enter each triangle as either its three sides or its
-          three angles.
+          Compare two triangles to see if they're similar (same shape) or congruent (same shape and
+          size). Enter each triangle as either its three sides or its three angles.
         </p>
         <div className="mt-4">
           <SimilarityChecker />
@@ -1728,8 +2144,7 @@ function TriangleEducation() {
         />
       </CalcSection>
 
-      
-<CalcSection title="Frequently asked questions">
+      <CalcSection title="Frequently asked questions">
         <CalcFAQ items={FAQ_ITEMS.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))} />
       </CalcSection>
 
@@ -1737,14 +2152,16 @@ function TriangleEducation() {
         <RelatedLinks
           links={[
             { to: "/calculators/math/law-of-sines-calculator", label: "Law of Sines Calculator" },
-            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator" },
+            {
+              to: "/calculators/math/law-of-cosines-calculator",
+              label: "Law of Cosines Calculator",
+            },
             { to: "/calculators/math/area-calculator", label: "Area Calculator" },
             { to: "/calculators/math", label: "All Math Calculators" },
             { to: "/calculators/math/root-calculator", label: "Square Root Calculator" },
           ]}
         />
       </CalcSection>
-
     </>
   );
 }
@@ -1780,45 +2197,104 @@ function MiniTriangle({
   const C = { x: 115, y: 25 };
   const sideCls = (id: "a" | "b" | "c") =>
     knownSides.includes(id) ? "stroke-primary" : "stroke-border";
-  const sideW = (id: "a" | "b" | "c") =>
-    knownSides.includes(id) ? 2.5 : 1.5;
+  const sideW = (id: "a" | "b" | "c") => (knownSides.includes(id) ? 2.5 : 1.5);
   const angArc = (id: "A" | "B" | "C") =>
     knownAngles.includes(id) ? "stroke-primary" : "stroke-muted-foreground";
 
   return (
     <TriCard label="Known parts highlighted">
-      <svg viewBox="0 0 220 170" className="h-auto w-full" role="img" aria-label="Triangle with known sides and angles highlighted">
+      <svg
+        viewBox="0 0 220 170"
+        className="h-auto w-full"
+        role="img"
+        aria-label="Triangle with known sides and angles highlighted"
+      >
         {/* sides: a=BC, b=CA, c=AB */}
-        <line x1={B.x} y1={B.y} x2={C.x} y2={C.y} className={sideCls("a")} strokeWidth={sideW("a")} />
-        <line x1={C.x} y1={C.y} x2={A.x} y2={A.y} className={sideCls("b")} strokeWidth={sideW("b")} />
-        <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} className={sideCls("c")} strokeWidth={sideW("c")} />
+        <line
+          x1={B.x}
+          y1={B.y}
+          x2={C.x}
+          y2={C.y}
+          className={sideCls("a")}
+          strokeWidth={sideW("a")}
+        />
+        <line
+          x1={C.x}
+          y1={C.y}
+          x2={A.x}
+          y2={A.y}
+          className={sideCls("b")}
+          strokeWidth={sideW("b")}
+        />
+        <line
+          x1={A.x}
+          y1={A.y}
+          x2={B.x}
+          y2={B.y}
+          className={sideCls("c")}
+          strokeWidth={sideW("c")}
+        />
         {/* small angle arcs */}
-        <path d={`M ${A.x + 14} ${A.y} A 14 14 0 0 0 ${A.x + 13} ${A.y - 6}`} className={`fill-transparent ${angArc("A")}`} />
-        <path d={`M ${B.x - 14} ${B.y} A 14 14 0 0 1 ${B.x - 13} ${B.y - 6}`} className={`fill-transparent ${angArc("B")}`} />
-        <path d={`M ${C.x - 6} ${C.y + 14} A 14 14 0 0 0 ${C.x + 6} ${C.y + 14}`} className={`fill-transparent ${angArc("C")}`} />
+        <path
+          d={`M ${A.x + 14} ${A.y} A 14 14 0 0 0 ${A.x + 13} ${A.y - 6}`}
+          className={`fill-transparent ${angArc("A")}`}
+        />
+        <path
+          d={`M ${B.x - 14} ${B.y} A 14 14 0 0 1 ${B.x - 13} ${B.y - 6}`}
+          className={`fill-transparent ${angArc("B")}`}
+        />
+        <path
+          d={`M ${C.x - 6} ${C.y + 14} A 14 14 0 0 0 ${C.x + 6} ${C.y + 14}`}
+          className={`fill-transparent ${angArc("C")}`}
+        />
         {/* right-angle square */}
-        {rightAt && (() => {
-          const V = rightAt === "A" ? A : rightAt === "B" ? B : C;
-          const dx = rightAt === "A" ? 10 : rightAt === "B" ? -10 : 0;
-          const dy = rightAt === "C" ? 10 : -10;
-          return (
-            <rect
-              x={V.x + (dx < 0 ? dx : 0)}
-              y={V.y + (dy < 0 ? dy : 0)}
-              width="10"
-              height="10"
-              className="fill-transparent stroke-primary"
-            />
-          );
-        })()}
+        {rightAt &&
+          (() => {
+            const V = rightAt === "A" ? A : rightAt === "B" ? B : C;
+            const dx = rightAt === "A" ? 10 : rightAt === "B" ? -10 : 0;
+            const dy = rightAt === "C" ? 10 : -10;
+            return (
+              <rect
+                x={V.x + (dx < 0 ? dx : 0)}
+                y={V.y + (dy < 0 ? dy : 0)}
+                width="10"
+                height="10"
+                className="fill-transparent stroke-primary"
+              />
+            );
+          })()}
         {/* side labels */}
-        <text x="155" y="90" className={`text-[11px] ${knownSides.includes("a") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}>a</text>
-        <text x="60" y="90" className={`text-[11px] ${knownSides.includes("b") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}>b</text>
-        <text x="105" y="155" className={`text-[11px] ${knownSides.includes("c") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}>c</text>
+        <text
+          x="155"
+          y="90"
+          className={`text-[11px] ${knownSides.includes("a") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}
+        >
+          a
+        </text>
+        <text
+          x="60"
+          y="90"
+          className={`text-[11px] ${knownSides.includes("b") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}
+        >
+          b
+        </text>
+        <text
+          x="105"
+          y="155"
+          className={`text-[11px] ${knownSides.includes("c") ? "fill-primary font-semibold" : "fill-muted-foreground"}`}
+        >
+          c
+        </text>
         {/* vertex labels */}
-        <text x={A.x - 12} y={A.y + 12} className="fill-foreground text-[11px] font-semibold">{vertexLabels[0]}</text>
-        <text x={B.x + 4} y={B.y + 12} className="fill-foreground text-[11px] font-semibold">{vertexLabels[1]}</text>
-        <text x={C.x - 4} y={C.y - 6} className="fill-foreground text-[11px] font-semibold">{vertexLabels[2]}</text>
+        <text x={A.x - 12} y={A.y + 12} className="fill-foreground text-[11px] font-semibold">
+          {vertexLabels[0]}
+        </text>
+        <text x={B.x + 4} y={B.y + 12} className="fill-foreground text-[11px] font-semibold">
+          {vertexLabels[1]}
+        </text>
+        <text x={C.x - 4} y={C.y - 6} className="fill-foreground text-[11px] font-semibold">
+          {vertexLabels[2]}
+        </text>
       </svg>
     </TriCard>
   );
@@ -1827,20 +2303,37 @@ function MiniTriangle({
 function DiagCoords() {
   return (
     <TriCard label="Triangle from three (x, y) vertices">
-      <svg viewBox="0 0 220 170" className="h-auto w-full" role="img" aria-label="Triangle plotted from three (x, y) vertex coordinates">
+      <svg
+        viewBox="0 0 220 170"
+        className="h-auto w-full"
+        role="img"
+        aria-label="Triangle plotted from three (x, y) vertex coordinates"
+      >
         <line x1="15" y1="150" x2="210" y2="150" className="stroke-border" />
         <line x1="15" y1="10" x2="15" y2="150" className="stroke-border" />
         {/* A(0,0)=15,150; B(6,0)=135,150; C(2,4)=55,70 (scale 20 px/unit) */}
-        <polygon points="15,150 135,150 55,70" className="fill-primary/10 stroke-primary" strokeWidth="2" />
+        <polygon
+          points="15,150 135,150 55,70"
+          className="fill-primary/10 stroke-primary"
+          strokeWidth="2"
+        />
         <circle cx="15" cy="150" r="3.5" className="fill-primary" />
         <circle cx="135" cy="150" r="3.5" className="fill-primary" />
         <circle cx="55" cy="70" r="3.5" className="fill-primary" />
-        <text x="0" y="165" className="fill-foreground text-[11px]">A(0,0)</text>
-        <text x="120" y="165" className="fill-foreground text-[11px]">B(6,0)</text>
-        <text x="55" y="62" className="fill-foreground text-[11px]">C(2,4)</text>
+        <text x="0" y="165" className="fill-foreground text-[11px]">
+          A(0,0)
+        </text>
+        <text x="120" y="165" className="fill-foreground text-[11px]">
+          B(6,0)
+        </text>
+        <text x="55" y="62" className="fill-foreground text-[11px]">
+          C(2,4)
+        </text>
         {/* centroid */}
         <circle cx="68" cy="123" r="3" className="fill-foreground" />
-        <text x="73" y="128" className="fill-muted-foreground text-[10px]">G</text>
+        <text x="73" y="128" className="fill-muted-foreground text-[10px]">
+          G
+        </text>
       </svg>
     </TriCard>
   );
@@ -2015,5 +2508,3 @@ function StepsToggle({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-
