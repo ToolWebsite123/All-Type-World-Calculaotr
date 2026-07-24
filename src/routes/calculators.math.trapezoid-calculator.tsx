@@ -230,7 +230,15 @@ function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
       // Top-right at (x+a, h); bottom-right at (b, 0). d = distance
       const dx = b - x - a;
       const d = Math.hypot(dx, h);
-      if (d <= 0) return { error: "Geometry does not close into a valid trapezoid." };
+      // Reject self-intersecting/degenerate layouts:
+      //   Top-left B must sit strictly left of bottom-right D → x < b
+      //   Top-right (x + a) must sit strictly right of bottom-left A → x + a > 0
+      if (!(x < b && x + a > 0)) {
+        return {
+          error:
+            "These values don't close into a simple (non-self-intersecting) trapezoid — try a smaller angle A.",
+        };
+      }
       const sol = fromCanonical(a, b, c, d, h, x);
       sol.steps = [
         step("Height from leg c and angle A", <>h = c · sin A = {c} × sin({Adeg}°) = <strong>{fmt(h)}</strong></>),
@@ -243,6 +251,7 @@ function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
       ];
       return sol;
     }
+
     case "angles-A-D": {
       const a = n("a"), b = n("b"), Adeg = n("angleA"), Ddeg = n("angleD");
       if (a === null || b === null || Adeg === null || Ddeg === null)
