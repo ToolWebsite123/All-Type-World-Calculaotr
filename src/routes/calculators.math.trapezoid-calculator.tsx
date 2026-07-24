@@ -746,6 +746,17 @@ function Page() {
         { key: "c", label: `Left leg c (${unit})` },
         { key: "d", label: `Right leg d (${unit})` },
       ];
+      case "isosceles-quick": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "c", label: `Leg length c (${unit})`, hint: "Both legs equal (c = d)" },
+      ];
+      case "right-quick": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "c", label: `Vertical leg c (${unit})`, hint: "Perpendicular to both bases (= height)" },
+      ];
+
       case "diagonals": return [
         { key: "p", label: `Diagonal p (${unit})` },
         { key: "q", label: `Diagonal q (${unit})` },
