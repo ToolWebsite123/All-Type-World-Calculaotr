@@ -17,6 +17,8 @@ import {
   FeatureList,
   GuideCards,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 
