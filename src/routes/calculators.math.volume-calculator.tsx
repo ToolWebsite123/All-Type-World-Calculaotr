@@ -17,6 +17,8 @@ import {
   GuideCards,
   StackedMath,
   type GuideCardItem,
+  AllFormulasSection,
+  ModeFormula,
 } from "@/components/MathCalcPage";
 
 import { type Step } from "@/components/SolutionSteps";
@@ -1614,10 +1616,36 @@ function VolumeEducation() {
         <GuideCards items={VOLUME_GUIDE} />
       </CalcSection>
 
-
-
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              The exact symbolic formula this calculator evaluates for each of
+              its 15 solids. Type your dimensions in any unit — the answer
+              comes back in that unit cubed.
+            </>
+          }
+        >
+          <ModeFormula label="1. Sphere — radius r" lines={[<>V = (4/3) · π · r³</>]} />
+          <ModeFormula label="2. Cone — radius r, height h" lines={[<>V = (1/3) · π · r² · h</>]} />
+          <ModeFormula label="3. Cube — side s" lines={[<>V = s³</>]} />
+          <ModeFormula label="4. Cylinder — radius r, height h" lines={[<>V = π · r² · h</>]} />
+          <ModeFormula label="5. Rectangular box — l, w, h" lines={[<>V = l · w · h</>]} />
+          <ModeFormula label="6. Capsule — radius r, side length a" lines={[<>V = π · r² · (a + (4/3) r)</>]} />
+          <ModeFormula label="7. Spherical cap — radius r, height h" lines={[<>V = (π · h² / 3) · (3r − h)</>]} />
+          <ModeFormula label="8. Conical frustum — R, r, height h" lines={[<>V = (π · h / 3) · (R² + R·r + r²)</>]} />
+          <ModeFormula label="9. Ellipsoid — semi-axes a, b, c" lines={[<>V = (4/3) · π · a · b · c</>]} />
+          <ModeFormula label="10. Square pyramid — base s, height h" lines={[<>V = (1/3) · s² · h</>]} />
+          <ModeFormula label="11. Tube — outer R, inner r, length L" lines={[<>V = π · (R² − r²) · L</>]} />
+          <ModeFormula label="12. Triangular prism — base b, height h, length L" lines={[<>V = ½ · b · h · L</>]} />
+          <ModeFormula label="13. Torus — major R, minor r" lines={[<>V = 2 · π² · R · r²</>]} />
+          <ModeFormula label="14. Regular tetrahedron — edge a" lines={[<>V = a³ / (6√2)</>]} />
+          <ModeFormula label="15. Regular octahedron — edge a" lines={[<>V = (√2 / 3) · a³</>]} />
+        </AllFormulasSection>
+      </CalcSection>
 
       <CalcSection title="Common volume unit conversions">
+
         <ReferenceTable
           headers={["From", "To", "Multiply by"]}
           numericColumns={[2]}

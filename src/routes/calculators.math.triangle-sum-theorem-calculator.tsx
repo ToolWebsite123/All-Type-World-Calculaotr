@@ -16,6 +16,8 @@ import {
   StackedMath,
   GuideCards,
   type GuideCardItem,
+  AllFormulasSection,
+  ModeFormula,
 } from "@/components/MathCalcPage";
 import { ReferenceTable } from "@/components/ReferenceTable";
 
@@ -531,7 +533,28 @@ function PageExtras() {
         />
       </CalcSection>
 
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              Every way this calculator can solve for a missing angle, and the
+              related identities that fall out of the triangle sum theorem.
+            </>
+          }
+        >
+          <ModeFormula label="1. Missing γ — given α, β (degrees)" lines={[<>γ = 180° − α − β</>, <>valid when α + β &lt; 180°</>]} />
+          <ModeFormula label="2. Missing γ — given α, β (radians)" lines={[<>γ = π − α − β</>, <>valid when α + β &lt; π</>]} />
+          <ModeFormula label="3. Missing α — given β, γ" lines={[<>α = 180° − β − γ</>]} />
+          <ModeFormula label="4. Missing β — given α, γ" lines={[<>β = 180° − α − γ</>]} />
+          <ModeFormula label="5. Right triangle — one angle = 90°" lines={[<>β + γ = 90°</>, <>the two non-right angles are complementary</>]} />
+          <ModeFormula label="6. Equilateral triangle" lines={[<>α = β = γ = 60°</>]} />
+          <ModeFormula label="7. Exterior angle at a vertex" lines={[<>ext_B = α + γ</>, <>ext = 180° − interior</>]} />
+          <ModeFormula label="8. Degrees ↔ radians" lines={[<>rad = deg · π / 180</>, <>deg = rad · 180 / π</>]} />
+        </AllFormulasSection>
+      </CalcSection>
+
       <CalcSection title="What this tool does for you">
+
         <FeatureList
           items={[
             "Solves the third interior angle of any triangle from the other two, using γ = 180° − α − β (or γ = π − α − β in radians).",
