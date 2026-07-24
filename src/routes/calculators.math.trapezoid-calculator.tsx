@@ -987,6 +987,7 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="rounded-xl border border-border/60 bg-secondary/30 p-3">
       <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+
         {label}
       </div>
       <div className="mt-0.5 font-serif italic text-foreground">{value}</div>
