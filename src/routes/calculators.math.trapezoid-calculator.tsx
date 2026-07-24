@@ -278,6 +278,39 @@ function solveCore(mode: Mode, raw: Record<string, string>): Solved {
       return sol;
     }
 
+    case "sides-d-angleD": {
+      // Given a (top base), b (bottom base), d (right leg), ∠D (bottom-right, deg)
+      const a = n("a"), b = n("b"), d = n("d"), Ddeg = n("angleD");
+      if (a === null || b === null || d === null || Ddeg === null)
+        return { error: "Enter a, b, d and angle D." };
+      if (a <= 0 || b <= 0 || d <= 0) return { error: "Sides must be positive." };
+      if (Ddeg <= 0 || Ddeg >= 180) return { error: "Angle D must be between 0° and 180°." };
+      const D = RAD(Ddeg);
+      const h = d * Math.sin(D);
+      // Top-right C sits at (b − d·cos D, h). Top-left B at (x, h) with x = b − a − d·cos D.
+      const x = b - a - d * Math.cos(D);
+      const dxLeft = x; // horizontal from A(0,0) to B
+      const c = Math.hypot(dxLeft, h);
+      if (!(x < b && x + a > 0)) {
+        return {
+          error:
+            "These values don't close into a simple (non-self-intersecting) trapezoid — try a smaller angle D.",
+        };
+      }
+      const sol = fromCanonical(a, b, c, d, h, x);
+      sol.steps = [
+        step("Height from leg d and angle D", <>h = d · sin D = {d} × sin({Ddeg}°) = <strong>{fmt(h)}</strong></>),
+        step("Horizontal offset x", <>x = b − a − d · cos D = <strong>{fmt(x)}</strong></>),
+        step("Left leg c", <>c = √(x² + h²) = <strong>{fmt(c)}</strong></>),
+        step("Angle C (co-interior on leg d)", <>∠C = 180° − ∠D = <strong>{fmtA(sol.angleC)}</strong></>),
+        step("Angle A (from left leg)", <>∠A = atan2(h, x) = <strong>{fmtA(sol.angleA)}</strong></>),
+        step("Angle B", <>∠B = 180° − ∠A = <strong>{fmtA(sol.angleB)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
+
+
     case "angles-A-D": {
       const a = n("a"), b = n("b"), Adeg = n("angleA"), Ddeg = n("angleD");
       if (a === null || b === null || Adeg === null || Ddeg === null)
