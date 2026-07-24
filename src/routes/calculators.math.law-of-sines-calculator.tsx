@@ -15,6 +15,8 @@ import {
   FeatureList,
   StackedMath,
   GuideCards,
+  ModeFormula,
+  AllFormulasSection,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 import { ReferenceTable } from "@/components/ReferenceTable";
@@ -1079,6 +1081,63 @@ function PageExtras() {
 
       <CalcSection title="Law of sines, case by case">
         <GuideCards items={GUIDE} />
+      </CalcSection>
+
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              The exact symbolic chain each mode of this calculator evaluates.
+              Notation: sides <em>a</em>, <em>b</em>, <em>c</em> are opposite
+              angles <em>A</em>, <em>B</em>, <em>C</em>. Angles here in degrees;
+              switch the unit to work in radians.
+            </>
+          }
+        >
+          <ModeFormula
+            label="Core identity (used by every mode)"
+            lines={[<>a / sin A = b / sin B = c / sin C = 2R</>]}
+          />
+          <ModeFormula
+            label="1. ASA — given A, c, B (angles at the ends of side c)"
+            lines={[
+              <>C = 180° − A − B</>,
+              <>a = c · sin A / sin C</>,
+              <>b = c · sin B / sin C</>,
+            ]}
+          />
+          <ModeFormula
+            label="2. AAS — given A, B, a (side opposite one known angle)"
+            lines={[
+              <>C = 180° − A − B</>,
+              <>b = a · sin B / sin A</>,
+              <>c = a · sin C / sin A</>,
+            ]}
+          />
+          <ModeFormula
+            label="3. SSA — given a, b, A (ambiguous case)"
+            lines={[
+              <>sin B = b · sin A / a</>,
+              <>if sin B &gt; 1  →  no triangle</>,
+              <>if sin B = 1  →  one right triangle,  B = 90°</>,
+              <>otherwise  B₁ = asin(sin B),  B₂ = 180° − B₁</>,
+              <>keep each Bᵢ with A + Bᵢ &lt; 180°</>,
+              <>Cᵢ = 180° − A − Bᵢ,  cᵢ = a · sin Cᵢ / sin A</>,
+            ]}
+          />
+          <ModeFormula
+            label="4. Circumradius from any matched pair"
+            lines={[<>R = a / (2 sin A) = b / (2 sin B) = c / (2 sin C)</>]}
+          />
+          <ModeFormula
+            label="5. Auxiliary triangle quantities"
+            lines={[
+              <>Perimeter  P = a + b + c</>,
+              <>Area  K = ½ · a · b · sin C</>,
+              <>equivalently  K = a² · sin B · sin C / (2 sin A)</>,
+            ]}
+          />
+        </AllFormulasSection>
       </CalcSection>
 
       <CalcSection title="Law of sines vs. law of cosines — when to use which">

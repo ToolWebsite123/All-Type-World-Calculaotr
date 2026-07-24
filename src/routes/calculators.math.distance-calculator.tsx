@@ -15,6 +15,8 @@ import {
   RelatedLinks,
   FeatureList,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
 } from "@/components/MathCalcPage";
 import { type Step } from "@/components/SolutionSteps";
 import { StepsToggle } from "@/components/StepsToggle";
@@ -1724,10 +1726,83 @@ function DistancePage() {
             </div>
           </CalcSection>
 
-
-
+          <CalcSection title="All formulas — every calculation mode">
+            <AllFormulasSection
+              intro={
+                <>
+                  Each mode below returns the straight-line distance{" "}
+                  <em>d</em> between two points, plus the auxiliary quantities
+                  the calculator reports (differences, midpoint, slope, bearing).
+                </>
+              }
+            >
+              <ModeFormula
+                label="1. 2D Cartesian — (x₁,y₁), (x₂,y₂)"
+                lines={[
+                  <>Δx = x₂ − x₁,   Δy = y₂ − y₁</>,
+                  <>d = √(Δx² + Δy²)</>,
+                  <>Midpoint  M = ((x₁+x₂)/2, (y₁+y₂)/2)</>,
+                  <>Slope  m = Δy / Δx</>,
+                ]}
+              />
+              <ModeFormula
+                label="2. 3D Cartesian — (x₁,y₁,z₁), (x₂,y₂,z₂)"
+                lines={[
+                  <>Δx = x₂−x₁,  Δy = y₂−y₁,  Δz = z₂−z₁</>,
+                  <>d = √(Δx² + Δy² + Δz²)</>,
+                ]}
+              />
+              <ModeFormula
+                label="3. Polar — (r₁, θ₁), (r₂, θ₂)"
+                lines={[
+                  <>d = √(r₁² + r₂² − 2·r₁·r₂·cos(θ₂ − θ₁))</>,
+                  <>Cartesian form: xᵢ = rᵢ·cos θᵢ, yᵢ = rᵢ·sin θᵢ</>,
+                ]}
+              />
+              <ModeFormula
+                label="4. Lat/Long — Haversine (spherical Earth)"
+                lines={[
+                  <>a = sin²(Δφ/2) + cos φ₁·cos φ₂·sin²(Δλ/2)</>,
+                  <>c = 2·atan2(√a, √(1−a))</>,
+                  <>d = R · c    (R ≈ 6371 km)</>,
+                ]}
+              />
+              <ModeFormula
+                label="5. Lat/Long — Lambert (ellipsoidal)"
+                lines={[
+                  <>reduced latitudes  βᵢ = atan((1−f)·tan φᵢ)</>,
+                  <>central angle σ from Haversine on β, Δλ</>,
+                  <>d = a·(σ − f/2·(X + Y))   (WGS-84)</>,
+                ]}
+              />
+              <ModeFormula
+                label="6. Initial & final bearing"
+                lines={[
+                  <>θ₁ = atan2(sin Δλ·cos φ₂, cos φ₁·sin φ₂ − sin φ₁·cos φ₂·cos Δλ)</>,
+                  <>θ₂ = (θ₁_reverse + 180°) mod 360°</>,
+                ]}
+              />
+              <ModeFormula
+                label="7. Taxicab / Chebyshev (grid)"
+                lines={[
+                  <>Manhattan  d₁ = |Δx| + |Δy|</>,
+                  <>Chebyshev  d∞ = max(|Δx|, |Δy|)</>,
+                  <>Euclidean  d₂ = √(Δx² + Δy²)</>,
+                ]}
+              />
+              <ModeFormula
+                label="8. Line y = mx + b through two points"
+                lines={[
+                  <>m = (y₂ − y₁) / (x₂ − x₁)</>,
+                  <>b = y₁ − m·x₁</>,
+                  <>angle with x-axis  α = atan m</>,
+                ]}
+              />
+            </AllFormulasSection>
+          </CalcSection>
 
           <CalcSection title="Features of this calculator">
+
             <FeatureList
               items={[
                 "2D distance with a live coordinate-plane diagram showing the two points, the right-triangle legs (Δx, Δy) and the connecting distance segment.",

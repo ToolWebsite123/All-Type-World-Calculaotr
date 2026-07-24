@@ -17,6 +17,8 @@ import {
   FeatureList,
   GuideCards,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 import { StepsToggle } from "@/components/StepsToggle";
@@ -867,6 +869,99 @@ function PageExtras() {
           ]}
         />
       </CalcSection>
+
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              Any two independent inputs from{" "}
+              <em>a</em> (leg), <em>b</em> (base), <em>hb</em> (altitude to base),{" "}
+              <em>ha</em> (altitude to leg), <em>B</em> (vertex angle),{" "}
+              <em>A</em> (base angle), <em>K</em> (area) and <em>P</em> (perimeter)
+              determine the whole triangle. The most common pairs are listed below.
+            </>
+          }
+        >
+          <ModeFormula
+            label="1. Leg a and base b"
+            lines={[
+              <>hb = √(4a² − b²) / 2</>,
+              <>K = ½ · b · hb</>,
+              <>A = arccos(b / 2a),   B = 180° − 2A</>,
+              <>P = 2a + b</>,
+            ]}
+          />
+          <ModeFormula
+            label="2. Leg a and vertex angle B"
+            lines={[
+              <>b = 2a · sin(B/2)</>,
+              <>hb = a · cos(B/2)</>,
+              <>K = ½ · a² · sin B</>,
+              <>A = (180° − B)/2</>,
+            ]}
+          />
+          <ModeFormula
+            label="3. Base b and vertex angle B"
+            lines={[
+              <>a = b / (2 sin(B/2))</>,
+              <>hb = b / (2 tan(B/2))</>,
+              <>then apply the "leg a and base b" formulas</>,
+            ]}
+          />
+          <ModeFormula
+            label="4. Base b and base angle A"
+            lines={[
+              <>a = b / (2 cos A)</>,
+              <>hb = (b/2) · tan A</>,
+              <>B = 180° − 2A</>,
+              <>K = ½ · b · hb</>,
+            ]}
+          />
+          <ModeFormula
+            label="5. Leg a and altitude to base hb"
+            lines={[
+              <>b = 2 · √(a² − hb²)</>,
+              <>K = ½ · b · hb</>,
+              <>then apply the "leg a and base b" formulas</>,
+            ]}
+          />
+          <ModeFormula
+            label="6. Base b and altitude to base hb"
+            lines={[
+              <>a = √((b/2)² + hb²)</>,
+              <>K = ½ · b · hb</>,
+              <>then apply the "leg a and base b" formulas</>,
+            ]}
+          />
+          <ModeFormula
+            label="7. Base b and area K"
+            lines={[
+              <>hb = 2K / b</>,
+              <>a = √((b/2)² + hb²)</>,
+              <>then apply the "leg a and base b" formulas</>,
+            ]}
+          />
+          <ModeFormula
+            label="8. Perimeter P and any one length"
+            lines={[
+              <>if a known:  b = P − 2a</>,
+              <>if b known:  a = (P − b) / 2</>,
+              <>then apply the "leg a and base b" formulas</>,
+            ]}
+          />
+          <ModeFormula
+            label="Auxiliary quantities (for every mode)"
+            lines={[
+              <>Altitude to leg  ha = 2K / a</>,
+              <>Semiperimeter  s = P / 2 = a + b/2</>,
+              <>Inradius  r = K / s</>,
+              <>Circumradius  R = a² / √(4a² − b²)</>,
+            ]}
+          />
+        </AllFormulasSection>
+      </CalcSection>
+
+
 
       <CalcSection title="Three ways to get the area">
         <p>

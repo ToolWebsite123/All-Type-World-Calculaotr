@@ -16,6 +16,8 @@ import {
   FeatureList,
   GuideCards,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 import { StepsToggle } from "@/components/StepsToggle";
@@ -737,6 +739,54 @@ function PageExtras() {
           ]}
         />
       </CalcSection>
+
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              Given any one of the six inputs below, all remaining quantities
+              follow directly. Notation: <em>a</em> = side, <em>h</em> = height,{" "}
+              <em>P</em> = perimeter, <em>A</em> = area, <em>R</em> = circumradius,{" "}
+              <em>r</em> = inradius.
+            </>
+          }
+        >
+          <ModeFormula
+            label="1. Given side a"
+            lines={[
+              <>P = 3a</>,
+              <>h = (√3 / 2)·a</>,
+              <>A = (√3 / 4)·a²</>,
+              <>R = a / √3,   r = a / (2√3)</>,
+            ]}
+          />
+          <ModeFormula
+            label="2. Given perimeter P"
+            lines={[<>a = P / 3</>, <>then apply the "given a" formulas</>]}
+          />
+          <ModeFormula
+            label="3. Given height h"
+            lines={[<>a = 2h / √3</>, <>then apply the "given a" formulas</>]}
+          />
+          <ModeFormula
+            label="4. Given area A"
+            lines={[<>a = √(4A / √3)</>, <>then apply the "given a" formulas</>]}
+          />
+          <ModeFormula
+            label="5. Given circumradius R"
+            lines={[<>a = R · √3</>, <>then apply the "given a" formulas</>]}
+          />
+          <ModeFormula
+            label="6. Given inradius r"
+            lines={[<>a = 2r · √3</>, <>then apply the "given a" formulas</>]}
+          />
+          <ModeFormula
+            label="Identity unique to equilateral triangles"
+            lines={[<>R = 2r  (centroid = incenter = circumcenter)</>]}
+          />
+        </AllFormulasSection>
+      </CalcSection>
+
 
 
 

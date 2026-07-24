@@ -17,6 +17,8 @@ import {
   FeatureList,
   GuideCards,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
   type GuideCardItem,
 } from "@/components/MathCalcPage";
 
@@ -1305,6 +1307,53 @@ function PythagEducation() {
         </p>
         <GuideCards items={PY_GUIDE} />
       </CalcSection>
+
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              The exact symbolic chain each mode of this calculator evaluates.
+              Notation: <em>a</em>, <em>b</em> are the legs and <em>c</em> is
+              the hypotenuse; for the 3D box mode <em>l</em>, <em>w</em>,{" "}
+              <em>h</em> are the edges and <em>d</em> is the space diagonal.
+            </>
+          }
+        >
+          <ModeFormula
+            label="1. Find the hypotenuse — given legs a, b"
+            lines={[<>c = √(a² + b²)</>]}
+          />
+          <ModeFormula
+            label="2. Find leg a — given b, c"
+            lines={[<>a = √(c² − b²)</>, <>requires c &gt; b</>]}
+          />
+          <ModeFormula
+            label="3. Find leg b — given a, c"
+            lines={[<>b = √(c² − a²)</>, <>requires c &gt; a</>]}
+          />
+          <ModeFormula
+            label="4. Right-triangle check — given a, b, c"
+            lines={[
+              <>test a² + b² = c² (with c the longest side)</>,
+              <>right if the two sides are equal; otherwise not right</>,
+            ]}
+          />
+          <ModeFormula
+            label="5. 3D space diagonal — given l, w, h"
+            lines={[<>d = √(l² + w² + h²)</>]}
+          />
+          <ModeFormula
+            label="6. Auxiliary triangle quantities"
+            lines={[
+              <>Perimeter  P = a + b + c</>,
+              <>Area  A = ½ · a · b</>,
+              <>Altitude to hypotenuse  h = a · b / c</>,
+            ]}
+          />
+        </AllFormulasSection>
+      </CalcSection>
+
+
 
 
       <CalcSection title="Why it works — a short visual proof">
