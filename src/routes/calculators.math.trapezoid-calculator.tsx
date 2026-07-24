@@ -41,8 +41,11 @@ type Mode =
   | "sides-c-angleA" // a, b, c, ∠A
   | "angles-A-D" // a, b, ∠A, ∠D
   | "all-sides" // a, b, c, d
+  | "isosceles-quick" // a, b, c (c = d)
+  | "right-quick" // a, b, c (c = h, ∠A = ∠B = 90°)
   | "diagonals" // p, q, θ between diagonals
   | "coords"; // 4 vertices
+
 
 interface Solved {
   a?: number;
