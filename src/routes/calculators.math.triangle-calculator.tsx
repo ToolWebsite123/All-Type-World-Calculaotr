@@ -17,6 +17,8 @@ import {
   RelatedLinks,
   FeatureList,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
 } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 import type { ReactNode } from "react";
