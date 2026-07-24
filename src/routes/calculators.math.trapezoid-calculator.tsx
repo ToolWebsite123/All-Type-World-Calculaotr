@@ -789,7 +789,17 @@ function Page() {
         <Field label="Trapezoid type">
           <select
             value={shape}
-            onChange={(e) => setShape(e.target.value as Shape)}
+            onChange={(e) => {
+              const next = e.target.value as Shape;
+              setShape(next);
+              if (next === "isosceles") {
+                setMode("isosceles-quick");
+                setSubmitted(false);
+              } else if (next === "right") {
+                setMode("right-quick");
+                setSubmitted(false);
+              }
+            }}
             className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base"
           >
             <option value="scalene">Scalene</option>
@@ -797,6 +807,7 @@ function Page() {
             <option value="right">Right</option>
           </select>
         </Field>
+
         <Field label="Choose a calculation">
           <select
             value={mode}
