@@ -1022,10 +1022,15 @@ function compute(
         if (b1 === null || b2 === null || c === null || d === null) return empty;
         if (b1 <= 0 || b2 <= 0 || c <= 0 || d <= 0)
           return { ...empty, error: "All side lengths must be positive." };
-        let h: number;
+        const solved = trapezoidHeightFromSides(b1, b2, c, d);
+        if (!solved)
+          return {
+            ...empty,
+            error: "These side lengths can't form a valid trapezoid — check the values.",
+          };
+        const { h, x } = solved;
         const stepsExtra: Step[] = [];
         if (b1 === b2) {
-          h = Math.sqrt(c * c);
           stepsExtra.push(
             step(
               "Parallelogram case",
@@ -1037,14 +1042,6 @@ function compute(
             ),
           );
         } else {
-          const x = ((b2 - b1) ** 2 + c * c - d * d) / (2 * (b2 - b1));
-          const under = c * c - x * x;
-          if (under < 0)
-            return {
-              ...empty,
-              error: "These side lengths can't form a valid trapezoid — check the values.",
-            };
-          h = Math.sqrt(under);
           stepsExtra.push(
             step(
               "Solve for x",
@@ -1075,6 +1072,7 @@ function compute(
         };
       }
     }
+
     case "parallelogram": {
       const b = need("b");
       const h = need("h");
