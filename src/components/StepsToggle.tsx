@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { CalcSection } from "@/components/MathCalcPage";
+import { CalcSection, StackedMath } from "@/components/MathCalcPage";
 import type { Step } from "@/components/SolutionSteps";
 
 /**
@@ -50,8 +50,8 @@ export function StepsToggle({
         <div className="space-y-6">
           {steps?.map((s, i) => (
             <CalcSection key={i} title={s.title}>
-              <div className="text-sm leading-relaxed text-muted-foreground">
-                {s.body}
+              <div className="text-sm leading-relaxed text-muted-foreground [&>div]:my-0.5">
+                <StackedMath splitEqualityChains>{s.body}</StackedMath>
               </div>
             </CalcSection>
           ))}
