@@ -531,8 +531,8 @@ const GUIDE: GuideCardItem[] = [
     diagram: <MiniTri variant="sas" />,
     example: {
       given: <>a = 8, b = 11, C = 37°</>,
-      substitute: <>c² = 8² + 11² − 2·8·11·cos 37° = 64 + 121 − 140.579</>,
-      answer: <>c ≈ 6.667; A ≈ 46.29°, B ≈ 96.71°</>,
+      substitute: <>c² = 8² + 11² − 2·8·11·cos 37° = 64 + 121 − 140.560</>,
+      answer: <>c ≈ 6.666; A ≈ 46.24°, B ≈ 96.76°</>,
     },
   },
   {
@@ -549,7 +549,7 @@ const GUIDE: GuideCardItem[] = [
     example: {
       given: <>a = 7, b = 9, c = 12</>,
       substitute: <>cos A = (81 + 144 − 49) / (2·9·12) = 176/216 ≈ 0.8148</>,
-      answer: <>A ≈ 35.42°, B ≈ 48.19°, C ≈ 96.38°</>,
+      answer: <>A ≈ 35.43°, B ≈ 48.19°, C ≈ 96.38°</>,
     },
   },
   {
