@@ -149,8 +149,9 @@ function fromCanonical(a: number, b: number, c: number, d: number, h: number, x:
 /* Solve                                                                */
 /* ------------------------------------------------------------------ */
 
-function solve(mode: Mode, raw: Record<string, string>): Solved {
+function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
   const n = (k: string) => num(raw[k] ?? "");
+
 
   switch (mode) {
     case "area-abh": {
