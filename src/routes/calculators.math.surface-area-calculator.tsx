@@ -1618,7 +1618,34 @@ function SAEducation() {
         <GuideCards items={SA_GUIDE} />
       </CalcSection>
 
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              The exact symbolic surface-area formula this calculator evaluates
+              for each of its 13 solids. Type your dimensions in any unit — the
+              answer comes back in that unit squared.
+            </>
+          }
+        >
+          <ModeFormula label="1. Sphere — radius r" lines={[<>SA = 4 · π · r²</>]} />
+          <ModeFormula label="2. Cube — side s" lines={[<>SA = 6 · s²</>]} />
+          <ModeFormula label="3. Cylinder — radius r, height h" lines={[<>SA = 2π · r · (r + h)</>]} />
+          <ModeFormula label="4. Cone — radius r, slant ℓ = √(r² + h²)" lines={[<>SA = π · r · (r + ℓ)</>]} />
+          <ModeFormula label="5. Rectangular box — l, w, h" lines={[<>SA = 2(l·w + l·h + w·h)</>]} />
+          <ModeFormula label="6. Capsule — radius r, side length a" lines={[<>SA = 2π · r · (2r + a)</>]} />
+          <ModeFormula label="7. Spherical cap — radius r, cap height h" lines={[<>SA = 2π · r · h  (curved)</>, <>SA_total = 2π · r · h + π · (2r·h − h²)</>]} />
+          <ModeFormula label="8. Conical frustum — R, r, height h" lines={[<>ℓ = √((R − r)² + h²)</>, <>SA = π · (R² + r² + (R + r) · ℓ)</>]} />
+          <ModeFormula label="9. Ellipsoid — semi-axes a, b, c (Knud Thomsen)" lines={[<>p = 1.6075</>, <>SA ≈ 4π · ((aᵖbᵖ + aᵖcᵖ + bᵖcᵖ)/3)^(1/p)</>]} />
+          <ModeFormula label="10. Square pyramid — base s, height h" lines={[<>ℓ = √((s/2)² + h²)</>, <>SA = s² + 2 · s · ℓ</>]} />
+          <ModeFormula label="11. Triangular prism — base b, height h, length L" lines={[<>a = √((b/2)² + h²)  (equilateral edge)</>, <>SA = b · h + L · (b + 2a)</>]} />
+          <ModeFormula label="12. Tube — outer R, inner r, length L" lines={[<>SA = 2π · L · (R + r) + 2π · (R² − r²)</>]} />
+          <ModeFormula label="13. Torus — major R, minor r" lines={[<>SA = 4π² · R · r</>]} />
+        </AllFormulasSection>
+      </CalcSection>
+
       <CalcSection title="Common area unit conversions">
+
         <ReferenceTable
           headers={["From", "To", "Multiply by"]}
           numericColumns={[2]}
