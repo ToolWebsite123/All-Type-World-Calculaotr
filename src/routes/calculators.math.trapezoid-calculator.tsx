@@ -715,6 +715,7 @@ const MODE_LABELS: { value: Mode; label: string }[] = [
   { value: "find-b", label: "Find b — given Area, a, h" },
   { value: "find-h", label: "Find h — given Area, a, b" },
   { value: "sides-c-angleA", label: "Full solve — given a, b, c, ∠A" },
+  { value: "sides-d-angleD", label: "Full solve — given a, b, d, ∠D" },
   { value: "angles-A-D", label: "Full solve — given a, b, ∠A, ∠D" },
   { value: "all-sides", label: "Full solve — given all 4 sides" },
   { value: "isosceles-quick", label: "Isosceles — given a, b, c (legs equal)" },
