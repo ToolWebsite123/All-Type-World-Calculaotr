@@ -711,6 +711,15 @@ function PageExtras() {
         <FormulaBlock>A = cos⁻¹[(b² + c² − a²) / (2bc)]</FormulaBlock>
         <FormulaBlock>B = cos⁻¹[(a² + c² − b²) / (2ac)]</FormulaBlock>
         <FormulaBlock>C = cos⁻¹[(a² + b² − c²) / (2ab)]</FormulaBlock>
+
+        <h3 className="mt-6 mb-2 font-display text-base font-semibold text-foreground">
+          Triangle characteristics from the solved sides
+        </h3>
+        <FormulaBlock>P = a + b + c (perimeter)</FormulaBlock>
+        <FormulaBlock>s = (a + b + c) / 2 (semiperimeter)</FormulaBlock>
+        <FormulaBlock>K = √[s(s−a)(s−b)(s−c)] (area, Heron's formula)</FormulaBlock>
+        <FormulaBlock>r = K / s (inradius)</FormulaBlock>
+        <FormulaBlock>R = (a·b·c) / (4K) (circumradius)</FormulaBlock>
         <p>
           It handles the two cases where the law of sines can't get started:{" "}
           <strong>SAS</strong> (you know two sides and the angle between them,
