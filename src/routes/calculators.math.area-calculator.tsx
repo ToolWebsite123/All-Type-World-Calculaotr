@@ -421,7 +421,7 @@ const SHAPE_LABEL: Record<Shape, string> = {
   starPolygon: "Regular Star Polygon",
 };
 
-import { fmt, num, TO_M2 } from "@/lib/math/geometry-shared";
+import { fmt, num, TO_M2, trapezoidHeightFromSides } from "@/lib/math/geometry-shared";
 export { fmt, num, TO_M2 };
 
 /* Parse "x,y" per line (or space-separated) into vertex pairs. */
