@@ -65,8 +65,10 @@ interface Solved {
   /** Local vertex coords in geometry space (A bottom-left origin). */
   verts?: [number, number][];
   steps?: Step[];
+  warning?: string;
   error?: string;
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Helpers                                                             */
