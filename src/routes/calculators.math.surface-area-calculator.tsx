@@ -88,7 +88,7 @@ export const Route = createFileRoute("/calculators/math/surface-area-calculator"
       name: "Surface Area Calculator",
       title: "Surface Area Calculator — 13 Solids, Total / Lateral / Base",
       metaDescription:
-        "Free surface area calculator for 13 solids — sphere, cube, cylinder, cone, tank, capsule, spherical cap, frustum, ellipsoid, pyramid, triangular prism, tube and torus. Reports total, lateral and base surface area with diagrams, unit conversions and step-by-step working.",
+        "Surface area calculator for 13 solids: sphere, cube, cylinder, cone, box, capsule, cap, frustum, ellipsoid, pyramid, prism, tube and torus — total, lateral and base area with steps.",
       canonicalUrl: "/calculators/math/surface-area-calculator",
       ogImage: "/og-image.png",
       breadcrumbs: [
