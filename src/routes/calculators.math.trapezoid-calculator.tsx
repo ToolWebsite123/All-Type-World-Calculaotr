@@ -150,7 +150,32 @@ function fromCanonical(a: number, b: number, c: number, d: number, h: number, x:
 /* ------------------------------------------------------------------ */
 
 function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
+  const sol = solveCore(mode, raw);
+  if (sol.error) return sol;
+  // Non-blocking shape validation for general modes.
+  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "angles-A-D", "all-sides"];
+  if (generalModes.includes(mode)) {
+    if (shape === "isosceles" && sol.c != null && sol.d != null) {
+      const denom = Math.max(sol.c, sol.d, 1e-9);
+      if (Math.abs(sol.c - sol.d) / denom > 1e-6) {
+        sol.warning = `Note: these values don't form an isosceles trapezoid (legs differ: c = ${fmt(sol.c)}, d = ${fmt(sol.d)}). Switch to the Isosceles quick mode, or pick Scalene.`;
+      }
+    }
+    if (shape === "right" && sol.angleA != null && sol.angleB != null) {
+      const okA = Math.abs(DEG(sol.angleA) - 90) < 0.5;
+      const okB = Math.abs(DEG(sol.angleB) - 90) < 0.5;
+      if (!okA && !okB) {
+        sol.warning =
+          "Note: these values don't produce a right angle. Switch to the Right quick mode, or pick Scalene.";
+      }
+    }
+  }
+  return sol;
+}
+
+function solveCore(mode: Mode, raw: Record<string, string>): Solved {
   const n = (k: string) => num(raw[k] ?? "");
+
 
 
   switch (mode) {
