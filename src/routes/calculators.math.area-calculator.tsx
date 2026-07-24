@@ -516,7 +516,7 @@ function ShapeForm({
 
   const result = useMemo(
     () => compute(shape, inputs, triMode, sectorUnit, segMode, coordText, trapMode, unit),
-    [shape, inputs, triMode, sectorUnit, segMode, coordText, trapMode],
+    [shape, inputs, triMode, sectorUnit, segMode, coordText, trapMode, unit],
   );
 
   const priceNum = num(price);
