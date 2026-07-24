@@ -1897,8 +1897,8 @@ const VOLUME_GUIDE: GuideCardItem[] = [
     diagram: <Dia shape="octahedron" inputs={{ s: "s" }} />,
     example: {
       given: <>s = 4</>,
-      substitute: <>(√2 / 3) × 64 = 0.4714 × 64</>,
-      answer: <>≈ 30.1704 cubic units</>,
+      substitute: <>(√2 / 3) × 64 = 0.47140 × 64</>,
+      answer: <>≈ 30.1699 cubic units</>,
     },
   },
 ];
