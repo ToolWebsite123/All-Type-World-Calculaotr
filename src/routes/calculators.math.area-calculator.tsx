@@ -1246,7 +1246,7 @@ function compute(
       if (a === null || b === null) return empty;
       if (a <= 0 || b <= 0) return { ...empty, error: "Both axes must be positive." };
       const A = Math.PI * a * b;
-      // Ramanujan's second approximation for ellipse perimeter:
+      // Ramanujan's first approximation for ellipse perimeter:
       // P ≈ π[3(a+b) − √((3a+b)(a+3b))]
       const P2 = Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b)));
       return {
