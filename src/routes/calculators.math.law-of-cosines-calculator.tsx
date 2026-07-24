@@ -353,29 +353,45 @@ function LawOfCosinesPage() {
       tagline="Solve SAS (two sides + the included angle) or SSS (three sides) with c² = a² + b² − 2ab·cos C — plus area, perimeter, inradius, circumradius and a scaled diagram."
       extras={<PageExtras />}
     >
-      {/* Mode picker */}
-      <Field label="Which values do you know?" htmlFor="loc-mode">
-        <div className="flex flex-wrap gap-2" id="loc-mode">
-          {([
-            { m: "SAS", t: "Two sides + the angle between (SAS)" },
-            { m: "SSS", t: "Three sides (SSS)" },
-          ] as { m: Mode; t: string }[]).map(({ m, t }) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => { setMode(m); setResult(null); setError(null); }}
-              className={
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-                (mode === m
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-foreground hover:bg-accent")
-              }
-            >
-              {t}
-            </button>
+      {/* What to solve for (drives which inputs appear below) */}
+      <Field label="Calculate:" htmlFor="loc-solve-for" hint="Pick which value you want the calculator to find.">
+        <select
+          id="loc-solve-for"
+          value={solveFor}
+          onChange={(e) => changeSolveFor(e.target.value as SolveFor)}
+          className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base text-foreground focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
+        >
+          {SOLVE_FOR_OPTIONS.map((o) => (
+            <option key={o.value} value={o.value}>{o.label}</option>
           ))}
-        </div>
+        </select>
       </Field>
+
+      {/* Mode picker (kept for users who prefer the SAS/SSS framing) */}
+      <div className="mt-4">
+        <Field label="Which values do you know?" htmlFor="loc-mode">
+          <div className="flex flex-wrap gap-2" id="loc-mode">
+            {([
+              { m: "SAS", t: "Two sides + the angle between (SAS)" },
+              { m: "SSS", t: "Three sides (SSS)" },
+            ] as { m: Mode; t: string }[]).map(({ m, t }) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => changeMode(m)}
+                className={
+                  "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
+                  (mode === m
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-accent")
+                }
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </Field>
+      </div>
 
       {/* Unit / precision controls */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -422,9 +438,9 @@ function LawOfCosinesPage() {
         </Field>
       </div>
 
-      {/* Mode-specific inputs */}
+      {/* Inputs — only the 3 fields relevant to the selected solveFor. */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {mode === "SAS" ? (
+        {solveFor === "sideC" && (
           <>
             <Field label={`Side a (${lu})`} hint="First side of the included angle">
               <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
@@ -436,7 +452,34 @@ function LawOfCosinesPage() {
               <TextInput value={Cval} onChange={(e) => setCval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
             </Field>
           </>
-        ) : (
+        )}
+        {solveFor === "sideA" && (
+          <>
+            <Field label={`Side b (${lu})`} hint="First side of the included angle">
+              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="11" />
+            </Field>
+            <Field label={`Side c (${lu})`} hint="Second side of the included angle">
+              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+            </Field>
+            <Field label={`Included angle A (${unit})`} hint="The angle between b and c">
+              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
+            </Field>
+          </>
+        )}
+        {solveFor === "sideB" && (
+          <>
+            <Field label={`Side a (${lu})`} hint="First side of the included angle">
+              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
+            </Field>
+            <Field label={`Side c (${lu})`} hint="Second side of the included angle">
+              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+            </Field>
+            <Field label={`Included angle B (${unit})`} hint="The angle between a and c">
+              <TextInput value={Bval} onChange={(e) => setBval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "45" : "0.7854"} />
+            </Field>
+          </>
+        )}
+        {(solveFor === "angleA" || solveFor === "angleB" || solveFor === "angleC") && (
           <>
             <Field label={`Side a (${lu})`}>
               <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="7" />
@@ -450,6 +493,7 @@ function LawOfCosinesPage() {
           </>
         )}
       </div>
+
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <PrimaryButton onClick={onCalc}>Solve triangle</PrimaryButton>
