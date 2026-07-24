@@ -188,7 +188,7 @@ const SHAPE_GUIDE: ShapeGuide[] = [
     shape: "trapezoid",
     title: "Trapezoid",
     inputs: { b1: "6", b2: "10", h: "4" },
-    explain: "A trapezoid has one pair of parallel sides (the bases). A = ½ (b₁ + b₂) h averages the two bases and multiplies by the perpendicular distance — geometrically it's the rectangle you'd get if both bases had the same length. Useful for drainage channels, retaining walls, and irregular fields.",
+    explain: "A trapezoid has one pair of parallel sides (the bases). A = ½ (b₁ + b₂) h averages the two bases and multiplies by the perpendicular distance — geometrically it's the rectangle you'd get if both bases had the same length. Useful for drainage channels, retaining walls, and irregular fields. Need angles, diagonals, midsegment, or a full multi-mode solver (scalene, isosceles, right)? Use the dedicated Trapezoid Calculator.",
     formula: "A = ½ × (b₁ + b₂) × h",
     legend: LEG.trapezoid,
     example: { given: "b₁ = 6, b₂ = 10, h = 4", substitute: "A = ½ × (6 + 10) × 4 = ½ × 64", answer: "A = 32" },
@@ -421,7 +421,7 @@ const SHAPE_LABEL: Record<Shape, string> = {
   starPolygon: "Regular Star Polygon",
 };
 
-import { fmt, num, TO_M2 } from "@/lib/math/geometry-shared";
+import { fmt, num, TO_M2, trapezoidHeightFromSides } from "@/lib/math/geometry-shared";
 export { fmt, num, TO_M2 };
 
 /* Parse "x,y" per line (or space-separated) into vertex pairs. */
@@ -1022,10 +1022,15 @@ function compute(
         if (b1 === null || b2 === null || c === null || d === null) return empty;
         if (b1 <= 0 || b2 <= 0 || c <= 0 || d <= 0)
           return { ...empty, error: "All side lengths must be positive." };
-        let h: number;
+        const solved = trapezoidHeightFromSides(b1, b2, c, d);
+        if (!solved)
+          return {
+            ...empty,
+            error: "These side lengths can't form a valid trapezoid — check the values.",
+          };
+        const { h, x } = solved;
         const stepsExtra: Step[] = [];
         if (b1 === b2) {
-          h = Math.sqrt(c * c);
           stepsExtra.push(
             step(
               "Parallelogram case",
@@ -1037,14 +1042,6 @@ function compute(
             ),
           );
         } else {
-          const x = ((b2 - b1) ** 2 + c * c - d * d) / (2 * (b2 - b1));
-          const under = c * c - x * x;
-          if (under < 0)
-            return {
-              ...empty,
-              error: "These side lengths can't form a valid trapezoid — check the values.",
-            };
-          h = Math.sqrt(under);
           stepsExtra.push(
             step(
               "Solve for x",
@@ -1075,6 +1072,7 @@ function compute(
         };
       }
     }
+
     case "parallelogram": {
       const b = need("b");
       const h = need("h");
@@ -2329,6 +2327,7 @@ function AreaEducation() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
+            { to: "/calculators/math/trapezoid-calculator", label: "Trapezoid Calculator" },
             { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator" },
             { to: "/calculators/math", label: "All Math Calculators" },
             { to: "/calculators/math/root-calculator", label: "Square Root Calculator" },

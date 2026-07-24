@@ -110,3 +110,33 @@ export function isValidTriangleSides(a: number, b: number, c: number): boolean {
   return a + b > c && a + c > b && b + c > a;
 }
 
+/* ================= Trapezoid ==================
+ * Shared helper for deriving the perpendicular height of a trapezoid
+ * from its four side lengths. Reused by the general Area Calculator
+ * (trapezoid — "all 4 sides" mode) and the dedicated Trapezoid
+ * Calculator so the geometry lives in exactly one place.
+ *
+ * `a` and `b` are the two parallel bases (order does not matter);
+ * `c` and `d` are the two non-parallel legs. Returns `{ h, x }` where
+ * `x` is the horizontal offset of the shorter base's foot from the
+ * longer base's endpoint on the side of leg `c`. When a === b (the
+ * parallelogram edge case) `x = 0` and `h = c` (assuming c is
+ * perpendicular to the bases). Returns `null` when the four sides
+ * cannot close into a valid trapezoid.
+ */
+export function trapezoidHeightFromSides(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+): { h: number; x: number } | null {
+  if (!(a > 0 && b > 0 && c > 0 && d > 0)) return null;
+  if (a === b) return { h: c, x: 0 };
+  const diff = b - a;
+  const x = (diff * diff + c * c - d * d) / (2 * diff);
+  const under = c * c - x * x;
+  if (under < 0) return null;
+  return { h: Math.sqrt(under), x };
+}
+
+
