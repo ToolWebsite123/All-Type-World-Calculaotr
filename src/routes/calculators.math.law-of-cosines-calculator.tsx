@@ -263,7 +263,7 @@ function remapSAS(sol: Solution, solveFor: SolveFor): Solution {
 
 function LawOfCosinesPage() {
   const [solveFor, setSolveFor] = useState<SolveFor>("sideC");
-  const [mode, setMode] = useState<Mode>("SAS");
+  // `mode` state removed — solveFor drives everything; SAS/SSS button group deleted.
   const [unit, setUnit] = useState<AngleUnit>("deg");
   const [lu, setLu] = useState<LengthUnit>("cm");
   const [sig, setSig] = useState(5);
