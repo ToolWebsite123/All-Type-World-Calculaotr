@@ -995,6 +995,23 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
+function ModeFormula({ label, lines }: { label: string; lines: ReactNode[] }) {
+  return (
+    <div className="rounded-xl border border-border/60 bg-secondary/20 p-3">
+      <div className="mb-2 font-display text-sm font-semibold text-foreground">
+        {label}
+      </div>
+      <div className="space-y-1">
+        {lines.map((line, i) => (
+          <FormulaBlock key={i}>{line}</FormulaBlock>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+
 /* ------------------------------------------------------------------ */
 /* Extras — educational content rendered below the widget               */
 /* ------------------------------------------------------------------ */
