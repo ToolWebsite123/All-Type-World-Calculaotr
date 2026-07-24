@@ -1048,6 +1048,23 @@ const FAQ: { q: string; a: ReactNode }[] = [
     ),
   },
   {
+    q: "When should I use the Isosceles or Right quick modes?",
+    a: (
+      <>
+        Pick these when you already know the shape is symmetric or has a
+        perpendicular leg. The <strong>Isosceles quick</strong> mode takes just
+        the two bases and one leg length (both legs equal), and derives the
+        height, second leg and all four angles automatically. The{" "}
+        <strong>Right quick</strong> mode treats the entered leg c as the
+        vertical side (so ∠A = ∠B = 90° and h = c), then computes the slanted
+        leg d and the remaining angles. Selecting "Isosceles" or "Right" from
+        the Trapezoid type dropdown switches you into the matching quick mode
+        automatically.
+      </>
+    ),
+  },
+
+  {
     q: "How do the diagonals relate to the area?",
     a: (
       <>
