@@ -1140,7 +1140,7 @@ function PageExtras() {
         </AllFormulasSection>
       </CalcSection>
 
-
+      <CalcSection title="Law of sines vs. law of cosines — when to use which">
         <ReferenceTable
           headers={["You know…", "Use", "Why"]}
           rows={[
