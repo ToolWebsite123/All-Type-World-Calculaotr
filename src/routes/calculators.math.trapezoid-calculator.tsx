@@ -683,9 +683,12 @@ const MODE_LABELS: { value: Mode; label: string }[] = [
   { value: "sides-c-angleA", label: "Full solve — given a, b, c, ∠A" },
   { value: "angles-A-D", label: "Full solve — given a, b, ∠A, ∠D" },
   { value: "all-sides", label: "Full solve — given all 4 sides" },
+  { value: "isosceles-quick", label: "Isosceles — given a, b, c (legs equal)" },
+  { value: "right-quick", label: "Right — given a, b, c (vertical leg)" },
   { value: "diagonals", label: "Area — given diagonals p, q and angle θ" },
   { value: "coords", label: "From 4 vertex coordinates (shoelace)" },
 ];
+
 
 const UNITS: Unit[] = ["mm", "cm", "m", "km", "in", "ft", "yd"];
 
