@@ -2275,10 +2275,39 @@ function AreaEducation() {
         </div>
       </CalcSection>
 
-
-
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              The exact symbolic formula this calculator evaluates for each of
+              its 16 shapes. Units are whatever you type in — the answer comes
+              back in that unit squared.
+            </>
+          }
+        >
+          <ModeFormula label="1. Square — side s" lines={[<>A = s²</>, <>P = 4s</>]} />
+          <ModeFormula label="2. Rectangle — length l, width w" lines={[<>A = l · w</>, <>P = 2(l + w)</>]} />
+          <ModeFormula label="3. Triangle — base b, height h" lines={[<>A = ½ · b · h</>]} />
+          <ModeFormula label="4. Triangle — three sides (Heron)" lines={[<>s = (a + b + c)/2</>, <>A = √(s(s−a)(s−b)(s−c))</>]} />
+          <ModeFormula label="5. Trapezoid — bases a, b and height h" lines={[<>A = ½ (a + b) · h</>]} />
+          <ModeFormula label="6. Trapezoid — all 4 sides a, b, c, d" lines={[<>x = [(b − a)² + c² − d²] / [2(b − a)]</>, <>h = √(c² − x²)</>, <>A = ½ (a + b) · h</>]} />
+          <ModeFormula label="7. Parallelogram — base b, height h" lines={[<>A = b · h</>]} />
+          <ModeFormula label="8. Rhombus — diagonals p, q" lines={[<>A = ½ · p · q</>]} />
+          <ModeFormula label="9. Kite — diagonals p, q" lines={[<>A = ½ · p · q</>]} />
+          <ModeFormula label="10. Circle — radius r" lines={[<>A = π · r²</>, <>C = 2π · r</>]} />
+          <ModeFormula label="11. Semicircle — radius r" lines={[<>A = ½ · π · r²</>, <>P = π · r + 2r</>]} />
+          <ModeFormula label="12. Sector — radius r, angle θ (rad)" lines={[<>A = ½ · r² · θ</>, <>arc = r · θ</>]} />
+          <ModeFormula label="13. Segment — radius r, angle θ (rad)" lines={[<>A = ½ · r² · (θ − sin θ)</>]} />
+          <ModeFormula label="14. Ellipse — semi-axes a, b" lines={[<>A = π · a · b</>]} />
+          <ModeFormula label="15. Regular polygon — n sides, side s" lines={[<>A = ¼ · n · s² · cot(π/n)</>, <>P = n · s</>]} />
+          <ModeFormula label="16. Polygon from coordinates (shoelace)" lines={[<>A = ½ |Σ (xᵢ · yᵢ₊₁ − xᵢ₊₁ · yᵢ)|</>]} />
+          <ModeFormula label="17. Annulus — outer R, inner r" lines={[<>A = π · (R² − r²)</>]} />
+          <ModeFormula label="18. Star polygon — outer R, inner r, n points" lines={[<>A = n · R · r · sin(π/n)</>]} />
+        </AllFormulasSection>
+      </CalcSection>
 
       <CalcSection title="Common area unit conversions">
+
         <ReferenceTable
           headers={["From", "To", "Multiply by"]}
           numericColumns={[2]}
