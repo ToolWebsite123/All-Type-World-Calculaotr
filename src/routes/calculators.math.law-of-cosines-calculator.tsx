@@ -229,7 +229,35 @@ function TriangleSVG({ sol, unit, lu }: { sol: Solution; unit: AngleUnit; lu: Le
 
 /* ================= Component ================= */
 
+type SolveFor = "sideA" | "sideB" | "sideC" | "angleA" | "angleB" | "angleC";
+
+const SOLVE_FOR_OPTIONS: { value: SolveFor; label: string }[] = [
+  { value: "sideA", label: "Side a (given b, c, angle A)" },
+  { value: "sideB", label: "Side b (given a, c, angle B)" },
+  { value: "sideC", label: "Side c (given a, b, angle C)" },
+  { value: "angleA", label: "Angle A (given a, b, c)" },
+  { value: "angleB", label: "Angle B (given a, b, c)" },
+  { value: "angleC", label: "Angle C (given a, b, c)" },
+];
+
+/**
+ * Because the law of cosines is symmetric under relabeling, we always call
+ * the existing solveSAS / solveSSS helpers with a fixed argument order and
+ * then permute the returned Solution back to the on-screen a/b/c and A/B/C
+ * labels. No new trig lives here.
+ */
+function remapSAS(sol: Solution, solveFor: SolveFor): Solution {
+  if (solveFor === "sideC") return sol;
+  if (solveFor === "sideA") {
+    // solveSAS(bIn, cIn, Ar) → returned .a=b, .b=c, .c=a; .A=B, .B=C, .C=A
+    return { ...sol, a: sol.c, b: sol.a, c: sol.b, A: sol.C, B: sol.A, C: sol.B };
+  }
+  // sideB: solveSAS(aIn, cIn, Br) → .a=a, .b=c, .c=b; .A=A, .B=C, .C=B
+  return { ...sol, b: sol.c, c: sol.b, B: sol.C, C: sol.B };
+}
+
 function LawOfCosinesPage() {
+  const [solveFor, setSolveFor] = useState<SolveFor>("sideC");
   const [mode, setMode] = useState<Mode>("SAS");
   const [unit, setUnit] = useState<AngleUnit>("deg");
   const [lu, setLu] = useState<LengthUnit>("cm");
@@ -238,7 +266,9 @@ function LawOfCosinesPage() {
   const [aSide, setASide] = useState("");
   const [bSide, setBSide] = useState("");
   const [cSide, setCSide] = useState("");
-  const [Cval, setCval] = useState(""); // included angle for SAS
+  const [Aval, setAval] = useState("");
+  const [Bval, setBval] = useState("");
+  const [Cval, setCval] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Solution | null>(null);
@@ -249,35 +279,60 @@ function LawOfCosinesPage() {
     return Number.isFinite(n) ? n : NaN;
   };
 
+  const changeSolveFor = (sf: SolveFor) => {
+    setSolveFor(sf);
+    setMode(sf.startsWith("side") ? "SAS" : "SSS");
+    setResult(null); setError(null);
+  };
+
+  const changeMode = (m: Mode) => {
+    setMode(m);
+    setSolveFor(m === "SAS" ? "sideC" : "angleA");
+    setResult(null); setError(null);
+  };
+
   const onCalc = () => {
     setError(null);
     setResult(null);
     try {
-      if (mode === "SAS") {
-        const a = parse(aSide), b = parse(bSide), C = parse(Cval);
-        if (![a, b, C].every(Number.isFinite)) throw new Error("Enter sides a, b and the included angle C.");
-        if (a <= 0 || b <= 0) throw new Error("Sides must be positive.");
-        if (C <= 0) throw new Error("Included angle must be greater than 0.");
-        const Cr = toRad(C, unit);
-        if (Cr >= PI - 1e-12) throw new Error("Included angle must be less than 180° (or π rad).");
-        setResult(solveSAS(a, b, Cr, unit));
-      } else {
-        const a = parse(aSide), b = parse(bSide), c = parse(cSide);
-        if (![a, b, c].every(Number.isFinite)) throw new Error("Enter all three sides a, b and c.");
-        if (a <= 0 || b <= 0 || c <= 0) throw new Error("Sides must be positive.");
-        if (!isValidTriangleSides(a, b, c))
-          throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side. These three lengths can't form a triangle.");
-        setResult(solveSSS(a, b, c, unit));
+      // SAS branch — one of the three sides is unknown.
+      if (solveFor === "sideA" || solveFor === "sideB" || solveFor === "sideC") {
+        // Pick the two known sides and the included angle based on solveFor.
+        let s1 = NaN, s2 = NaN, angRaw = NaN, angLabel = "C";
+        if (solveFor === "sideC") { s1 = parse(aSide); s2 = parse(bSide); angRaw = parse(Cval); angLabel = "C"; }
+        else if (solveFor === "sideA") { s1 = parse(bSide); s2 = parse(cSide); angRaw = parse(Aval); angLabel = "A"; }
+        else { s1 = parse(aSide); s2 = parse(cSide); angRaw = parse(Bval); angLabel = "B"; }
+
+        if (![s1, s2, angRaw].every(Number.isFinite))
+          throw new Error(`Enter the two known sides and the included angle ${angLabel}.`);
+        if (s1 <= 0 || s2 <= 0) throw new Error("Sides must be positive.");
+        if (angRaw <= 0) throw new Error("Included angle must be greater than 0.");
+        const angR = toRad(angRaw, unit);
+        if (angR >= PI - 1e-12) throw new Error("Included angle must be less than 180° (or π rad).");
+
+        // Always call the existing SAS solver, then remap the returned labels.
+        setResult(remapSAS(solveSAS(s1, s2, angR, unit), solveFor));
+        return;
       }
+
+      // SSS branch — all three sides given, any of the three angles requested.
+      const a = parse(aSide), b = parse(bSide), c = parse(cSide);
+      if (![a, b, c].every(Number.isFinite)) throw new Error("Enter all three sides a, b and c.");
+      if (a <= 0 || b <= 0 || c <= 0) throw new Error("Sides must be positive.");
+      if (!isValidTriangleSides(a, b, c))
+        throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side. These three lengths can't form a triangle.");
+      setResult(solveSSS(a, b, c, unit));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
     }
   };
 
   const clearAll = () => {
-    setASide(""); setBSide(""); setCSide(""); setCval("");
+    setASide(""); setBSide(""); setCSide("");
+    setAval(""); setBval(""); setCval("");
     setError(null); setResult(null);
   };
+
 
   const copyText = () => {
     if (!result) return "";
@@ -298,29 +353,45 @@ function LawOfCosinesPage() {
       tagline="Solve SAS (two sides + the included angle) or SSS (three sides) with c² = a² + b² − 2ab·cos C — plus area, perimeter, inradius, circumradius and a scaled diagram."
       extras={<PageExtras />}
     >
-      {/* Mode picker */}
-      <Field label="Which values do you know?" htmlFor="loc-mode">
-        <div className="flex flex-wrap gap-2" id="loc-mode">
-          {([
-            { m: "SAS", t: "Two sides + the angle between (SAS)" },
-            { m: "SSS", t: "Three sides (SSS)" },
-          ] as { m: Mode; t: string }[]).map(({ m, t }) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => { setMode(m); setResult(null); setError(null); }}
-              className={
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-                (mode === m
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-foreground hover:bg-accent")
-              }
-            >
-              {t}
-            </button>
+      {/* What to solve for (drives which inputs appear below) */}
+      <Field label="Calculate:" htmlFor="loc-solve-for" hint="Pick which value you want the calculator to find.">
+        <select
+          id="loc-solve-for"
+          value={solveFor}
+          onChange={(e) => changeSolveFor(e.target.value as SolveFor)}
+          className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base text-foreground focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
+        >
+          {SOLVE_FOR_OPTIONS.map((o) => (
+            <option key={o.value} value={o.value}>{o.label}</option>
           ))}
-        </div>
+        </select>
       </Field>
+
+      {/* Mode picker (kept for users who prefer the SAS/SSS framing) */}
+      <div className="mt-4">
+        <Field label="Which values do you know?" htmlFor="loc-mode">
+          <div className="flex flex-wrap gap-2" id="loc-mode">
+            {([
+              { m: "SAS", t: "Two sides + the angle between (SAS)" },
+              { m: "SSS", t: "Three sides (SSS)" },
+            ] as { m: Mode; t: string }[]).map(({ m, t }) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => changeMode(m)}
+                className={
+                  "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
+                  (mode === m
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-accent")
+                }
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </Field>
+      </div>
 
       {/* Unit / precision controls */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -367,9 +438,9 @@ function LawOfCosinesPage() {
         </Field>
       </div>
 
-      {/* Mode-specific inputs */}
+      {/* Inputs — only the 3 fields relevant to the selected solveFor. */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {mode === "SAS" ? (
+        {solveFor === "sideC" && (
           <>
             <Field label={`Side a (${lu})`} hint="First side of the included angle">
               <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
@@ -381,7 +452,34 @@ function LawOfCosinesPage() {
               <TextInput value={Cval} onChange={(e) => setCval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
             </Field>
           </>
-        ) : (
+        )}
+        {solveFor === "sideA" && (
+          <>
+            <Field label={`Side b (${lu})`} hint="First side of the included angle">
+              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="11" />
+            </Field>
+            <Field label={`Side c (${lu})`} hint="Second side of the included angle">
+              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+            </Field>
+            <Field label={`Included angle A (${unit})`} hint="The angle between b and c">
+              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
+            </Field>
+          </>
+        )}
+        {solveFor === "sideB" && (
+          <>
+            <Field label={`Side a (${lu})`} hint="First side of the included angle">
+              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
+            </Field>
+            <Field label={`Side c (${lu})`} hint="Second side of the included angle">
+              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+            </Field>
+            <Field label={`Included angle B (${unit})`} hint="The angle between a and c">
+              <TextInput value={Bval} onChange={(e) => setBval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "45" : "0.7854"} />
+            </Field>
+          </>
+        )}
+        {(solveFor === "angleA" || solveFor === "angleB" || solveFor === "angleC") && (
           <>
             <Field label={`Side a (${lu})`}>
               <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="7" />
@@ -395,6 +493,7 @@ function LawOfCosinesPage() {
           </>
         )}
       </div>
+
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <PrimaryButton onClick={onCalc}>Solve triangle</PrimaryButton>
