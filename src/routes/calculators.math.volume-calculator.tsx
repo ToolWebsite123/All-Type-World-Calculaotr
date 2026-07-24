@@ -185,7 +185,7 @@ export const Route = createFileRoute("/calculators/math/volume-calculator")({
       title:
         "Volume Calculator — 15 Solids with Diagrams & Steps",
       metaDescription:
-        "Volume calculator for 15 solids: sphere, cone, cube, cylinder, tank, capsule, frustum, ellipsoid, pyramid, tube, prism, torus, tetrahedron and octahedron. Diagrams, steps, cost/weight estimators and tank fill level.",
+        "Volume calculator for 15 solids: sphere, cone, cube, cylinder, box, capsule, cap, frustum, ellipsoid, pyramid, tube, prism, torus, tetrahedron and octahedron — with diagrams and step-by-step working.",
       canonicalUrl: "/calculators/math/volume-calculator",
       ogImage: "/og-image.png",
       breadcrumbs: [
@@ -1897,8 +1897,8 @@ const VOLUME_GUIDE: GuideCardItem[] = [
     diagram: <Dia shape="octahedron" inputs={{ s: "s" }} />,
     example: {
       given: <>s = 4</>,
-      substitute: <>(√2 / 3) × 64 = 0.4714 × 64</>,
-      answer: <>≈ 30.1704 cubic units</>,
+      substitute: <>(√2 / 3) × 64 = 0.47140 × 64</>,
+      answer: <>≈ 30.1699 cubic units</>,
     },
   },
 ];
