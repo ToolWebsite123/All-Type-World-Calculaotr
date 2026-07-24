@@ -39,6 +39,7 @@ type Mode =
   | "find-b"
   | "find-h"
   | "sides-c-angleA" // a, b, c, ∠A
+  | "sides-d-angleD" // a, b, d, ∠D
   | "angles-A-D" // a, b, ∠A, ∠D
   | "all-sides" // a, b, c, d
   | "isosceles-quick" // a, b, c (c = d)
@@ -153,7 +154,7 @@ function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
   const sol = solveCore(mode, raw);
   if (sol.error) return sol;
   // Non-blocking shape validation for general modes.
-  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "angles-A-D", "all-sides"];
+  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "sides-d-angleD", "angles-A-D", "all-sides"];
   if (generalModes.includes(mode)) {
     if (shape === "isosceles" && sol.c != null && sol.d != null) {
       const denom = Math.max(sol.c, sol.d, 1e-9);
@@ -276,6 +277,39 @@ function solveCore(mode: Mode, raw: Record<string, string>): Solved {
       ];
       return sol;
     }
+
+    case "sides-d-angleD": {
+      // Given a (top base), b (bottom base), d (right leg), ∠D (bottom-right, deg)
+      const a = n("a"), b = n("b"), d = n("d"), Ddeg = n("angleD");
+      if (a === null || b === null || d === null || Ddeg === null)
+        return { error: "Enter a, b, d and angle D." };
+      if (a <= 0 || b <= 0 || d <= 0) return { error: "Sides must be positive." };
+      if (Ddeg <= 0 || Ddeg >= 180) return { error: "Angle D must be between 0° and 180°." };
+      const D = RAD(Ddeg);
+      const h = d * Math.sin(D);
+      // Top-right C sits at (b − d·cos D, h). Top-left B at (x, h) with x = b − a − d·cos D.
+      const x = b - a - d * Math.cos(D);
+      const dxLeft = x; // horizontal from A(0,0) to B
+      const c = Math.hypot(dxLeft, h);
+      if (!(x < b && x + a > 0)) {
+        return {
+          error:
+            "These values don't close into a simple (non-self-intersecting) trapezoid — try a smaller angle D.",
+        };
+      }
+      const sol = fromCanonical(a, b, c, d, h, x);
+      sol.steps = [
+        step("Height from leg d and angle D", <>h = d · sin D = {d} × sin({Ddeg}°) = <strong>{fmt(h)}</strong></>),
+        step("Horizontal offset x", <>x = b − a − d · cos D = <strong>{fmt(x)}</strong></>),
+        step("Left leg c", <>c = √(x² + h²) = <strong>{fmt(c)}</strong></>),
+        step("Angle C (co-interior on leg d)", <>∠C = 180° − ∠D = <strong>{fmtA(sol.angleC)}</strong></>),
+        step("Angle A (from left leg)", <>∠A = atan2(h, x) = <strong>{fmtA(sol.angleA)}</strong></>),
+        step("Angle B", <>∠B = 180° − ∠A = <strong>{fmtA(sol.angleB)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
+
 
     case "angles-A-D": {
       const a = n("a"), b = n("b"), Adeg = n("angleA"), Ddeg = n("angleD");
@@ -681,6 +715,7 @@ const MODE_LABELS: { value: Mode; label: string }[] = [
   { value: "find-b", label: "Find b — given Area, a, h" },
   { value: "find-h", label: "Find h — given Area, a, b" },
   { value: "sides-c-angleA", label: "Full solve — given a, b, c, ∠A" },
+  { value: "sides-d-angleD", label: "Full solve — given a, b, d, ∠D" },
   { value: "angles-A-D", label: "Full solve — given a, b, ∠A, ∠D" },
   { value: "all-sides", label: "Full solve — given all 4 sides" },
   { value: "isosceles-quick", label: "Isosceles — given a, b, c (legs equal)" },
@@ -733,6 +768,12 @@ function Page() {
         { key: "b", label: `Bottom base b (${unit})` },
         { key: "c", label: `Left leg c (${unit})` },
         { key: "angleA", label: `Angle ∠A (degrees)` },
+      ];
+      case "sides-d-angleD": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "d", label: `Right leg d (${unit})` },
+        { key: "angleD", label: `Angle ∠D (degrees)` },
       ];
       case "angles-A-D": return [
         { key: "a", label: `Top base a (${unit})` },
@@ -946,12 +987,30 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="rounded-xl border border-border/60 bg-secondary/30 p-3">
       <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+
         {label}
       </div>
       <div className="mt-0.5 font-serif italic text-foreground">{value}</div>
     </div>
   );
 }
+
+function ModeFormula({ label, lines }: { label: string; lines: ReactNode[] }) {
+  return (
+    <div className="rounded-xl border border-border/60 bg-secondary/20 p-3">
+      <div className="mb-2 font-display text-sm font-semibold text-foreground">
+        {label}
+      </div>
+      <div className="space-y-1">
+        {lines.map((line, i) => (
+          <FormulaBlock key={i}>{line}</FormulaBlock>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 
 /* ------------------------------------------------------------------ */
 /* Extras — educational content rendered below the widget               */
@@ -991,6 +1050,123 @@ function Extras() {
         <FormulaBlock>Height from 4 sides   x = [(b − a)² + c² − d²] / [2(b − a)],   h = √(c² − x²)</FormulaBlock>
         <FormulaBlock>Area from diagonals   A = ½ · p · q · sin θ</FormulaBlock>
       </CalcSection>
+
+      <CalcSection title="All formulas — every calculation mode">
+        <div className="rounded-2xl border border-border/60 bg-background/40 p-4 sm:p-5">
+          <p className="mb-4 text-sm text-muted-foreground">
+            The exact symbolic chain each mode of this calculator evaluates.
+            Same notation as the widget: <em>a</em>, <em>b</em> are the parallel
+            bases, <em>c</em>, <em>d</em> the legs, <em>h</em> the height,{" "}
+            <em>m</em> the midsegment, <em>P</em> the perimeter,{" "}
+            <em>A</em> the area, and <em>x</em> the horizontal offset of the top
+            base from the bottom-left corner.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <ModeFormula
+              label="1. Find Area — given a, b, h"
+              lines={[
+                <>A = ½ (a + b) · h</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="2. Find a — given A, b, h"
+              lines={[
+                <>a = 2A / h − b</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="3. Find b — given A, a, h"
+              lines={[
+                <>b = 2A / h − a</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="4. Find h — given A, a, b"
+              lines={[
+                <>h = 2A / (a + b)</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="5. Full solve — given a, b, c, ∠A"
+              lines={[
+                <>h = c · sin(∠A)</>,
+                <>x = c · cos(∠A)</>,
+                <>d = √((b − x − a)² + h²)</>,
+                <>∠D = atan2(h, b − x − a)</>,
+                <>∠B = 180° − ∠A,  ∠C = 180° − ∠D</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="6. Full solve — given a, b, d, ∠D"
+              lines={[
+                <>h = d · sin(∠D)</>,
+                <>x = b − a − d · cos(∠D)</>,
+                <>c = √(x² + h²)</>,
+                <>∠A = atan2(h, x)</>,
+                <>∠C = 180° − ∠D,  ∠B = 180° − ∠A</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="7. Full solve — given a, b, ∠A, ∠D"
+              lines={[
+                <>h = (b − a) / (cot ∠A + cot ∠D)</>,
+                <>c = h / sin(∠A),  d = h / sin(∠D)</>,
+                <>∠B = 180° − ∠A,  ∠C = 180° − ∠D</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="8. Full solve — given all 4 sides a, b, c, d"
+              lines={[
+                <>x = [(b − a)² + c² − d²] / [2(b − a)]</>,
+                <>h = √(c² − x²)</>,
+                <>m = (a + b)/2,  P = a + b + c + d</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="9. Isosceles quick — given a, b, c (legs equal)"
+              lines={[
+                <>x = (b − a)/2</>,
+                <>h = √(c² − x²)</>,
+                <>∠A = ∠D,  ∠B = ∠C</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="10. Right quick — given a, b, c (vertical leg)"
+              lines={[
+                <>h = c</>,
+                <>d = √((b − a)² + c²)</>,
+                <>∠A = ∠B = 90°</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="11. Area — given diagonals p, q and angle θ"
+              lines={[
+                <>A = ½ · p · q · sin θ</>,
+              ]}
+            />
+            <ModeFormula
+              label="12. From 4 vertex coordinates (shoelace)"
+              lines={[
+                <>A = ½ |Σ (xᵢ yᵢ₊₁ − xᵢ₊₁ yᵢ)|</>,
+                <>h = 2A / (base₁ + base₂)</>,
+                <>m = (base₁ + base₂) / 2</>,
+              ]}
+            />
+          </div>
+        </div>
+      </CalcSection>
+
+
 
       <CalcSection title="What this tool does for you">
         <FeatureList
