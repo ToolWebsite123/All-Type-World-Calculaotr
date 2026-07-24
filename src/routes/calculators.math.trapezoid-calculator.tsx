@@ -854,24 +854,25 @@ function Extras() {
         <p>
           A trapezoid is a four-sided polygon (quadrilateral) with{" "}
           <strong>at least one pair of parallel sides</strong>, called the{" "}
-          <em>bases</em>. The other two sides are the <em>legs</em>. The
+          <em>bases</em>. The other two sides are the <em>legs</em>, and the
           perpendicular distance between the two bases is the <em>height</em>.
         </p>
         <p>
-          Three common variants: a <strong>scalene</strong> trapezoid has legs
-          of different length; an <strong>isosceles</strong> trapezoid has legs
-          of equal length and matching base angles; a{" "}
+          Three common variants appear in practice: a <strong>scalene</strong>{" "}
+          trapezoid has legs of different length; an <strong>isosceles</strong>{" "}
+          trapezoid has legs of equal length and matching base angles; a{" "}
           <strong>right</strong> trapezoid has two 90° angles on the same leg.
-        </p>
-        <p>
-          You'll meet trapezoids in cross-sections of drainage channels and
-          retaining walls, roof trusses, bridge girders, land plots with two
-          parallel boundaries, and any time you approximate an area under a
-          curve numerically (the trapezoidal rule).
+          You'll meet them in drainage channels, retaining walls, roof trusses,
+          bridge girders, land plots with two parallel boundaries, and the
+          trapezoidal rule for numerical integration.
         </p>
       </CalcSection>
 
-      <CalcSection title="Trapezoid formulas">
+      <CalcSection title="Trapezoid, case by case">
+        <GuideCards items={GUIDE} />
+      </CalcSection>
+
+      <CalcSection title="Formulas at a glance">
         <FormulaBlock>Area   A = ½ (a + b) · h</FormulaBlock>
         <FormulaBlock>Perimeter   P = a + b + c + d</FormulaBlock>
         <FormulaBlock>Midsegment   m = (a + b) / 2</FormulaBlock>
@@ -881,29 +882,7 @@ function Extras() {
         <FormulaBlock>Area from diagonals   A = ½ · p · q · sin θ</FormulaBlock>
       </CalcSection>
 
-      <GuideCards items={GUIDE} />
-
-      <CalcSection title="How to calculate the area of a trapezoid">
-        <StepsToggle steps={HOW_TO_AREA} showLabel="Show the steps" hideLabel="Hide the steps" />
-      </CalcSection>
-
-      <CalcSection title="How to find the height of a trapezoid">
-        <StepsToggle steps={HOW_TO_HEIGHT} showLabel="Show the steps" hideLabel="Hide the steps" />
-      </CalcSection>
-
-      <CalcSection title="Worked example — scalene trapezoid">
-        <StepsToggle steps={EX_SCALENE} showLabel="Show working" hideLabel="Hide working" />
-      </CalcSection>
-
-      <CalcSection title="Worked example — isosceles trapezoid">
-        <StepsToggle steps={EX_ISOSCELES} showLabel="Show working" hideLabel="Hide working" />
-      </CalcSection>
-
-      <CalcSection title="Worked example — right trapezoid">
-        <StepsToggle steps={EX_RIGHT} showLabel="Show working" hideLabel="Hide working" />
-      </CalcSection>
-
-      <CalcSection title="Features">
+      <CalcSection title="What this tool does for you">
         <FeatureList
           items={[
             "Nine calculation modes — from a simple A = ½(a+b)h to a full solve from 4 vertex coordinates",
@@ -933,8 +912,6 @@ function Extras() {
     </>
   );
 }
-
-
 
 const FAQ: { q: string; a: ReactNode }[] = [
   {
@@ -999,35 +976,3 @@ const FAQ: { q: string; a: ReactNode }[] = [
   },
 ];
 
-const HOW_TO_AREA: Step[] = [
-  { title: "Identify the two parallel bases", body: <>Label them a (top) and b (bottom). Only these two sides matter for the average.</> },
-  { title: "Measure the perpendicular height h", body: <>Not the slanted leg — the straight-line distance between the two bases.</> },
-  { title: "Apply the formula", body: <>A = ½ (a + b) · h. That's it.</> },
-];
-
-const HOW_TO_HEIGHT: Step[] = [
-  { title: "Difference of the bases", body: <>Compute b − a. This is the total horizontal offset spread across the two legs.</> },
-  { title: "Solve for x", body: <>x = [(b − a)² + c² − d²] / [2(b − a)]. This is how far the shorter base's foot sits from the longer base's endpoint on the c side.</> },
-  { title: "Pythagoras", body: <>h = √(c² − x²). If the value under the root is negative, the four sides cannot close into a trapezoid.</> },
-];
-
-const EX_SCALENE: Step[] = [
-  { title: "Given", body: <>a = 5, b = 12, c = 4, d = 6 (all in cm).</> },
-  { title: "Horizontal offset", body: <>x = [(12 − 5)² + 4² − 6²] / [2 × 7] = [49 + 16 − 36] / 14 = 29/14 ≈ 2.071 cm.</> },
-  { title: "Height", body: <>h = √(4² − 2.071²) = √(16 − 4.29) ≈ 3.421 cm.</> },
-  { title: "Area", body: <>A = ½ (5 + 12) × 3.421 ≈ 29.08 cm².</> },
-];
-
-const EX_ISOSCELES: Step[] = [
-  { title: "Given", body: <>a = 6, b = 10, c = d = 5 (cm). By symmetry x = (b − a)/2 = 2.</> },
-  { title: "Height", body: <>h = √(5² − 2²) = √21 ≈ 4.583 cm.</> },
-  { title: "Area", body: <>A = ½ (6 + 10) × 4.583 ≈ 36.66 cm².</> },
-  { title: "Diagonals", body: <>By symmetry p = q = √((b − x)² + h²) = √(8² + 21) = √85 ≈ 9.220 cm.</> },
-];
-
-const EX_RIGHT: Step[] = [
-  { title: "Given", body: <>Right trapezoid with a = 6, b = 10, c = 4 (vertical leg), so h = c = 4.</> },
-  { title: "Right leg d", body: <>Horizontal run of the slanted leg = b − a = 4, so d = √(4² + 4²) = √32 ≈ 5.657 cm.</> },
-  { title: "Area", body: <>A = ½ (6 + 10) × 4 = 32 cm².</> },
-  { title: "Angles", body: <>∠A = ∠B = 90°. ∠D = atan2(4, 4) = 45°, so ∠C = 135°.</> },
-];
