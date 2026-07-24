@@ -395,6 +395,48 @@ function ExRow({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+/** One card in an "All formulas — every calculation mode" grid.
+ *  Renders a labelled bordered tile with each formula line on its own row. */
+export function ModeFormula({
+  label,
+  lines,
+}: {
+  label: string;
+  lines: ReactNode[];
+}) {
+  return (
+    <div className="rounded-xl border border-border/60 bg-secondary/20 p-3">
+      <div className="mb-2 font-display text-sm font-semibold text-foreground">
+        {label}
+      </div>
+      <div className="space-y-1">
+        {lines.map((line, i) => (
+          <FormulaBlock key={i}>{line}</FormulaBlock>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Wrapper: renders the "All formulas — every calculation mode" section
+ *  in the standard bordered container with a 2-column grid. */
+export function AllFormulasSection({
+  intro,
+  children,
+}: {
+  intro?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-background/40 p-4 sm:p-5">
+      {intro && (
+        <p className="mb-4 text-sm text-muted-foreground">{intro}</p>
+      )}
+      <div className="grid gap-4 md:grid-cols-2">{children}</div>
+    </div>
+  );
+}
+
 
 export function CalcFAQ({
   items,
