@@ -16,6 +16,8 @@ import {
   StackedMath,
   GuideCards,
   type GuideCardItem,
+  AllFormulasSection,
+  ModeFormula,
 } from "@/components/MathCalcPage";
 import { ReferenceTable } from "@/components/ReferenceTable";
 
