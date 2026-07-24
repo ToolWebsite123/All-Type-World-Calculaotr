@@ -578,14 +578,150 @@ function TrapezoidSVG({
 /* Guide cards                                                          */
 /* ------------------------------------------------------------------ */
 
-function MiniTrap() {
+type TrapSide = "a" | "b" | "c" | "d";
+type TrapAngle = "A" | "B" | "C" | "D";
+
+function MiniTrap({
+  knownSides = [],
+  knownAngles = [],
+  showMidsegment = false,
+  showHeight = false,
+  rightAngles = [],
+}: {
+  knownSides?: TrapSide[];
+  knownAngles?: TrapAngle[];
+  showMidsegment?: boolean;
+  showHeight?: boolean;
+  rightAngles?: TrapAngle[];
+}) {
+  // Vertex convention matches TrapezoidSVG: A bottom-left, B top-left,
+  // C top-right, D bottom-right. Sides: a = BC (top), b = DA (bottom),
+  // c = AB (left leg), d = CD (right leg).
+  const A = { x: 30, y: 110 };
+  const B = { x: 70, y: 30 };
+  const C = { x: 150, y: 30 };
+  const D = { x: 190, y: 110 };
+
+  const sideCls = (id: TrapSide) =>
+    knownSides.includes(id) ? "stroke-primary" : "stroke-border";
+  const sideW = (id: TrapSide) => (knownSides.includes(id) ? 2.5 : 1.5);
+  const sideLabelCls = (id: TrapSide) =>
+    knownSides.includes(id)
+      ? "fill-primary font-semibold"
+      : "fill-muted-foreground";
+  const angArc = (id: TrapAngle) =>
+    knownAngles.includes(id) ? "stroke-primary" : "stroke-muted-foreground";
+  const angShow = (id: TrapAngle) =>
+    knownAngles.includes(id) || rightAngles.includes(id);
+
+  // Midsegment endpoints: midpoints of the two legs (AB and CD)
+  const mAB = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+  const mCD = { x: (C.x + D.x) / 2, y: (C.y + D.y) / 2 };
+
   return (
-    <svg role="img" aria-label="Trapezoid diagram" viewBox="0 0 200 130" className="w-full max-w-[240px]">
-      <polygon points="30,110 70,30 150,30 190,110" className="fill-primary/10 stroke-primary" strokeWidth={2} />
-      <line x1="70" y1="30" x2="70" y2="110" strokeDasharray="4 4" className="stroke-muted-foreground" strokeWidth={1} />
-      <text x="110" y="24" textAnchor="middle" fontSize="12" fontFamily="serif" fontStyle="italic" className="fill-foreground">a</text>
-      <text x="110" y="124" textAnchor="middle" fontSize="12" fontFamily="serif" fontStyle="italic" className="fill-foreground">b</text>
-      <text x="82" y="72" fontSize="12" fontFamily="serif" fontStyle="italic" className="fill-foreground">h</text>
+    <svg
+      role="img"
+      aria-label="Trapezoid diagram with known parts highlighted"
+      viewBox="0 0 220 140"
+      className="mx-auto h-auto w-full max-w-[260px]"
+    >
+      {/* fill */}
+      <polygon
+        points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y} ${D.x},${D.y}`}
+        className="fill-primary/10"
+      />
+      {/* sides */}
+      <line x1={B.x} y1={B.y} x2={C.x} y2={C.y} className={sideCls("a")} strokeWidth={sideW("a")} />
+      <line x1={D.x} y1={D.y} x2={A.x} y2={A.y} className={sideCls("b")} strokeWidth={sideW("b")} />
+      <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} className={sideCls("c")} strokeWidth={sideW("c")} />
+      <line x1={C.x} y1={C.y} x2={D.x} y2={D.y} className={sideCls("d")} strokeWidth={sideW("d")} />
+
+      {/* Height guide (from B straight down to bottom base) */}
+      {showHeight && (
+        <>
+          <line
+            x1={B.x}
+            y1={B.y}
+            x2={B.x}
+            y2={A.y}
+            className="stroke-muted-foreground"
+            strokeWidth={1}
+            strokeDasharray="4 4"
+          />
+          <text
+            x={B.x + 4}
+            y={(B.y + A.y) / 2}
+            className="fill-muted-foreground text-[10px]"
+            fontFamily="serif"
+            fontStyle="italic"
+          >
+            h
+          </text>
+        </>
+      )}
+
+      {/* Midsegment */}
+      {showMidsegment && (
+        <>
+          <line
+            x1={mAB.x}
+            y1={mAB.y}
+            x2={mCD.x}
+            y2={mCD.y}
+            className="stroke-primary"
+            strokeWidth={1.5}
+            strokeDasharray="5 3"
+          />
+          <text
+            x={(mAB.x + mCD.x) / 2}
+            y={(mAB.y + mCD.y) / 2 - 3}
+            textAnchor="middle"
+            className="fill-primary text-[10px] font-semibold"
+            fontFamily="serif"
+            fontStyle="italic"
+          >
+            m
+          </text>
+        </>
+      )}
+
+      {/* Angle arcs */}
+      {angShow("A") &&
+        (rightAngles.includes("A") ? (
+          <rect x={A.x} y={A.y - 10} width={10} height={10} className={`fill-transparent ${angArc("A")}`} />
+        ) : (
+          <path d={`M ${A.x + 14} ${A.y} A 14 14 0 0 0 ${A.x + 11} ${A.y - 9}`} className={`fill-transparent ${angArc("A")}`} strokeWidth={1.5} />
+        ))}
+      {angShow("B") &&
+        (rightAngles.includes("B") ? (
+          <rect x={B.x} y={B.y} width={10} height={10} className={`fill-transparent ${angArc("B")}`} />
+        ) : (
+          <path d={`M ${B.x + 14} ${B.y} A 14 14 0 0 1 ${B.x + 11} ${B.y + 9}`} className={`fill-transparent ${angArc("B")}`} strokeWidth={1.5} />
+        ))}
+      {angShow("C") &&
+        (rightAngles.includes("C") ? (
+          <rect x={C.x - 10} y={C.y} width={10} height={10} className={`fill-transparent ${angArc("C")}`} />
+        ) : (
+          <path d={`M ${C.x - 14} ${C.y} A 14 14 0 0 0 ${C.x - 11} ${C.y + 9}`} className={`fill-transparent ${angArc("C")}`} strokeWidth={1.5} />
+        ))}
+      {angShow("D") &&
+        (rightAngles.includes("D") ? (
+          <rect x={D.x - 10} y={D.y - 10} width={10} height={10} className={`fill-transparent ${angArc("D")}`} />
+        ) : (
+          <path d={`M ${D.x - 14} ${D.y} A 14 14 0 0 1 ${D.x - 11} ${D.y - 9}`} className={`fill-transparent ${angArc("D")}`} strokeWidth={1.5} />
+        ))}
+
+      {/* Vertex labels */}
+      <text x={A.x - 8} y={A.y + 10} className="fill-foreground text-[10px]" fontFamily="serif" fontStyle="italic">A</text>
+      <text x={B.x - 8} y={B.y - 2} className="fill-foreground text-[10px]" fontFamily="serif" fontStyle="italic">B</text>
+      <text x={C.x + 3} y={C.y - 2} className="fill-foreground text-[10px]" fontFamily="serif" fontStyle="italic">C</text>
+      <text x={D.x + 3} y={D.y + 10} className="fill-foreground text-[10px]" fontFamily="serif" fontStyle="italic">D</text>
+
+      {/* Side labels */}
+      <text x={(B.x + C.x) / 2} y={B.y - 6} textAnchor="middle" className={`text-[11px] ${sideLabelCls("a")}`} fontFamily="serif" fontStyle="italic">a</text>
+      <text x={(A.x + D.x) / 2} y={A.y + 14} textAnchor="middle" className={`text-[11px] ${sideLabelCls("b")}`} fontFamily="serif" fontStyle="italic">b</text>
+      <text x={(A.x + B.x) / 2 - 10} y={(A.y + B.y) / 2 + 4} textAnchor="middle" className={`text-[11px] ${sideLabelCls("c")}`} fontFamily="serif" fontStyle="italic">c</text>
+      <text x={(C.x + D.x) / 2 + 10} y={(C.y + D.y) / 2 + 4} textAnchor="middle" className={`text-[11px] ${sideLabelCls("d")}`} fontFamily="serif" fontStyle="italic">d</text>
     </svg>
   );
 }
@@ -606,7 +742,7 @@ const GUIDE: GuideCardItem[] = [
       { sym: "a, b", def: "the two parallel bases" },
       { sym: "h", def: "perpendicular height between bases" },
     ],
-    diagram: <MiniTrap />,
+    diagram: <MiniTrap knownSides={["a", "b"]} showHeight />,
     example: {
       given: <>a = 6, b = 10, h = 4</>,
       substitute: <>A = ½ (6 + 10) × 4 = ½ × 16 × 4</>,
@@ -634,7 +770,7 @@ const GUIDE: GuideCardItem[] = [
       { sym: "b", def: "bottom base" },
       { sym: "c, d", def: "left and right legs" },
     ],
-    diagram: <MiniTrap />,
+    diagram: <MiniTrap knownSides={["a", "b", "c", "d"]} showHeight />,
     example: {
       given: <>a = 6, b = 10, c = 5, d = 5</>,
       substitute: <>x = [(10 − 6)² + 5² − 5²] / [2 × 4] = 16/8 = 2</>,
@@ -653,7 +789,7 @@ const GUIDE: GuideCardItem[] = [
     ),
     formula: <>m = (a + b) / 2</>,
     legend: [{ sym: "m", def: "midsegment length" }],
-    diagram: <MiniTrap />,
+    diagram: <MiniTrap knownSides={["a", "b"]} showMidsegment />,
     example: {
       given: <>a = 6, b = 10</>,
       substitute: <>m = (6 + 10) / 2</>,
@@ -677,11 +813,129 @@ const GUIDE: GuideCardItem[] = [
       </>
     ),
     legend: [{ sym: "∠A, ∠B, ∠C, ∠D", def: "interior angles at vertices" }],
-    diagram: <MiniTrap />,
+    diagram: <MiniTrap knownAngles={["A", "B"]} />,
     example: {
       given: <>∠A = 70°</>,
       substitute: <>∠B = 180° − 70°</>,
       answer: <>∠B = 110°</>,
+    },
+  },
+  {
+    key: "leg-angle",
+    title: "Full solve from a leg + base angle",
+    explain: (
+      <>
+        Given both bases, one leg, and the base angle at that leg's foot, you can
+        recover the height and the remaining leg. Drop a perpendicular from the
+        top base and use right-triangle trigonometry.
+      </>
+    ),
+    formula: (
+      <>
+        h = c · sin(A)<br />
+        x = c · cos(A)<br />
+        d = √(h² + (b − a − x)²)
+      </>
+    ),
+    legend: [
+      { sym: "c", def: "known leg (AB)" },
+      { sym: "A", def: "base angle at vertex A" },
+      { sym: "x", def: "horizontal offset of the top base" },
+    ],
+    diagram: <MiniTrap knownSides={["a", "b", "c"]} knownAngles={["A"]} showHeight />,
+    example: {
+      given: <>a = 6, b = 10, c = 5, ∠A = 70°</>,
+      substitute: <>h = 5 · sin 70° ≈ 4.698; x = 5 · cos 70° ≈ 1.710</>,
+      answer: <>d ≈ √(4.698² + 2.290²) ≈ 5.227</>,
+    },
+  },
+  {
+    key: "two-base-angles",
+    title: "Full solve from both base angles",
+    explain: (
+      <>
+        With both bases and both angles at the longer base, the two legs and the
+        height follow from the horizontal split of the trapezoid into a rectangle
+        flanked by two right triangles.
+      </>
+    ),
+    formula: (
+      <>
+        h = (b − a) / (cot A + cot D)<br />
+        c = h / sin A<br />
+        d = h / sin D
+      </>
+    ),
+    legend: [
+      { sym: "A, D", def: "base angles at the longer base" },
+      { sym: "c, d", def: "left and right legs" },
+    ],
+    diagram: <MiniTrap knownSides={["a", "b"]} knownAngles={["A", "D"]} showHeight />,
+    example: {
+      given: <>a = 6, b = 10, ∠A = 70°, ∠D = 60°</>,
+      substitute: <>h = 4 / (cot 70° + cot 60°) ≈ 4 / (0.364 + 0.577)</>,
+      answer: <>h ≈ 4.251; c ≈ 4.523; d ≈ 4.908</>,
+    },
+  },
+  {
+    key: "isosceles-quick",
+    title: "Isosceles quick mode",
+    explain: (
+      <>
+        An isosceles trapezoid has equal legs (c = d) and equal base angles. Give
+        both bases and one leg and everything else — height, diagonals, area — is
+        determined.
+      </>
+    ),
+    formula: (
+      <>
+        x = (b − a) / 2<br />
+        h = √(c² − x²)
+      </>
+    ),
+    legend: [
+      { sym: "c = d", def: "the two equal legs" },
+      { sym: "x", def: "horizontal offset at each base" },
+    ],
+    diagram: <MiniTrap knownSides={["a", "b", "c"]} showHeight />,
+    example: {
+      given: <>a = 6, b = 10, c = 5 (so d = 5)</>,
+      substitute: <>x = (10 − 6) / 2 = 2; h = √(25 − 4)</>,
+      answer: <>h = √21 ≈ 4.583</>,
+    },
+  },
+  {
+    key: "right-quick",
+    title: "Right quick mode",
+    explain: (
+      <>
+        A right trapezoid has two adjacent right angles on one leg. That leg is
+        the height, and the remaining slanted leg is found from the base
+        difference by the Pythagorean theorem.
+      </>
+    ),
+    formula: (
+      <>
+        h = c<br />
+        d = √(h² + (b − a)²)
+      </>
+    ),
+    legend: [
+      { sym: "c", def: "the perpendicular leg (= height)" },
+      { sym: "d", def: "the slanted leg" },
+    ],
+    diagram: (
+      <MiniTrap
+        knownSides={["a", "b", "c"]}
+        knownAngles={["A", "B"]}
+        rightAngles={["A", "B"]}
+        showHeight
+      />
+    ),
+    example: {
+      given: <>a = 6, b = 10, c = 4</>,
+      substitute: <>h = 4; d = √(4² + 4²) = √32</>,
+      answer: <>d ≈ 5.657</>,
     },
   },
 ];
