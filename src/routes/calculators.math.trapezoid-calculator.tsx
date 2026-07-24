@@ -859,8 +859,14 @@ function Page() {
 
       {result && !result.error && (
         <>
+          {result.warning && (
+            <div className="mt-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-700 dark:text-amber-300">
+              {result.warning}
+            </div>
+          )}
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div>
+
               <TrapezoidSVG shape={shape} sol={result} unit={unit} />
             </div>
             <div className="grid grid-cols-2 gap-3">
