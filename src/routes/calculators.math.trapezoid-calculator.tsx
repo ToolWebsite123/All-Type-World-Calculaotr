@@ -41,8 +41,11 @@ type Mode =
   | "sides-c-angleA" // a, b, c, ∠A
   | "angles-A-D" // a, b, ∠A, ∠D
   | "all-sides" // a, b, c, d
+  | "isosceles-quick" // a, b, c (c = d)
+  | "right-quick" // a, b, c (c = h, ∠A = ∠B = 90°)
   | "diagonals" // p, q, θ between diagonals
   | "coords"; // 4 vertices
+
 
 interface Solved {
   a?: number;
@@ -62,8 +65,10 @@ interface Solved {
   /** Local vertex coords in geometry space (A bottom-left origin). */
   verts?: [number, number][];
   steps?: Step[];
+  warning?: string;
   error?: string;
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Helpers                                                             */
@@ -144,8 +149,34 @@ function fromCanonical(a: number, b: number, c: number, d: number, h: number, x:
 /* Solve                                                                */
 /* ------------------------------------------------------------------ */
 
-function solve(mode: Mode, raw: Record<string, string>): Solved {
+function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
+  const sol = solveCore(mode, raw);
+  if (sol.error) return sol;
+  // Non-blocking shape validation for general modes.
+  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "angles-A-D", "all-sides"];
+  if (generalModes.includes(mode)) {
+    if (shape === "isosceles" && sol.c != null && sol.d != null) {
+      const denom = Math.max(sol.c, sol.d, 1e-9);
+      if (Math.abs(sol.c - sol.d) / denom > 1e-6) {
+        sol.warning = `Note: these values don't form an isosceles trapezoid (legs differ: c = ${fmt(sol.c)}, d = ${fmt(sol.d)}). Switch to the Isosceles quick mode, or pick Scalene.`;
+      }
+    }
+    if (shape === "right" && sol.angleA != null && sol.angleB != null) {
+      const okA = Math.abs(DEG(sol.angleA) - 90) < 0.5;
+      const okB = Math.abs(DEG(sol.angleB) - 90) < 0.5;
+      if (!okA && !okB) {
+        sol.warning =
+          "Note: these values don't produce a right angle. Switch to the Right quick mode, or pick Scalene.";
+      }
+    }
+  }
+  return sol;
+}
+
+function solveCore(mode: Mode, raw: Record<string, string>): Solved {
   const n = (k: string) => num(raw[k] ?? "");
+
+
 
   switch (mode) {
     case "area-abh": {
@@ -224,7 +255,15 @@ function solve(mode: Mode, raw: Record<string, string>): Solved {
       // Top-right at (x+a, h); bottom-right at (b, 0). d = distance
       const dx = b - x - a;
       const d = Math.hypot(dx, h);
-      if (d <= 0) return { error: "Geometry does not close into a valid trapezoid." };
+      // Reject self-intersecting/degenerate layouts:
+      //   Top-left B must sit strictly left of bottom-right D → x < b
+      //   Top-right (x + a) must sit strictly right of bottom-left A → x + a > 0
+      if (!(x < b && x + a > 0)) {
+        return {
+          error:
+            "These values don't close into a simple (non-self-intersecting) trapezoid — try a smaller angle A.",
+        };
+      }
       const sol = fromCanonical(a, b, c, d, h, x);
       sol.steps = [
         step("Height from leg c and angle A", <>h = c · sin A = {c} × sin({Adeg}°) = <strong>{fmt(h)}</strong></>),
@@ -237,6 +276,7 @@ function solve(mode: Mode, raw: Record<string, string>): Solved {
       ];
       return sol;
     }
+
     case "angles-A-D": {
       const a = n("a"), b = n("b"), Adeg = n("angleA"), Ddeg = n("angleD");
       if (a === null || b === null || Adeg === null || Ddeg === null)
@@ -285,7 +325,46 @@ function solve(mode: Mode, raw: Record<string, string>): Solved {
       ];
       return sol;
     }
+    case "isosceles-quick": {
+      const a = n("a"), b = n("b"), c = n("c");
+      if (a === null || b === null || c === null)
+        return { error: "Enter both bases (a, b) and the leg length c." };
+      if (a <= 0 || b <= 0 || c <= 0) return { error: "Bases and leg must be positive." };
+      const x = (b - a) / 2;
+      const under = c * c - x * x;
+      if (under <= 0)
+        return { error: "Leg c is too short to reach across the bases — check the values." };
+      const h = Math.sqrt(under);
+      const sol = fromCanonical(a, b, c, c, h, x);
+      sol.steps = [
+        step("Symmetry", <>Legs are equal, so d = c and each base overhang is x = (b − a) / 2.</>),
+        step("Horizontal offset x", <>x = ({b} − {a}) / 2 = <strong>{fmt(x)}</strong></>),
+        step("Height", <>h = √(c² − x²) = √({fmt(c * c)} − {fmt(x * x)}) = <strong>{fmt(h)}</strong></>),
+        step("Angles", <>∠A = ∠D = <strong>{fmtA(sol.angleA)}</strong>, ∠B = ∠C = <strong>{fmtA(sol.angleB)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
+    case "right-quick": {
+      const a = n("a"), b = n("b"), c = n("c");
+      if (a === null || b === null || c === null)
+        return { error: "Enter both bases (a, b) and the vertical leg c." };
+      if (a <= 0 || b <= 0 || c <= 0) return { error: "Bases and leg must be positive." };
+      const h = c;
+      const x = 0;
+      const d = Math.hypot(b - a, h);
+      const sol = fromCanonical(a, b, c, d, h, x);
+      sol.steps = [
+        step("Right angles", <>Leg c is perpendicular to both bases, so ∠A = ∠B = 90° and h = c = <strong>{fmt(h)}</strong>.</>),
+        step("Slanted leg d", <>d = √((b − a)² + c²) = √({fmt((b - a) * (b - a))} + {fmt(c * c)}) = <strong>{fmt(d)}</strong></>),
+        step("Angle D", <>∠D = atan2(h, b − a) = <strong>{fmtA(sol.angleD)}</strong></>),
+        step("Angle C", <>∠C = 180° − ∠D = <strong>{fmtA(sol.angleC)}</strong></>),
+        step("Area", <>A = ½(a + b)h = <strong>{fmt(sol.Area!)}</strong></>),
+      ];
+      return sol;
+    }
     case "diagonals": {
+
       const p = n("p"), q = n("q"), thetaDeg = n("theta");
       if (p === null || q === null || thetaDeg === null)
         return { error: "Enter both diagonals p and q, and the angle θ between them." };
@@ -604,9 +683,12 @@ const MODE_LABELS: { value: Mode; label: string }[] = [
   { value: "sides-c-angleA", label: "Full solve — given a, b, c, ∠A" },
   { value: "angles-A-D", label: "Full solve — given a, b, ∠A, ∠D" },
   { value: "all-sides", label: "Full solve — given all 4 sides" },
+  { value: "isosceles-quick", label: "Isosceles — given a, b, c (legs equal)" },
+  { value: "right-quick", label: "Right — given a, b, c (vertical leg)" },
   { value: "diagonals", label: "Area — given diagonals p, q and angle θ" },
   { value: "coords", label: "From 4 vertex coordinates (shoelace)" },
 ];
+
 
 const UNITS: Unit[] = ["mm", "cm", "m", "km", "in", "ft", "yd"];
 
@@ -620,7 +702,7 @@ function Page() {
   const [price, setPrice] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const result = useMemo(() => (submitted ? solve(mode, inputs) : null), [submitted, mode, inputs]);
+  const result = useMemo(() => (submitted ? solve(mode, shape, inputs) : null), [submitted, mode, shape, inputs]);
 
   const setIn = (k: string, v: string) => setInputs((s) => ({ ...s, [k]: v }));
 
@@ -664,6 +746,17 @@ function Page() {
         { key: "c", label: `Left leg c (${unit})` },
         { key: "d", label: `Right leg d (${unit})` },
       ];
+      case "isosceles-quick": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "c", label: `Leg length c (${unit})`, hint: "Both legs equal (c = d)" },
+      ];
+      case "right-quick": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "c", label: `Vertical leg c (${unit})`, hint: "Perpendicular to both bases (= height)" },
+      ];
+
       case "diagonals": return [
         { key: "p", label: `Diagonal p (${unit})` },
         { key: "q", label: `Diagonal q (${unit})` },
@@ -696,7 +789,17 @@ function Page() {
         <Field label="Trapezoid type">
           <select
             value={shape}
-            onChange={(e) => setShape(e.target.value as Shape)}
+            onChange={(e) => {
+              const next = e.target.value as Shape;
+              setShape(next);
+              if (next === "isosceles") {
+                setMode("isosceles-quick");
+                setSubmitted(false);
+              } else if (next === "right") {
+                setMode("right-quick");
+                setSubmitted(false);
+              }
+            }}
             className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base"
           >
             <option value="scalene">Scalene</option>
@@ -704,6 +807,7 @@ function Page() {
             <option value="right">Right</option>
           </select>
         </Field>
+
         <Field label="Choose a calculation">
           <select
             value={mode}
@@ -755,8 +859,14 @@ function Page() {
 
       {result && !result.error && (
         <>
+          {result.warning && (
+            <div className="mt-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-700 dark:text-amber-300">
+              {result.warning}
+            </div>
+          )}
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div>
+
               <TrapezoidSVG shape={shape} sol={result} unit={unit} />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -937,6 +1047,23 @@ const FAQ: { q: string; a: ReactNode }[] = [
       </>
     ),
   },
+  {
+    q: "When should I use the Isosceles or Right quick modes?",
+    a: (
+      <>
+        Pick these when you already know the shape is symmetric or has a
+        perpendicular leg. The <strong>Isosceles quick</strong> mode takes just
+        the two bases and one leg length (both legs equal), and derives the
+        height, second leg and all four angles automatically. The{" "}
+        <strong>Right quick</strong> mode treats the entered leg c as the
+        vertical side (so ∠A = ∠B = 90° and h = c), then computes the slanted
+        leg d and the remaining angles. Selecting "Isosceles" or "Right" from
+        the Trapezoid type dropdown switches you into the matching quick mode
+        automatically.
+      </>
+    ),
+  },
+
   {
     q: "How do the diagonals relate to the area?",
     a: (
