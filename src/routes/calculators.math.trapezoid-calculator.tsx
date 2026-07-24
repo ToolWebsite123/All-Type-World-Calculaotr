@@ -154,7 +154,7 @@ function solve(mode: Mode, shape: Shape, raw: Record<string, string>): Solved {
   const sol = solveCore(mode, raw);
   if (sol.error) return sol;
   // Non-blocking shape validation for general modes.
-  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "angles-A-D", "all-sides"];
+  const generalModes: Mode[] = ["area-abh", "sides-c-angleA", "sides-d-angleD", "angles-A-D", "all-sides"];
   if (generalModes.includes(mode)) {
     if (shape === "isosceles" && sol.c != null && sol.d != null) {
       const denom = Math.max(sol.c, sol.d, 1e-9);
