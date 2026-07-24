@@ -2327,6 +2327,7 @@ function AreaEducation() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
+            { to: "/calculators/math/trapezoid-calculator", label: "Trapezoid Calculator" },
             { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator" },
             { to: "/calculators/math", label: "All Math Calculators" },
             { to: "/calculators/math/root-calculator", label: "Square Root Calculator" },
