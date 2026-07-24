@@ -1033,6 +1033,123 @@ function Extras() {
         <FormulaBlock>Area from diagonals   A = ½ · p · q · sin θ</FormulaBlock>
       </CalcSection>
 
+      <CalcSection title="All formulas — every calculation mode">
+        <div className="rounded-2xl border border-border/60 bg-background/40 p-4 sm:p-5">
+          <p className="mb-4 text-sm text-muted-foreground">
+            The exact symbolic chain each mode of this calculator evaluates.
+            Same notation as the widget: <em>a</em>, <em>b</em> are the parallel
+            bases, <em>c</em>, <em>d</em> the legs, <em>h</em> the height,{" "}
+            <em>m</em> the midsegment, <em>P</em> the perimeter,{" "}
+            <em>A</em> the area, and <em>x</em> the horizontal offset of the top
+            base from the bottom-left corner.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <ModeFormula
+              label="1. Find Area — given a, b, h"
+              lines={[
+                <>A = ½ (a + b) · h</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="2. Find a — given A, b, h"
+              lines={[
+                <>a = 2A / h − b</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="3. Find b — given A, a, h"
+              lines={[
+                <>b = 2A / h − a</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="4. Find h — given A, a, b"
+              lines={[
+                <>h = 2A / (a + b)</>,
+                <>m = (a + b) / 2</>,
+              ]}
+            />
+            <ModeFormula
+              label="5. Full solve — given a, b, c, ∠A"
+              lines={[
+                <>h = c · sin(∠A)</>,
+                <>x = c · cos(∠A)</>,
+                <>d = √((b − x − a)² + h²)</>,
+                <>∠D = atan2(h, b − x − a)</>,
+                <>∠B = 180° − ∠A,  ∠C = 180° − ∠D</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="6. Full solve — given a, b, d, ∠D"
+              lines={[
+                <>h = d · sin(∠D)</>,
+                <>x = b − a − d · cos(∠D)</>,
+                <>c = √(x² + h²)</>,
+                <>∠A = atan2(h, x)</>,
+                <>∠C = 180° − ∠D,  ∠B = 180° − ∠A</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="7. Full solve — given a, b, ∠A, ∠D"
+              lines={[
+                <>h = (b − a) / (cot ∠A + cot ∠D)</>,
+                <>c = h / sin(∠A),  d = h / sin(∠D)</>,
+                <>∠B = 180° − ∠A,  ∠C = 180° − ∠D</>,
+                <>A = ½(a + b)h,  P = a + b + c + d,  m = (a + b)/2</>,
+              ]}
+            />
+            <ModeFormula
+              label="8. Full solve — given all 4 sides a, b, c, d"
+              lines={[
+                <>x = [(b − a)² + c² − d²] / [2(b − a)]</>,
+                <>h = √(c² − x²)</>,
+                <>m = (a + b)/2,  P = a + b + c + d</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="9. Isosceles quick — given a, b, c (legs equal)"
+              lines={[
+                <>x = (b − a)/2</>,
+                <>h = √(c² − x²)</>,
+                <>∠A = ∠D,  ∠B = ∠C</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="10. Right quick — given a, b, c (vertical leg)"
+              lines={[
+                <>h = c</>,
+                <>d = √((b − a)² + c²)</>,
+                <>∠A = ∠B = 90°</>,
+                <>A = ½(a + b)h</>,
+              ]}
+            />
+            <ModeFormula
+              label="11. Area — given diagonals p, q and angle θ"
+              lines={[
+                <>A = ½ · p · q · sin θ</>,
+              ]}
+            />
+            <ModeFormula
+              label="12. From 4 vertex coordinates (shoelace)"
+              lines={[
+                <>A = ½ |Σ (xᵢ yᵢ₊₁ − xᵢ₊₁ yᵢ)|</>,
+                <>h = 2A / (base₁ + base₂)</>,
+                <>m = (base₁ + base₂) / 2</>,
+              ]}
+            />
+          </div>
+        </div>
+      </CalcSection>
+
+
+
       <CalcSection title="What this tool does for you">
         <FeatureList
           items={[
