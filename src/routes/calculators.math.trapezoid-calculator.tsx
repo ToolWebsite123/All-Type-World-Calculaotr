@@ -843,23 +843,98 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
-/* Note: page-level extras are rendered by MathCalcPage's `extras` slot.
- * We render them alongside the widget through a wrapper below. */
+/* ------------------------------------------------------------------ */
+/* Extras — educational content rendered below the widget               */
+/* ------------------------------------------------------------------ */
 
-// Re-export a wrapper so we can pass extras to MathCalcPage.
-export function PageExtras() {
-  return null;
+function Extras() {
+  return (
+    <>
+      <CalcSection title="What is a trapezoid?">
+        <p>
+          A trapezoid is a four-sided polygon (quadrilateral) with{" "}
+          <strong>at least one pair of parallel sides</strong>, called the{" "}
+          <em>bases</em>. The other two sides are the <em>legs</em>. The
+          perpendicular distance between the two bases is the <em>height</em>.
+        </p>
+        <p>
+          Three common variants: a <strong>scalene</strong> trapezoid has legs
+          of different length; an <strong>isosceles</strong> trapezoid has legs
+          of equal length and matching base angles; a{" "}
+          <strong>right</strong> trapezoid has two 90° angles on the same leg.
+        </p>
+        <p>
+          You'll meet trapezoids in cross-sections of drainage channels and
+          retaining walls, roof trusses, bridge girders, land plots with two
+          parallel boundaries, and any time you approximate an area under a
+          curve numerically (the trapezoidal rule).
+        </p>
+      </CalcSection>
+
+      <CalcSection title="Trapezoid formulas">
+        <FormulaBlock>Area   A = ½ (a + b) · h</FormulaBlock>
+        <FormulaBlock>Perimeter   P = a + b + c + d</FormulaBlock>
+        <FormulaBlock>Midsegment   m = (a + b) / 2</FormulaBlock>
+        <FormulaBlock>Height from a leg   h = c · sin(∠A) = d · sin(∠D)</FormulaBlock>
+        <FormulaBlock>Co-interior pairs   ∠A + ∠B = 180°,   ∠C + ∠D = 180°</FormulaBlock>
+        <FormulaBlock>Height from 4 sides   x = [(b − a)² + c² − d²] / [2(b − a)],   h = √(c² − x²)</FormulaBlock>
+        <FormulaBlock>Area from diagonals   A = ½ · p · q · sin θ</FormulaBlock>
+      </CalcSection>
+
+      <GuideCards items={GUIDE} />
+
+      <CalcSection title="How to calculate the area of a trapezoid">
+        <StepsToggle steps={HOW_TO_AREA} showLabel="Show the steps" hideLabel="Hide the steps" />
+      </CalcSection>
+
+      <CalcSection title="How to find the height of a trapezoid">
+        <StepsToggle steps={HOW_TO_HEIGHT} showLabel="Show the steps" hideLabel="Hide the steps" />
+      </CalcSection>
+
+      <CalcSection title="Worked example — scalene trapezoid">
+        <StepsToggle steps={EX_SCALENE} showLabel="Show working" hideLabel="Hide working" />
+      </CalcSection>
+
+      <CalcSection title="Worked example — isosceles trapezoid">
+        <StepsToggle steps={EX_ISOSCELES} showLabel="Show working" hideLabel="Hide working" />
+      </CalcSection>
+
+      <CalcSection title="Worked example — right trapezoid">
+        <StepsToggle steps={EX_RIGHT} showLabel="Show working" hideLabel="Hide working" />
+      </CalcSection>
+
+      <CalcSection title="Features">
+        <FeatureList
+          items={[
+            "Nine calculation modes — from a simple A = ½(a+b)h to a full solve from 4 vertex coordinates",
+            "Scalene, isosceles and right diagrams with vertex, side, angle and height labels",
+            "Reports area, perimeter, height, midsegment, all four interior angles and both diagonals",
+            "Unit selector (mm, cm, m, km, in, ft, yd) with automatic m² conversion for the cost estimator",
+            "Show/hide step-by-step working for every mode",
+            "Material or cost estimator — enter a price per m² and get the total",
+          ]}
+        />
+      </CalcSection>
+
+      <CalcSection title="Frequently asked questions">
+        <CalcFAQ items={FAQ} />
+      </CalcSection>
+
+      <CalcSection title="Related calculators">
+        <RelatedLinks
+          links={[
+            { to: "/calculators/math/area-calculator", label: "Area Calculator" },
+            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator" },
+            { to: "/calculators/math/law-of-cosines-calculator", label: "Law of Cosines Calculator" },
+            { to: "/calculators/math", label: "All Math Calculators" },
+          ]}
+        />
+      </CalcSection>
+    </>
+  );
 }
 
-/* ---- Extras block: rendered by injecting via MathCalcPage children below.
- * Because Page already returns MathCalcPage, we inline the extras there.
- * (Kept as separate exports to keep the file navigable.) */
 
-// Educational content is rendered by mounting via a second call is unnecessary;
-// instead we render everything below the widget by returning MathCalcPage with `extras`.
-// To keep the diff minimal, we wrap Page in a HOC-style extension below.
-
-// --- Extras content ---
 
 const FAQ: { q: string; a: ReactNode }[] = [
   {
