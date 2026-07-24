@@ -16,8 +16,6 @@ import {
   StackedMath,
   GuideCards,
   type GuideCardItem,
-  AllFormulasSection,
-  ModeFormula,
 } from "@/components/MathCalcPage";
 import { ReferenceTable } from "@/components/ReferenceTable";
 import { StepsToggle } from "@/components/StepsToggle";
@@ -960,31 +958,7 @@ function PageExtras() {
         <GuideCards items={GUIDE} />
       </CalcSection>
 
-      <CalcSection title="All formulas — every calculation mode">
-        <AllFormulasSection
-          intro={
-            <>
-              The exact symbolic formula this calculator evaluates for each of
-              its six solve-for targets, plus the auxiliary quantities it
-              derives from the completed triangle.
-            </>
-          }
-        >
-          <ModeFormula label="1. Solve for side a — given b, c, A (SAS)" lines={[<>a = √(b² + c² − 2bc · cos A)</>]} />
-          <ModeFormula label="2. Solve for side b — given a, c, B (SAS)" lines={[<>b = √(a² + c² − 2ac · cos B)</>]} />
-          <ModeFormula label="3. Solve for side c — given a, b, C (SAS)" lines={[<>c = √(a² + b² − 2ab · cos C)</>]} />
-          <ModeFormula label="4. Solve for angle A — given a, b, c (SSS)" lines={[<>A = arccos((b² + c² − a²) / (2bc))</>]} />
-          <ModeFormula label="5. Solve for angle B — given a, b, c (SSS)" lines={[<>B = arccos((a² + c² − b²) / (2ac))</>]} />
-          <ModeFormula label="6. Solve for angle C — given a, b, c (SSS)" lines={[<>C = arccos((a² + b² − c²) / (2ab))</>]} />
-          <ModeFormula label="7. Remaining angles after SAS" lines={[<>use SSS on the completed triangle</>, <>third angle = 180° − sum of first two</>]} />
-          <ModeFormula label="8. Perimeter and semiperimeter" lines={[<>P = a + b + c</>, <>s = P / 2</>]} />
-          <ModeFormula label="9. Area (Heron)" lines={[<>Area = √(s(s − a)(s − b)(s − c))</>]} />
-          <ModeFormula label="10. Inradius and circumradius" lines={[<>r = Area / s</>, <>R = (a · b · c) / (4 · Area)</>]} />
-        </AllFormulasSection>
-      </CalcSection>
-
       <CalcSection title="Law of sines vs. law of cosines — when to use which">
-
         <ReferenceTable
           headers={["You know…", "Use", "Why"]}
           rows={[

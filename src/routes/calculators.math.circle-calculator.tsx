@@ -17,8 +17,6 @@ import {
   GuideCards,
   StackedMath,
   type GuideCardItem,
-  AllFormulasSection,
-  ModeFormula,
 } from "@/components/MathCalcPage";
 
 import { type Step } from "@/components/SolutionSteps";
@@ -1644,29 +1642,7 @@ function CircleEducation() {
         <MathLine>d = 2 √(A / π) = 2 √(100 / π) ≈ 11.2838</MathLine>
       </CalcSection>
 
-      <CalcSection title="All formulas — every calculation mode">
-        <AllFormulasSection
-          intro={
-            <>
-              The exact symbolic chain this calculator evaluates depending on
-              which value you type in. Any one of r, d, C, A fully determines
-              the other three.
-            </>
-          }
-        >
-          <ModeFormula label="1. From radius r" lines={[<>d = 2r</>, <>C = 2π · r</>, <>A = π · r²</>]} />
-          <ModeFormula label="2. From diameter d" lines={[<>r = d / 2</>, <>C = π · d</>, <>A = π · d² / 4</>]} />
-          <ModeFormula label="3. From circumference C" lines={[<>r = C / (2π)</>, <>d = C / π</>, <>A = C² / (4π)</>]} />
-          <ModeFormula label="4. From area A" lines={[<>r = √(A / π)</>, <>d = 2 · √(A / π)</>, <>C = 2 · √(π · A)</>]} />
-          <ModeFormula label="5. Arc length — radius r, angle θ (rad)" lines={[<>arc = r · θ</>, <>arc = (θ / 360°) · 2π · r  (θ in degrees)</>]} />
-          <ModeFormula label="6. Sector area — radius r, angle θ (rad)" lines={[<>A_sector = ½ · r² · θ</>]} />
-          <ModeFormula label="7. Chord — radius r, angle θ (rad)" lines={[<>chord = 2 · r · sin(θ / 2)</>]} />
-          <ModeFormula label="8. Segment area — radius r, angle θ (rad)" lines={[<>A_segment = ½ · r² · (θ − sin θ)</>]} />
-        </AllFormulasSection>
-      </CalcSection>
-
       <CalcSection title="About π (pi)">
-
         <p>
           π is the ratio of a circle's circumference to its diameter — the same value for every
           circle, big or small. Numerically π ≈ 3.14159265…, and its decimal expansion never ends
