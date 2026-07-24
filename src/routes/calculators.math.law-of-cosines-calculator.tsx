@@ -29,7 +29,6 @@ import {
 /* ================= Angle unit + helpers ================= */
 
 type AngleUnit = "deg" | "rad";
-type Mode = "SAS" | "SSS";
 
 const PI = Math.PI;
 const toRad = (v: number, u: AngleUnit) => (u === "deg" ? (v * PI) / 180 : v);
@@ -60,8 +59,12 @@ function MathLine({ children }: { children: ReactNode }) {
 /* ================= Solver ================= */
 
 interface Solution {
-  A: number; B: number; C: number; // radians
-  a: number; b: number; c: number;
+  A: number;
+  B: number;
+  C: number; // radians
+  a: number;
+  b: number;
+  c: number;
   area: number;
   perimeter: number;
   semiperimeter: number;
@@ -75,8 +78,12 @@ function angleTxt(rad: number, unit: AngleUnit) {
 }
 
 function finalize(
-  Ar: number, Br: number, Cr: number,
-  a: number, b: number, c: number,
+  Ar: number,
+  Br: number,
+  Cr: number,
+  a: number,
+  b: number,
+  c: number,
   steps: Step[],
 ): Solution {
   const s = (a + b + c) / 2;
@@ -85,9 +92,17 @@ function finalize(
   const R = (a * b * c) / (4 * heron);
   const r = heron / s;
   return {
-    A: Ar, B: Br, C: Cr, a, b, c,
-    area: heron, perimeter: a + b + c, semiperimeter: s,
-    inradius: r, circumradius: R,
+    A: Ar,
+    B: Br,
+    C: Cr,
+    a,
+    b,
+    c,
+    area: heron,
+    perimeter: a + b + c,
+    semiperimeter: s,
+    inradius: r,
+    circumradius: R,
     steps,
   };
 }
@@ -110,9 +125,13 @@ function solveSAS(a: number, b: number, Cr: number, unit: AngleUnit): Solution {
       title: "Third side c by the law of cosines",
       body: (
         <>
-          <MathLine>c² = {fmt(a)}² + {fmt(b)}² − 2 · {fmt(a)} · {fmt(b)} · cos({angleTxt(Cr, unit)})</MathLine>
+          <MathLine>
+            c² = {fmt(a)}² + {fmt(b)}² − 2 · {fmt(a)} · {fmt(b)} · cos({angleTxt(Cr, unit)})
+          </MathLine>
           <MathLine>c² = {fmt(c * c)}</MathLine>
-          <MathLine>c = √{fmt(c * c)} = {fmt(c)}</MathLine>
+          <MathLine>
+            c = √{fmt(c * c)} = {fmt(c)}
+          </MathLine>
         </>
       ),
     },
@@ -121,7 +140,9 @@ function solveSAS(a: number, b: number, Cr: number, unit: AngleUnit): Solution {
       body: (
         <>
           <MathLine>cos A = (b² + c² − a²) / (2bc)</MathLine>
-          <MathLine>A = arccos({fmt(Math.cos(Ar))}) = {angleTxt(Ar, unit)}</MathLine>
+          <MathLine>
+            A = arccos({fmt(Math.cos(Ar))}) = {angleTxt(Ar, unit)}
+          </MathLine>
         </>
       ),
     },
@@ -140,15 +161,23 @@ function solveSSS(a: number, b: number, c: number, unit: AngleUnit): Solution {
   return finalize(Ar, Br, Cr, a, b, c, [
     {
       title: "Detected SSS — three sides given",
-      body: <MathLine>cos(angle) = (adjacent² + adjacent² − opposite²) / (2 · adjacent · adjacent)</MathLine>,
+      body: (
+        <MathLine>
+          cos(angle) = (adjacent² + adjacent² − opposite²) / (2 · adjacent · adjacent)
+        </MathLine>
+      ),
     },
     {
       title: "Angle A opposite side a",
       body: (
         <>
           <MathLine>cos A = (b² + c² − a²) / (2bc)</MathLine>
-          <MathLine>cos A = ({fmt(b * b)} + {fmt(c * c)} − {fmt(a * a)}) / (2 · {fmt(b)} · {fmt(c)})</MathLine>
-          <MathLine>A = arccos({fmt((b * b + c * c - a * a) / (2 * b * c))}) = {angleTxt(Ar, unit)}</MathLine>
+          <MathLine>
+            cos A = ({fmt(b * b)} + {fmt(c * c)} − {fmt(a * a)}) / (2 · {fmt(b)} · {fmt(c)})
+          </MathLine>
+          <MathLine>
+            A = arccos({fmt((b * b + c * c - a * a) / (2 * b * c))}) = {angleTxt(Ar, unit)}
+          </MathLine>
         </>
       ),
     },
@@ -157,7 +186,9 @@ function solveSSS(a: number, b: number, c: number, unit: AngleUnit): Solution {
       body: (
         <>
           <MathLine>cos B = (a² + c² − b²) / (2ac)</MathLine>
-          <MathLine>B = arccos({fmt((a * a + c * c - b * b) / (2 * a * c))}) = {angleTxt(Br, unit)}</MathLine>
+          <MathLine>
+            B = arccos({fmt((a * a + c * c - b * b) / (2 * a * c))}) = {angleTxt(Br, unit)}
+          </MathLine>
         </>
       ),
     },
@@ -176,16 +207,18 @@ function TriangleSVG({ sol, unit, lu }: { sol: Solution; unit: AngleUnit; lu: Le
   const Ax = c * Math.cos(Bang);
   const Ay = c * Math.sin(Bang);
   const pts = [
-    { x: 0, y: 0 },      // B
-    { x: a, y: 0 },      // C
-    { x: Ax, y: Ay },    // A
+    { x: 0, y: 0 }, // B
+    { x: a, y: 0 }, // C
+    { x: Ax, y: Ay }, // A
   ];
   const maxX = Math.max(...pts.map((p) => p.x));
   const minX = Math.min(...pts.map((p) => p.x));
   const maxY = Math.max(...pts.map((p) => p.y));
   const spanX = Math.max(1e-9, maxX - minX);
   const spanY = Math.max(1e-9, maxY);
-  const W = 380, H = 240, pad = 42;
+  const W = 380,
+    H = 240,
+    pad = 42;
   const scale = Math.min((W - 2 * pad) / spanX, (H - 2 * pad) / spanY);
   const proj = (p: { x: number; y: number }) => ({
     x: pad + (p.x - minX) * scale,
@@ -195,7 +228,8 @@ function TriangleSVG({ sol, unit, lu }: { sol: Solution; unit: AngleUnit; lu: Le
   const [pB, pC, pA] = P;
 
   const mid = (p: { x: number; y: number }, q: { x: number; y: number }) => ({
-    x: (p.x + q.x) / 2, y: (p.y + q.y) / 2,
+    x: (p.x + q.x) / 2,
+    y: (p.y + q.y) / 2,
   });
   const mBC = mid(pB, pC);
   const mCA = mid(pC, pA);
@@ -203,22 +237,105 @@ function TriangleSVG({ sol, unit, lu }: { sol: Solution; unit: AngleUnit; lu: Le
 
   return (
     <div className="rounded-2xl border border-border/60 bg-background/40 p-3">
-      <svg viewBox={`0 0 ${W} ${H}`} className="mx-auto block h-auto w-full max-w-md">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="mx-auto block h-auto w-full max-w-md"
+        role="img"
+        aria-label={`Triangle diagram with sides a = ${fmt(a)} ${lu}, b = ${fmt(b)} ${lu}, c = ${fmt(c)} ${lu}, and angles A = ${angleTxt(Aang, unit)}, B = ${angleTxt(Bang, unit)}, C = ${angleTxt(Cang, unit)}`}
+      >
         <polygon
           points={`${pA.x},${pA.y} ${pB.x},${pB.y} ${pC.x},${pC.y}`}
           className="fill-primary/10 stroke-primary"
           strokeWidth="2"
           strokeLinejoin="round"
         />
-        <text x={pA.x} y={pA.y - 10} textAnchor="middle" fontSize="14" className="fill-foreground/80">A</text>
-        <text x={pB.x - 10} y={pB.y + 16} textAnchor="middle" fontSize="14" className="fill-foreground/80">B</text>
-        <text x={pC.x + 10} y={pC.y + 16} textAnchor="middle" fontSize="14" className="fill-foreground/80">C</text>
-        <text x={mBC.x} y={mBC.y + 18} textAnchor="middle" fontSize="12" fontStyle="italic" className="fill-foreground">a = {fmt(a)} {lu}</text>
-        <text x={mCA.x + 14} y={mCA.y} textAnchor="start" fontSize="12" fontStyle="italic" className="fill-foreground">b = {fmt(b)} {lu}</text>
-        <text x={mAB.x - 14} y={mAB.y} textAnchor="end" fontSize="12" fontStyle="italic" className="fill-foreground">c = {fmt(c)} {lu}</text>
-        <text x={pA.x} y={pA.y + 18} textAnchor="middle" fontSize="11" fontStyle="italic" className="fill-primary">A={angleTxt(Aang, unit)}</text>
-        <text x={pB.x + 14} y={pB.y - 4} textAnchor="start" fontSize="11" fontStyle="italic" className="fill-primary">B={angleTxt(Bang, unit)}</text>
-        <text x={pC.x - 14} y={pC.y - 4} textAnchor="end" fontSize="11" fontStyle="italic" className="fill-primary">C={angleTxt(Cang, unit)}</text>
+        <text
+          x={pA.x}
+          y={pA.y - 10}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          A
+        </text>
+        <text
+          x={pB.x - 10}
+          y={pB.y + 16}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          B
+        </text>
+        <text
+          x={pC.x + 10}
+          y={pC.y + 16}
+          textAnchor="middle"
+          fontSize="14"
+          className="fill-foreground/80"
+        >
+          C
+        </text>
+        <text
+          x={mBC.x}
+          y={mBC.y + 18}
+          textAnchor="middle"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          a = {fmt(a)} {lu}
+        </text>
+        <text
+          x={mCA.x + 14}
+          y={mCA.y}
+          textAnchor="start"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          b = {fmt(b)} {lu}
+        </text>
+        <text
+          x={mAB.x - 14}
+          y={mAB.y}
+          textAnchor="end"
+          fontSize="12"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          c = {fmt(c)} {lu}
+        </text>
+        <text
+          x={pA.x}
+          y={pA.y + 18}
+          textAnchor="middle"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          A={angleTxt(Aang, unit)}
+        </text>
+        <text
+          x={pB.x + 14}
+          y={pB.y - 4}
+          textAnchor="start"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          B={angleTxt(Bang, unit)}
+        </text>
+        <text
+          x={pC.x - 14}
+          y={pC.y - 4}
+          textAnchor="end"
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-primary"
+        >
+          C={angleTxt(Cang, unit)}
+        </text>
       </svg>
       <div className="mt-1 text-center text-xs text-muted-foreground">
         Drawn to scale from the solved side lengths.
@@ -258,7 +375,7 @@ function remapSAS(sol: Solution, solveFor: SolveFor): Solution {
 
 function LawOfCosinesPage() {
   const [solveFor, setSolveFor] = useState<SolveFor>("sideC");
-  const [mode, setMode] = useState<Mode>("SAS");
+  // `mode` state removed — solveFor drives everything; SAS/SSS button group deleted.
   const [unit, setUnit] = useState<AngleUnit>("deg");
   const [lu, setLu] = useState<LengthUnit>("cm");
   const [sig, setSig] = useState(5);
@@ -281,14 +398,8 @@ function LawOfCosinesPage() {
 
   const changeSolveFor = (sf: SolveFor) => {
     setSolveFor(sf);
-    setMode(sf.startsWith("side") ? "SAS" : "SSS");
-    setResult(null); setError(null);
-  };
-
-  const changeMode = (m: Mode) => {
-    setMode(m);
-    setSolveFor(m === "SAS" ? "sideC" : "angleA");
-    setResult(null); setError(null);
+    setResult(null);
+    setError(null);
   };
 
   const onCalc = () => {
@@ -298,17 +409,34 @@ function LawOfCosinesPage() {
       // SAS branch — one of the three sides is unknown.
       if (solveFor === "sideA" || solveFor === "sideB" || solveFor === "sideC") {
         // Pick the two known sides and the included angle based on solveFor.
-        let s1 = NaN, s2 = NaN, angRaw = NaN, angLabel = "C";
-        if (solveFor === "sideC") { s1 = parse(aSide); s2 = parse(bSide); angRaw = parse(Cval); angLabel = "C"; }
-        else if (solveFor === "sideA") { s1 = parse(bSide); s2 = parse(cSide); angRaw = parse(Aval); angLabel = "A"; }
-        else { s1 = parse(aSide); s2 = parse(cSide); angRaw = parse(Bval); angLabel = "B"; }
+        let s1 = NaN,
+          s2 = NaN,
+          angRaw = NaN,
+          angLabel = "C";
+        if (solveFor === "sideC") {
+          s1 = parse(aSide);
+          s2 = parse(bSide);
+          angRaw = parse(Cval);
+          angLabel = "C";
+        } else if (solveFor === "sideA") {
+          s1 = parse(bSide);
+          s2 = parse(cSide);
+          angRaw = parse(Aval);
+          angLabel = "A";
+        } else {
+          s1 = parse(aSide);
+          s2 = parse(cSide);
+          angRaw = parse(Bval);
+          angLabel = "B";
+        }
 
         if (![s1, s2, angRaw].every(Number.isFinite))
           throw new Error(`Enter the two known sides and the included angle ${angLabel}.`);
         if (s1 <= 0 || s2 <= 0) throw new Error("Sides must be positive.");
         if (angRaw <= 0) throw new Error("Included angle must be greater than 0.");
         const angR = toRad(angRaw, unit);
-        if (angR >= PI - 1e-12) throw new Error("Included angle must be less than 180° (or π rad).");
+        if (angR >= PI - 1e-12)
+          throw new Error("Included angle must be less than 180° (or π rad).");
 
         // Always call the existing SAS solver, then remap the returned labels.
         setResult(remapSAS(solveSAS(s1, s2, angR, unit), solveFor));
@@ -316,11 +444,15 @@ function LawOfCosinesPage() {
       }
 
       // SSS branch — all three sides given, any of the three angles requested.
-      const a = parse(aSide), b = parse(bSide), c = parse(cSide);
+      const a = parse(aSide),
+        b = parse(bSide),
+        c = parse(cSide);
       if (![a, b, c].every(Number.isFinite)) throw new Error("Enter all three sides a, b and c.");
       if (a <= 0 || b <= 0 || c <= 0) throw new Error("Sides must be positive.");
       if (!isValidTriangleSides(a, b, c))
-        throw new Error("Triangle inequality violated — the two shorter sides must sum to more than the longest side. These three lengths can't form a triangle.");
+        throw new Error(
+          "Triangle inequality violated — the two shorter sides must sum to more than the longest side. These three lengths can't form a triangle.",
+        );
       setResult(solveSSS(a, b, c, unit));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
@@ -328,11 +460,15 @@ function LawOfCosinesPage() {
   };
 
   const clearAll = () => {
-    setASide(""); setBSide(""); setCSide("");
-    setAval(""); setBval(""); setCval("");
-    setError(null); setResult(null);
+    setASide("");
+    setBSide("");
+    setCSide("");
+    setAval("");
+    setBval("");
+    setCval("");
+    setError(null);
+    setResult(null);
   };
-
 
   const copyText = () => {
     if (!result) return "";
@@ -354,7 +490,11 @@ function LawOfCosinesPage() {
       extras={<PageExtras />}
     >
       {/* What to solve for (drives which inputs appear below) */}
-      <Field label="Calculate:" htmlFor="loc-solve-for" hint="Pick which value you want the calculator to find.">
+      <Field
+        label="Calculate:"
+        htmlFor="loc-solve-for"
+        hint="Pick which value you want the calculator to find."
+      >
         <select
           id="loc-solve-for"
           value={solveFor}
@@ -362,36 +502,12 @@ function LawOfCosinesPage() {
           className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base text-foreground focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
         >
           {SOLVE_FOR_OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>{o.label}</option>
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
           ))}
         </select>
       </Field>
-
-      {/* Mode picker (kept for users who prefer the SAS/SSS framing) */}
-      <div className="mt-4">
-        <Field label="Which values do you know?" htmlFor="loc-mode">
-          <div className="flex flex-wrap gap-2" id="loc-mode">
-            {([
-              { m: "SAS", t: "Two sides + the angle between (SAS)" },
-              { m: "SSS", t: "Three sides (SSS)" },
-            ] as { m: Mode; t: string }[]).map(({ m, t }) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => changeMode(m)}
-                className={
-                  "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-                  (mode === m
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground hover:bg-accent")
-                }
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </Field>
-      </div>
 
       {/* Unit / precision controls */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -414,14 +530,19 @@ function LawOfCosinesPage() {
             ))}
           </div>
         </Field>
-        <Field label="Length unit (display only)" hint="Only labels the answer — math is unit-agnostic.">
+        <Field
+          label="Length unit (display only)"
+          hint="Only labels the answer — math is unit-agnostic."
+        >
           <select
             value={lu}
             onChange={(e) => setLu(e.target.value as LengthUnit)}
             className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base text-foreground focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
           >
             {LENGTH_UNITS.map((u) => (
-              <option key={u} value={u}>{u}</option>
+              <option key={u} value={u}>
+                {u}
+              </option>
             ))}
           </select>
         </Field>
@@ -432,7 +553,9 @@ function LawOfCosinesPage() {
             className="w-full rounded-xl border border-border bg-background/60 px-3 py-2.5 text-base text-foreground focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30"
           >
             {[3, 4, 5, 6, 7, 8].map((n) => (
-              <option key={n} value={n}>{n}</option>
+              <option key={n} value={n}>
+                {n}
+              </option>
             ))}
           </select>
         </Field>
@@ -443,57 +566,116 @@ function LawOfCosinesPage() {
         {solveFor === "sideC" && (
           <>
             <Field label={`Side a (${lu})`} hint="First side of the included angle">
-              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
+              <TextInput
+                value={aSide}
+                onChange={(e) => setASide(e.target.value)}
+                inputMode="decimal"
+                placeholder="8"
+              />
             </Field>
             <Field label={`Side b (${lu})`} hint="Second side of the included angle">
-              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="11" />
+              <TextInput
+                value={bSide}
+                onChange={(e) => setBSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="11"
+              />
             </Field>
             <Field label={`Included angle C (${unit})`} hint="The angle between a and b">
-              <TextInput value={Cval} onChange={(e) => setCval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
+              <TextInput
+                value={Cval}
+                onChange={(e) => setCval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "37" : "0.6458"}
+              />
             </Field>
           </>
         )}
         {solveFor === "sideA" && (
           <>
             <Field label={`Side b (${lu})`} hint="First side of the included angle">
-              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="11" />
+              <TextInput
+                value={bSide}
+                onChange={(e) => setBSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="11"
+              />
             </Field>
             <Field label={`Side c (${lu})`} hint="Second side of the included angle">
-              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+              <TextInput
+                value={cSide}
+                onChange={(e) => setCSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="7"
+              />
             </Field>
             <Field label={`Included angle A (${unit})`} hint="The angle between b and c">
-              <TextInput value={Aval} onChange={(e) => setAval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "37" : "0.6458"} />
+              <TextInput
+                value={Aval}
+                onChange={(e) => setAval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "37" : "0.6458"}
+              />
             </Field>
           </>
         )}
         {solveFor === "sideB" && (
           <>
             <Field label={`Side a (${lu})`} hint="First side of the included angle">
-              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="8" />
+              <TextInput
+                value={aSide}
+                onChange={(e) => setASide(e.target.value)}
+                inputMode="decimal"
+                placeholder="8"
+              />
             </Field>
             <Field label={`Side c (${lu})`} hint="Second side of the included angle">
-              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="7" />
+              <TextInput
+                value={cSide}
+                onChange={(e) => setCSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="7"
+              />
             </Field>
             <Field label={`Included angle B (${unit})`} hint="The angle between a and c">
-              <TextInput value={Bval} onChange={(e) => setBval(e.target.value)} inputMode="decimal" placeholder={unit === "deg" ? "45" : "0.7854"} />
+              <TextInput
+                value={Bval}
+                onChange={(e) => setBval(e.target.value)}
+                inputMode="decimal"
+                placeholder={unit === "deg" ? "45" : "0.7854"}
+              />
             </Field>
           </>
         )}
         {(solveFor === "angleA" || solveFor === "angleB" || solveFor === "angleC") && (
           <>
             <Field label={`Side a (${lu})`}>
-              <TextInput value={aSide} onChange={(e) => setASide(e.target.value)} inputMode="decimal" placeholder="7" />
+              <TextInput
+                value={aSide}
+                onChange={(e) => setASide(e.target.value)}
+                inputMode="decimal"
+                placeholder="7"
+              />
             </Field>
             <Field label={`Side b (${lu})`}>
-              <TextInput value={bSide} onChange={(e) => setBSide(e.target.value)} inputMode="decimal" placeholder="9" />
+              <TextInput
+                value={bSide}
+                onChange={(e) => setBSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="9"
+              />
             </Field>
             <Field label={`Side c (${lu})`}>
-              <TextInput value={cSide} onChange={(e) => setCSide(e.target.value)} inputMode="decimal" placeholder="12" />
+              <TextInput
+                value={cSide}
+                onChange={(e) => setCSide(e.target.value)}
+                inputMode="decimal"
+                placeholder="12"
+              />
             </Field>
           </>
         )}
       </div>
-
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <PrimaryButton onClick={onCalc}>Solve triangle</PrimaryButton>
@@ -504,9 +686,7 @@ function LawOfCosinesPage() {
         >
           Clear
         </button>
-        <span className="text-xs text-muted-foreground">
-          Uses c² = a² + b² − 2ab · cos C.
-        </span>
+        <span className="text-xs text-muted-foreground">Uses c² = a² + b² − 2ab · cos C.</span>
       </div>
 
       {error && <ErrorBox message={error} />}
@@ -514,7 +694,9 @@ function LawOfCosinesPage() {
       {result && (
         <div ref={captureRef} className="mt-6 space-y-4">
           <div className="rounded-2xl border border-primary/30 bg-primary/[0.06] p-4">
-            <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Solved triangle</div>
+            <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Solved triangle
+            </div>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
               <Stat label="A" value={angleTxt(result.A, unit)} />
               <Stat label="B" value={angleTxt(result.B, unit)} />
@@ -534,11 +716,7 @@ function LawOfCosinesPage() {
 
           <StepsToggle steps={result.steps} />
 
-          <ResultActions
-            getCopyText={copyText}
-            captureRef={captureRef}
-            filename="law-of-cosines"
-          />
+          <ResultActions getCopyText={copyText} captureRef={captureRef} filename="law-of-cosines" />
         </div>
       )}
     </MathCalcPage>
@@ -562,9 +740,22 @@ function MiniTri({ variant = "sas" }: { variant?: "sas" | "sss" | "altitude" }) 
   const C = { x: 170, y: 30 };
   return (
     <div className="rounded-2xl border border-border/60 bg-background/40 p-3">
-      <svg viewBox="0 0 300 190" className="mx-auto block h-auto w-full max-w-xs">
+      <svg
+        viewBox="0 0 300 190"
+        className="mx-auto block h-auto w-full max-w-xs"
+        role="img"
+        aria-label="Triangle diagram"
+      >
         {variant === "altitude" && (
-          <line x1={C.x} y1={C.y} x2={C.x} y2={A.y} className="stroke-primary" strokeWidth="1.5" strokeDasharray="4 3" />
+          <line
+            x1={C.x}
+            y1={C.y}
+            x2={C.x}
+            y2={A.y}
+            className="stroke-primary"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+          />
         )}
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
@@ -572,14 +763,53 @@ function MiniTri({ variant = "sas" }: { variant?: "sas" | "sss" | "altitude" }) 
           strokeWidth="2"
           strokeLinejoin="round"
         />
-        <text x={A.x - 6} y={A.y + 16} fontSize="12" className="fill-foreground/70">A</text>
-        <text x={B.x + 6} y={B.y + 16} fontSize="12" className="fill-foreground/70">B</text>
-        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">C</text>
-        <text x={(A.x + B.x) / 2} y={A.y + 16} fontSize="11" fontStyle="italic" className="fill-foreground">c</text>
-        <text x={(B.x + C.x) / 2 + 6} y={(B.y + C.y) / 2} fontSize="11" fontStyle="italic" className="fill-foreground">a</text>
-        <text x={(A.x + C.x) / 2 - 12} y={(A.y + C.y) / 2} fontSize="11" fontStyle="italic" className="fill-foreground">b</text>
+        <text x={A.x - 6} y={A.y + 16} fontSize="12" className="fill-foreground/70">
+          A
+        </text>
+        <text x={B.x + 6} y={B.y + 16} fontSize="12" className="fill-foreground/70">
+          B
+        </text>
+        <text x={C.x - 4} y={C.y - 6} fontSize="12" className="fill-foreground/70">
+          C
+        </text>
+        <text
+          x={(A.x + B.x) / 2}
+          y={A.y + 16}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          c
+        </text>
+        <text
+          x={(B.x + C.x) / 2 + 6}
+          y={(B.y + C.y) / 2}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          a
+        </text>
+        <text
+          x={(A.x + C.x) / 2 - 12}
+          y={(A.y + C.y) / 2}
+          fontSize="11"
+          fontStyle="italic"
+          className="fill-foreground"
+        >
+          b
+        </text>
         {variant === "sas" && (
-          <text x={C.x} y={C.y + 22} textAnchor="middle" fontSize="10" fontStyle="italic" className="fill-primary">C (known)</text>
+          <text
+            x={C.x}
+            y={C.y + 22}
+            textAnchor="middle"
+            fontSize="10"
+            fontStyle="italic"
+            className="fill-primary"
+          >
+            C (known)
+          </text>
         )}
       </svg>
     </div>
@@ -657,9 +887,7 @@ const GUIDE: GuideCardItem[] = [
     explain:
       "arccos returns values from 0° to 180°, so a positive cosine gives an acute angle and a negative cosine gives an obtuse one. In SSS this is how you spot an obtuse triangle without any extra work — the biggest side always sits opposite the biggest angle, and its cosine sign tells you whether that angle is under or over 90°.",
     formula: <>cos θ &lt; 0 &nbsp;⇔&nbsp; θ &gt; 90°</>,
-    legend: [
-      { sym: "θ", def: "any interior angle" },
-    ],
+    legend: [{ sym: "θ", def: "any interior angle" }],
     diagram: <MiniTri variant="sss" />,
     example: {
       given: <>a = 5, b = 6, c = 10</>,
@@ -673,9 +901,7 @@ const GUIDE: GuideCardItem[] = [
     explain:
       "Set C = 90° in the law of cosines. cos 90° = 0, so the −2ab · cos C term drops out and you're left with c² = a² + b² — exactly the Pythagorean theorem. That's the sanity check: any law-of-cosines answer on a right triangle should reduce to Pythagoras.",
     formula: <>C = 90° &nbsp;⇒&nbsp; c² = a² + b²</>,
-    legend: [
-      { sym: "C", def: "included angle = 90°" },
-    ],
+    legend: [{ sym: "C", def: "included angle = 90°" }],
     diagram: <MiniTri variant="altitude" />,
     example: {
       given: <>a = 3, b = 4, C = 90°</>,
@@ -690,11 +916,10 @@ function PageExtras() {
     <>
       <CalcSection title="What is the law of cosines?">
         <p>
-          The <strong>law of cosines</strong> — sometimes called the cosine rule
-          — is the generalisation of the Pythagorean theorem to <em>every</em>
-          {" "}triangle, not just right ones. For any triangle with sides
-          <em> a</em>, <em>b</em>, <em>c</em> and the angle{" "}
-          <em>C</em> opposite side <em>c</em>:
+          The <strong>law of cosines</strong> — sometimes called the cosine rule — is the
+          generalisation of the Pythagorean theorem to <em>every</em> triangle, not just right ones.
+          For any triangle with sides
+          <em> a</em>, <em>b</em>, <em>c</em> and the angle <em>C</em> opposite side <em>c</em>:
         </p>
         <FormulaBlock>c² = a² + b² − 2ab · cos C</FormulaBlock>
 
@@ -721,11 +946,10 @@ function PageExtras() {
         <FormulaBlock>r = K / s (inradius)</FormulaBlock>
         <FormulaBlock>R = (a·b·c) / (4K) (circumradius)</FormulaBlock>
         <p>
-          It handles the two cases where the law of sines can't get started:{" "}
-          <strong>SAS</strong> (you know two sides and the angle between them,
-          and want the third side), and <strong>SSS</strong> (you know all
-          three sides and want the angles). Once one angle is out, the other
-          two follow from a second application of the same rule and the 180°
+          It handles the two cases where the law of sines can't get started: <strong>SAS</strong>{" "}
+          (you know two sides and the angle between them, and want the third side), and{" "}
+          <strong>SSS</strong> (you know all three sides and want the angles). Once one angle is
+          out, the other two follow from a second application of the same rule and the 180°
           angle-sum rule.
         </p>
       </CalcSection>
@@ -738,31 +962,71 @@ function PageExtras() {
         <ReferenceTable
           headers={["You know…", "Use", "Why"]}
           rows={[
-            [<>Two sides + included angle (SAS)</>, "Law of cosines", "Direct formula for the third side; no matched side–angle pair for the sine ratio."],
-            [<>Three sides (SSS)</>, "Law of cosines", "Rearranged form gives each angle from its opposite side and the two adjacent ones."],
-            [<>Two angles + included side (ASA)</>, <>Law of sines (see <a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/law-of-sines-calculator">Law of Sines Calculator</a>)</>, "Third angle from angle-sum; then a/sin A = b/sin B ratios."],
-            [<>Two angles + non-included side (AAS)</>, "Law of sines", "The known side is opposite one of the known angles."],
-            [<>Two sides + non-included angle (SSA)</>, "Law of sines (ambiguous)", "Handled with explicit no / one / two triangle classification."],
-            [<>One angle = 90°</>, <>Right-triangle trig (<a className="text-primary underline underline-offset-4 hover:no-underline" href="/calculators/math/right-triangle-calculator">Right Triangle Calculator</a>)</>, "Faster with sine/cosine/tangent and the Pythagorean theorem."],
+            [
+              <>Two sides + included angle (SAS)</>,
+              "Law of cosines",
+              "Direct formula for the third side; no matched side–angle pair for the sine ratio.",
+            ],
+            [
+              <>Three sides (SSS)</>,
+              "Law of cosines",
+              "Rearranged form gives each angle from its opposite side and the two adjacent ones.",
+            ],
+            [
+              <>Two angles + included side (ASA)</>,
+              <>
+                Law of sines (see{" "}
+                <a
+                  className="text-primary underline underline-offset-4 hover:no-underline"
+                  href="/calculators/math/law-of-sines-calculator"
+                >
+                  Law of Sines Calculator
+                </a>
+                )
+              </>,
+              "Third angle from angle-sum; then a/sin A = b/sin B ratios.",
+            ],
+            [
+              <>Two angles + non-included side (AAS)</>,
+              "Law of sines",
+              "The known side is opposite one of the known angles.",
+            ],
+            [
+              <>Two sides + non-included angle (SSA)</>,
+              "Law of sines (ambiguous)",
+              "Handled with explicit no / one / two triangle classification.",
+            ],
+            [
+              <>One angle = 90°</>,
+              <>
+                Right-triangle trig (
+                <a
+                  className="text-primary underline underline-offset-4 hover:no-underline"
+                  href="/calculators/math/right-triangle-calculator"
+                >
+                  Right Triangle Calculator
+                </a>
+                )
+              </>,
+              "Faster with sine/cosine/tangent and the Pythagorean theorem.",
+            ],
           ]}
         />
       </CalcSection>
 
       <CalcSection title="Proofs">
         <p>
-          Four independent ways to arrive at c² = a² + b² − 2ab · cos C.
-          Each starts from a different piece of geometry, and they all
-          reduce to the same identity — a useful reminder that the law of
-          cosines is a genuine theorem of Euclidean geometry, not just a
-          convenient formula.
+          Four independent ways to arrive at c² = a² + b² − 2ab · cos C. Each starts from a
+          different piece of geometry, and they all reduce to the same identity — a useful reminder
+          that the law of cosines is a genuine theorem of Euclidean geometry, not just a convenient
+          formula.
         </p>
 
         <div className="mt-4 space-y-4">
           <ProofCard title="(a) Trigonometric proof — drop an altitude">
             <p>
-              Drop the altitude <em>h</em> from vertex A onto side <em>a</em>
-              {" "}(= BC), meeting it at foot F. This splits the triangle into
-              two right triangles sharing the leg <em>h</em>.
+              Drop the altitude <em>h</em> from vertex A onto side <em>a</em> (= BC), meeting it at
+              foot F. This splits the triangle into two right triangles sharing the leg <em>h</em>.
             </p>
             <MathLine>h = b · sin C &nbsp;and&nbsp; CF = b · cos C</MathLine>
             <MathLine>BF = a − b · cos C</MathLine>
@@ -773,67 +1037,62 @@ function PageExtras() {
             <MathLine>c² = a² + b² (sin²C + cos²C) − 2ab · cos C</MathLine>
             <MathLine>c² = a² + b² − 2ab · cos C</MathLine>
             <p className="text-muted-foreground">
-              The Pythagorean identity sin²C + cos²C = 1 collapses the two
-              trig terms into a single b². The proof works unchanged when C
-              is obtuse — the foot F just lands outside segment BC and the
-              sign takes care of itself.
+              The Pythagorean identity sin²C + cos²C = 1 collapses the two trig terms into a single
+              b². The proof works unchanged when C is obtuse — the foot F just lands outside segment
+              BC and the sign takes care of itself.
             </p>
           </ProofCard>
 
           <ProofCard title="(b) Distance-formula proof — place the triangle in coordinates">
             <p>
-              Put vertex C at the origin and side a along the positive
-              x-axis, so B = (a, 0). Vertex A sits at angle C from the
-              x-axis at distance b, so A = (b · cos C, b · sin C).
+              Put vertex C at the origin and side a along the positive x-axis, so B = (a, 0). Vertex
+              A sits at angle C from the x-axis at distance b, so A = (b · cos C, b · sin C).
             </p>
             <p>The side c is the distance from A to B:</p>
             <MathLine>c² = (a − b · cos C)² + (0 − b · sin C)²</MathLine>
             <MathLine>c² = a² − 2ab · cos C + b² cos²C + b² sin²C</MathLine>
             <MathLine>c² = a² + b² − 2ab · cos C</MathLine>
             <p className="text-muted-foreground">
-              Same identity, no picture-drawing needed — just the
-              distance formula and sin² + cos² = 1.
+              Same identity, no picture-drawing needed — just the distance formula and sin² + cos² =
+              1.
             </p>
           </ProofCard>
 
           <ProofCard title="(c) Ptolemy's theorem — via a cyclic quadrilateral">
             <p>
-              Inscribe triangle ABC in its circumscribed circle. Reflect
-              vertex A across the perpendicular bisector of BC to get a
-              fourth point A′ on the circle, forming the cyclic
-              quadrilateral A′BAC. By construction A′C = c and A′B = b, so
-              the diagonals are the chord AA′ and the side BC = a.
+              Inscribe triangle ABC in its circumscribed circle. Reflect vertex A across the
+              perpendicular bisector of BC to get a fourth point A′ on the circle, forming the
+              cyclic quadrilateral A′BAC. By construction A′C = c and A′B = b, so the diagonals are
+              the chord AA′ and the side BC = a.
             </p>
             <p>
-              Ptolemy's theorem for a cyclic quadrilateral says the product
-              of the diagonals equals the sum of the products of opposite
-              sides. Applying the extended law of sines (AA′ = 2R · sin ∠ABA′)
-              and expanding ∠ABA′ = ∠ABC + ∠A′BC gives, after simplifying
-              with sin(x + y) = sin x cos y + cos x sin y:
+              Ptolemy's theorem for a cyclic quadrilateral says the product of the diagonals equals
+              the sum of the products of opposite sides. Applying the extended law of sines (AA′ =
+              2R · sin ∠ABA′) and expanding ∠ABA′ = ∠ABC + ∠A′BC gives, after simplifying with sin(x
+              + y) = sin x cos y + cos x sin y:
             </p>
             <MathLine>c² = a² + b² − 2ab · cos C</MathLine>
             <p className="text-muted-foreground">
-              Ptolemy's theorem is itself a corollary of the inscribed-angle
-              theorem, so this route grounds the law of cosines directly in
-              circle geometry.
+              Ptolemy's theorem is itself a corollary of the inscribed-angle theorem, so this route
+              grounds the law of cosines directly in circle geometry.
             </p>
           </ProofCard>
 
           <ProofCard title="(d) Vector / dot-product proof">
             <p>
               Treat the sides as vectors from vertex C: let
-              <strong> a</strong> point to B and <strong>b</strong> point to A.
-              Then the side c runs from A to B, so as vectors{" "}
-              <strong>c</strong> = <strong>a</strong> − <strong>b</strong>.
+              <strong> a</strong> point to B and <strong>b</strong> point to A. Then the side c runs
+              from A to B, so as vectors <strong>c</strong> = <strong>a</strong> −{" "}
+              <strong>b</strong>.
             </p>
             <p>Take the dot product of c with itself:</p>
             <MathLine>|c|² = c · c = (a − b) · (a − b)</MathLine>
             <MathLine>|c|² = a · a − 2 (a · b) + b · b</MathLine>
             <MathLine>|c|² = |a|² + |b|² − 2 |a| |b| cos C</MathLine>
             <p>
-              Since |a| = a, |b| = b and |c| = c are the side lengths, that's
-              exactly c² = a² + b² − 2ab · cos C. The −2ab · cos C term is
-              literally the dot product of the two side vectors meeting at C.
+              Since |a| = a, |b| = b and |c| = c are the side lengths, that's exactly c² = a² + b² −
+              2ab · cos C. The −2ab · cos C term is literally the dot product of the two side
+              vectors meeting at C.
             </p>
           </ProofCard>
         </div>
@@ -842,29 +1101,25 @@ function PageExtras() {
       <CalcSection title="Where you'll actually use it">
         <div className="space-y-3">
           <p>
-            <strong>Surveying and triangulation.</strong> Land surveyors
-            frequently know the distance to two landmarks and the angle
-            between the sight lines but not the distance between the
-            landmarks themselves. That's a textbook SAS setup — the law of
-            cosines gives the missing distance in one calculation without
-            planting a physical baseline between the two points.
+            <strong>Surveying and triangulation.</strong> Land surveyors frequently know the
+            distance to two landmarks and the angle between the sight lines but not the distance
+            between the landmarks themselves. That's a textbook SAS setup — the law of cosines gives
+            the missing distance in one calculation without planting a physical baseline between the
+            two points.
           </p>
           <p>
-            <strong>Navigation.</strong> If a ship or aircraft knows its
-            distances to two known reference stations and the angle between
-            them, it can compute the direct distance between the stations
-            or triangulate its own position from three ranges. GPS receivers
-            do a three-dimensional version of exactly this every time they
-            fix a position from satellite ranges.
+            <strong>Navigation.</strong> If a ship or aircraft knows its distances to two known
+            reference stations and the angle between them, it can compute the direct distance
+            between the stations or triangulate its own position from three ranges. GPS receivers do
+            a three-dimensional version of exactly this every time they fix a position from
+            satellite ranges.
           </p>
           <p>
-            <strong>Resultant forces in physics.</strong> Two forces acting
-            at a common point form the two sides of a parallelogram; the
-            resultant is the diagonal. The law of cosines gives its
-            magnitude directly from |F₁|, |F₂| and the angle between them
-            — no vector decomposition required. The same trick handles
-            velocities, momenta and any other vector quantities that
-            combine head-to-tail.
+            <strong>Resultant forces in physics.</strong> Two forces acting at a common point form
+            the two sides of a parallelogram; the resultant is the diagonal. The law of cosines
+            gives its magnitude directly from |F₁|, |F₂| and the angle between them — no vector
+            decomposition required. The same trick handles velocities, momenta and any other vector
+            quantities that combine head-to-tail.
           </p>
         </div>
       </CalcSection>
@@ -904,16 +1159,26 @@ function PageExtras() {
       <CalcSection title="Related calculators">
         <RelatedLinks
           links={[
-            { to: "/calculators/math/triangle-calculator", label: "Triangle Calculator (all cases in one tool)" },
-            { to: "/calculators/math/law-of-sines-calculator", label: "Law of Sines Calculator (ASA / AAS / SSA)" },
-            { to: "/calculators/math/pythagorean-theorem-calculator", label: "Pythagorean Theorem Calculator" },
-            { to: "/calculators/math/right-triangle-calculator", label: "Right Triangle Calculator" },
+            {
+              to: "/calculators/math/triangle-calculator",
+              label: "Triangle Calculator (all cases in one tool)",
+            },
+            {
+              to: "/calculators/math/law-of-sines-calculator",
+              label: "Law of Sines Calculator (ASA / AAS / SSA)",
+            },
+            {
+              to: "/calculators/math/pythagorean-theorem-calculator",
+              label: "Pythagorean Theorem Calculator",
+            },
+            {
+              to: "/calculators/math/right-triangle-calculator",
+              label: "Right Triangle Calculator",
+            },
           ]}
         />
       </CalcSection>
     </>
-
-
   );
 }
 
