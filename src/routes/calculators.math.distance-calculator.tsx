@@ -15,6 +15,8 @@ import {
   RelatedLinks,
   FeatureList,
   StackedMath,
+  ModeFormula,
+  AllFormulasSection,
 } from "@/components/MathCalcPage";
 import { type Step } from "@/components/SolutionSteps";
 import { StepsToggle } from "@/components/StepsToggle";
