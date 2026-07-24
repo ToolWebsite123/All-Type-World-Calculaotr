@@ -1975,8 +1975,9 @@ function CompositeBuilder() {
     });
 
     const sumExpr = results
-      .filter(r => r.result.area !== null)
-      .map((_, i) => `A_{${i + 1}}`)
+      .map((r, i) => ({ r, i }))
+      .filter(({ r }) => r.result.area !== null)
+      .map(({ i }) => `A_{${i + 1}}`)
       .join(" + ");
     const sumVal = results
       .filter(r => r.result.area !== null)
