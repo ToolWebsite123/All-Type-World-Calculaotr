@@ -29,7 +29,7 @@ import {
 /* ================= Angle unit + helpers ================= */
 
 type AngleUnit = "deg" | "rad";
-type Mode = "SAS" | "SSS";
+
 
 const PI = Math.PI;
 const toRad = (v: number, u: AngleUnit) => (u === "deg" ? (v * PI) / 180 : v);
@@ -539,7 +539,7 @@ function MiniTri({ variant = "sas" }: { variant?: "sas" | "sss" | "altitude" }) 
   const C = { x: 170, y: 30 };
   return (
     <div className="rounded-2xl border border-border/60 bg-background/40 p-3">
-      <svg viewBox="0 0 300 190" className="mx-auto block h-auto w-full max-w-xs">
+      <svg viewBox="0 0 300 190" className="mx-auto block h-auto w-full max-w-xs" role="img" aria-label="Triangle diagram">
         {variant === "altitude" && (
           <line x1={C.x} y1={C.y} x2={C.x} y2={A.y} className="stroke-primary" strokeWidth="1.5" strokeDasharray="4 3" />
         )}
