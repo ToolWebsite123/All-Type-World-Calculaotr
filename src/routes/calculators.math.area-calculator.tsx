@@ -188,7 +188,7 @@ const SHAPE_GUIDE: ShapeGuide[] = [
     shape: "trapezoid",
     title: "Trapezoid",
     inputs: { b1: "6", b2: "10", h: "4" },
-    explain: "A trapezoid has one pair of parallel sides (the bases). A = ½ (b₁ + b₂) h averages the two bases and multiplies by the perpendicular distance — geometrically it's the rectangle you'd get if both bases had the same length. Useful for drainage channels, retaining walls, and irregular fields.",
+    explain: "A trapezoid has one pair of parallel sides (the bases). A = ½ (b₁ + b₂) h averages the two bases and multiplies by the perpendicular distance — geometrically it's the rectangle you'd get if both bases had the same length. Useful for drainage channels, retaining walls, and irregular fields. Need angles, diagonals, midsegment, or a full multi-mode solver (scalene, isosceles, right)? Use the dedicated Trapezoid Calculator.",
     formula: "A = ½ × (b₁ + b₂) × h",
     legend: LEG.trapezoid,
     example: { given: "b₁ = 6, b₂ = 10, h = 4", substitute: "A = ½ × (6 + 10) × 4 = ½ × 64", answer: "A = 32" },
