@@ -203,7 +203,12 @@ function TriangleSVG({ sol, unit, lu }: { sol: Solution; unit: AngleUnit; lu: Le
 
   return (
     <div className="rounded-2xl border border-border/60 bg-background/40 p-3">
-      <svg viewBox={`0 0 ${W} ${H}`} className="mx-auto block h-auto w-full max-w-md">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="mx-auto block h-auto w-full max-w-md"
+        role="img"
+        aria-label={`Triangle diagram with sides a = ${fmt(a)} ${lu}, b = ${fmt(b)} ${lu}, c = ${fmt(c)} ${lu}, and angles A = ${angleTxt(Aang, unit)}, B = ${angleTxt(Bang, unit)}, C = ${angleTxt(Cang, unit)}`}
+      >
         <polygon
           points={`${pA.x},${pA.y} ${pB.x},${pB.y} ${pC.x},${pC.y}`}
           className="fill-primary/10 stroke-primary"
