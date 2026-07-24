@@ -769,6 +769,12 @@ function Page() {
         { key: "c", label: `Left leg c (${unit})` },
         { key: "angleA", label: `Angle ∠A (degrees)` },
       ];
+      case "sides-d-angleD": return [
+        { key: "a", label: `Top base a (${unit})` },
+        { key: "b", label: `Bottom base b (${unit})` },
+        { key: "d", label: `Right leg d (${unit})` },
+        { key: "angleD", label: `Angle ∠D (degrees)` },
+      ];
       case "angles-A-D": return [
         { key: "a", label: `Top base a (${unit})` },
         { key: "b", label: `Bottom base b (${unit})` },
