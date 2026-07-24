@@ -934,6 +934,87 @@ function PageExtras() {
         <GuideCards items={GUIDE} />
       </CalcSection>
 
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              Notation: legs <em>a</em>, <em>b</em>; hypotenuse <em>c</em>;
+              acute angles <em>α</em> opposite <em>a</em> and <em>β</em>{" "}
+              opposite <em>b</em>; area <em>K</em>; perimeter <em>P</em>;
+              altitude to hypotenuse <em>h</em>. Any two independent inputs
+              solve the whole triangle.
+            </>
+          }
+        >
+          <ModeFormula
+            label="1. Two legs — given a, b"
+            lines={[
+              <>c = √(a² + b²)</>,
+              <>α = tan⁻¹(a / b),   β = 90° − α</>,
+            ]}
+          />
+          <ModeFormula
+            label="2. Leg + hypotenuse — given a, c"
+            lines={[
+              <>b = √(c² − a²)</>,
+              <>α = sin⁻¹(a / c),   β = 90° − α</>,
+            ]}
+          />
+          <ModeFormula
+            label="3. Leg + adjacent acute angle — given a, α"
+            lines={[
+              <>c = a / sin α</>,
+              <>b = a / tan α</>,
+              <>β = 90° − α</>,
+            ]}
+          />
+          <ModeFormula
+            label="4. Leg + opposite acute angle — given a, β"
+            lines={[
+              <>c = a / cos β</>,
+              <>b = a · tan β</>,
+              <>α = 90° − β</>,
+            ]}
+          />
+          <ModeFormula
+            label="5. Hypotenuse + acute angle — given c, α"
+            lines={[
+              <>a = c · sin α</>,
+              <>b = c · cos α</>,
+              <>β = 90° − α</>,
+            ]}
+          />
+          <ModeFormula
+            label="6. Area + leg — given K, a"
+            lines={[
+              <>b = 2K / a</>,
+              <>c = √(a² + b²)</>,
+              <>α = tan⁻¹(a / b)</>,
+            ]}
+          />
+          <ModeFormula
+            label="7. Perimeter + one leg — given P, a"
+            lines={[
+              <>b + c = P − a,  with c² = a² + b²</>,
+              <>b = ((P − a)² − a²) / (2(P − a))</>,
+              <>c = P − a − b</>,
+            ]}
+          />
+          <ModeFormula
+            label="Derived quantities (every mode)"
+            lines={[
+              <>Area  K = ½ · a · b</>,
+              <>Perimeter  P = a + b + c</>,
+              <>Altitude to hypotenuse  h = a · b / c</>,
+              <>Inradius  r = (a + b − c) / 2</>,
+              <>Circumradius  R = c / 2</>,
+            ]}
+          />
+        </AllFormulasSection>
+      </CalcSection>
+
+
+
       <CalcSection title="Trigonometric ratios — the cheat sheet">
         <p>
           For a right triangle with acute angle α opposite leg a, the three
