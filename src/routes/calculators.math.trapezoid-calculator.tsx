@@ -39,6 +39,7 @@ type Mode =
   | "find-b"
   | "find-h"
   | "sides-c-angleA" // a, b, c, ∠A
+  | "sides-d-angleD" // a, b, d, ∠D
   | "angles-A-D" // a, b, ∠A, ∠D
   | "all-sides" // a, b, c, d
   | "isosceles-quick" // a, b, c (c = d)
