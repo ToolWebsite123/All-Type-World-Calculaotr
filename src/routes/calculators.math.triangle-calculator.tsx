@@ -2015,7 +2015,83 @@ function TriangleEducation() {
         </div>
       </CalcSection>
 
+      <CalcSection title="All formulas — every calculation mode">
+        <AllFormulasSection
+          intro={
+            <>
+              Sides <em>a</em>, <em>b</em>, <em>c</em> are opposite angles{" "}
+              <em>A</em>, <em>B</em>, <em>C</em>. Every solving case below feeds
+              into the same follow-ups: area <em>K</em>, perimeter <em>P</em>,
+              semiperimeter <em>s = P/2</em>, inradius{" "}
+              <em>r = K/s</em>, circumradius{" "}
+              <em>R = a/(2 sin A)</em>, and heights{" "}
+              <em>h_a = 2K/a</em>.
+            </>
+          }
+        >
+          <ModeFormula
+            label="1. SSS — three sides"
+            lines={[
+              <>cos A = (b² + c² − a²) / (2bc)</>,
+              <>cos B = (a² + c² − b²) / (2ac)</>,
+              <>C = 180° − A − B</>,
+              <>K = √(s(s−a)(s−b)(s−c))   (Heron)</>,
+            ]}
+          />
+          <ModeFormula
+            label="2. SAS — two sides + included angle"
+            lines={[
+              <>a = √(b² + c² − 2bc·cos A)</>,
+              <>sin B = b · sin A / a,   C = 180° − A − B</>,
+              <>K = ½ · b · c · sin A</>,
+            ]}
+          />
+          <ModeFormula
+            label="3. ASA — two angles + included side"
+            lines={[
+              <>C = 180° − A − B</>,
+              <>a = c · sin A / sin C</>,
+              <>b = c · sin B / sin C</>,
+              <>K = ½ · a · b · sin C</>,
+            ]}
+          />
+          <ModeFormula
+            label="4. AAS — two angles + non-included side"
+            lines={[
+              <>C = 180° − A − B</>,
+              <>b = a · sin B / sin A</>,
+              <>c = a · sin C / sin A</>,
+            ]}
+          />
+          <ModeFormula
+            label="5. SSA — ambiguous case"
+            lines={[
+              <>sin B = b · sin A / a</>,
+              <>0 or 1 or 2 solutions depending on b vs. a and h = b·sin A</>,
+              <>C = 180° − A − B,   c = a · sin C / sin A</>,
+            ]}
+          />
+          <ModeFormula
+            label="6. Coordinates (x, y) of three vertices"
+            lines={[
+              <>a = |P₂ − P₃|,  b = |P₁ − P₃|,  c = |P₁ − P₂|</>,
+              <>K = ½ · |x₁(y₂−y₃) + x₂(y₃−y₁) + x₃(y₁−y₂)|</>,
+              <>then apply the SSS formulas for angles</>,
+            ]}
+          />
+          <ModeFormula
+            label="Auxiliary quantities (every mode)"
+            lines={[
+              <>P = a + b + c,   s = P / 2</>,
+              <>r = K / s,   R = a / (2 sin A) = abc / (4K)</>,
+              <>Altitudes  h_a = 2K/a,  h_b = 2K/b,  h_c = 2K/c</>,
+            ]}
+          />
+        </AllFormulasSection>
+      </CalcSection>
+
       <CalcSection title="Types of triangles">
+
         <p>
           <strong>By sides:</strong>
         </p>
